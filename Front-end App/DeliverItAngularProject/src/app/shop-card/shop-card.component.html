@@ -1,0 +1,13 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+<div class="container">
+  <img class="image" src="https://img.restaurantguru.com/r6f0-Lemmys-logo-2020-08.jpg">
+  <div class="text-container">
+    <p id="title">{{ title }}</p>
+    <p id="subtitle">{{ subtitle }}</p>
+    <div id="text-and-star"><p id="bottomText">{{ bottomText }}</p><img *ngIf="hasStar === true" id="star-image" src="https://pixlok.com/wp-content/uploads/2021/07/Rating-SVG-Icon-s9fd.png"></div>
+  </div>
+  <div *ngIf="hasDropdown === true" id="dropdown">
+    <span class="material-symbols-outlined">expand_more</span>
+  </div>
+</div>
