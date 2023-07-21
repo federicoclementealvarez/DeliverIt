@@ -1,8 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
 @import '~normalize.css';
 
 $primary-red: #C00A0A;
 $secondary-red: #F3B5B5;
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  color: #000;
+  font-family: Poppins;
+  font-size: 34px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 41px;
+  letter-spacing: 0.136px;
+  margin: 0;
+}
 
 h4 {
   opacity: .65;
@@ -14,10 +30,11 @@ h4 {
   font-weight: 400;
   line-height: 22.5px;
   letter-spacing: 0.064px;
+  margin: 0;
 }
 
 h6 {
-  color: rgba(0, 0, 0, 0.80);
+  color: rgba(0, 0, 0, 1);
   font-family: Poppins;
   font-size: 14px;
   font-style: normal;
@@ -26,4 +43,20 @@ h6 {
   letter-spacing: 0.06px;
   margin: 0;
   width: fit-content;
+}
+
+input[type="email"],
+input[type="password"] {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  font-family: Poppins;
+  font-size: 16px;
+  outline: none;
+  transition: .2s;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-bottom: 1px solid rgba(0, 0, 0, .8);
+  transition: .2s;
 }
