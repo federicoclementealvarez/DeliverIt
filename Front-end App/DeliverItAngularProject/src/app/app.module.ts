@@ -5,12 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PrimaryButtonComponent } from './primary-button/primary-button.component';
 import { ShopCardComponent } from './shop-card/shop-card.component';
+import { LoginComponent } from './login/login.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PrimaryButtonComponent,
-    ShopCardComponent
+    ShopCardComponent,
+    LoginComponent,
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,
