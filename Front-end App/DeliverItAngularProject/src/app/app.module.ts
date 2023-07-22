@@ -8,6 +8,7 @@ import { ShopCardComponent } from './shop-card/shop-card.component';
 import { LoginComponent } from './login/login.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SignupComponent } from './signup/signup.component';
+import { InputPasswordComponent } from './input-password/input-password.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { SignupComponent } from './signup/signup.component';
     ShopCardComponent,
     LoginComponent,
     LandingPageComponent,
-    SignupComponent
+    SignupComponent,
+    InputPasswordComponent
   ],
   imports: [
     BrowserModule,

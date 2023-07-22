@@ -7,3 +7,22 @@
   flex-direction: column;
   align-items: center;
 }
+
+.input-button {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 50px;
+  width: 80%;
+  height: 48vh;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.button-style {
+  margin-top: auto;
+}
