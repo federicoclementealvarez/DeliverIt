@@ -33,7 +33,8 @@ h4 {
   margin: 0;
 }
 
-h6 {
+h6,
+label {
   color: rgba(0, 0, 0, 1);
   font-family: Poppins;
   font-size: 14px;
@@ -61,4 +62,20 @@ input[type="password"]:focus,
 input[type="text"]:focus {
   border-bottom: 1px solid rgba(0, 0, 0, .8);
   transition: .2s;
+}
+
+select {
+  border-radius: 8px;
+  height: 30px;
+  width: 100%;
+  border-color: rgba(0, 0, 0, .2);
+  font-family: Poppins;
+  font-size: 14px;
+  transition: .2s;
+}
+
+select:focus {
+  outline: none;
+  transition: .2s;
+  border-color: rgba(0, 0, 0, .8);
 }
