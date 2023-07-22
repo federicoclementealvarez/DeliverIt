@@ -7,6 +7,7 @@ import { PrimaryButtonComponent } from './primary-button/primary-button.componen
 import { ShopCardComponent } from './shop-card/shop-card.component';
 import { LoginComponent } from './login/login.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     PrimaryButtonComponent,
     ShopCardComponent,
     LoginComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

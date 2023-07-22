@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  passwordVisible: boolean = false;
 
+  changeVisibilityPass(visib: boolean) {
+    this.passwordVisible = visib;
+  }
 }

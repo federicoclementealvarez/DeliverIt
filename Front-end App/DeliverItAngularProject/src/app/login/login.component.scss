@@ -1,6 +1,3 @@
-@import '../../styles.scss';
-
-
 .container {
   position: relative;
   top: 50px;
@@ -14,10 +11,10 @@
 .input-button {
   display: flex;
   flex-direction: column;
-  gap: 35px;
-  margin-top: 70px;
-  width: 70%;
-  height: 33vh;
+  gap: 20px;
+  margin-top: 50px;
+  width: 80%;
+  height: 35vh;
 }
 
 .input-group {
@@ -28,4 +25,17 @@
 
 .button-style {
   margin-top: auto;
+}
+
+.input-and-icon {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-and-icon span {
+  margin: 0;
+}
+
+.input-and-icon input {
+  width: 100%;
 }
