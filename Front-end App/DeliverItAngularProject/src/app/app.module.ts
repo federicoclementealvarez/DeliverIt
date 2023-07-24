@@ -10,6 +10,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SignupComponent } from './signup/signup.component';
 import { InputPasswordComponent } from './input-password/input-password.component';
 import { DatosPersonalesComponent } from './datos-personales/datos-personales.component';
+import { DireccionComponent } from './direccion/direccion.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { DatosPersonalesComponent } from './datos-personales/datos-personales.co
     LandingPageComponent,
     SignupComponent,
     InputPasswordComponent,
-    DatosPersonalesComponent
+    DatosPersonalesComponent,
+    DireccionComponent
   ],
   imports: [
     BrowserModule,
