@@ -1,0 +1,82 @@
+@import '../../../styles.scss';
+
+
+.container {
+  position: relative;
+  top: 50px;
+  text-align: left;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-button {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  margin-top: 70px;
+  width: 70%;
+  height: 33vh;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.button-style {
+  margin-top: auto;
+}
+
+input{
+    height: 30px;
+    width: 100%;
+    border-color: (#d1d1d1);
+    border-style: solid;
+    border-width: 2.5px;
+    border-radius: 3.5px;
+    color: rgba(0, 0, 0, 1);
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22.5px;
+    letter-spacing: 0.06px;
+}
+
+select{
+    width: 90%;
+    height: 40px;
+    border-color: (#d1d1d1);
+    border-style: solid;
+    border-width: 2.5px;
+    border-radius: 3.5px;
+    margin-bottom: 5%;
+}
+
+.currency{
+    text-align: left;
+    border-style: solid;
+    border-width: 2.5px;
+    border-color:(#d1d1d1);
+    border-radius: 3.5px;
+    width: 45%;
+}
+
+#amount{
+    width: 70%;
+    border-left: 0;
+    border-style: none;
+}
+
+#money-sign{
+    padding: 5px 10px 8.5px 10px;
+    border-right: 0;
+    border-color: (#d1d1d1);
+    border-style: solid;
+    border-width: 1px;
+    color: adjust-color($color: #444444d3);
+    background-color:adjust-color($color: #d1d1d1);
+}
