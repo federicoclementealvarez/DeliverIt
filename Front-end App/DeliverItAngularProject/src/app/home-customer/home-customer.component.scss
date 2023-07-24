@@ -1,0 +1,87 @@
+.navbar {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  height: 7.5vh;
+}
+
+.container {
+  &-search {
+    width: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-menu {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.menu {
+  font-size: 50px;
+}
+
+.search {
+  display: flex;
+  margin-left: 15px;
+  border-radius: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  height: 50px;
+  align-items: center;
+  width: 65vw;
+  transition: .2s;
+
+  &-icon {
+    color: rgba(0, 0, 0, 0.6);
+    margin-left: 13px;
+  }
+}
+
+input[type="text"] {
+  margin-left: 15px;
+  border-bottom: none;
+  background-color: transparent;
+}
+
+.search:hover {
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  transition: .2s;
+}
+
+h6 {
+  text-align: left;
+  margin-left: 10%;
+}
+
+#categories-title {
+  margin-top: 25px;
+}
+
+#popular-shops-title {
+  margin-top: 40px;
+}
+
+.shop-types-container {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.shop-cards-container {
+  width: 80%;
+}
+
+.parent-container-max-width {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.margin-top {
+  margin-top: 20px;
+}

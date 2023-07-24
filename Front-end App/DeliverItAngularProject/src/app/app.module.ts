@@ -16,6 +16,8 @@ import { SignupComponent } from './signup/signup.component';
 import { InputPasswordComponent } from './input-password/input-password.component';
 import { DatosPersonalesComponent } from './datos-personales/datos-personales.component';
 import { DireccionComponent } from './direccion/direccion.component';
+import { HomeCustomerComponent } from './home-customer/home-customer.component';
+import { ShopTypeIconComponent } from './shop-type-icon/shop-type-icon.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { DireccionComponent } from './direccion/direccion.component';
     SignupShopData2Component,
     SignupShopDataIcecreamflavorsComponent,
     ItemCardComponent,
-    DeleteButtonComponent
+    DeleteButtonComponent,
+    HomeCustomerComponent,
+    ShopTypeIconComponent
   ],
   imports: [
     BrowserModule,
