@@ -1,7 +1,7 @@
 <div class="container">
   <div class="input-group">
     <h1>Completar datos personales</h1>
-    <div class="input-subgroup">
+    <div class="input-subgroup nombre">
       <h6>Nombre</h6>
       <input type="text" autofocus>
     </div>
@@ -11,16 +11,17 @@
     </div>
     <div class="input-subgroup">
       <h6>Numero de teléfono</h6>
-      <input type="text">
+      <div class="group-phone-number">
+        <h6 class="number-prefix">+54</h6>
+        <input type="text" class="phone-input">
+      </div>
     </div>
-    <label for="opcion">Como va a usar la aplicacion?</label>
-    <select name="opcion" id="opcion">
-      <option value="" default></option>
-      <option value="cliente" class="option">Cliente</option>
+    <select name="opcion" id="opcion" class="dropdown">
+      <option value="Seleccione un tipo de cuenta" selected default>Seleccione un tipo de Cuenta</option>
+      <option value="cliente">Cliente</option>
       <option value="repartidor">Repartidor</option>
       <option value="local">Dueño de Local</option>
     </select>
     <app-primary-button class="button-style" title="SIGUIENTE"></app-primary-button>
-  </div>
-  
+  </div>  
 </div>
