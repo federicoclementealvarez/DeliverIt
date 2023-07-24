@@ -1,0 +1,16 @@
+@import "../../styles.scss";
+
+button{
+    color: $primary-red;
+    background-color: white;
+    text-align: center;
+    border-color: $primary-red;
+    border-width: 2px;
+    border-radius: 5px;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22.5px;
+    letter-spacing: 0.064px;
+}
