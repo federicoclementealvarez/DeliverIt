@@ -27,7 +27,7 @@ import { DireccionComponent } from './direccion/direccion.component';
     SignupComponent,
     InputPasswordComponent,
     DatosPersonalesComponent,
-    DireccionComponent
+    DireccionComponent,
     SignupShopData1Component,
     SignupShopData2Component,
     SignupShopDataIcecreamflavorsComponent,
