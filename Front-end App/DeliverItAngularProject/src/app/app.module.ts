@@ -18,6 +18,7 @@ import { DatosPersonalesComponent } from './datos-personales/datos-personales.co
 import { DireccionComponent } from './direccion/direccion.component';
 import { HomeCustomerComponent } from './home-customer/home-customer.component';
 import { ShopTypeIconComponent } from './shop-type-icon/shop-type-icon.component';
+import { ShopCustomerComponent } from './shop-customer/shop-customer.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ShopTypeIconComponent } from './shop-type-icon/shop-type-icon.component
     ItemCardComponent,
     DeleteButtonComponent,
     HomeCustomerComponent,
-    ShopTypeIconComponent
+    ShopTypeIconComponent,
+    ShopCustomerComponent
   ],
   imports: [
     BrowserModule,

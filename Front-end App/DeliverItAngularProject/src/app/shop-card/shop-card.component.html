@@ -3,9 +3,9 @@
 <div class="container">
   <img class="image" src="https://img.restaurantguru.com/r6f0-Lemmys-logo-2020-08.jpg">
   <div class="text-container">
-    <p id="title">{{ title }}</p>
-    <p id="subtitle">{{ subtitle }}</p>
-    <div id="text-and-star"><p id="bottomText">{{ bottomText }}</p><img *ngIf="hasStar === true" id="star-image" src="https://pixlok.com/wp-content/uploads/2021/07/Rating-SVG-Icon-s9fd.png"></div>
+    <p class="card-title">{{ title }}</p>
+    <p class="card-subtitle">{{ subtitle }}</p>
+    <div class="text-and-star"><p class="card-bottomText">{{ bottomText }}</p><img *ngIf="hasStar === true" class="star-image" src="https://pixlok.com/wp-content/uploads/2021/07/Rating-SVG-Icon-s9fd.png"></div>
   </div>
   <div *ngIf="hasDropdown === true" id="dropdown">
     <span class="material-symbols-outlined">expand_more</span>

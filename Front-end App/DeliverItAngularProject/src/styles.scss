@@ -1,6 +1,6 @@
 @import '~normalize.css';
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500;600&display=swap');
+
 
 $primary-red: #C00A0A;
 $secondary-red: #F3B5B5;
@@ -89,3 +89,40 @@ select:focus {
   transition: .2s;
   border-color: rgba(0, 0, 0, .8);
 }
+
+p {
+  margin: 0;
+}
+
+/* Styles for the shop-card component,
+they are in the global scss because it's used in different components */
+
+.star-image {
+  height: 100%;
+  margin-left: 5px;
+  width: auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Title, subtitle and bottom text of the shop-card */
+
+.card-title {
+  font-family: Poppins;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  overflow: hidden;
+}
+
+.card-subtitle,
+.card-bottomText {
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  overflow: hidden;
+}
+
+/* End of shop-card styles*/

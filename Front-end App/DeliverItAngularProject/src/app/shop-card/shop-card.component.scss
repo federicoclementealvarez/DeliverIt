@@ -53,43 +53,17 @@ p {
   padding: 0;
 }
 
-#title {  
-  font-family: Poppins;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 500;
-  overflow: hidden;
-}
-
-#subtitle,
-#bottomText {
-  font-family: Poppins;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 300;  
-  overflow: hidden;
-}
-
-#text-and-star {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 14px;
-}
-
-#star-image {
-  height: 100%;
-  margin-left: 5px;
-  width: auto;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
 #dropdown {
   display: flex;
   margin-left: auto;
   margin-right: 10px;
   align-items: center;
   justify-content: center;
+}
+
+.text-and-star {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 14px;
 }
