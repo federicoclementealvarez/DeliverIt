@@ -11,6 +11,7 @@ export class ShopCardComponent {
   @Input() subtitle: string;
   @Input() bottomText: string;
   @Input() hasStar: boolean;
-  @Input() hasDropdown: boolean;
+  @Input() hasDropdown: boolean = false;
+  @Input() hasButton: boolean = false;
 
 }

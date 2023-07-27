@@ -19,6 +19,7 @@ import { DireccionComponent } from './direccion/direccion.component';
 import { HomeCustomerComponent } from './home-customer/home-customer.component';
 import { ShopTypeIconComponent } from './shop-type-icon/shop-type-icon.component';
 import { ShopCustomerComponent } from './shop-customer/shop-customer.component';
+import { AddProductButtonComponent } from './add-product-button/add-product-button.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ShopCustomerComponent } from './shop-customer/shop-customer.component';
     DeleteButtonComponent,
     HomeCustomerComponent,
     ShopTypeIconComponent,
-    ShopCustomerComponent
+    ShopCustomerComponent,
+    AddProductButtonComponent
   ],
   imports: [
     BrowserModule,

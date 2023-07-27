@@ -7,7 +7,12 @@
     <p class="card-subtitle">{{ subtitle }}</p>
     <div class="text-and-star"><p class="card-bottomText">{{ bottomText }}</p><img *ngIf="hasStar === true" class="star-image" src="https://pixlok.com/wp-content/uploads/2021/07/Rating-SVG-Icon-s9fd.png"></div>
   </div>
-  <div *ngIf="hasDropdown === true" id="dropdown">
+  <div *ngIf="hasDropdown === true" class="dropdown">
     <span class="material-symbols-outlined">expand_more</span>
+  </div>
+  <div *ngIf="hasButton === true" class="add-product-button-container">
+    <div class="button-subcontainer">
+      <app-add-product-button></app-add-product-button>
+    </div>
   </div>
 </div>
