@@ -20,6 +20,7 @@ import { HomeCustomerComponent } from './home-customer/home-customer.component';
 import { ShopTypeIconComponent } from './shop-type-icon/shop-type-icon.component';
 import { ShopCustomerComponent } from './shop-customer/shop-customer.component';
 import { AddProductButtonComponent } from './add-product-button/add-product-button.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { AddProductButtonComponent } from './add-product-button/add-product-butt
     HomeCustomerComponent,
     ShopTypeIconComponent,
     ShopCustomerComponent,
-    AddProductButtonComponent
+    AddProductButtonComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,

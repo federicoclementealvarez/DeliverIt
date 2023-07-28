@@ -1,3 +1,6 @@
+@import '../../styles.scss';
+
+
 .banner {
   &-container {
     max-height: 80px;
@@ -72,8 +75,66 @@
 
 .cards-container {
   width: 80%;
+  margin-bottom: 40px;
 }
 
 #margin-0 {
   margin-top: 0;
+}
+
+.confirm-order-container {
+  background-color: $secondary-red;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  border-radius: 17px 17px 0 0;
+  //display: none;
+}
+
+.total-container {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+}
+
+#total-text {
+  font-family: Poppins;
+  font-size: 20px;
+}
+
+#amount-text {
+  font-family: Poppins;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.buttons-order-container {
+  width: 80%;
+}
+
+.cancel-button {
+  margin-top: 10px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: none;
+  transition: .2s;
+  color: #000;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  height: 50px;
+}
+
+.footer {
+  height: 190px;
+  //display: none;
 }
