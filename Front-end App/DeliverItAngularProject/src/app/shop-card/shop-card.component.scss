@@ -36,13 +36,13 @@
 
 .image {
   float: left;
-  width: 20%;
+  width: 25%;
   align-items: center;
   border-radius: 15px 0 0 15px;
 }
 
 .text-container { 
-  width: auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -53,43 +53,31 @@ p {
   padding: 0;
 }
 
-#title {  
-  font-family: Poppins;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 500;
-  overflow: hidden;
+.dropdown {
+  display: flex;
+  margin-left: auto;
+  margin-right: 10px;
+  align-items: center;
+  justify-content: center;
 }
 
-#subtitle,
-#bottomText {
-  font-family: Poppins;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 300;  
-  overflow: hidden;
-}
-
-#text-and-star {
+.text-and-star {
   display: flex;
   flex-direction: row;
   align-items: center;
   height: 14px;
 }
 
-#star-image {
-  height: 100%;
-  margin-left: 5px;
-  width: auto;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+.add-product-button-container {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 10px;
 }
 
-#dropdown {
-  display: flex;
-  margin-left: auto;
-  margin-right: 10px;
-  align-items: center;
-  justify-content: center;
+.button-subcontainer {
+  width: 90px;
+  height: 26px;
+  margin-bottom: 10px;
 }
