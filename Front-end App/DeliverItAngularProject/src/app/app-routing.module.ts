@@ -11,6 +11,8 @@ import { SignupShopDataIcecreamflavorsComponent } from './signup_shop_data/signu
 import { HomeCustomerComponent } from './home-customer/home-customer.component';
 import { ShopCustomerComponent } from './shop-customer/shop-customer.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import { HomeDeliveryBoyComponent } from './home-delivery-boy/home-delivery-boy.component';
+import { ExploreNewDeliveriesComponent } from './explore-new-deliveries/explore-new-deliveries.component';
 
 
 const routes: Routes = [
@@ -25,7 +27,10 @@ const routes: Routes = [
   { path: 'signup_shop_data1', component: SignupShopData1Component },
   { path: 'signup_shop_data2', component: SignupShopData2Component },
   {path: 'signup_shop_data_icecreamflavors', component: SignupShopDataIcecreamflavorsComponent},
+  { path: 'home-delivery-boy', component: HomeDeliveryBoyComponent },
+  { path: 'explore-new-deliveries', component: ExploreNewDeliveriesComponent },
   { path: '**', component: LandingPageComponent }
+  
 ];
 
 @NgModule({

@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<nav class="navbar">
+  <div class = "container-pindrop">
+    <span class="material-symbols-rounded pin_drop"> pin_drop </span>
+  </div> 
+  <div class="container-menu">
+    <span class="material-symbols-rounded menu">menu</span>
+  </div>
+</nav>
+
+<h6 id="welcome-sign">Bienvenido: Francisco</h6>
+
+<div class="current-orders">
+  <div class="no-orders">
+    <h2>Tus Pedidos en Curso</h2>
+    <img class="img-no-orders" src="https://s3-alpha-sig.figma.com/img/866a/aef0/13480628f650d39317d4d2418d5c5a81?Expires=1692576000&Signature=o5Gt3HkhQCnoZAOei~fGBhpYiL5FToUTPnzL~wfwc5H~2e37QtDiSmk~98ZZSUNtuueQM78i3-RCrl0ejbbv~BdleblE8PXs41DWcvvOtl~tH~6C7hYDJX56BCd6Isl4TpIktK2DLc7sUeW53qin~lqf9UYs5CL5jbWViUvVK0jwxerar60WkDzk0O5-RMrBrLZWyh8iIa2GbKO7b94O5ImLbpTNWzFPV5By1R7mnKH1TCBoUrrmIyzvcdwX3nnXG4u7wWeoWxChFg7I1Iqmdq3s-0JfXAOxW4T9Zfmdl3Y0NUglI23SewSr3qaY~pxjn1IKODWS2GQQ3d~wOxp1Ow__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4">
+    <h3>Vaya... No tienes pedidos en curso</h3>
+  </div>
+  <a id="explore-more-deliveries" routerLink="/explore-new-deliveries"><app-primary-button title="Explorar más pedidos"></app-primary-button></a>
+</div>
+
+<hr id="division">
+
+<h6 id="welcome-sign">Tus últimas entregas</h6>
+
+<div class="last-orders-container">
+  <div class="shop-cards-container">
+    <app-shop-card title="Lemmy's Pizza" subtitle="Urquiza 1500" bottomText="1 x Cerveza Andes, 2 x Pizza New York" [hasStar]=false></app-shop-card>
+    <app-shop-card title="Mostaza" subtitle="Av. Pellegrini 1700" bottomText="1 x Cajita Mostaza, 2 x Mega Dibu" [hasStar]=false></app-shop-card>
+  </div>
+</div>
+
+
+<footer>
+  <span class="material-symbols-rounded expand_more"> expand_more </span>
+</footer>

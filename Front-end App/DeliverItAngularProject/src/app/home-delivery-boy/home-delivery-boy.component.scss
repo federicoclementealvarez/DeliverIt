@@ -1,0 +1,117 @@
+@import '../../styles.scss';
+
+.navbar {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  height: 7.5vh;
+}
+
+.container {
+  &-pindrop {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
+
+  &-menu {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.menu {
+  font-size: 50px;
+}
+
+.pin_drop {
+  font-size: 38px;
+}
+
+
+#welcome-sign {
+  margin-top: 25px;
+  font-size: 16px;
+}
+
+.current-orders {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  height: 45vh;
+  display: flex;
+  flex-direction: column;
+
+}
+
+h6 {
+  text-align: left;
+  margin-left: 10%;
+}
+
+.no-orders {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+
+}
+
+h2 {
+  text-align: left;
+  margin-left: 10%;
+  font-family: Poppins;
+}
+
+.img-no-orders {
+
+  width: 203px;
+  height: 205px;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+
+h3 {
+  text-align: left;
+  margin-left: 10%;
+  font-family: Poppins;
+}
+
+#division {
+  border: 0;
+  border-top: 1px solid black;
+  width: 85%;
+}
+
+#explore-more-deliveries {
+  width: 85%;
+  align-self: center;
+}
+
+
+.shop-cards-container {
+  width: 85%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.last-orders-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.expand_more {
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+}

@@ -21,6 +21,8 @@ import { ShopTypeIconComponent } from './shop-type-icon/shop-type-icon.component
 import { ShopCustomerComponent } from './shop-customer/shop-customer.component';
 import { AddProductButtonComponent } from './add-product-button/add-product-button.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import { HomeDeliveryBoyComponent } from './home-delivery-boy/home-delivery-boy.component';
+import { ExploreNewDeliveriesComponent } from './explore-new-deliveries/explore-new-deliveries.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
     ShopTypeIconComponent,
     ShopCustomerComponent,
     AddProductButtonComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    HomeDeliveryBoyComponent,
+    ExploreNewDeliveriesComponent,
   ],
   imports: [
     BrowserModule,
