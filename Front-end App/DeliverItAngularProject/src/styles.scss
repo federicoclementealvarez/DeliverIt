@@ -1,0 +1,134 @@
+@import '~normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500;600&display=swap');
+
+
+$primary-red: #C00A0A;
+$secondary-red: #F3B5B5;
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  color: #000;
+  font-family: Poppins;
+  font-size: 34px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 41px;
+  letter-spacing: 0.136px;
+  margin: 0;
+}
+
+h3 {
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+h4 {
+  opacity: .65;
+  color: #000;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22.5px;
+  letter-spacing: 0.064px;
+  margin: 0;
+}
+
+h6, 
+select,
+label {
+  color: rgba(0, 0, 0, 1);
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22.5px;
+  letter-spacing: 0.06px;
+  margin: 0;
+  width: fit-content;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  font-family: Poppins;
+  font-size: 15px;
+  outline: none;
+  transition: .2s;
+}
+
+input[type="text"]{
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  font-family: Poppins;
+  font-size: 13px;
+  outline: none;
+  transition: .2s;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus {
+  border-bottom: 1px solid rgba(0, 0, 0, .8);
+  transition: .2s;
+}
+
+select {
+  border-radius: 8px;
+  height: 30px;
+  width: 100%;
+  border-color: rgba(0, 0, 0, .2);
+  font-family: Poppins;
+  font-size: 14px;
+  transition: .2s;
+}
+
+select:focus {
+  outline: none;
+  transition: .2s;
+  border-color: rgba(0, 0, 0, .8);
+}
+
+p {
+  margin: 0;
+}
+
+/* Styles for the shop-card component,
+they are in the global scss because it's used in different components */
+
+.star-image {
+  height: 100%;
+  margin-left: 5px;
+  width: auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Title, subtitle and bottom text of the shop-card */
+
+.card-title {
+  font-family: Poppins;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  overflow: hidden;
+}
+
+.card-subtitle,
+.card-bottomText {
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  overflow: hidden;
+}
+
+/* End of shop-card styles*/

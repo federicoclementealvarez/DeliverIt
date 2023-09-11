@@ -1,0 +1,28 @@
+<div class="container">
+    <h1>Completar datos<br>del local</h1>
+    <div class="input-button">
+      <div class="input-group">
+        <h6>Hora de apertura</h6>
+        <input type="time" autofocus>
+      </div>
+      <div class="input-group">
+        <h6>Hora de cierre</h6>
+        <input type="time">
+      </div>
+      <div class="input-group">
+        <h6>Precio del envío</h6>
+        <div class="currency">
+            <span id="money-sign">$</span>
+            <input id="amount" type="number" min="0">
+        </div>
+      </div>
+      <div class="input-group">
+        <h6>Tipo de local</h6>
+        <select>
+            <option disabled selected hidden>Seleccione un tipo de local</option>
+            <option *ngFor="let shoptype of shopTypes">{{shoptype.description}}</option>
+        </select>
+      </div>
+      <a routerLink="/signup_shop_data2"><app-primary-button class="button-style" title="SIGUIENTE"></app-primary-button></a>
+    </div>
+  </div>

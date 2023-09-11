@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+
+
+<nav class="navbar">
+  <div class="container-search">
+    <div class="search">
+      <span class="material-symbols-rounded search-icon">search</span>
+      <input type="text" placeholder="Buscar local, producto ...">
+    </div>
+  </div>
+  <div class="container-menu">
+    <span class="material-symbols-rounded menu">menu</span>
+  </div>
+</nav>
+<h6 id="categories-title">Explorá nuestras categorías</h6>
+<div class="parent-container-max-width">
+  <div class="shop-types-container">
+    <app-shop-type-icon icon="lunch_dining" subtitle="Hamburguesas" class="margin-top"></app-shop-type-icon>
+    <app-shop-type-icon icon="icecream" subtitle="Heladerías" class="margin-top"></app-shop-type-icon>
+    <app-shop-type-icon icon="local_bar" subtitle="Bebidas" class="margin-top"></app-shop-type-icon>
+    <app-shop-type-icon icon="restaurant" subtitle="Restaurantes" class="margin-top"></app-shop-type-icon>
+    <app-shop-type-icon icon="nutrition" subtitle="Verdulerías" class="margin-top"></app-shop-type-icon>
+    <app-shop-type-icon icon="pill" subtitle="Farmacias" class="margin-top"></app-shop-type-icon>
+  </div>
+</div>
+<h6 id="popular-shops-title">Los locales más populares</h6>
+<div class="parent-container-max-width">
+  <div class="shop-cards-container">
+    <app-shop-card title="Lemmy's Pizza" subtitle="Urquiza 1500" bottomText="4.5" [hasStar]=true routerLink="/shop-customer"></app-shop-card>
+    <app-shop-card title="Mostaza" subtitle="Av. Pellegrinni 1700" bottomText="4.2" [hasStar]=true></app-shop-card>      
+    <app-shop-card title="Gianduia Gelateria" subtitle="Bv. Orono 300" bottomText="4.1" [hasStar]=true></app-shop-card>
+    <app-shop-card title="Gianduia Gelateria" subtitle="Bv. Orono 300" bottomText="4.1" [hasStar]=true></app-shop-card>
+    <app-shop-card title="Gianduia Gelateria" subtitle="Bv. Orono 300" bottomText="4.1" [hasStar]=true></app-shop-card>
+  </div>
+</div>
+<footer class="footer"></footer>
+
+
+
