@@ -1,0 +1,35 @@
+### obtener todos los Product Category
+GET http://localhost:3000/api/productCategories/
+
+### obtener un Product Category
+GET http://localhost:3000/api/productCategories/3
+
+### crear un Product Category
+POST http://localhost:3000/api/productCategories/
+Content-Type: application/json
+
+{
+  "id": 3,
+  "description": "Pizza"
+}
+
+### actualizar un Product Category
+PUT http://localhost:3000/api/productCategories/4
+Content-Type: application/json
+
+{
+  "id": 2,
+  "description": "Empanada"
+}
+
+### actualizar un Product Category
+PATCH http://localhost:3000/api/productCategories/4
+Content-Type: application/json
+
+{
+  "id": 1,
+  "description": "Vino"
+}
+
+### eliminar un Product Category
+DELETE http://localhost:3000/api/productCategories/2
