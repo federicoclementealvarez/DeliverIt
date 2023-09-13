@@ -9,13 +9,19 @@
   </div>
 </nav>
 
-<h6 id="welcome-sign">Bienvenido: Francisco</h6>
+<h6 id="welcome-sign" (click)="alterView()">Bienvenido: Francisco</h6>  <!--el evento es para testear, va a ser removido-->
 
-<div class="current-orders">
-  <div class="no-orders">
+<div class="current-orders"> <!--Acá iría un *ngFor con cada pedido activo-->
+  <div *ngIf="pedidosEnCurso === false" class="no-orders">
     <h2>Tus Pedidos en Curso</h2>
     <img class="img-no-orders" src="https://s3-alpha-sig.figma.com/img/866a/aef0/13480628f650d39317d4d2418d5c5a81?Expires=1692576000&Signature=o5Gt3HkhQCnoZAOei~fGBhpYiL5FToUTPnzL~wfwc5H~2e37QtDiSmk~98ZZSUNtuueQM78i3-RCrl0ejbbv~BdleblE8PXs41DWcvvOtl~tH~6C7hYDJX56BCd6Isl4TpIktK2DLc7sUeW53qin~lqf9UYs5CL5jbWViUvVK0jwxerar60WkDzk0O5-RMrBrLZWyh8iIa2GbKO7b94O5ImLbpTNWzFPV5By1R7mnKH1TCBoUrrmIyzvcdwX3nnXG4u7wWeoWxChFg7I1Iqmdq3s-0JfXAOxW4T9Zfmdl3Y0NUglI23SewSr3qaY~pxjn1IKODWS2GQQ3d~wOxp1Ow__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4">
     <h3>Vaya... No tienes pedidos en curso</h3>
+  </div>
+  <div *ngIf="pedidosEnCurso === true" class="active-orders">
+    <h2>Tus Pedidos en Curso</h2>
+    <app-shop-card title="Lemmy's Pizza" subtitle="Urquiza 1500" bottomText="" [hasStar]=false [hasDropdown]=true (click)="expandDeliver()"></app-shop-card>
+    <app-deliver-order-description *ngIf="orderDescription === true" description="1 Fanta 1Lt 2 Mac Combos" price="$5000" client="Mauricio Ferrari"
+      paymentType="Efectivo" orderStatus="En camino" destination="Laprida 736"></app-deliver-order-description>
   </div>
   <a id="explore-more-deliveries" routerLink="/explore-new-deliveries"><app-primary-button title="Explorar más pedidos"></app-primary-button></a>
 </div>
