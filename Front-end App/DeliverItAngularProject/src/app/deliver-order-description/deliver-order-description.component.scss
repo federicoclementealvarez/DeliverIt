@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import '../../styles.scss';
+
+@media screen and (max-width: 375px) {
+
+  .text-container {
+    max-height: 160px;
+  }
+
+  .container {
+    height: 160px;
+  }
+}
+
+@media screen and (min-width: 375px) {
+
+  .text-container {
+    max-height: 160px;
+  }
+
+  .container {
+    height: 160px;
+  }
+}
+
+.container {
+  margin-top: 10px;
+  padding: 10px;
+  fill: none;
+  border: 1px solid rgba(#000000, .2);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  &-status {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+}
+
+.satus-button {
+  width: 20%;
+  font-size: 12px;
+  background-color: $primary-red;
+  border-radius: 10px;
+  border: none;
+  transition: .2s;
+  color: #FFF;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  height: 35px;
+}
+
+.satus-button:hover {
+  transition: .2s;
+  opacity: .9;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+  font-family: Poppins;
+  font-size: 12px;
+}

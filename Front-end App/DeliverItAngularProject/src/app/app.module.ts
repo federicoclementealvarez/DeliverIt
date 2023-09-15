@@ -23,6 +23,7 @@ import { AddProductButtonComponent } from './add-product-button/add-product-butt
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { HomeDeliveryBoyComponent } from './home-delivery-boy/home-delivery-boy.component';
 import { ExploreNewDeliveriesComponent } from './explore-new-deliveries/explore-new-deliveries.component';
+import { DeliverOrderDescriptionComponent } from './deliver-order-description/deliver-order-description.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { ExploreNewDeliveriesComponent } from './explore-new-deliveries/explore-
     OrderDetailsComponent,
     HomeDeliveryBoyComponent,
     ExploreNewDeliveriesComponent,
+    DeliverOrderDescriptionComponent,
   ],
   imports: [
     BrowserModule,
