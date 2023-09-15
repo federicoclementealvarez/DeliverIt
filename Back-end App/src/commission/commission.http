@@ -1,0 +1,35 @@
+### FIND ALL COMMISSIONS
+GET http://localhost:3000/api/commissions
+
+### FIND ONE COMMISSION
+GET http://localhost:3000/api/commissions/1
+
+### REMOVE ONE COMMISSION
+DELETE http://localhost:3000/api/commissions/1
+
+### ADD ONE COMMISSION
+POST http://localhost:3000/api/commissions
+Content-Type: application/json
+
+{
+  "id":2,
+  "validSince": "2022-09-13T00:00:00.000Z",
+  "percentage": 7
+}
+
+### UPDATE ONE COMMISSION USING PUT
+PUT http://localhost:3000/api/commissions/1
+Content-Type: application/json
+
+{
+  "validSince": "2023-09-14T00:00:00.000Z",
+  "percentage": 6
+}
+
+### UPDATE ONE COMMISSION USING PATCH
+PATCH http://localhost:3000/api/commissions/1
+Content-Type: application/json
+
+{
+  "percentage": 3.2
+}

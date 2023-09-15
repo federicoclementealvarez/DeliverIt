@@ -1,0 +1,34 @@
+###
+GET http://localhost:3000/api/shopTypes/
+
+###
+DELETE http://localhost:3000/api/shopTypes/3
+
+###
+POST http://localhost:3000/api/shopTypes
+Content-Type: application/json
+
+{
+    
+    "id" : 3,
+    "description" : "verdulería"
+}
+
+###
+PUT http://localhost:3000/api/shopTypes/2
+Content-Type: application/json
+
+{
+    "id" : 2,
+    "description": "otro negocio",
+    "otraCosa" : "xd"
+}
+
+###
+PATCH http://localhost:3000/api/shopTypes/2
+Content-Type: application/json
+
+{
+    "id" : 2,
+    "otraCosa" : "xd"
+}
