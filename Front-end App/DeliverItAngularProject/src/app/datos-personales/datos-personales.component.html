@@ -1,27 +1,31 @@
 <div class="container">
-  <div class="input-group">
+  <form [formGroup]="userDataForm" class="input-group">
     <h1>Completar datos personales</h1>
     <div class="input-subgroup nombre">
       <h6>Nombre</h6>
-      <input type="text" autofocus>
+      <input formControlName="name" type="text" autofocus>
     </div>
     <div class="input-subgroup">
       <h6>Apellido</h6>
-      <input type="text">
+      <input formControlName="surname" type="text">
     </div>
     <div class="input-subgroup">
       <h6>Numero de teléfono</h6>
       <div class="group-phone-number">
         <h6 class="number-prefix">+54</h6>
-        <input type="text" class="phone-input">
+        <input formControlName="phoneNumber" type="text" class="phone-input">
       </div>
     </div>
-    <select name="opcion" id="opcion" class="dropdown">
-      <option value="Seleccione un tipo de cuenta" selected default>Seleccione un tipo de Cuenta</option>
-      <option value="cliente">Cliente</option>
-      <option value="repartidor">Repartidor</option>
-      <option value="local">Dueño de Local</option>
+    <select formControlName="idUserType" name="opcion" id="opcion" class="dropdown">
+      <option value=0 selected default>Seleccione un tipo de Cuenta</option>
+      <option value=1>Cliente</option>
+      <option value=2>Repartidor</option>
+      <option value=3>Dueño de Local</option>
     </select>
-    <app-primary-button routerLink="/direccion" class="button-style" title="SIGUIENTE"></app-primary-button>
-  </div>  
+    <app-primary-button 
+    (buttonClicked)="submitForm()"
+    routerLink="/direccion" 
+    class="button-style" 
+    title="SIGUIENTE"></app-primary-button>
+  </form>  
 </div>
