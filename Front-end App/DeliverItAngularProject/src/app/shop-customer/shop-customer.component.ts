@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AddProductCustomerService } from '../services/add-product-customer.service';
 
 @Component({
   selector: 'app-shop-customer',
@@ -7,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class ShopCustomerComponent {
 
+  constructor(private addProductCustomerService: AddProductCustomerService) {}
+  
+  totalQty: number;
+
+  ngOnInit() {
+    this.addProductCustomerService.totalQty$.subscribe((_totalQty) => {
+      this.totalQty = _totalQty
+    });
+  }
 }

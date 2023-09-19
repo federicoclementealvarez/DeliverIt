@@ -8,16 +8,9 @@ import { FormControl } from '@angular/forms';
 })
 export class InputPasswordComponent {
   passwordVisible: boolean = false;
-  //password: string = '';
 
-  @Input() control: FormControl
-
-  // @Output() valuePasswordChanged = new EventEmitter<string>();
-
-  // onPasswordChanged() {
-  //   this.valuePasswordChanged.emit(this.password);
-  // }
-  
+  @Input() control: FormControl;
+    
   changeVisibilityPass(visib: boolean) {
     this.passwordVisible = visib;
   }  

@@ -1,12 +1,27 @@
+@media screen and (max-width: 576px) {
+  .subcontainer {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 992px) {
+  .subcontainer {
+    width: 65%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .subcontainer {
+    width: 45%;
+  }
+}
+
+
 .container {
   margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.subcontainer {
-  width: 80%;
 }
 
 h4 {

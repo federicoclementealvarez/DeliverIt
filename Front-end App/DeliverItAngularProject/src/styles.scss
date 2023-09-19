@@ -5,6 +5,10 @@
 $primary-red: #C00A0A;
 $secondary-red: #F3B5B5;
 
+* {
+  user-select: none;
+}
+
 a {
   text-decoration: none;
 }

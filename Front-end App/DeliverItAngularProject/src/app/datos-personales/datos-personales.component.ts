@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { DatosPersonalesService } from '../services/datos-personales.service';
 
 @Component({
   selector: 'app-datos-personales',
@@ -14,7 +15,9 @@ export class DatosPersonalesComponent {
     idUserType: new FormControl('')
   })
 
+  constructor(private service: DatosPersonalesService) { }
+
   submitForm() {
-    console.log(this.userDataForm.value)
+    this.service.sendForm(this.userDataForm)
   }
 }
