@@ -4,10 +4,18 @@
     <div class="input-subgroup nombre">
       <h6>Nombre</h6>
       <input formControlName="name" type="text" autofocus>
+      <div [ngClass]="{'error-message-show': getName().invalid && submitted === true}" class="error-message">
+        <span class="error-icon-red">&#9888;</span>
+        Campo obligatorio
+      </div>
     </div>
     <div class="input-subgroup">
       <h6>Apellido</h6>
       <input formControlName="surname" type="text">
+      <div [ngClass]="{'error-message-show': getSurname().invalid && submitted === true}" class="error-message">
+        <span class="error-icon-red">&#9888;</span>
+        Campo obligatorio
+      </div>
     </div>
     <div class="input-subgroup">
       <h6>Numero de teléfono</h6>
@@ -15,17 +23,24 @@
         <h6 class="number-prefix">+54</h6>
         <input formControlName="phoneNumber" type="text" class="phone-input">
       </div>
+      <div [ngClass]="{'error-message-show': getPhoneNumber().invalid && submitted === true}" class="error-message">
+        <span class="error-icon-red">&#9888;</span>
+        Campo obligatorio
+      </div>
     </div>
-    <select formControlName="idUserType" name="opcion" id="opcion" class="dropdown">
-      <option value=0 selected default>Seleccione un tipo de Cuenta</option>
+    <select formControlName="idUserType" name="opcion" id="opcion" class="dropdown">      
+      <option value=0>Seleccione un tipo de Cuenta</option>
       <option value=1>Cliente</option>
       <option value=2>Repartidor</option>
       <option value=3>Dueño de Local</option>
     </select>
+    <div [ngClass]="{'error-message-show': getUserTypeId().invalid && submitted === true}" class="error-message">
+      <span class="error-icon-red">&#9888;</span>
+      Campo obligatorio
+    </div>
     <app-primary-button 
     (buttonClicked)="submitForm()"
-    routerLink="/direccion" 
     class="button-style" 
     title="SIGUIENTE"></app-primary-button>
-  </form>  
+  </form>
 </div>

@@ -29,13 +29,13 @@
 .input-group {
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
 .input-subgroup {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 3px;
+  margin-top: 20px;
 }
 
 .number-prefix {
@@ -56,9 +56,9 @@
 }
 
 .dropdown {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .nombre {
-  margin-top: 5px;
+  margin-top: 25px;
 }

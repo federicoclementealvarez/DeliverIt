@@ -6,11 +6,20 @@
       <div class="input-subgroup">
         <h6>Calle</h6>
         <input formControlName="street" type="text">
+        <div [ngClass]="{'error-message-show': getStreet().invalid && submitted === true}"
+        class="error-message">
+          <span class="error-icon-red">&#9888;</span>
+          Campo obligatorio
+        </div>
       </div>
       <div class="input-subgroup-altura">
         <div class="subgroup-altura">
           <h6>Altura</h6>
           <input formControlName="number" type="text">
+          <div [ngClass]="{'error-message-show': getNumber().invalid && submitted === true}" class="error-message">
+            <span class="error-icon-red">&#9888;</span>
+            Campo obligatorio
+          </div>
         </div>
         <div class="subgroup-piso">
           <h6>Piso o Departamento</h6>
@@ -24,7 +33,8 @@
       <div class="margin-button">
         <app-primary-button
         (buttonClicked)="submitForm()"
-        title="CONFIRMAR"></app-primary-button>
+        title="CONFIRMAR">
+        </app-primary-button>
       </div>
     </form>
   </div>

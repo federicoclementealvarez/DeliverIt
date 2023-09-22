@@ -8,9 +8,7 @@ import { FormControl } from '@angular/forms';
 })
 export class InputPasswordComponent {
   passwordVisible: boolean = false;
-
-  @Input() control: FormControl;
-    
+  
   changeVisibilityPass(visib: boolean) {
     this.passwordVisible = visib;
   }  
