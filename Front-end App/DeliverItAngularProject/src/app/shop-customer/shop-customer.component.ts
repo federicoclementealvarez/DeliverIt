@@ -8,7 +8,7 @@ import { AddProductCustomerService } from '../services/add-product-customer.serv
 })
 export class ShopCustomerComponent {
 
-  constructor(private addProductCustomerService: AddProductCustomerService) {}
+  constructor(private addProductCustomerService: AddProductCustomerService) { }
   
   totalQty: number;
 
@@ -16,5 +16,9 @@ export class ShopCustomerComponent {
     this.addProductCustomerService.totalQty$.subscribe((_totalQty) => {
       this.totalQty = _totalQty
     });
+  }
+
+  resetProducts() {
+    this.addProductCustomerService.resetProducts()
   }
 }

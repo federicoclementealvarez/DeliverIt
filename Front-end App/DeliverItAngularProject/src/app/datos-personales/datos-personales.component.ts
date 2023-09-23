@@ -24,7 +24,7 @@ export class DatosPersonalesComponent {
   submitForm() {
     this.submitted = true;
     if (this.userDataForm.valid) {
-      this.service.sendForm(this.userDataForm)  
+      this.service.sendUserDataForm(this.userDataForm)  
       this.router.navigate(['/direccion'])  
     }
   }

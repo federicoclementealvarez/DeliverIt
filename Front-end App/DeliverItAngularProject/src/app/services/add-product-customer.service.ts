@@ -64,4 +64,9 @@ export class AddProductCustomerService {
     
     console.log(this.totalItems)
   }
+
+  resetProducts() {
+    this.totalItems = []
+    this.totalQuantity.next(0)
+  }
 }

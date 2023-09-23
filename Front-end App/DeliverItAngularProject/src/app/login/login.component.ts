@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,9 +9,13 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 
 export class LoginComponent {
+
+  constructor(private router: Router) { }
+
   loginForm: FormGroup
 
-  passwordVisible: boolean = false;
+  passwordVisible = false;
+  submitted = false;
   
   changeVisibilityPass(visib: boolean) {
     this.passwordVisible = visib;
@@ -18,13 +23,24 @@ export class LoginComponent {
 
   ngOnInit() {
     this.loginForm = new FormGroup({
-      email: new FormControl(''),
-      password: new FormControl('')
+      email: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required)
     })
   }
 
   submitForm() {
-    console.log(this.loginForm.value)
-    console.log(this.loginForm.get('password'))
+    this.submitted = true;
+    if (this.loginForm.valid) {
+      console.log(this.loginForm.value)
+      this.router.navigate(['/home-customer'])
+    }
+  }
+
+  getPassword() {
+    return this.loginForm.get('password')
+  }
+
+  getEmail() {
+    return this.loginForm.get('email')
   }
 }

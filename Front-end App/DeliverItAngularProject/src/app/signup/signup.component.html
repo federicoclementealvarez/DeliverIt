@@ -3,10 +3,15 @@
 
 <div class="container">
   <h1>Crear una Cuenta</h1>
-  <div class="input-button">
+  <form [formGroup]="signupForm" class="input-button">
     <div class="input-group">
       <h6>Dirección de correo electrónico</h6>
       <input formControlName="email" type="email" autofocus>
+      <div [ngClass]="{'error-message-show': (getEmail().errors?.['email'] || getEmail().errors?.['required']) && (submitted || getEmail().touched)}"
+        class="error-message" style="align-self: flex-start;">
+        <span class="error-icon-red">&#9888;</span>
+        Ingrese un email válido
+      </div>
     </div>
     <div class="input-group">
       <h6>Contraseña</h6>
@@ -25,8 +30,8 @@
       </div>
     </div>
     <app-primary-button
-    routerLink="/datos-personales" 
+    (buttonClicked)="submitForm()"
     class="button-style" 
-    title="f"></app-primary-button>
-  </div>
+    title="SIGUIENTE"></app-primary-button>
+  </form>
 </div>

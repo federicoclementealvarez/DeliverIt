@@ -7,20 +7,25 @@
     <div class="input-group">
       <label for="email">Dirección de correo electrónico</label>
       <input type="email" formControlName="email" autofocus>
+      <div [ngClass]="{'error-message-show': getEmail().invalid && (submitted || getEmail().touched)}" class="error-message" style="align-self: flex-start;">
+      <span class="error-icon-red">&#9888;</span>
+        Ingresa tu email
+      </div>
     </div>
     <div class="input-group">
       <h6>Contraseña</h6>
       <div class="input-and-icon">
         <input formControlName="password" type="{{ passwordVisible ? 'text' : 'password' }}">
-        <span *ngIf="!passwordVisible" class="material-symbols-outlined"
-          (click)="changeVisibilityPass(true)">visibility_off</span>
-        <span *ngIf="passwordVisible" class="material-symbols-outlined"
-          (click)="changeVisibilityPass(false)">visibility</span>
+        <span *ngIf="!passwordVisible" class="material-symbols-outlined" (click)="changeVisibilityPass(true)">visibility_off</span>
+        <span *ngIf="passwordVisible" class="material-symbols-outlined" (click)="changeVisibilityPass(false)">visibility</span>
+      </div>
+      <div [ngClass]="{'error-message-show': getPassword().invalid && (submitted || getPassword().touched)}" class="error-message" style="align-self: flex-start;">
+        <span class="error-icon-red">&#9888;</span>
+        Escribe tu contraseña
       </div>
     </div>    
     <app-primary-button 
     (buttonClicked)="submitForm()"
-    routerLink="/home-customer" 
     class="button-style" 
     title="INICIAR SESIÓN"></app-primary-button>
   </form>

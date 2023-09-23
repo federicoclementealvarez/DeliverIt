@@ -38,7 +38,7 @@
   </div>
   <div class="buttons-order-container">
     <app-primary-button title="SIGUIENTE" routerLink="/order-details"></app-primary-button>
-    <button routerLink="/home-customer" class="cancel-button">CANCELAR</button>
+    <button (click)="resetProducts()" routerLink="/home-customer" class="cancel-button">CANCELAR</button>
   </div>
 </div>
 <footer [ngClass]="{'footer': totalQty > 0}" class="footer"></footer>
