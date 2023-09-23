@@ -5,6 +5,10 @@
 $primary-red: #C00A0A;
 $secondary-red: #F3B5B5;
 
+* {
+  user-select: none;
+}
+
 a {
   text-decoration: none;
 }
@@ -132,3 +136,17 @@ they are in the global scss because it's used in different components */
 }
 
 /* End of shop-card styles*/
+
+.error-message {
+  margin-top: 5px;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  color: #ff0000;
+  opacity: 0;
+  transition: opacity .35s ease;
+
+  &-show {
+    opacity: 1;
+  }
+}

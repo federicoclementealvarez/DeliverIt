@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-input-password',
@@ -7,8 +8,8 @@ import { Component } from '@angular/core';
 })
 export class InputPasswordComponent {
   passwordVisible: boolean = false;
-
+  
   changeVisibilityPass(visib: boolean) {
     this.passwordVisible = visib;
-  }
+  }  
 }

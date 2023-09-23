@@ -1,3 +1,22 @@
+@media screen and (max-width: 576px) {
+  .input-group {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 992px) {
+  .input-button {
+    width: 65%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .input-button {
+    width: 45%;
+  }
+}
+
+
 .container {
   position: relative;
   top: 50px;
@@ -8,16 +27,15 @@
 }
 
 .input-group {
-  width: 80%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
 .input-subgroup {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 3px;
+  margin-top: 20px;
 }
 
 .number-prefix {
@@ -38,9 +56,9 @@
 }
 
 .dropdown {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .nombre {
-  margin-top: 5px;
+  margin-top: 25px;
 }
