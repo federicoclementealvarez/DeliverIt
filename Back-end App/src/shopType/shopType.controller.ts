@@ -29,7 +29,7 @@ export function findOne(req: Request, res: Response){
     if(foundShopType===undefined){
         return res.status(404).send({message: 'Shop Type not found'});
     }
-    res.status(200).send({body : foundShopType});
+    res.status(200).send({data : foundShopType});
 }
 
 export function remove(req: Request, res: Response){
@@ -49,13 +49,14 @@ export function add(req: Request, res: Response){
         return res.status(404).send({message : 'Shop Type could not be added'});
     }
 
-    res.status(200).send({message : "Shop Type added successfully", body : addedShopType});
+    res.status(200).send({message : "Shop Type added successfully", data : addedShopType});
 }
 
 export function update(req: Request, res: Response){
+    req.body.sanitizedInput.id = parseInt(req.params.id);
     const updatedShopType = repository.update(req.body.sanitizedInput);
     if (updatedShopType===undefined){
         return res.status(404).send({message : 'Shop Type could not be updated'});
     }
-    res.status(200).send({message : "Shop Type updated successfully", body : updatedShopType});
+    res.status(200).send({message : "Shop Type updated successfully", data : updatedShopType});
 }

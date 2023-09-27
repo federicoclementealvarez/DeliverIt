@@ -50,6 +50,7 @@ function add(req: Request, res:Response) {
 }
 
 function update(req: Request, res: Response) {
+  req.body.sanitizedInput.id = parseInt(req.params.id);
   const productCategory = repository.update(req.body.sanitizedInput)
 
   if (productCategory === undefined) {

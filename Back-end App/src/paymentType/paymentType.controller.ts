@@ -29,7 +29,7 @@ export function findOne(req: Request, res: Response){
     if(foundPaymentType===undefined){
         return res.status(404).send({message: 'Payment Type not found'});
     }
-    res.status(200).send({body : foundPaymentType});
+    res.status(200).send({data : foundPaymentType});
 }
 
 export function remove(req: Request, res: Response){
@@ -49,13 +49,14 @@ export function add(req: Request, res: Response){
         return res.status(404).send({message : 'Payment Type could not be added'});
     }
 
-    res.status(200).send({message : "Payment Type added successfully", body : addedPaymentType});
+    res.status(200).send({message : "Payment Type added successfully", data : addedPaymentType});
 }
 
 export function update(req: Request, res: Response){
+    req.body.sanitizedInput.id = parseInt(req.params.id);
     const updatedPaymentType = repository.update(req.body.sanitizedInput);
     if (updatedPaymentType===undefined){
         return res.status(404).send({message : 'Payment Type could not be updated'});
     }
-    res.status(200).send({message : "Payment Type updated successfully", body : updatedPaymentType});
+    res.status(200).send({message : "Payment Type updated successfully", data : updatedPaymentType});
 }

@@ -1,0 +1,36 @@
+### Obtener todos los tipos de usuarios
+GET http://localhost:3000/api/userTypes/
+
+### Obtener un tipo de usuarios
+GET http://localhost:3000/api/userTypes/2
+
+### 
+DELETE http://localhost:3000/api/userTypes/5
+
+### Crear un nuevo tipo de usuario
+POST http://localhost:3000/api/userTypes/
+Content-Type: application/json
+
+{
+    "id" : 5,
+    "description" : "Atencion al cliente"
+}
+
+###
+PUT http://localhost:3000/api/userTypes/2
+Content-Type: application/json
+
+{
+    "id" : 2,
+    "description": "cliente godines",
+    "otraCosa" : "xds"
+}
+
+###
+PATCH http://localhost:3000/api/userTypes/5
+Content-Type: application/json
+
+{
+    "id" : 6,
+    "otraCosa" : "xd"
+}
