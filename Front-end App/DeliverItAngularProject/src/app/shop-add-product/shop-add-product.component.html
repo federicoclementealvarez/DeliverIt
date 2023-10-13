@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+
+<div class="container">
+  <h1>{{config.title}}</h1>
+  <form class="input-button">
+    <div class="input-group">
+      <h6>Nombre</h6>
+      <input type="text" autofocus>
+    </div>
+    <div class="input-group">
+      <h6>Descripción</h6>
+      <input type="text">
+    </div>
+    <div class="input-group">
+        <h6>Foto</h6>
+        <input type="file" accept="image/*">
+      </div>
+    <div class="input-group">
+        <h6>Precio del envío</h6>
+        <div class="currency">
+            <span id="money-sign">$</span>
+            <input id="amount" type="number" min="0">
+        </div>
+    </div>
+    <div>
+        <div class="input-group">
+            <h6>Válido desde</h6>
+            <input id="date" type="date" [value]="getTodayDate()" [disabled]="config.disabledDate">
+        </div>
+    </div>
+    <div class="input-group" *ngIf="config.hasProductType">
+        <h6>Tipo de producto</h6>
+        <select>
+            <option disabled selected hidden>Seleccione un tipo de producto</option>
+            <option *ngFor="let shoptype of shopTypes">{{shoptype.description}}</option>
+        </select>
+      </div>
+    <app-primary-button class="button-style" [title]="config.primaryButtonText">
+    </app-primary-button>
+    <app-secondary-button class="button-style" title="ELIMINAR" *ngIf="config.hasDeleteButton"></app-secondary-button>
+  </form>
+</div>

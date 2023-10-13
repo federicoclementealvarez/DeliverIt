@@ -26,6 +26,10 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
 import { HomeDeliveryBoyComponent } from './home-delivery-boy/home-delivery-boy.component';
 import { ExploreNewDeliveriesComponent } from './explore-new-deliveries/explore-new-deliveries.component';
 import { DeliverOrderDescriptionComponent } from './deliver-order-description/deliver-order-description.component';
+import { HomeShopComponent } from './home-shop/home-shop.component';
+import { ShopAddProductComponent } from './shop-add-product/shop-add-product.component';
+import { ShopModifyProductComponent } from './shop-modify-product/shop-modify-product.component';
+import { SecondaryButtonComponent } from './secondary-button/secondary-button.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +55,10 @@ import { DeliverOrderDescriptionComponent } from './deliver-order-description/de
     HomeDeliveryBoyComponent,
     ExploreNewDeliveriesComponent,
     DeliverOrderDescriptionComponent,
+    HomeShopComponent,
+    ShopAddProductComponent,
+    ShopModifyProductComponent,
+    SecondaryButtonComponent,
   ],
   imports: [
     BrowserModule,

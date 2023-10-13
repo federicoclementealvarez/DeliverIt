@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+@import '../../styles.scss';
+
+
+button {
+  background-color: #FFF;
+  border-color: $primary-red;
+  border-radius: 10px;
+  border-style: solid;
+  transition: .2s;
+  color: $primary-red;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  flex: 1;
+  margin: auto;
+  align-items: center;
+}
+
+img{
+    width: 28px;
+    height: 28px;
+    margin-right: 21%;
+    margin-left: 5%;
+}
+
+button:hover {
+  transition: .2s;
+  opacity: .9;
+}
