@@ -32,26 +32,25 @@
   font-size: 38px;
 }
 
-h6 {
-  text-align: left;
-  margin-left: 10%;
-}
-
-
 h2 {
   text-align: left;
   margin-left: 10%;
   font-family: Poppins;
 }
 
-
-.orders-available {
+.all-orders {
   display: flex;
   flex-direction: column;
   align-items: left;
   height: 80vh;
   margin-left: 10%;
-  width: 85%;
+  margin-right: 10%;
 }
 
-
+.options {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 55%;
+  margin-left: 10%;
+}

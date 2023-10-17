@@ -30,6 +30,7 @@ import { HomeShopComponent } from './home-shop/home-shop.component';
 import { ShopAddProductComponent } from './shop-add-product/shop-add-product.component';
 import { ShopModifyProductComponent } from './shop-modify-product/shop-modify-product.component';
 import { SecondaryButtonComponent } from './secondary-button/secondary-button.component';
+import { AllDeliveredOrdersComponent } from './all-delivered-orders/all-delivered-orders.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { SecondaryButtonComponent } from './secondary-button/secondary-button.co
     ShopAddProductComponent,
     ShopModifyProductComponent,
     SecondaryButtonComponent,
+    AllDeliveredOrdersComponent,
   ],
   imports: [
     BrowserModule,

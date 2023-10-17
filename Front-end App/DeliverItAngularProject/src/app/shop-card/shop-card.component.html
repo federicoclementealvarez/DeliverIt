@@ -8,7 +8,7 @@
     <div class="text-and-star"><p class="card-bottomText">{{ bottomText }}</p><img *ngIf="hasStar === true" class="star-image" src="https://pixlok.com/wp-content/uploads/2021/07/Rating-SVG-Icon-s9fd.png"></div>
   </div>
   <div *ngIf="hasDropdown === true" class="dropdown">
-    <span class="material-symbols-outlined">expand_more</span>
+    <span class="material-symbols-outlined" (click)="showDescription()">expand_more</span>
   </div>
   <div *ngIf="hasButton === true" class="add-product-button-container">
     <div class="button-subcontainer">
@@ -16,3 +16,5 @@
     </div>
   </div>
 </div>
+<app-deliver-order-description *ngIf="orderDescription === true" description="1 Fanta 1Lt 2 Mac Combos" price="$5000"
+  client="Mauricio Ferrari" paymentType="Efectivo" orderStatus="En camino"></app-deliver-order-description>

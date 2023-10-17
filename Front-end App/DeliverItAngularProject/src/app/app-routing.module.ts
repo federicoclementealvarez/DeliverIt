@@ -16,6 +16,7 @@ import { ExploreNewDeliveriesComponent } from './explore-new-deliveries/explore-
 import { HomeShopComponent } from './home-shop/home-shop.component';
 import { ShopAddProductComponent } from './shop-add-product/shop-add-product.component';
 import { ShopModifyProductComponent } from './shop-modify-product/shop-modify-product.component';
+import { AllDeliveredOrdersComponent } from './all-delivered-orders/all-delivered-orders.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'shop-modify-product', component: ShopModifyProductComponent },
   { path: 'home-delivery-boy', component: HomeDeliveryBoyComponent },
   { path: 'explore-new-deliveries', component: ExploreNewDeliveriesComponent },
+  { path: 'all-delivered-orders', component: AllDeliveredOrdersComponent },
   { path: '**', component: LandingPageComponent }
   
 ];

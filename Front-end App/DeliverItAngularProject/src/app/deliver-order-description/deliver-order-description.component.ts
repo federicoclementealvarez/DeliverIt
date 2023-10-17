@@ -12,7 +12,14 @@ export class DeliverOrderDescriptionComponent {
   @Input() client: string;
   @Input() paymentType: string;
   @Input() orderStatus: string;
-  @Input() destination: string;
+  buttonName: string; 
+
+  addButtonName(): string{
+    if (this.orderStatus==='En camino'){this.buttonName='Cambiar Estado'}
+    else {this.buttonName='Aceptar Pedido'}
+    return this.buttonName;
+  }
+
   /*paymentType = [
     {id: 0, description: "Efectivo"},
     {id: 1, description: "Tarjeta"}

@@ -1,0 +1,33 @@
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<nav class="navbar">
+  <div class="container-pindrop">
+    <span class="material-symbols-rounded pin_drop"> pin_drop </span>
+  </div>
+  <div class="container-menu">
+    <span class="material-symbols-rounded menu">menu</span>
+  </div>
+</nav>
+
+<h2>Todas tus entregas</h2>
+
+  <div class="filter">
+    <select name="filter-options" class="options">
+      <option value="">Filtrar Por</option>
+      <option value="current-month">Este mes</option>
+      <option value="current-year">Este año</option>
+      <option value="comission-upper">Mayor Comisión</option>
+      <option value="comission-lower">Menor Comisión</option>
+    </select>
+  </div>
+
+
+<div class="all-orders">
+  <div class="order-cards-container">
+    <app-shop-card title="Lemmy's Pizza" subtitle="Origen: Urquiza 1500" bottomText="Destino: Paraguay 735 1°B"
+      [hasStar]=false [hasDropdown]=false></app-shop-card>
+    <app-shop-card title="Mostaza" subtitle="Av. Pellegrini 1700" bottomText="Destino: Tucumán 1027 5°A" [hasStar]=false
+      [hasDropdown]=false></app-shop-card>
+  </div>
+</div>

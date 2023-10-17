@@ -8,11 +8,9 @@ import { Component } from '@angular/core';
 export class HomeDeliveryBoyComponent {
   pedidosEnCurso: boolean = true; //esto será un arreglo con los pedidos en curso
   orderDescription: boolean = false; 
-alterView (){
+
+  alterView (){
   this.pedidosEnCurso = !this.pedidosEnCurso;
-}
-expandDeliver(){ //opcion para expandir y ver el pedido completo
-  this.orderDescription = !this.orderDescription;
 }
 
 }
