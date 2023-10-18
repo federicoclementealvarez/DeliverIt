@@ -10,18 +10,20 @@
 </nav>
 <h6 id="welcome-sign" (click)="alterView()">Bienvenido: Francisco</h6>  <!--el evento es para testear, va a ser removido-->
 <h2>Tus Pedidos en Curso</h2>
-<div class="current-orders"> <!--Acá iría un *ngFor con cada pedido activo-->
+<div class="current-orders">
   <div *ngIf="pedidosEnCurso === false" class="no-orders">
     <img class="img-no-orders" src="../assets/delivery boy on scooter.png">
     <h3>Vaya... No tienes pedidos en curso</h3>
   </div>
   <div *ngIf="pedidosEnCurso === true" class="active-orders">
+    <!--Acá iría un div con un *ngFor con cada pedido activo perteneciente al repartidor-->
     <app-shop-card title="Lemmy's Pizza" subtitle="Origen: Urquiza 1500" bottomText=" Destino: Laprida 736" [hasStar]=false [hasDropdown]=true></app-shop-card>
   </div>
   <a id="explore-more-deliveries" routerLink="/explore-new-deliveries"><app-primary-button title="Explorar más pedidos"></app-primary-button></a>
 </div>
 <hr id="division">
 <h6 id="welcome-sign">Tus últimas entregas</h6>
+<!--Aca va a tener que ir un *ngFor con los pedidos entregados pertenecientes al repartidor-->
 <div class="last-orders-container">
   <div class="shop-cards-container">
     <app-shop-card title="Lemmy's Pizza" subtitle="Urquiza 1500" bottomText="1 x Cerveza Andes, 2 x Pizza New York" [hasStar]=false></app-shop-card>
