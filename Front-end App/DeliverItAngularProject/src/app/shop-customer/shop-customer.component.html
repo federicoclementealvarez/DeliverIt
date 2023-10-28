@@ -20,16 +20,14 @@
 <h6 class="products-title">Productos</h6>
 <div class="content-container" id="margin-0">
   <div class="cards-container">
-    <app-shop-card productId=1 title="Pizza New York" subtitle="8 porciones" bottomText="$ 4500" [hasButton]=true></app-shop-card>
-    <app-shop-card productId=2 title="Pizza New York" subtitle="8 porciones" bottomText="$ 4500" [hasButton]=true></app-shop-card>
-    <app-shop-card title="Pizza New York" subtitle="8 porciones" bottomText="$ 4500" [hasButton]=true></app-shop-card>
-    <app-shop-card title="Pizza New York" subtitle="8 porciones" bottomText="$ 4500" [hasButton]=true></app-shop-card>
-    <app-shop-card title="Pizza New York" subtitle="8 porciones" bottomText="$ 4500" [hasButton]=true></app-shop-card>
-    <app-shop-card title="Pizza New York" subtitle="8 porciones" bottomText="$ 4500" [hasButton]=true></app-shop-card>
-    <app-shop-card title="Pizza New York" subtitle="8 porciones" bottomText="$ 4500" [hasButton]=true></app-shop-card>
-    <app-shop-card title="Pizza New York" subtitle="8 porciones" bottomText="$ 4500" [hasButton]=true></app-shop-card>
-    <app-shop-card title="Pizza New York" subtitle="8 porciones" bottomText="$ 4500" [hasButton]=true></app-shop-card>
-    <app-shop-card title="Pizza New York" subtitle="8 porciones" bottomText="$ 4500" [hasButton]=true></app-shop-card>
+    <app-shop-card 
+      *ngFor="let product of getProducts()"
+        [productId]=product.id
+        title={{product.name}}
+        subtitle={{product.description}}
+        bottomText="$ {{product.price}}"
+        [hasButton]="true">
+    </app-shop-card>
   </div>  
 </div>
 <div *ngIf="totalQty > 0" class="confirm-order-container">

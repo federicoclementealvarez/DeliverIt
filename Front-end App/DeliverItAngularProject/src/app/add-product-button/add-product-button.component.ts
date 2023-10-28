@@ -7,19 +7,22 @@ import { AddProductCustomerService } from '../services/add-product-customer.serv
   styleUrls: ['./add-product-button.component.scss']
 })
 export class AddProductButtonComponent {
+  public quantity: number = 0;
+  @Input() productId: number;
 
-  constructor(private service: AddProductCustomerService) {}
-
-  @Input() quantity: number = 0;
-  @Input() productId: string;
-
-  incrementQuantity(productId: string) {
-    this.quantity++
-    this.service.addProduct(parseInt(productId))
+  constructor(private service: AddProductCustomerService) {
+    console.log(this.quantity)
   }
 
-  diminishQuantity(productId: string) {
+
+  incrementQuantity(productId: number) {
+    this.quantity = 8
+    console.log(this.quantity)
+    this.service.addProduct(productId)
+  }
+
+  diminishQuantity(productId: number) {
     this.quantity--
-    this.service.removeProduct(parseInt(productId))
+    this.service.removeProduct(productId)
   }
 }
