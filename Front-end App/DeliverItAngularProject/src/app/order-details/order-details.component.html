@@ -1,24 +1,37 @@
-<div class="container">
-  <div class="title-container">
-    <h1>Detalle del Pedido</h1>
-  </div>
-  <div class="message-container">
-    <h3 class="align-left">Item</h3>
-  </div>
-  <div class="line-items-container">
-    <div class="line-item">
-      <div class="title"><p class="card-title">Pizza New York</p></div>
-      <div class="quantity-total-container">
-        <div class="quantity"><p class="card-subtitle">8 porciones</p></div>
-        <div class="total"><p class="card-subtitle">2 x $ 4500</p></div>
+<div class="parent-container">  
+  <div class="container">
+    <div class="title-container">
+      <h1>Detalle del Pedido</h1>
+    </div>
+    <div class="message-container">
+      <h3>Item</h3>
+      <h3>Precio</h3>
+    </div>
+    <div class="line-items-container">
+      <div *ngFor="let item of getItems()" class="line-item">
+        <div class="title">
+          <p class="card-title">{{item.product.name}}</p>
+        </div>
+        <div class="quantity-total-container">
+          <div class="quantity">
+            <p class="card-subtitle">{{item.product.description}}</p>
+          </div>
+          <div class="total">
+            <p class="card-subtitle">{{item.quantity}} x $ {{item.product.price}}</p>
+          </div>
+        </div>
       </div>
-    </div>       
-  </div>
-  <div class="total-container">
-    <p class="card-title">Total:</p>
-    <p class="card-title">$ 10000</p>
-  </div>
-  <div class="button-container">
-    <app-primary-button title="VOLVER AL MENÚ" routerLink="/home-customer"></app-primary-button>
+      <div class="quantity-total-container">
+          <p class="card-title">Precio del envío</p>
+          <p class="card-subtitle">$ {{ getShippingPrice() }}</p>
+      </div>
+    </div>
+    <div class="total-container">
+      <p class="card-title">Total:</p>
+      <p class="card-title">$ {{ getTotal() }}</p>
+    </div>
+    <div class="button-container">
+      <app-primary-button title="CONFIRMAR" routerLink="/home-customer"></app-primary-button>
+    </div>
   </div>
 </div>

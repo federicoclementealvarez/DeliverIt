@@ -8,10 +8,10 @@ export class Order {
   orderStatus: string;
 
   constructor(id: number, status: string) {
-  this.orderId = id;
-  this.clientId = id;
-  this.deliverId = id;
-  this.orderStatus = status;
+    this.orderId = id;
+    this.clientId = id;
+    this.deliverId = id;
+    this.orderStatus = status;
   }
 }
 
