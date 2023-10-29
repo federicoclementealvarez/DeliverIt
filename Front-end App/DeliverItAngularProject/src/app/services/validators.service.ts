@@ -21,11 +21,8 @@ export class ValidatorsService {
   }
 
   public validateTodayDate():ValidatorFn{
-    console.log("entró");
     return(control: AbstractControl) : ValidationErrors| null =>{
-      console.log(control.value);
       const isInvalid = (control.value!=this.getTodayDate());
-      console.log("isInvalid: "+ isInvalid);
       return (isInvalid)? {'notValid':true}:null;
     }
   }

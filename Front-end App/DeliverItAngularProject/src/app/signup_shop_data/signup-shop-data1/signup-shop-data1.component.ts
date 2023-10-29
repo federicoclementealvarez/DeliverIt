@@ -49,7 +49,6 @@ export class SignupShopData1Component {
   submit(){
     this.submitted = true;
     if(this.shopSignUpForm.valid){
-      console.log(this.shopSignUpForm.value)
       this.router.navigate(['/signup_shop_data2']);
     }
   }

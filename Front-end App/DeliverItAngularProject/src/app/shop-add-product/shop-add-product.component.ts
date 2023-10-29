@@ -68,7 +68,6 @@ export class ShopAddProductComponent {
       }
     
     submit(){
-        console.log(this.shopAddProductForm.value.validSince);
         this.submitted=true;
         if(this.validPhoto && this.shopAddProductForm.valid){
             this.router.navigate(['/home-shop']);
