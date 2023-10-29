@@ -1,28 +1,46 @@
-<div class="container">
-    <h1>Completar datos<br>del local</h1>
+<div class="container">  
+  <h1>Completar datos<br>del local</h1>
     <div class="input-button">
-      <div class="input-group">
-        <h6>Hora de apertura</h6>
-        <input type="time" autofocus>
-      </div>
-      <div class="input-group">
-        <h6>Hora de cierre</h6>
-        <input type="time">
-      </div>
-      <div class="input-group">
-        <h6>Precio del envío</h6>
-        <div class="currency">
-            <span id="money-sign">$</span>
-            <input id="amount" type="number" min="0">
+      <form [formGroup]="shopSignUpForm">
+        <div class="input-group">
+          <h6>Hora de apertura</h6>
+          <input type="time" formControlName="openingTime" autofocus>
+          <div [ngClass]="{'error-message-show': getOpeningTime().invalid && (submitted || getOpeningTime().touched)}" class="error-message" style="align-self: flex-start;"  id="errors">
+            <span class="error-icon-red">&#9888;</span>
+              Ingresa algún horario
+          </div>
         </div>
-      </div>
-      <div class="input-group">
-        <h6>Tipo de local</h6>
-        <select>
-            <option disabled selected hidden>Seleccione un tipo de local</option>
-            <option *ngFor="let shoptype of shopTypes">{{shoptype.description}}</option>
-        </select>
-      </div>
-      <a routerLink="/signup_shop_data2"><app-primary-button class="button-style" title="SIGUIENTE"></app-primary-button></a>
+        <div class="input-group">
+          <h6>Hora de cierre</h6>
+          <input type="time" formControlName="closingTime">
+          <div [ngClass]="{'error-message-show': getClosingTime().invalid && (submitted || getClosingTime().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+            <span class="error-icon-red">&#9888;</span>
+              Ingresa algún horario
+          </div>
+        </div>
+        <div class="input-group">
+          <h6>Precio del envío</h6>
+          <div class="currency">
+              <span id="money-sign">$</span>
+              <input id="amount" type="number" formControlName="shippingPrice" min="0">
+          </div>
+          <div [ngClass]="{'error-message-show': getShippingPrice().invalid && (submitted || getShippingPrice().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+            <span class="error-icon-red">&#9888;</span>
+              Ingresa algún monto válido
+          </div>
+        </div>
+        <div class="input-group">
+          <h6>Tipo de local</h6>
+          <select formControlName="shopType">
+              <option value="" disabled selected hidden>Seleccione un tipo de local</option>
+              <option *ngFor="let shoptype of shopTypes">{{shoptype.description}}</option>
+          </select>
+          <div [ngClass]="{'error-message-show': getShopType().invalid && (submitted || getShopType().touched)}" class="error-message" style="align-self: flex-start;"  id="errors">
+            <span class="error-icon-red">&#9888;</span>
+              Escoge alguna opción
+          </div>
+        </div>
+        <app-primary-button (click)="submit()" class="button-style" title="SIGUIENTE"></app-primary-button>
+      </form>
     </div>
   </div>

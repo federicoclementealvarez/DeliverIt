@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component} from '@angular/core';
+import { ValidatorsService } from '../services/validators.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({ 
@@ -8,13 +11,25 @@ import { Component, Input } from '@angular/core';
 })
 export class ShopAddProductComponent {
 
-    @Input() config : {title:string, primaryButtonText:string, hasProductType:boolean, disabledDate:boolean, hasDeleteButton:boolean} = {
-        title : 'Agregar Producto',
-        primaryButtonText: 'CONFIRMAR',
-        hasProductType : true, 
-        disabledDate: true,
-        hasDeleteButton: false
+    validator : ValidatorsService;
+    shopAddProductForm : FormGroup;
+    photoTouched: boolean = false;
+    validPhoto: boolean = null;
+    submitted: boolean = false;
+    
+    constructor(private router : Router){
     }
+
+    ngOnInit() {
+        this.validator = new ValidatorsService();
+        this.shopAddProductForm = new FormGroup({
+          name: new FormControl('', Validators.required),
+          description: new FormControl('', Validators.required),
+          amount: new FormControl('', [Validators.required,this.validator.validatePrice()]),
+          validSince: new FormControl(this.validator.getTodayDate(),this.validator.validateTodayDate()),
+          productType: new FormControl('', Validators.required)  
+        })
+      }
 
     shopTypes = [
         { id: 0, description: "Helado" },
@@ -23,14 +38,42 @@ export class ShopAddProductComponent {
         { id: 3, description: "Pizza" }
     ];
 
-    getTodayDate() {
-        const fecha = new Date().toLocaleDateString();
-        const year = fecha.slice(6,10);
-        const month = fecha.slice(3,5);
-        const day = fecha.slice(0,2);
-        return (year+'-'+month+'-'+day);
+    getName(){
+        return this.shopAddProductForm.get('name');
     }
 
+    getDescription(){
+        return this.shopAddProductForm.get('description');
+    }
+
+    getAmount(){
+        return this.shopAddProductForm.get('amount');
+    }
+
+    getValidSince(){
+        return this.shopAddProductForm.get('validSince');
+    }
+
+    getProductType(){
+        return this.shopAddProductForm.get('productType');
+    }
+
+    getTodayDate(){
+        return this.validator.getTodayDate();
+    }
+
+    onPhotoSelected(event){
+        this.validPhoto = this.validator.validateImageFormat(event.target.files[0]);
+        this.photoTouched = true;
+      }
+    
+    submit(){
+        console.log(this.shopAddProductForm.value.validSince);
+        this.submitted=true;
+        if(this.validPhoto && this.shopAddProductForm.valid){
+            this.router.navigate(['/home-shop']);
+          }
+    }
 }
 
 

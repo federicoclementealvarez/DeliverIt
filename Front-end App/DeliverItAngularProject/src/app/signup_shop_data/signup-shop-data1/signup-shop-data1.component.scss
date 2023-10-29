@@ -80,3 +80,8 @@ select{
     color: adjust-color($color: #444444d3);
     background-color:adjust-color($color: #d1d1d1);
 }
+
+#errors{
+  margin-top: -6px;
+  margin-bottom: 22px;
+}

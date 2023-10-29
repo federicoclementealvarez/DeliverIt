@@ -2,42 +2,67 @@
 
 
 <div class="container">
-  <h1>{{config.title}}</h1>
-  <form class="input-button">
+  <h1>Agregar producto</h1>
+  <form class="input-button" [formGroup]="shopAddProductForm">
     <div class="input-group">
       <h6>Nombre</h6>
-      <input type="text" autofocus>
+      <input type="text" autofocus formControlName="name">
+      <div [ngClass]="{'error-message-show': getName().invalid && (submitted || getName().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+        <span class="error-icon-red">&#9888;</span>
+          Ingresa algún nombre
+      </div>
     </div>
     <div class="input-group">
       <h6>Descripción</h6>
-      <input type="text">
+      <input type="text" formControlName="description">
+      <div [ngClass]="{'error-message-show': getDescription().invalid && (submitted || getDescription().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+        <span class="error-icon-red">&#9888;</span>
+          Ingresa alguna descripción
+      </div>
     </div>
     <div class="input-group">
         <h6>Foto</h6>
-        <input type="file" accept="image/*">
+        <input type="file" accept="image/*" (change)="onPhotoSelected($event)">
+        <div [ngClass]="{'error-message-show': !validPhoto && (submitted || photoTouched)}" class="error-message" style="align-self: flex-start;"  id="errors">
+          <span class="error-icon-red">&#9888;</span>
+            Escoge alguna imagen válida
+        </div>
       </div>
     <div class="input-group">
         <h6>Precio</h6>
         <div class="currency">
             <span id="money-sign">$</span>
-            <input id="amount" type="number" min="0">
+            <input id="amount" type="number" min="0" formControlName="amount">
+        </div>
+        <div [ngClass]="{'error-message-show': getAmount().invalid && (submitted || getAmount().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+          <span class="error-icon-red">&#9888;</span>
+            Ingresa algún monto válido
         </div>
     </div>
     <div>
         <div class="input-group">
             <h6>Válido desde</h6>
-            <input id="date" type="date" [value]="getTodayDate()" [disabled]="config.disabledDate">
+            <input id="date" type="date" readonly formControlName="validSince">
+            <div [ngClass]="{'error-message-show': getValidSince().invalid  && (submitted || getValidSince().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+              <span class="error-icon-red">&#9888;</span>
+                La fecha debe ser la del día de hoy
+            </div>
         </div>
     </div>
-    <div class="input-group" *ngIf="config.hasProductType">
+    <div class="input-group">
         <h6>Tipo de producto</h6>
-        <select>
-            <option disabled selected hidden>Seleccione un tipo de producto</option>
+        <select formControlName="productType">
+            <option value="" disabled selected hidden>Seleccione un tipo de producto</option>
             <option *ngFor="let shoptype of shopTypes">{{shoptype.description}}</option>
         </select>
-      </div>
-    <app-primary-button class="button-style" [title]="config.primaryButtonText">
-    </app-primary-button>
-    <app-secondary-button class="button-style" title="ELIMINAR" *ngIf="config.hasDeleteButton"></app-secondary-button>
+        <div [ngClass]="{'error-message-show': getProductType().invalid && (submitted || getProductType().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+          <span class="error-icon-red">&#9888;</span>
+          Escoge alguna opción
+        </div>
+    </div>
+    <div class="button-container">
+      <app-primary-button class="button-style" title='CONFIRMAR' (click)="submit()">
+      </app-primary-button>
+    </div>
   </form>
 </div>

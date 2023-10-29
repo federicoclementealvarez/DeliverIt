@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IcecreamflavorsService } from 'src/app/services/icecreamflavors.service';
+import { IcecreamflavorsService } from '../../services/icecreamflavors.service';
 
 @Component({
   selector: 'app-signup-shop-data-icecreamflavors',

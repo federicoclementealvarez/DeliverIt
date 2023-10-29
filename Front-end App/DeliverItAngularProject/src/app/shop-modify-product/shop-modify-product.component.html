@@ -1,1 +1,57 @@
-<app-shop-add-product [config]="{title:'Editar Producto', primaryButtonText:'ACTUALIZAR' , hasProductType:false, disabledDate: false, hasDeleteButton:true}"></app-shop-add-product>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+
+<div class="container">
+  <h1>Editar producto</h1>
+  <form class="input-button" [formGroup]="shopModifyProductForm">
+    <div class="input-group">
+      <h6>Nombre</h6>
+      <input type="text" autofocus formControlName="name">
+      <div [ngClass]="{'error-message-show': getName().invalid && (submitted || getName().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+        <span class="error-icon-red">&#9888;</span>
+          Ingresa algún nombre
+      </div>
+    </div>
+    <div class="input-group">
+      <h6>Descripción</h6>
+      <input type="text" formControlName="description">
+      <div [ngClass]="{'error-message-show': getDescription().invalid && (submitted || getDescription().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+        <span class="error-icon-red">&#9888;</span>
+          Ingresa alguna descripción
+      </div>
+    </div>
+    <div class="input-group">
+        <h6>Foto</h6>
+        <input type="file" accept="image/*" (change)="onPhotoSelected($event)">
+        <div [ngClass]="{'error-message-show': !validPhoto && (submitted || photoTouched)}" class="error-message" style="align-self: flex-start;"  id="errors">
+            <span class="error-icon-red">&#9888;</span>
+              Escoge alguna imagen válida
+        </div>
+      </div>
+    <div class="input-group">
+        <h6>Precio</h6>
+        <div class="currency">
+            <span id="money-sign">$</span>
+            <input id="amount" type="number" min="0" formControlName="amount">
+        </div>
+        <div [ngClass]="{'error-message-show': getAmount().invalid && (submitted || getAmount().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+          <span class="error-icon-red">&#9888;</span>
+            Ingresa algún monto válido
+        </div>
+    </div>
+    <div>
+        <div class="input-group">
+            <h6>Válido desde</h6>
+            <input id="date" type="date" formControlName="validSince">
+            <div [ngClass]="{'error-message-show': getValidSince().invalid  && (submitted || getValidSince().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+              <span class="error-icon-red">&#9888;</span>
+              La fecha debe ser la del día de hoy o después
+            </div>
+        </div>
+    </div>
+    <app-primary-button class="button-style" title="ACTUALIZAR" (click)="submit()"></app-primary-button>
+    <div class="last-button-container">
+        <app-secondary-button class="button-style" title="ELIMINAR"></app-secondary-button>
+    </div>
+  </form>
+</div>

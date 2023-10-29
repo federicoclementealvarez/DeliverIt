@@ -1,14 +1,24 @@
 <div class="container">
     <h1>Completar fotos<br>del local</h1>
     <div class="input-button">
-      <div class="input-group">
-        <h6>Logo</h6>
-        <input type="file" accept="image/*">
-      </div>
-      <div class="input-group">
-        <h6 id="banner-text">Banner <span>(opcional)</span></h6>
-        <input type="file" accept="image/*">
-      </div>
-      <a routerLink="/signup_shop_data2"><app-primary-button class="button-style" title="CONFIRMAR"></app-primary-button></a>
+      <form>
+        <div class="input-group">
+          <h6>Logo</h6>
+          <input type="file" accept="image/*" (change)="onLogoSelected($event)">
+          <div [ngClass]="{'error-message-show': !validLogo && (submitted || logoTouched)}" class="error-message" style="align-self: flex-start;"  id="errors">
+            <span class="error-icon-red">&#9888;</span>
+            Escoge alguna imagen válida
+          </div>
+        </div>
+        <div class="input-group">
+          <h6 id="banner-text">Banner <span>(opcional)</span></h6>
+          <input type="file" accept="image/*" (change)="onBannerSelected($event)">
+          <div [ngClass]="{'error-message-show': !validBanner && (submitted || bannerTouched)}" class="error-message" style="align-self: flex-start;"  id="errors">
+            <span class="error-icon-red">&#9888;</span>
+              Escoge alguna imagen válida
+          </div>
+        </div>
+        <app-primary-button class="button-style" title="CONFIRMAR" (click)="submit()"></app-primary-button>
+      </form>
     </div>
-  </div>
+</div>
