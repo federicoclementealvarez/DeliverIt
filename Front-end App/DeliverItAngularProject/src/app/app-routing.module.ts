@@ -17,6 +17,7 @@ import { HomeShopComponent } from './home-shop/home-shop.component';
 import { ShopAddProductComponent } from './shop-add-product/shop-add-product.component';
 import { ShopModifyProductComponent } from './shop-modify-product/shop-modify-product.component';
 import { AllDeliveredOrdersComponent } from './all-delivered-orders/all-delivered-orders.component';
+import { ShopListProductComponent } from './shop-list-product/shop-list-product.component';
 
 
 const routes: Routes = [
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'signup_shop_data_icecreamflavors', component: SignupShopDataIcecreamflavorsComponent},
   { path: 'home-shop', component: HomeShopComponent },
   { path: 'shop-add-product', component: ShopAddProductComponent },
+  { path: 'shop-list-product', component: ShopListProductComponent },
   { path: 'shop-modify-product', component: ShopModifyProductComponent },
   { path: 'home-delivery-boy', component: HomeDeliveryBoyComponent },
   { path: 'explore-new-deliveries', component: ExploreNewDeliveriesComponent },

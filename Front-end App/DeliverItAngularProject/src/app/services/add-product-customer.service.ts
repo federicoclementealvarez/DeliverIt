@@ -21,6 +21,9 @@ export class AddProductCustomerService {
   
   private sendLastTotalQty = new BehaviorSubject<any[]>([]);
   lastTotalQty = this.sendLastTotalQty.asObservable();
+
+  private editClicked = new BehaviorSubject<boolean>(false);
+  editHasBeenClicked = this.editClicked.asObservable();
   
   addProduct(id: number) {
     // Obtengo el producto del servicio
@@ -89,5 +92,9 @@ export class AddProductCustomerService {
 
     sum += this.shopCustomerService.getShippingPrice()
     return sum
+  }
+
+  clickOnEdit(){
+    this.editClicked.next(true);
   }
 }

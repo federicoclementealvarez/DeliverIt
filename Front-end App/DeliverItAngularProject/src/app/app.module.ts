@@ -31,6 +31,8 @@ import { ShopAddProductComponent } from './shop-add-product/shop-add-product.com
 import { ShopModifyProductComponent } from './shop-modify-product/shop-modify-product.component';
 import { SecondaryButtonComponent } from './secondary-button/secondary-button.component';
 import { AllDeliveredOrdersComponent } from './all-delivered-orders/all-delivered-orders.component';
+import { ShopListProductComponent } from './shop-list-product/shop-list-product.component';
+import { EditProductButtonComponent } from './edit-product-button/edit-product-button.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,8 @@ import { AllDeliveredOrdersComponent } from './all-delivered-orders/all-delivere
     ShopModifyProductComponent,
     SecondaryButtonComponent,
     AllDeliveredOrdersComponent,
+    ShopListProductComponent,
+    EditProductButtonComponent,
   ],
   imports: [
     BrowserModule,

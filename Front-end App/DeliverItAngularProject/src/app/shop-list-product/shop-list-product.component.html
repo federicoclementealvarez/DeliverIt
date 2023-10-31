@@ -1,0 +1,32 @@
+<div class="banner-container">
+    <img class="banner-image" src="https://wallpaperaccess.com/full/424487.jpg" alt="banner">
+  </div>
+  <div class="content-container">
+    <div class="shop-data">
+      <div class="image-container">
+        <img class="shop-icon" src="https://img.restaurantguru.com/r6f0-Lemmys-logo-2020-08.jpg" alt="icono del local">
+      </div>
+      <div class="info-container">
+        <p class="card-title">Lemmy's Pizza</p>
+        <p class="card-subtitle">Urquiza 1500</p>
+        <div class="text-and-star-container">
+          <p class="card-bottomText">4.8</p>
+          <img class="star-image" src="..\assets\buttons_logos\star_rating_icon.png">
+          <p class="opiniones">Ver opiniones</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h6 class="products-title">Productos</h6>
+  <div class="content-container" id="margin-0">
+    <div class="cards-container">
+      <app-shop-card 
+        *ngFor="let product of getProducts()"
+          [productId]=product.id
+          title={{product.name}}
+          subtitle={{product.description}}
+          bottomText="$ {{product.price}}"
+          [hasEditButton]="true">
+      </app-shop-card>
+    </div>  
+  </div>

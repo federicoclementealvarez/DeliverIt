@@ -15,7 +15,7 @@ export class HomeShopComponent {
   }
 
   onModifyProducts(){
-    this.router.navigate(['/shop-modify-product']);
+    this.router.navigate(['/shop-list-product']);
   }
 
   onModifyShopData(){

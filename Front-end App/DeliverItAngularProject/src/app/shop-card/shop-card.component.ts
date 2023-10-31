@@ -13,7 +13,8 @@ export class ShopCardComponent {
   @Input() bottomText: string;
   @Input() hasStar: boolean;
   @Input() hasDropdown: boolean = false;
-  @Input() hasButton: boolean;
+  @Input() hasAddButton: boolean;
+  @Input() hasEditButton: boolean = false;
   orderDescription: boolean = false;
 
   showDescription(){
