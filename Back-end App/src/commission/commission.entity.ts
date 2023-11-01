@@ -1,8 +1,12 @@
-export class Commission 
+import { Entity, Property } from '@mikro-orm/core'
+import { BaseEntity } from '../shared/baseEntity.entity.js'
+
+@Entity()
+export class Commission extends BaseEntity
 {
-  constructor(
-    public id: number,
-    public validSince: Date,
-    public percentage: number
-  ){};
+  @Property({ nullable: false })
+    validSince!: Date
+
+  @Property({ nullable: false })
+  percentage!: number
 }

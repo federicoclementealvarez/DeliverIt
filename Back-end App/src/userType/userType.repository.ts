@@ -1,4 +1,4 @@
-import { Repository } from '../../shared/repository.js';
+import { Repository } from '../shared/repository.js';
 import { userType } from './userType.entity.js';
 
 const userTypes = [

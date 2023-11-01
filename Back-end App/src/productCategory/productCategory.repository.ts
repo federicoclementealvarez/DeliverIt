@@ -1,5 +1,5 @@
 import { it } from "node:test";
-import { Repository } from "../../shared/repository.js";
+import { Repository } from "../shared/repository.js";
 import { ProductCategory } from "./productCategory.entity.js";
 
 const productCategories = [

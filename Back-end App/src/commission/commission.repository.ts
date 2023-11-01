@@ -1,4 +1,4 @@
-import { Repository } from '../../shared/repository.js';
+import { Repository } from '../shared/repository.js';
 import { Commission } from './commission.entity.js';
 
 const commissions = [
