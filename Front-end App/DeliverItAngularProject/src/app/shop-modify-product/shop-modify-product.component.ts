@@ -10,17 +10,15 @@ import { Router } from '@angular/router';
 })
 export class ShopModifyProductComponent {
 
-  validator : ValidatorsService;
   shopModifyProductForm : FormGroup;
   photoTouched: boolean = false;
   validPhoto: boolean = null;
   submitted: boolean = false;
   
-  constructor(private router : Router){
+  constructor(private router : Router, private validator : ValidatorsService){
   }
 
   ngOnInit() {
-      this.validator = new ValidatorsService();
       this.shopModifyProductForm = new FormGroup({
         name: new FormControl('', Validators.required),
         description: new FormControl('', Validators.required),

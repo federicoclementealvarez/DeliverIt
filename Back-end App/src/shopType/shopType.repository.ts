@@ -1,4 +1,4 @@
-import { Repository } from '../../shared/repository.js';
+import { Repository } from '../shared/repository.js';
 import { shopType } from './shopType.entity.js';
 
 const shopTypes = [

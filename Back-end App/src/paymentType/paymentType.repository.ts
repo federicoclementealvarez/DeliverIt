@@ -1,4 +1,4 @@
-import { Repository } from '../../shared/repository.js';
+import { Repository } from '../shared/repository.js';
 import { paymentType } from './paymentType.entity.js';
 
 const paymentTypes = [

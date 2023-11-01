@@ -10,8 +10,6 @@ import {ValidatorsService} from '../../services/validators.service';
 })
 export class SignupShopData1Component {
 
-  constructor(private router: Router){}
-
   shopTypes = [
     {id: 0, description: "Heladería"},
     {id: 1, description: "Farmacia"},
@@ -21,10 +19,10 @@ export class SignupShopData1Component {
 
   shopSignUpForm : FormGroup;
   submitted: boolean = false;
-  shippingPricevalidator : ValidatorsService;
+
+  constructor(private router: Router, private shippingPricevalidator : ValidatorsService){}
 
   ngOnInit() {
-    this.shippingPricevalidator = new ValidatorsService();
     this.shopSignUpForm = new FormGroup({
       openingTime: new FormControl('', Validators.required),
       closingTime: new FormControl('', Validators.required),

@@ -10,15 +10,12 @@ import {ValidatorsService} from '../../services/validators.service';
 export class SignupShopData2Component {
 
   submitted: boolean = false;
-  validator : ValidatorsService;
   validLogo:boolean = null;
   logoTouched: boolean = false;
   validBanner:boolean = null;
   bannerTouched: boolean = false;
   
-  constructor(private router: Router){
-    this.validator = new ValidatorsService();
-  }
+  constructor(private router: Router, private validator: ValidatorsService){}
 
   onLogoSelected(event){
     this.validLogo = this.validator.validateImageFormat(event.target.files[0]);

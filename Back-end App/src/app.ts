@@ -4,9 +4,16 @@ import { paymentTypeRouter } from './paymentType/paymentType.routes.js';
 import { productCategoryRouter } from './productCategory/productCategory.routes.js';
 import { commissionRouter } from './commission/commission.routes.js';
 import { userTypeRouter } from './userType/userType.routes.js';
+import { RequestContext } from '@mikro-orm/core';
+import { orm } from './shared/orm.js';
 
 const app = express();
 app.use(express.json());
+
+app.use((req, res, next) => {
+    RequestContext.create(orm.em, next)
+  })
+
 app.use('/api/shopTypes', shopTypeRouter);
 app.use('/api/paymentTypes', paymentTypeRouter);
 app.use('/api/productCategories', productCategoryRouter);
