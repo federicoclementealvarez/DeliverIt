@@ -74,7 +74,8 @@ export class Shop extends BaseEntity
     @OneToMany(() => Review, (review) => review.shop, {
         cascade: [Cascade.ALL],
     })
+    reviews = new Collection<Review>(this)
 
-    @OneToOne({ nullable: false })
-    user!: User;
+    @OneToOne(() => User, { nullable: false })
+    user!: Rel<User>;
 }

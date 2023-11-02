@@ -1,5 +1,6 @@
 import { Cascade, Collection, Entity, OneToMany, Property } from '@mikro-orm/core'
 import { BaseEntity } from '../shared/baseEntity.entity.js'
+import { Order } from '../order/order.entity.js'
 
 @Entity()
 export class PaymentType extends BaseEntity

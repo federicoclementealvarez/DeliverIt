@@ -1,10 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { ProductCategoryRepository } from "./productCategory.repository.js";
 import { ProductCategory } from "./productCategory.entity.js";
 
-const repository = new ProductCategoryRepository()
 
-function sanitizeProductCategoryInput(req: Request, res: Response, next: NextFunction) {
+export function sanitizedInput(req: Request, _: Response, next: NextFunction) {
   req.body.sanitizedInput = {
     id: req.body.id,
     description: req.body.description
@@ -18,64 +16,49 @@ function sanitizeProductCategoryInput(req: Request, res: Response, next: NextFun
   next()
 }
 
-function findAll(req: Request, res: Response) {
-  res.json({ data: repository.findAll() })
-}
-
-function findOne(req: Request, res: Response) {
-  const id = parseInt(req.params.id)
-  const productCategory = repository.findOne({id})
-  
-  if(!productCategory) {
-    return res.status(404).send({message: 'Product Category not found'})
-  } 
-  
-  res.json({ data: productCategory })
-}
-
-function add(req: Request, res:Response) {
-  const input = req.body.sanitizedInput
-
-  const productCategoryInput = new ProductCategory(
-    input.id,
-    input.description
-  )
-
-  const productCategory = repository.add(productCategoryInput)
-
-  if (productCategory === undefined) {
-    return res.status(404).send({ message: 'Product Category could not be added' })
+export function findAll(_: Request, res: Response) 
+{
+  try{
+    res.status(500).json({message: 'Method not implemented'})
   }
-  return res.status(201).send({ message: 'Product Category created', data: productCategory })
-}
-
-function update(req: Request, res: Response) {
-  req.body.sanitizedInput.id = parseInt(req.params.id);
-  const productCategory = repository.update(req.body.sanitizedInput)
-
-  if (productCategory === undefined) {
-    return res.status(404).send({ message: 'Product Category not found' })
+  catch(error:any){
+    res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
   }
-  
-  return res.status(200).send({ message: 'Product Category updated', data: productCategory })  
 }
 
-function remove(req: Request, res: Response) {
-  const id = parseInt(req.params.id)
-  const productCategory = repository.remove({id})
-
-  if (productCategory === undefined) {
-    return res.status(404).send({ message: 'Product Category not found' })
+export function findOne(_: Request, res: Response) {
+  try{
+    res.status(500).json({message: 'Method not implemented'})
   }
-
-  return res.status(200).send({ message: 'Product Category deleted', data: productCategory })  
+  catch(error:any){
+    res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+  }
 }
 
-export const productCategoryController = {
-  sanitizeProductCategoryInput,
-  findAll,
-  findOne,
-  add,
-  update,
-  remove
+export function add(_: Request, res:Response) {
+  try{
+    res.status(500).json({message: 'Method not implemented'})
+  }
+  catch(error:any){
+    res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+  }
 }
+
+export function update(_: Request, res: Response) {
+  try{
+    res.status(500).json({message: 'Method not implemented'})
+  }
+  catch(error:any){
+    res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+  }
+}
+
+export function remove(_: Request, res: Response) {
+  try{
+    res.status(500).json({message: 'Method not implemented'})
+  }
+  catch(error:any){
+    res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+  }
+}
+
