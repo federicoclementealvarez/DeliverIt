@@ -1,10 +1,7 @@
 import { Response, Request, NextFunction } from 'express';
 import { Commission } from './commission.entity.js';
-import { CommissionRepository } from './commission.repository.js';
 
-const repository = new CommissionRepository();
-
-function sanitizeInputCommission (req: Request, res: Response, next: NextFunction)
+export function sanitizedInput(req: Request, _: Response, next: NextFunction)
 {
     req.body.sanitizedInput= {
     id: req.body.id,
@@ -20,45 +17,53 @@ function sanitizeInputCommission (req: Request, res: Response, next: NextFunctio
   next()
 }
 
-function findAll(req: Request, res: Response) { res.json({data:repository.findAll()}) }
-
-function findOne (req: Request, res: Response) 
-{
-  const id = parseInt(req.params.id)
-  const commission = repository.findOne({id})
-  
-  if (!commission) { res.status(404).send({message:'Commission not found'})}
-  else {res.json({data: commission})}
+export function findAll(_: Request, res: Response) 
+{ 
+  try{
+    res.status(500).json({message: 'Method not implemented'})
+  }
+  catch(error:any){
+    res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+  }
 }
 
-function add(req: Request, res:Response)
+export function findOne (_: Request, res: Response) 
 {
-  const input = req.body.sanitizedInput
-  const commissionInput = new Commission (
-    input.id,
-    input.validSince,
-    input.percentage
-  )
-  
-  const commission = repository.add(commissionInput)
-  res.status(201).send({message: 'Commission created', data : commission})
+  try{
+    res.status(500).json({message: 'Method not implemented'})
+  }
+  catch(error:any){
+    res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+  }
 }
 
-function update(req:Request, res: Response)
+export function add(_: Request, res:Response)
 {
-  req.body.sanitizedInput.id = parseInt(req.params.id)
-  const commission = repository.update(req.body.sanitizedInput)
-
-  if (!commission) { return res.status(404).send({ message: 'Commission not found' })}
-  else { return res.status(200).send({ message: 'Commission updated successfully', data: commission })}
+  try{
+    res.status(500).json({message: 'Method not implemented'})
+  }
+  catch(error:any){
+    res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+  }
 }
 
-function remove (req:Request, res: Response)
+export function update(_:Request, res: Response)
 {
-  const id = parseInt(req.params.id)
-  const commission = repository.remove({id})
-  if (!commission)  { return res.status(404).send({ message: 'Commission not found' }) }
-  else { return res.status(200).send({ message: 'Commission deleted successfully', data: commission })}
+  try{
+    res.status(500).json({message: 'Method not implemented'})
+  }
+  catch(error:any){
+    res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+  }
 }
 
-export {findAll, findOne, add ,update, remove, sanitizeInputCommission }
+export function remove (_:Request, res: Response)
+{
+  try{
+    res.status(500).json({message: 'Method not implemented'})
+  }
+  catch(error:any){
+    res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+  }
+}
+

@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { productCategoryController } from "./productCategory.controller.js";
+import { findAll, findOne, remove,update,add,sanitizedInput } from "./productCategory.controller.js";
 
 export const productCategoryRouter = Router()
 
-productCategoryRouter.get('/', productCategoryController.findAll)
-productCategoryRouter.get('/:id', productCategoryController.findOne)
-productCategoryRouter.post('/', productCategoryController.sanitizeProductCategoryInput,productCategoryController.add)
-productCategoryRouter.put('/:id', productCategoryController.sanitizeProductCategoryInput,productCategoryController.update)
-productCategoryRouter.patch('/:id', productCategoryController.sanitizeProductCategoryInput,productCategoryController.update)
-productCategoryRouter.delete('/:id', productCategoryController.remove)
+productCategoryRouter.get('/', findAll)
+productCategoryRouter.get('/:id', findOne)
+productCategoryRouter.post('/', sanitizedInput,add)
+productCategoryRouter.put('/:id', sanitizedInput,update)
+productCategoryRouter.patch('/:id', sanitizedInput,update)
+productCategoryRouter.delete('/:id', remove)

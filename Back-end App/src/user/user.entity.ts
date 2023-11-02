@@ -51,16 +51,19 @@ export class User extends BaseEntity
     @OneToMany(() => Order, (order) => order.client, {
         cascade: [Cascade.ALL],
     })
+    clientOrders = new Collection<Order>(this)
 
     // User ships orders
     @OneToMany(() => Order, (order) => order.delivery, {
         cascade: [Cascade.ALL],
     })
+    deliveryOrders = new Collection<Order>(this)
 
     @OneToMany(() => Review, (review) => review.user, {
         cascade: [Cascade.ALL],
     })
+    reviews = new Collection<Review>(this)
 
-    @OneToOne({ nullable: true })
-    shop?: Shop;
+    @OneToOne(() => Shop, { nullable: true })
+    shop?: Rel<Shop>;
 }

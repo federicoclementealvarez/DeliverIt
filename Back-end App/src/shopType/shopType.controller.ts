@@ -1,10 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { shopType } from './shopType.entity.js';
-import { shopTypeRepository } from './shopType.repository.js';
+import { ShopType } from './shopType.entity.js';
 
-const repository = new shopTypeRepository();
-
-export function sanitizedInput(req: Request, res: Response, next: NextFunction){
+export function sanitizedInput(req: Request, _: Response, next: NextFunction){
     
     req.body.sanitizedInput = {
         id : req.body.id,
@@ -19,44 +16,51 @@ export function sanitizedInput(req: Request, res: Response, next: NextFunction){
     next();
 }
 
-export function findAll(req: Request, res: Response){
-    res.json({data : repository.findAll()});
+export function findAll(_: Request, res: Response)
+{
+    try{
+        res.status(500).json({message: 'Method not implemented'})
+        }
+    catch(error:any){
+        res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+        }
 }
 
-export function findOne(req: Request, res: Response){
-    const id = parseInt(req.params.id);
-    const foundShopType = repository.findOne({id});
-    if(foundShopType===undefined){
-        return res.status(404).send({message: 'Shop Type not found'});
-    }
-    res.status(200).send({data : foundShopType});
+export function findOne(_: Request, res: Response)
+{
+    try{
+        res.status(500).json({message: 'Method not implemented'})
+      }
+      catch(error:any){
+        res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+      }
 }
 
-export function remove(req: Request, res: Response){
-    const id = parseInt(req.params.id);
-    const removedShopType = repository.remove({id});
-    if(removedShopType===undefined){
-        return res.status(404).send({message: 'Shop Type not found'});
-    }
-    res.status(201).send({message : 'Shop Type removed succesfully'});
+export function remove(_: Request, res: Response)
+{
+    try{
+        res.status(500).json({message: 'Method not implemented'})
+      }
+      catch(error:any){
+        res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+      }
 }
 
-export function add(req: Request, res: Response){
-    const toBeAddedShopType = new shopType(req.body.sanitizedInput.id, req.body.sanitizedInput.description);
-    const addedShopType = repository.add(toBeAddedShopType);
-    
-    if (addedShopType===undefined){
-        return res.status(404).send({message : 'Shop Type could not be added'});
-    }
-
-    res.status(200).send({message : "Shop Type added successfully", data : addedShopType});
+export function add(_: Request, res: Response)
+{
+    try{
+        res.status(500).json({message: 'Method not implemented'})
+      }
+      catch(error:any){
+        res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+      }
 }
 
-export function update(req: Request, res: Response){
-    req.body.sanitizedInput.id = parseInt(req.params.id);
-    const updatedShopType = repository.update(req.body.sanitizedInput);
-    if (updatedShopType===undefined){
-        return res.status(404).send({message : 'Shop Type could not be updated'});
-    }
-    res.status(200).send({message : "Shop Type updated successfully", data : updatedShopType});
+export function update(_: Request, res: Response){
+    try{
+        res.status(500).json({message: 'Method not implemented'})
+      }
+      catch(error:any){
+        res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+      }
 }
