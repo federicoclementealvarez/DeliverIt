@@ -11,5 +11,5 @@ export class ShopType extends BaseEntity
     @OneToMany(() => Shop, (shop) => shop.shopType, {
         cascade: [Cascade.ALL],
       })
-      shop = new Collection<Shop>(this)
+      shops = new Collection<Shop>(this)
 }

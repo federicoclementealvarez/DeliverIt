@@ -1,4 +1,4 @@
-import { Rel, Entity, ManyToOne, Property, Collection, OneToMany, Cascade} from '@mikro-orm/core'
+import { Rel, Entity, ManyToOne, Property, Collection, OneToMany, Cascade, Filter} from '@mikro-orm/core'
 import { BaseEntity } from '../shared/baseEntity.entity.js'
 import { Shop } from '../shop/shop.entity.js'
 import { ProductCategory } from '../productCategory/productCategory.entity.js'
@@ -6,6 +6,7 @@ import { Price } from '../price/price.entity.js'
 import { LineItem } from '../lineItem/lineItem.entity.js'
 
 @Entity()
+@Filter({ name: 'productCategory', cond:  args =>({ productCategory: {$in: args} }) }) 
 export class Product extends BaseEntity
 {
     @Property({ nullable: false })
@@ -14,8 +15,8 @@ export class Product extends BaseEntity
     @Property({ nullable: false })
     description!: string
 
-    @Property({ nullable: false })
-    photoPath!: string
+    @Property({ nullable: true })
+    photoPath?: string
 
     @Property({ persist: false })
     photo!: File
