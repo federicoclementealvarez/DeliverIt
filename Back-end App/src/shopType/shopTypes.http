@@ -1,26 +1,24 @@
 ###
 GET http://localhost:3000/api/shopTypes/
-
 ###
-DELETE http://localhost:3000/api/shopTypes/3
+DELETE http://localhost:3000/api/shopTypes/
 
 ###
 POST http://localhost:3000/api/shopTypes
 Content-Type: application/json
 
 {
-    
     "id" : 3,
-    "description" : "verdulería"
+    "description" : "carnicería"
 }
 
 ###
-PUT http://localhost:3000/api/shopTypes/2
+PUT http://localhost:3000/api/shopTypes/6543e28463e26be00d63254d
 Content-Type: application/json
 
 {
-    "id" : 2,
-    "description": "otro negocio",
+    "id" : "6543e28463e26be00d63254a",
+    "description": "verduu",
     "otraCosa" : "xd"
 }
 

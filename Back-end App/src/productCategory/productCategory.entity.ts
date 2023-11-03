@@ -1,8 +1,9 @@
-import { Cascade, Collection, Entity, OneToMany, Property } from '@mikro-orm/core'
+import { Cascade, Collection, Entity, Filter, OneToMany, Property } from '@mikro-orm/core'
 import { BaseEntity } from '../shared/baseEntity.entity.js'
 import { Product } from '../product/product.entity.js'
 
 @Entity()
+@Filter({ name: 'description', cond:  args =>({ description: { $regex: args.par } }) })
 export class ProductCategory extends BaseEntity
 {
   @Property({ nullable: false })

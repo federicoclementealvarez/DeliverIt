@@ -1,4 +1,4 @@
-import { Rel, Entity, ManyToOne, Property, Cascade, Collection, OneToMany, OneToOne, TimeType} from '@mikro-orm/core'
+import { Rel, Entity, ManyToOne, Property, Cascade, Collection, OneToMany, OneToOne, TimeType, Filter} from '@mikro-orm/core'
 import { BaseEntity } from '../shared/baseEntity.entity.js'
 import { ProductVariation } from '../productVariation/productVariation.entity.js'
 import { ShopType } from '../shopType/shopType.entity.js'
@@ -7,6 +7,9 @@ import { Product } from '../product/product.entity.js'
 import { Review } from '../review/review.entity.js'
 
 @Entity()
+@Filter({ name: 'name', cond:  args =>({ name: { $regex: args.par } }) }) //the regular expression is sent complete in the 'args' parameter
+@Filter({ name: 'shoptype', cond:  args =>({ shopType: {id: args.par} }) }) //the shopType id is sent as the 'args' parameter
+@Filter({ name: 'getByIds', cond:  args =>({ id: {$in: args} }) })
 export class Shop extends BaseEntity
 {
   @Property({ nullable: false })
@@ -17,9 +20,6 @@ export class Shop extends BaseEntity
 
     @Property({ nullable: false })
     email!: string
-
-    @Property({ nullable: false })
-    password!: string
 
     @Property({ nullable: false })
     logoPath!: string
