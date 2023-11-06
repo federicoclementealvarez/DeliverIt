@@ -13,12 +13,17 @@
     "@mikro-orm/core": "5.9.0",
     "@mikro-orm/mongo-highlighter": "1.0.0",
     "@mikro-orm/mongodb": "5.9.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "express": "4.18.2",
     "mongodb": "^6.2.0",
+    "multer": "1.4.5-lts.1",
     "reflect-metadata": "0.1.13"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.15",
     "@types/express": "4.17.17",
+    "@types/multer": "^1.4.9",
     "@types/node": "20.6.0",
     "tsc-watch": "6.0.4",
     "typescript": "5.2.2"

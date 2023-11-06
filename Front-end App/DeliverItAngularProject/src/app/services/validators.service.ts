@@ -16,6 +16,7 @@ export class ValidatorsService {
   public validatePrice():ValidatorFn{
     return(control: AbstractControl) : ValidationErrors| null =>{
       const isInvalid = (control.value=="" || Number.isNaN(control.value) || control.value<0);
+      if(Number.isNaN(control.value)) console.log('entró acá jej')
       return (isInvalid)? {'notValid':true}:null;
     }
   }
@@ -42,10 +43,12 @@ export class ValidatorsService {
   }
 
   public getTodayDate(){
-      const fecha = new Date().toLocaleDateString();
-      const year = fecha.slice(6,10);
-      const month = fecha.slice(3,5);
-      const day = fecha.slice(0,2);
-      return (year+'-'+month+'-'+day);
+        const d = new Date(new Date());
+        let month = '' + (d.getMonth() + 1);
+        let day = '' + d.getDate();
+        const year = d.getFullYear();
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+        return [year, month, day].join('-');
   }
 }

@@ -18,14 +18,11 @@ export class Product extends BaseEntity
     @Property({ nullable: true })
     photoPath?: string
 
-    @Property({ persist: false })
-    photo!: File
+    /*@ManyToOne(() => Shop, { nullable: false })
+    shop !: Rel<Shop>*/
 
-    @ManyToOne(() => Shop, { nullable: false })
-    shop !: Rel<Shop>
-
-    @ManyToOne(() => ProductCategory, { nullable: false })
-    productCategory !: Rel<ProductCategory>
+    /*@ManyToOne(() => ProductCategory, { nullable: false })
+    productCategory !: Rel<ProductCategory>*/
 
     @OneToMany(() => Price, (price) => price.product, {
         cascade: [Cascade.ALL],
