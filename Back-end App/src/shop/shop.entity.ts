@@ -24,14 +24,8 @@ export class Shop extends BaseEntity
     @Property({ nullable: false })
     logoPath!: string
 
-    @Property({ persist:false })
-    logo!: File
-
     @Property({ nullable: true })
     bannerPath?: string
-
-    @Property({ persist:false })
-    banner?: File
     
     @Property({ nullable: false })
     openingTime!: TimeType
@@ -66,10 +60,10 @@ export class Shop extends BaseEntity
     productVariations = new Collection<ProductVariation>(this)
 
     // User ships orders
-    @OneToMany(() => Product, (product) => product.shop, {
+    /*@OneToMany(() => Product, (product) => product.shop, {
         cascade: [Cascade.ALL],
     })
-    products = new Collection<Product>(this)
+    products = new Collection<Product>(this)*/
 
     @OneToMany(() => Review, (review) => review.shop, {
         cascade: [Cascade.ALL],
