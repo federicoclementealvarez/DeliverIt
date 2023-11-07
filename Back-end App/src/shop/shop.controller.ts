@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { Shop } from './shop.entity.js';
 import { orm } from '../shared/orm.js';
 import { validator } from '../shared/validator.js';
-import { findShopsByProductCategory } from '../product/product.controller.js';
+//import { findShopsByProductCategory } from '../product/product.controller.js';
 
 const em = orm.em
 
@@ -37,7 +37,7 @@ export function sanitizedInput(req: Request, _: Response, next: NextFunction){
 export async function findAll(_: Request, res: Response)
 {
     try{
-        const shopTypes = await em.find(Shop, {}, { populate: ['products'] })
+        const shopTypes = await em.find(Shop, {})
         return res.status(200).json({message: 'All shops found', body: shopTypes})
         }
     catch(error:any){
@@ -52,7 +52,7 @@ export async function findOneById(req: Request, res: Response)
         if(!validatorResponse.isValid){
           return res.status(500).json({message: validatorResponse.message})
         }
-        const shopType = await em.findOne(Shop,req.params.id)
+        const shopType = await em.findOne(Shop,req.params.id,/*{ populate: ['products'] }*/)
         if(shopType===null){
           return res.status(404).json({message: 'Shop not found'})
         }
@@ -63,7 +63,7 @@ export async function findOneById(req: Request, res: Response)
       }
 }
 
-export async function findByFilters(req: Request, res: Response)
+/*export async function findByFilters(req: Request, res: Response)
 {
     try{
         const filters = filterParameters(req)
@@ -79,7 +79,7 @@ export async function findByFilters(req: Request, res: Response)
       catch(error:any){
         return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
       }
-}
+}*/
 
 export async function remove(req: Request, res: Response)
 {

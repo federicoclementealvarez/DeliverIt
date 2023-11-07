@@ -88,7 +88,7 @@ export class AddProductCustomerService {
 
   getTotal() {
     let sum: number = 0
-    this.order.products.forEach((item) => sum += item.product.price * item.quantity)
+    this.order.products.forEach((item) => sum += Number(item.product.price) * item.quantity)
 
     sum += this.shopCustomerService.getShippingPrice()
     return sum
