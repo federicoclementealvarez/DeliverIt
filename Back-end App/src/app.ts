@@ -6,6 +6,7 @@ import { commissionRouter } from './commission/commission.routes.js';
 import { userTypeRouter } from './userType/userType.routes.js';
 import { RequestContext } from '@mikro-orm/core';
 import { orm } from './shared/orm.js';
+import { orderRouter } from './order/order.routes.js';
 
 const app = express();
 app.use(express.json());
@@ -19,6 +20,8 @@ app.use('/api/paymentTypes', paymentTypeRouter);
 app.use('/api/productCategories', productCategoryRouter);
 app.use('/api/commissions', commissionRouter);
 app.use('/api/userTypes', userTypeRouter);
+app.use('/api/order', orderRouter);
+
 
 app.use((_, res) =>{
     return res.status(404).send({message: 'Resource not found'});
