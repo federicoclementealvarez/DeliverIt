@@ -19,23 +19,15 @@ export class HomeCustomerComponent {
   ngOnInit() {
     this.getShopTypes()
     this.addProductCustomerService.resetProducts();
-    this.homeCustomerService.getShopTypes()
   }
 
   getAll() {
     return this.shopService.getAll()
   }
 
-  // getShopTypes() {
-  //   this.homeCustomerService.getShopTypes()
-  //   //console.log(this.shopTypes)
-  // }
-
   getShopTypes() {
-    this.homeCustomerService.getShopTypes().subscribe((datos: ShopType[]) => {
-      // Aquí puedes trabajar con los datos recibidos
-      this.shopTypes = datos
-      console.log(this.shopTypes)
+    this.homeCustomerService.getShopTypes().subscribe((data: ShopType[]) => {
+      this.shopTypes = data
     })
   }
 }

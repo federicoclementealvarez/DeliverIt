@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, HostListener } from '@angular/core';
+import { CustomerSearchResultsComponent } from '../customer-search-results/customer-search-results.component';
 
 @Component({
   selector: 'app-shop-type-icon',
@@ -6,8 +7,13 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./shop-type-icon.component.scss']
 })
 export class ShopTypeIconComponent {
-  @Input() icon: string;
-  @Input() subtitle: string;
+  @Input() id: string;
+  @Input() description: string;
+  @Input() iconDescription: string;
 
-
+  // When the User clicks the Component
+  @HostListener("click") onClick() {
+    CustomerSearchResultsComponent
+    console.log(this.description)
+  }
 }

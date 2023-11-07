@@ -14,8 +14,9 @@
 <div class="parent-container-max-width">
   <div class="shop-types-container">
     <app-shop-type-icon *ngFor="let st of shopTypes"
-      icon={{st.iconDescription}}
-      subtitle={{st.description}}
+      id={{st.id}}
+      description={{st.description}}
+      iconDescription={{st.iconDescription}}
       class="margin-top">
     </app-shop-type-icon>
   </div>
