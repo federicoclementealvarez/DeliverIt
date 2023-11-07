@@ -24,14 +24,14 @@ export class Shop extends BaseEntity
     @Property({ nullable: false })
     logoPath!: string
 
-    @Property({ persist:false })
-    logo!: File
+    // @Property({ persist:false })
+    // logo!: File
 
     @Property({ nullable: true })
     bannerPath?: string
 
-    @Property({ persist:false })
-    banner?: File
+    // @Property({ persist:false })
+    // banner?: File
     
     @Property({ nullable: false })
     openingTime!: TimeType

@@ -18,8 +18,8 @@ export class Product extends BaseEntity
     @Property({ nullable: true })
     photoPath?: string
 
-    @Property({ persist: false })
-    photo!: File
+    // @Property({ persist: false })
+    // photo!: File
 
     @ManyToOne(() => Shop, { nullable: false })
     shop !: Rel<Shop>

@@ -13,12 +13,11 @@
 <h6 id="categories-title">Explorá nuestras categorías</h6>
 <div class="parent-container-max-width">
   <div class="shop-types-container">
-    <app-shop-type-icon icon="lunch_dining" subtitle="Hamburguesas" class="margin-top"></app-shop-type-icon>
-    <app-shop-type-icon icon="icecream" subtitle="Heladerías" class="margin-top"></app-shop-type-icon>
-    <app-shop-type-icon icon="local_bar" subtitle="Bebidas" class="margin-top"></app-shop-type-icon>
-    <app-shop-type-icon icon="restaurant" subtitle="Restaurantes" class="margin-top"></app-shop-type-icon>
-    <app-shop-type-icon icon="nutrition" subtitle="Verdulerías" class="margin-top"></app-shop-type-icon>
-    <app-shop-type-icon icon="pill" subtitle="Farmacias" class="margin-top"></app-shop-type-icon>
+    <app-shop-type-icon *ngFor="let st of shopTypes"
+      icon={{st.iconDescription}}
+      subtitle={{st.description}}
+      class="margin-top">
+    </app-shop-type-icon>
   </div>
 </div>
 <h6 id="popular-shops-title">Los locales más populares</h6>

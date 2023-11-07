@@ -11,6 +11,9 @@ const app = express();
 app.use(express.json());
 
 app.use((req, res, next) => {
+    // CORS solution
+    res.header('Access-Control-Allow-Origin', '*');
+    
     RequestContext.create(orm.em, next)
   })
 
