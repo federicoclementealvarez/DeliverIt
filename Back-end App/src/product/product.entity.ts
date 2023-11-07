@@ -19,7 +19,6 @@ export class Product extends BaseEntity
     photoPath?: string
 
     /*@ManyToOne(() => Shop, { nullable: false })
-    shop !: Rel<Shop>*/
 
     /*@ManyToOne(() => ProductCategory, { nullable: false })
     productCategory !: Rel<ProductCategory>*/

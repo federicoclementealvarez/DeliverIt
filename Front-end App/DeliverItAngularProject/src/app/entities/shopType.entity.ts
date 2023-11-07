@@ -1,4 +1,5 @@
 export class ShopType {
-    public id: string
-    public description: string
-  }
+  id: string
+  description: string
+  iconDescription: string
+}

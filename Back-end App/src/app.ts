@@ -25,11 +25,11 @@ app.use(express.json());
 
 
 //middleware that serves the images in the src/shared/assets folder
-app.use('/assets',express.static(path.join(__dirname, '../src/shared/assets')))
+app.use('/assets', express.static(path.join(__dirname, '../src/shared/assets')))
 
 app.use((req, res, next) => {
     RequestContext.create(orm.em, next)
-  })
+})
 
 app.use('/api/shopTypes', shopTypeRouter);
 app.use('/api/paymentTypes', paymentTypeRouter);
@@ -38,11 +38,11 @@ app.use('/api/commissions', commissionRouter);
 app.use('/api/userTypes', userTypeRouter);
 app.use('/api/products', productRouter);
 
-app.use((_, res) =>{
-    return res.status(404).send({message: 'Resource not found'});
+app.use((_, res) => {
+    return res.status(404).send({ message: 'Resource not found' });
 })
 
-app.listen(3000, ()=>{
+app.listen(3000, () => {
     console.log('Server running on http://localhost:3000/')
 })
 
