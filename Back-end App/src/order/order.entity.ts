@@ -1,10 +1,14 @@
-import { Rel, Entity, ManyToOne, Property, OneToMany, Cascade, DateTimeType, Collection} from '@mikro-orm/core'
+import { Rel, Entity, ManyToOne, Property, OneToMany, Cascade, DateTimeType, Collection, Filter} from '@mikro-orm/core'
 import { BaseEntity } from '../shared/baseEntity.entity.js'
 import { User } from '../user/user.entity.js'
 import { PaymentType } from '../paymentType/paymentType.entity.js'
 import { LineItem } from '../lineItem/lineItem.entity.js'
 
 @Entity()
+@Filter({ name: 'deliveryUndefined', cond: { delivery: { $eq: undefined } } })
+@Filter({ name: 'dateTimeArrival', cond: { dateTimeArrival: { $eq: undefined } } })
+@Filter({ name: 'delivery', cond:  args =>({ delivery: {id: args.par} }) })
+@Filter({ name: 'client', cond:  args =>({ client: {id: args.par} }) })
 export class Order extends BaseEntity
 {
     @Property({ nullable: false })

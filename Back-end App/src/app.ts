@@ -10,7 +10,7 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { productRouter } from './product/product.routes.js';
-import { add, sanitizedInput } from './product/product.controller.js';
+import { orderRouter } from './order/order.routes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -37,6 +37,7 @@ app.use('/api/productCategories', productCategoryRouter);
 app.use('/api/commissions', commissionRouter);
 app.use('/api/userTypes', userTypeRouter);
 app.use('/api/products', productRouter);
+app.use('/api/order', orderRouter);
 
 app.use((_, res) => {
     return res.status(404).send({ message: 'Resource not found' });
