@@ -9,10 +9,13 @@ import { Product } from '../entities/product.entity';
   styleUrls: ['./shop-customer.component.scss']
 })
 export class ShopCustomerComponent {
+  products: Product[] = []
 
-  constructor(private addProductCustomerService: AddProductCustomerService, 
-    private shopCustomerService: ShopCustomerService) { }
-  
+  constructor(private addProductCustomerService: AddProductCustomerService,
+  private shopCustomerService: ShopCustomerService) {
+    this.products = this.shopCustomerService.getProducts()
+  }
+
   totalQty: number;
 
   ngOnInit() {
@@ -20,10 +23,9 @@ export class ShopCustomerComponent {
       this.totalQty = _totalQty
     });
   }
-  
-  // Obtengo los productos del servicio
+
   getProducts() {
-    return this.shopCustomerService.getProducts()
+    return this.products
   }
 
   resetProducts() {

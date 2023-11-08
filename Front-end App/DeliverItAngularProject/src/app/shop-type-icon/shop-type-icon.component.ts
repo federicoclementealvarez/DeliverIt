@@ -1,5 +1,5 @@
 import { Component, Input, HostListener } from '@angular/core';
-import { CustomerSearchResultsComponent } from '../customer-search-results/customer-search-results.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shop-type-icon',
@@ -11,9 +11,10 @@ export class ShopTypeIconComponent {
   @Input() description: string;
   @Input() iconDescription: string;
 
+  constructor(private router: Router) { }
+
   // When the User clicks the Component
   @HostListener("click") onClick() {
-    CustomerSearchResultsComponent
-    console.log(this.description)
+    this.router.navigate(['/search-customer', { shopTypeId: this.id }])
   }
 }

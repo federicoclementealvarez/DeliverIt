@@ -11,11 +11,6 @@ export class HomeCustomerService {
   readonly baseUrl = 'http://localhost:3000/api/shopTypes/';
   constructor(private http: HttpClient) { }
 
-  // getShopTypes() {    
-  //   return this.http.get<ShopType[]>(this.baseUrl).forEach(st =>
-  //     console.log(st))
-  // }
-
   getShopTypes(): Observable<ShopType[]> {
     return this.http.get<ShopType[]>(this.baseUrl)
       .pipe(

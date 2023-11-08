@@ -34,6 +34,8 @@ import { AllDeliveredOrdersComponent } from './all-delivered-orders/all-delivere
 import { ShopListProductComponent } from './shop-list-product/shop-list-product.component';
 import { EditProductButtonComponent } from './edit-product-button/edit-product-button.component';
 import { CustomerSearchResultsComponent } from './customer-search-results/customer-search-results.component';
+import { CustomerSearchbarComponent } from './customer-searchbar/customer-searchbar.component';
+import { OrderConfirmedComponent } from './order-confirmed/order-confirmed.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,8 @@ import { CustomerSearchResultsComponent } from './customer-search-results/custom
     ShopListProductComponent,
     EditProductButtonComponent,
     CustomerSearchResultsComponent,
+    CustomerSearchbarComponent,
+    OrderConfirmedComponent,
   ],
   imports: [
     BrowserModule,
