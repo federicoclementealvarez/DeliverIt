@@ -7,7 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 export class ShopCardComponent {
 
-  @Input() productId: number;
+  @Input() shopId: string
+  @Input() productId: string;
   @Input() title: string;
   @Input() subtitle: string;
   @Input() bottomText: string;
@@ -16,6 +17,8 @@ export class ShopCardComponent {
   @Input() hasAddButton: boolean;
   @Input() hasEditButton: boolean = false;
   orderDescription: boolean = false;
+
+  constructor() { }
 
   showDescription(){
     this.orderDescription=!this.orderDescription
