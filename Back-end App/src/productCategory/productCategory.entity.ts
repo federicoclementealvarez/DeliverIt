@@ -9,8 +9,8 @@ export class ProductCategory extends BaseEntity
   @Property({ nullable: false })
     description!: string
 
-    /*@OneToMany(() => Product, (product) => product.productCategory, {
+    @OneToMany(() => Product, (product) => product.productCategory, {
         cascade: [Cascade.ALL],
       })
-      products = new Collection<Product>(this)*/
+      products = new Collection<Product>(this)
 }

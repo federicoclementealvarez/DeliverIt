@@ -25,7 +25,7 @@ export class AddProductCustomerService {
   private editClicked = new BehaviorSubject<boolean>(false);
   editHasBeenClicked = this.editClicked.asObservable();
   
-  addProduct(id: number) {
+  addProduct(id: string) {
     // Obtengo el producto del servicio
     let product: Product = this.shopCustomerService.getOne(id)
     
@@ -52,7 +52,7 @@ export class AddProductCustomerService {
     console.log(this.order)
   }
 
-  removeProduct(id: number) {
+  removeProduct(id: string) {
     // Obtengo el producto del servicio
     let product: Product = this.shopCustomerService.getOne(id)
 

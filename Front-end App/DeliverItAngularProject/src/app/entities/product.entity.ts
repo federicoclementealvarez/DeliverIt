@@ -1,7 +1,8 @@
 export class Product {
-  public id?: number
+  public id?: string
   public name: string
   public description: string
   public price: number|string
+  public validSince?: Date
   public photo?: File 
 }

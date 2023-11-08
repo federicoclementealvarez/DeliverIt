@@ -2,7 +2,7 @@
 
 
 <div class="container">
-  <h1>Editar producto</h1>
+  <h1 (click)="getOne()">Editar producto</h1>
   <form class="input-button" [formGroup]="shopModifyProductForm">
     <div class="input-group">
       <h6>Nombre</h6>
@@ -51,7 +51,7 @@
     </div>
     <app-primary-button class="button-style" title="ACTUALIZAR" (click)="submit()"></app-primary-button>
     <div class="last-button-container">
-        <app-secondary-button class="button-style" title="ELIMINAR"></app-secondary-button>
+        <app-secondary-button class="button-style" title="ELIMINAR" (click)="delete()"></app-secondary-button>
     </div>
   </form>
 </div>

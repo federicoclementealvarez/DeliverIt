@@ -8,20 +8,20 @@ import { AddProductCustomerService } from '../services/add-product-customer.serv
 })
 export class AddProductButtonComponent {
   public quantity: number = 0;
-  @Input() productId: number;
+  @Input() productId: string;
 
   constructor(private service: AddProductCustomerService) {
     console.log(this.quantity)
   }
 
 
-  incrementQuantity(productId: number) {
+  incrementQuantity(productId: string) {
     this.quantity = 8
     console.log(this.quantity)
     this.service.addProduct(productId)
   }
 
-  diminishQuantity(productId: number) {
+  diminishQuantity(productId: string) {
     this.quantity--
     this.service.removeProduct(productId)
   }

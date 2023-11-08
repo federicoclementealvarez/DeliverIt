@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ValidatorsService } from '../services/validators.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Product } from '../entities/product.entity';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-shop-modify-product',
@@ -14,8 +16,9 @@ export class ShopModifyProductComponent {
   photoTouched: boolean = false;
   validPhoto: boolean = null;
   submitted: boolean = false;
+  photo: File=null;
   
-  constructor(private router : Router, private validator : ValidatorsService){
+  constructor(private router : Router, private validator : ValidatorsService, private productService :ProductService){
   }
 
   ngOnInit() {
@@ -26,13 +29,6 @@ export class ShopModifyProductComponent {
         validSince: new FormControl({value: this.validator.getTodayDate(),disabled : false}, [Validators.required, this.validator.validateFutureDate()]) 
       })
     }
-
-  shopTypes = [
-      { id: 0, description: "Helado" },
-      { id: 1, description: "Medicamento" },
-      { id: 2, description: "Hamburguesa" },
-      { id: 3, description: "Pizza" }
-  ];
 
   getName(){
       return this.shopModifyProductForm.get('name');
@@ -52,13 +48,33 @@ export class ShopModifyProductComponent {
 
   onPhotoSelected(event){
       this.validPhoto = this.validator.validateImageFormat(event.target.files[0]);
+      if(this.validPhoto){
+        this.photo = event.target.files[0];
+    }
       this.photoTouched = true;
     }
   
   submit(){
       this.submitted=true;
       if(this.validPhoto && this.shopModifyProductForm.valid){
-          this.router.navigate(['/home-shop']);
+        const product : Product = {
+          id: '654be24ab02cc9a8543aacdc',
+          name : this.shopModifyProductForm.get('name').value,
+          description: this.shopModifyProductForm.get('description').value,
+          price: this.shopModifyProductForm.get('amount').value,
+          validSince: this.shopModifyProductForm.get('validSince').value,
+          photo: this.photo
         }
+        this.productService.update(product)
+      //this.router.navigate(['/home-shop']);
+        }
+  }
+
+  delete(){
+    this.productService.delete('654be24ab02cc9a8543aacdc')
+  }
+
+  getOne(){
+    this.productService.getOne('654be24ab02cc9a8543aacdc')
   }
 }

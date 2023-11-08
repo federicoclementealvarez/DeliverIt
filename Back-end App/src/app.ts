@@ -11,6 +11,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { productRouter } from './product/product.routes.js';
 import { orderRouter } from './order/order.routes.js';
+import { shopRouter } from './shop/shop.routes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -37,6 +38,7 @@ app.use('/api/productCategories', productCategoryRouter);
 app.use('/api/commissions', commissionRouter);
 app.use('/api/userTypes', userTypeRouter);
 app.use('/api/products', productRouter);
+app.use('/api/shop', shopRouter);
 app.use('/api/order', orderRouter);
 
 app.use((_, res) => {
