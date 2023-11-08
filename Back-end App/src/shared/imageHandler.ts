@@ -3,7 +3,7 @@ import multer from 'multer';
 import path, { extname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { validator } from './validator.js';
-import { createWhileUploadingImage } from '../product/product.controller.js';
+import { createWhileUploadingImage, sanitizedInput, updateWhileUploadingImage } from '../product/product.controller.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,16 +26,26 @@ export const multerUploadProduct = multer({
         fieldSize: 10000000,
     },
     fileFilter: (req, file, cb) => {
-        sanitizeProductInput(req)
+        console.log(-11111111111111111)
+        console.log(req.body)
+        sanitizedInput(req)
         const validatorResponse = validator.validatePriceAmount(req.body.sanitizedInput.price)
         req.body.sanitizedInput.price = Number(req.body.sanitizedInput.price)
-
+        console.log(111111111111111111111)
         if(!validatorResponse.isValid){
             cb(new Error(validatorResponse.message))
         }
         else{
+            console.log(22222222222222222222)
             if (acceptedFileExtensions.includes(file.mimetype)) {
-                createWhileUploadingImage(req)
+                console.log('req.body.sanitizedInput.validSince no sani: ')
+                console.log(req.body.sanitizedInput.validSince)
+                if(req.body.sanitizedInput.validSince===undefined){
+                    createWhileUploadingImage(req)
+                }
+                else{
+                    updateWhileUploadingImage(req)
+                }
                 cb(null, true);
             }
             else {
@@ -44,20 +54,3 @@ export const multerUploadProduct = multer({
         }
     }
 })
-
-function sanitizeProductInput(req: Request){
-    req.body.sanitizedInput = {
-        name:req.body.name,
-        description:req.body.description,
-        photo:req.body.photo,
-        //shop:req.body.shop,
-        //productCategory:req.body.productCategory,
-        price:req.body.price
-      }
-      //more validations here
-    
-      Object.keys(req.body.sanitizedInput).forEach((key) => {
-          if (req.body.sanitizedInput[key] === undefined) {
-            delete req.body.sanitizedInput[key];
-          }})
-}

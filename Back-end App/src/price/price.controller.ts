@@ -1,17 +1,23 @@
-import { orm } from '../shared/orm.js';
+import { EntityManager } from '@mikro-orm/core';
 import { Price } from './price.entity.js';
 
-const em = orm.em
 
-
-export function createByProductId(amountString: string, productId: string){
+export function createByProductId(amountString: string, productId: string, validSince: string|Date, em: EntityManager){
     const amount =  Number.parseInt(amountString)
+    
     const priceToCreate = {
         amount: amount,
-        validSince: new Date(),
+        validSince: validSince.toString(),
         product: productId
     }
-    em.create(Price, priceToCreate)
+
+    return em.create(Price, priceToCreate)
+}
+
+export async function getLastPriceByProductId(productId: string, date: string, em: EntityManager){
+
+    return await em.find(Price, {}, {filters:{'lastDate':{id:productId, todayDate: date}}, orderBy: {validSince:'DESC'}, limit: 1 })
+
 }
 
 

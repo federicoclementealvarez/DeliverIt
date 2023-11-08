@@ -6,7 +6,8 @@ import { Price } from '../price/price.entity.js'
 import { LineItem } from '../lineItem/lineItem.entity.js'
 
 @Entity()
-@Filter({ name: 'productCategory', cond:  args =>({ productCategory: {$in: args} }) }) 
+@Filter({ name: 'productCategory', cond:  args =>({ productCategory: {$in: args} }) })
+@Filter({ name: 'shopId', cond:  args =>({ shop: args.shopId }) })  
 export class Product extends BaseEntity
 {
     @Property({ nullable: false })
@@ -18,15 +19,16 @@ export class Product extends BaseEntity
     @Property({ nullable: true })
     photoPath?: string
 
-    /*@ManyToOne(() => Shop, { nullable: false })
+    @ManyToOne(() => Shop, { nullable: false })
+    shop !: Rel<Shop>
 
-    /*@ManyToOne(() => ProductCategory, { nullable: false })
-    productCategory !: Rel<ProductCategory>*/
+    @ManyToOne(() => ProductCategory, { nullable: false })
+    productCategory !: Rel<ProductCategory>
 
     @OneToMany(() => Price, (price) => price.product, {
         cascade: [Cascade.ALL],
     })
-    prices = new Collection<Price>(this)
+    prices : Collection<Price> = new Collection<Price>(this)
 
     @OneToMany(() => LineItem, (lineItem) => lineItem.product, {
         cascade: [Cascade.ALL],

@@ -1,11 +1,9 @@
 import { Router } from 'express';
-import { sanitizedInput, findOneById, remove, add, update} from './product.controller.js';
-import bodyParser from 'body-parser';
+import {find, remove, add, update} from './product.controller.js';
 
 export const productRouter = Router();
 
-productRouter.get('/:id', findOneById);
+productRouter.get('/:id:shopId', find);
 productRouter.delete('/:id', remove);
 productRouter.post('/', add)
-productRouter.put('/:id', sanitizedInput, update);
-productRouter.patch('/:id', sanitizedInput, update);
+productRouter.put('/:id',update);
