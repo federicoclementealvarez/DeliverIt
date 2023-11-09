@@ -1,19 +1,30 @@
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+/>
 
 <div class="container">
   <img class="image" [src]="'http://localhost:3000/assets/'+imagePath">
   <div class="text-container">
     <p class="card-title">{{ title }}</p>
     <p class="card-subtitle">{{ subtitle }}</p>
-    <div class="text-and-star"><p class="card-bottomText">{{ bottomText }}</p><img *ngIf="hasStar === true" class="star-image" src="..\assets\buttons_logos\star_rating_icon.png"></div>
+    <div class="text-and-star">
+      <p class="card-bottomText">{{ bottomText }}</p>
+      <img
+        *ngIf="hasStar === true"
+        class="star-image"
+        src="..\assets\buttons_logos\star_rating_icon.png"
+      />
+    </div>
   </div>
   <div *ngIf="hasDropdown === true" class="dropdown">
-    <span class="material-symbols-outlined" (click)="showDescription()">expand_more</span>
+    <span class="material-symbols-outlined" (click)="showDescription()"
+      >expand_more</span
+    >
   </div>
   <div *ngIf="hasAddButton === true" class="add-product-button-container">
     <div class="button-subcontainer">
-      <app-add-product-button
-        [productId]=productId>
+      <app-add-product-button productId="{{ this.productId }}">
       </app-add-product-button>
     </div>
   </div>
@@ -24,5 +35,11 @@
   </div>
 </div>
 <!--A este componente de aqui abajo deberán llegar los atributos de la descripcion de la orden-->
-<app-deliver-order-description *ngIf="orderDescription === true" description="1 Fanta 1Lt 2 Mac Combos" price="$5000"
-  client="Mauricio Ferrari" paymentType="Efectivo" orderStatus="En camino"></app-deliver-order-description>
+<app-deliver-order-description
+  *ngIf="orderDescription === true"
+  description="1 Fanta 1Lt 2 Mac Combos"
+  price="$5000"
+  client="Mauricio Ferrari"
+  paymentType="Efectivo"
+  orderStatus="En camino"
+></app-deliver-order-description>

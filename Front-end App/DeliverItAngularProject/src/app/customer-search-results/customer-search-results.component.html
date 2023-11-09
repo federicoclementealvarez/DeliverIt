@@ -1,1 +1,19 @@
-<p>customer-search-results works!</p>
+<app-customer-searchbar></app-customer-searchbar>
+<div class="container">
+  <div class="content">
+    <h3 class="link" routerLink="/home-customer">< Volver al Inicio</h3>
+    <h3 *ngIf="shopType; else elseBlock">{{ shopType.description }}</h3>
+    <ng-template #elseBlock><h3>Resultados de la búsqueda para "{{ this.searchInput }}"</h3></ng-template>
+    <div class="shops">
+      <app-shop-card
+        *ngFor="let s of shops"
+        shopId="{{ s.id }}"
+        title="{{ s.name }}"
+        subtitle="{{ s.address }}"
+        bottomText="{{ s.stars }}"
+        [hasStar]="true"
+      >
+      </app-shop-card>
+    </div>
+  </div>
+</div>

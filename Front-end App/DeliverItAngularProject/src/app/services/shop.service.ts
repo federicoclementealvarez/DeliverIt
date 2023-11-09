@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Shop } from '../entities/shop.entity';
-import { BaseUrlService } from './base-url.service';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +23,25 @@ export class ShopService {
   getOne(shopId: string) {
     const url = this.baseUrlService.getBaseUrl()+'shops/'+shopId
     return this.http.get<any>(url)
+  }
+  getShopsByShopType(shopTypeId: string): Observable<Shop[]> {
+    const url = this.baseUrl.getBaseUrl() + 'shop/' + 'shopTypeId=' + shopTypeId
+    console.log(url)
+    return this.http.get<Shop[]>(url)
+      .pipe(
+        map((response: any) => response.body)
+      );
+  }
+
+  getShopsBySearchInput(searchInput: string): Observable<Shop[]> {
+    const url = this.baseUrl.getBaseUrl() + 'shop/' + 'name=' + searchInput
+      + ';productCategoryName=' + searchInput
+
+    console.log(url)
+
+    return this.http.get<Shop[]>(url)
+      .pipe(
+        map((response: any) => response.body)
+      );
   }
 }

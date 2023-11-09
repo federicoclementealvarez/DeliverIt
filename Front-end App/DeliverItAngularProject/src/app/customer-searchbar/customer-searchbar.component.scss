@@ -1,0 +1,40 @@
+.navbar {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.search {
+  display: flex;
+  border-radius: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  height: 50px;
+  align-items: center;
+  width: 65vw;
+  transition: 0.2s;
+
+  &-icon {
+    color: rgba(0, 0, 0, 0.6);
+    margin-left: 13px;
+  }
+}
+
+
+input[type="text"] {
+  margin-left: 15px;
+  border-bottom: none;
+  background-color: transparent;
+}
+
+.search:hover {
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  transition: .2s;
+}
+
+.menu {
+  font-size: 50px;
+}

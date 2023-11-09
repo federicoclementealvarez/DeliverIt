@@ -18,6 +18,8 @@ import { ShopAddProductComponent } from './shop-add-product/shop-add-product.com
 import { ShopModifyProductComponent } from './shop-modify-product/shop-modify-product.component';
 import { AllDeliveredOrdersComponent } from './all-delivered-orders/all-delivered-orders.component';
 import { ShopListProductComponent } from './shop-list-product/shop-list-product.component';
+import { CustomerSearchResultsComponent } from './customer-search-results/customer-search-results.component';
+import { OrderConfirmedComponent } from './order-confirmed/order-confirmed.component';
 
 
 const routes: Routes = [
@@ -27,11 +29,13 @@ const routes: Routes = [
   { path: 'datos-personales', component: DatosPersonalesComponent },
   { path: 'direccion', component: DireccionComponent },
   { path: 'home-customer', component: HomeCustomerComponent },
+  { path: 'search-customer', component: CustomerSearchResultsComponent },
   { path: 'shop-customer', component: ShopCustomerComponent },
   { path: 'order-details', component: OrderDetailsComponent },
+  { path: 'order-confirmed', component: OrderConfirmedComponent },
   { path: 'signup_shop_data1', component: SignupShopData1Component },
   { path: 'signup_shop_data2', component: SignupShopData2Component },
-  { path: 'signup_shop_data_icecreamflavors', component: SignupShopDataIcecreamflavorsComponent},
+  { path: 'signup_shop_data_icecreamflavors', component: SignupShopDataIcecreamflavorsComponent },
   { path: 'home-shop', component: HomeShopComponent },
   { path: 'shop-add-product', component: ShopAddProductComponent },
   { path: 'shop-list-product', component: ShopListProductComponent },
@@ -40,11 +44,11 @@ const routes: Routes = [
   { path: 'explore-new-deliveries', component: ExploreNewDeliveriesComponent },
   { path: 'all-delivered-orders', component: AllDeliveredOrdersComponent },
   { path: '**', component: LandingPageComponent }
-  
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

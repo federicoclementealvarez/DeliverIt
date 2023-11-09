@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class ShopCardComponent {
 
+  @Input() shopId: string
   @Input() productId: string;
   @Input() title: string;
   @Input() subtitle: string;
@@ -18,6 +19,7 @@ export class ShopCardComponent {
   @Input() imagePath: string;
   orderDescription: boolean = false;
 
+  constructor() { }
 
   showDescription(){
     this.orderDescription=!this.orderDescription
