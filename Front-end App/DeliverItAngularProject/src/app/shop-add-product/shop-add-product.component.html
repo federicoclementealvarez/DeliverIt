@@ -51,11 +51,11 @@
     </div>
     <div class="input-group">
         <h6>Tipo de producto</h6>
-        <select formControlName="productType">
+        <select formControlName="productCategory">
             <option value="" disabled selected hidden>Seleccione un tipo de producto</option>
-            <option *ngFor="let shoptype of shopTypes">{{shoptype.description}}</option>
+            <option [value]="productCategory.id" *ngFor="let productCategory of productCategories">{{productCategory.description}}</option>
         </select>
-        <div [ngClass]="{'error-message-show': getProductType().invalid && (submitted || getProductType().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+        <div [ngClass]="{'error-message-show': getProductCategory().invalid && (submitted || getProductCategory().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
           <span class="error-icon-red">&#9888;</span>
           Escoge alguna opción
         </div>

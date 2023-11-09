@@ -15,7 +15,9 @@ export class ShopCardComponent {
   @Input() hasDropdown: boolean = false;
   @Input() hasAddButton: boolean;
   @Input() hasEditButton: boolean = false;
+  @Input() imagePath: string;
   orderDescription: boolean = false;
+
 
   showDescription(){
     this.orderDescription=!this.orderDescription

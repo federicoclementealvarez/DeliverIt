@@ -22,7 +22,7 @@ export class AddProductCustomerService {
   private sendLastTotalQty = new BehaviorSubject<any[]>([]);
   lastTotalQty = this.sendLastTotalQty.asObservable();
 
-  private editClicked = new BehaviorSubject<boolean>(false);
+  private editClicked = new BehaviorSubject<{id:string,clicked:boolean}>({id:'', clicked:false});
   editHasBeenClicked = this.editClicked.asObservable();
   
   addProduct(id: string) {
@@ -49,7 +49,6 @@ export class AddProductCustomerService {
       let newValue = currentValue + 1
       this.totalQuantity.next(newValue)
     }
-    console.log(this.order)
   }
 
   removeProduct(id: string) {
@@ -72,8 +71,6 @@ export class AddProductCustomerService {
         this.order.products.splice(index, 1)
       }
     }
-    
-    console.log(this.order)
   }
 
   resetProducts() {
@@ -94,7 +91,7 @@ export class AddProductCustomerService {
     return sum
   }
 
-  clickOnEdit(){
-    this.editClicked.next(true);
+  clickOnEdit(productId:string){
+    this.editClicked.next({id:productId,clicked:true});
   }
 }

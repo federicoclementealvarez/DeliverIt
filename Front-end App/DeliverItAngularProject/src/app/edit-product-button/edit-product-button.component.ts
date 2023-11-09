@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AddProductCustomerService } from '../services/add-product-customer.service';
 
 @Component({
@@ -8,9 +8,11 @@ import { AddProductCustomerService } from '../services/add-product-customer.serv
 })
 export class EditProductButtonComponent {
 
+  @Input() productId: string;
+
   constructor(private service: AddProductCustomerService){}
   
   clickOnEdit(){
-    this.service.clickOnEdit();
+    this.service.clickOnEdit(this.productId);
   }
 }

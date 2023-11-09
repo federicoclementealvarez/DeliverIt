@@ -25,7 +25,6 @@ export function sanitizedInput(req: Request, _: Response, next: NextFunction) {
 export async function findAll(_: Request, res: Response) {
   try {
     const shopTypes = await em.find(ShopType, {})
-    console.log(new DateType())
     return res.status(200).json({ message: 'All shop types found', body: shopTypes })
   }
   catch (error: any) {

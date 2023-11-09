@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
 
 <div class="container">
-  <img class="image" src="https://img.restaurantguru.com/r6f0-Lemmys-logo-2020-08.jpg">
+  <img class="image" [src]="'http://localhost:3000/assets/'+imagePath">
   <div class="text-container">
     <p class="card-title">{{ title }}</p>
     <p class="card-subtitle">{{ subtitle }}</p>
@@ -19,7 +19,7 @@
   </div>
   <div *ngIf="hasEditButton === true" class="add-product-button-container">
     <div class="button-subcontainer">
-      <app-edit-product-button></app-edit-product-button>
+      <app-edit-product-button productId={{productId}}></app-edit-product-button>
     </div>
   </div>
 </div>

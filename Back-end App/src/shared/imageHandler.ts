@@ -26,20 +26,14 @@ export const multerUploadProduct = multer({
         fieldSize: 10000000,
     },
     fileFilter: (req, file, cb) => {
-        console.log(-11111111111111111)
-        console.log(req.body)
         sanitizedInput(req)
         const validatorResponse = validator.validatePriceAmount(req.body.sanitizedInput.price)
         req.body.sanitizedInput.price = Number(req.body.sanitizedInput.price)
-        console.log(111111111111111111111)
         if(!validatorResponse.isValid){
             cb(new Error(validatorResponse.message))
         }
         else{
-            console.log(22222222222222222222)
             if (acceptedFileExtensions.includes(file.mimetype)) {
-                console.log('req.body.sanitizedInput.validSince no sani: ')
-                console.log(req.body.sanitizedInput.validSince)
                 if(req.body.sanitizedInput.validSince===undefined){
                     createWhileUploadingImage(req)
                 }

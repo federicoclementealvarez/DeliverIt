@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { ShopCustomerService } from '../services/shop-customer.service';
 import { AddProductCustomerService } from '../services/add-product-customer.service';
 import { Router } from '@angular/router';
+import { ProductService } from '../services/product.service';
+import { Product } from '../entities/product.entity';
+import { ShopService } from '../services/shop.service';
+import { Shop } from '../entities/shop.entity';
 
 @Component({
   selector: 'app-shop-list-product',
@@ -10,18 +13,27 @@ import { Router } from '@angular/router';
 })
 export class ShopListProductComponent {
 
-  constructor(private shopCustomerService: ShopCustomerService, private addProductCustomerService: AddProductCustomerService, private router: Router) { }
+  products: Product[]
+  shopId: string
+  shop: Shop
+
+  constructor(private shopService: ShopService, private addProductCustomerService: AddProductCustomerService, private router: Router, private productService: ProductService) {
+    this.shopId = sessionStorage.getItem('shopId');
+    shopService.getOne(this.shopId).subscribe(res=>this.shop=res.body)
+    productService.getByShopId(this.shopId).subscribe(res=>this.products=res.body)
+   }
 
   ngOnInit() {
-    this.addProductCustomerService.editHasBeenClicked.subscribe((hasBeenClicked) => {
+    this.addProductCustomerService.editHasBeenClicked.subscribe(({id:productId, clicked: hasBeenClicked}) => {
       if(hasBeenClicked){
+        sessionStorage.setItem('productId',productId);
         this.router.navigate(['/shop-modify-product']);
       }
     });
   }
 
   getProducts() {
-    return this.shopCustomerService.getProducts()
+    return this.products
   }
 
 }

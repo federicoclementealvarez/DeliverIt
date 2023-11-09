@@ -24,12 +24,13 @@
 <h6 id="popular-shops-title">Los locales más populares</h6>
 <div class="parent-container-max-width">
   <div class="shop-cards-container">
-    <app-shop-card *ngFor="let shop of getAll()"
+    <app-shop-card *ngFor="let shop of shops"
       title={{shop.name}}
-      subtitle={{shop.address}}
+      [subtitle]="shop.street + ' ' + shop.streetNumber"
       bottomText={{shop.stars}}
       [hasStar]=true
-      routerLink="/shop-customer">
+      routerLink="/shop-customer"
+      imagePath={{shop.logoPath}}>
     </app-shop-card>
   </div>
 </div>

@@ -18,18 +18,19 @@ export function sanitizedInput(req: Request, _: Response, next: NextFunction) {
   next()
 }
 
-export function findAll(_: Request, res: Response) 
+export async function findAll(_: Request, res: Response) 
 {
-  try{
-    res.status(500).json({message: 'Method not implemented'})
+  try {
+    const shopTypes = await em.find(ProductCategory, {})
+    return res.status(200).json({ message: 'All shop types found', body: shopTypes })
   }
-  catch(error:any){
-    res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+  catch (error: any) {
+    return res.status(500).json({ message: 'An error has ocurred', errorMessage: error.message })
   }
 }
 
 export async function findByName(name:string){
-  const stringToSearch = '/'+name+'/i' 
+  const stringToSearch = name
   const productCategories = await em.find(ProductCategory, {}, {filters: {description: {par: stringToSearch}}})
   return productCategories
 }

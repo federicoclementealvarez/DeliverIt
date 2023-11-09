@@ -16,7 +16,6 @@ export class ValidatorsService {
   public validatePrice():ValidatorFn{
     return(control: AbstractControl) : ValidationErrors| null =>{
       const isInvalid = (control.value=="" || Number.isNaN(control.value) || control.value<0);
-      if(Number.isNaN(control.value)) console.log('entró acá jej')
       return (isInvalid)? {'notValid':true}:null;
     }
   }
