@@ -33,10 +33,10 @@ export function sanitizedInput(req: Request){
 
 export function find(req: Request, res: Response){
   try{
-    if(req.params.id!=' ' && req.params.shopId==' '){
+    if(req.params.id!='~' && req.params.shopId=='~'){
       findOneById(req, res)
     }
-    else if(req.params.shopId!=' ' && req.params.id==' '){
+    else if(req.params.shopId!='~' && req.params.id=='~'){
       findByShop(req, res)
     }
     else{
