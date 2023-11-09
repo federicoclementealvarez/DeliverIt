@@ -6,6 +6,7 @@ import { findByName } from '../productCategory/productCategory.controller.js';
 import * as fs from 'fs';
 import { createByProductId, getLastPriceByProductId} from '../price/price.controller.js';
 import {multerUploadProduct } from '../shared/imageHandler.js';
+import { Loaded } from '@mikro-orm/core';
 
 const em = orm.em.fork();
 
@@ -15,14 +16,14 @@ export function sanitizedInput(req: Request){
       id:req.params.id,
       name:req.body.name,
       description:req.body.description,
-      photo:req.body.photo,
+      price:req.body.price,
+      validSince:req.body.validSince,
       shop:req.body.shop,
       productCategory:req.body.productCategory,
-      price:req.body.price,
-      validSince:req.body.validSince
+      photo:req.body.photo
     }
 
-    //more validations here
+    //add more validations here if necessary
 
     Object.keys(req.body.sanitizedInput).forEach((key) => {
         if (req.body.sanitizedInput[key] === undefined) {
@@ -32,10 +33,10 @@ export function sanitizedInput(req: Request){
 
 export function find(req: Request, res: Response){
   try{
-    if(req.params.id!='' && req.params.shopId==''){
+    if(req.params.id!=' ' && req.params.shopId==' '){
       findOneById(req, res)
     }
-    else if(req.params.shopId!='' && req.params.id==''){
+    else if(req.params.shopId!=' ' && req.params.id==' '){
       findByShop(req, res)
     }
     else{
@@ -57,27 +58,9 @@ async function findByShop(req: Request, res: Response){
 
     const products = await em.find(Product,{},{filters:{'shopId':{shopId:req.params.shopId}}})
 
-    const productsToSend: any[] = []
+    const productsToSend = await getCompleteProductArray(products,res)
 
-    products.forEach(async prod => {
-      
-      const price = await getLastPriceByProductId(prod.id, getTodayDate(), em)
-
-      if(price===null){
-        return res.status(404).json({message: 'An error has ocurred', errorMessage: 'Price not found'})
-      }
-
-      const priceWithNoProduct = [{
-        id: price[0].id,
-        validSince: price[0].validSince.toISOString().slice(0,10),
-        amount: price[0].amount
-      }]
-
-      productsToSend.push(Object.assign(prod, {prices: priceWithNoProduct}))
-
-    })
-
-    return res.status(200).json({message: 'Product found', body: productsToSend})
+    return res.status(200).json({message: 'Products found', body: productsToSend})
   }
   catch(error:any){
     return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
@@ -123,7 +106,7 @@ async function findOneById(req: Request, res: Response)
 export async function findShopsByProductCategory(productCategoryName: string)
 {
     const foundProductCategories = await findByName(productCategoryName)
-    const products = await em.find(Product, {}, {filters: {productCategories: foundProductCategories}})
+    const products = await em.find(Product, {}, {filters: {productCategory: {par: foundProductCategories}}})
     const shops : string[] = []
     products.forEach((p)=>{
         const id = p.shop.id
@@ -179,9 +162,9 @@ export async function add(req: Request, res: Response)
           id: req.body.sanitizedInput.id,
           name:req.body.sanitizedInput.name,
           description:req.body.description,
-          photoPath: `${'prd'}-${req.body.sanitizedInput.id}${'.jpeg'}`
-         // shop:req.body.sanitizedInput.shop,
-          //productCategory:req.body.productCategory
+          photoPath: `${'prd'}-${req.body.sanitizedInput.id}${'.jpeg'}`,
+          shop:req.body.sanitizedInput.shop,
+          productCategory:req.body.productCategory
         }
         
         return res.status(201).json({ message: 'Product created successfully', data: finalProduct })
@@ -216,6 +199,7 @@ export async function update(req: Request, res: Response){
 }
 
 export async function createWhileUploadingImage(req: Request) {
+
         const productToCreate = {
           name:req.body.sanitizedInput.name,
           description:req.body.description,
@@ -227,37 +211,60 @@ export async function createWhileUploadingImage(req: Request) {
         
         req.body.sanitizedInput.id=product.id
 
-        //creates Price entity instance for today date
-        const price = createByProductId(req.body.sanitizedInput.price, product.id, getTodayDate(), em)
-
         const productToUpdate = {
-          name:req.body.sanitizedInput.name,
-          description:req.body.description,
-          photoPath: `${'prd'}-${req.body.sanitizedInput.id}${'.jpeg'}`,
-          prices: [price],
-          shop:req.body.sanitizedInput.shop,
-          productCategory:req.body.productCategory
+          photoPath: `${'prd'}-${req.body.sanitizedInput.id}${'.jpeg'}`
         }
 
         em.assign(product, productToUpdate)
+
+        //creates Price entity instance for today date
+        createByProductId(req.body.sanitizedInput.price, req.body.sanitizedInput.id, new Date(getTodayDate()), em)
+
         await em.flush()
 }
 
 export async function updateWhileUploadingImage(req: Request) {
 
-  //creates Price entity instance for today date
-  createByProductId(req.body.sanitizedInput.price, req.body.sanitizedInput.id, req.body.sanitizedInput.validSince, em)
+
+  const product = em.getReference(Product, req.body.sanitizedInput.id)
 
   const productToUpdate = {
     name:req.body.sanitizedInput.name,
     description:req.body.description
   }
-  const productReference = em.getReference(Product, req.body.sanitizedInput.id)
 
-  em.assign(productReference, productToUpdate)
+  em.assign(product, productToUpdate)
+
+  //creates Price entity instance for today date
+  createByProductId(req.body.sanitizedInput.price, req.body.sanitizedInput.id, new Date(req.body.sanitizedInput.validSince),em)
 
   await em.flush()
 }
+
+
+async function getCompleteProductArray(products : Loaded<Product, never>[], res: Response){
+  const productsToSend: any[] = []
+
+  for (const prod of products) {
+    const price = await getLastPriceByProductId(prod.id, getTodayDate(), em)
+
+    if(price===null){
+      return res.status(404).json({message: 'An error has ocurred', errorMessage: 'Price not found'})
+    }
+
+    const priceWithNoProduct = [{
+      id: price[0].id,
+      validSince: price[0].validSince.toISOString().slice(0,10),
+      amount: price[0].amount
+    }]
+
+    productsToSend.push(Object.assign(prod, {prices: priceWithNoProduct}))
+
+  }
+
+  return productsToSend
+}
+
 
 function getTodayDate() : string{
   const d = new Date(new Date());

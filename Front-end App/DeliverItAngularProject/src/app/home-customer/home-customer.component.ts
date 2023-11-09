@@ -3,6 +3,8 @@ import { AddProductCustomerService } from '../services/add-product-customer.serv
 import { ShopService } from '../services/shop.service';
 import { HomeCustomerService } from '../services/home-customer.service';
 import { ShopType } from '../entities/shopType.entity';
+import { Shop } from '../entities/shop.entity';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home-customer',
@@ -11,18 +13,17 @@ import { ShopType } from '../entities/shopType.entity';
 })
 export class HomeCustomerComponent {
   public shopTypes: ShopType[]
+  public shops: Shop[]
 
   constructor(private homeCustomerService: HomeCustomerService,
     private addProductCustomerService: AddProductCustomerService,
-    private shopService: ShopService) { }
+    private shopService: ShopService) { 
+      shopService.getAll().subscribe(response => this.shops = response.body)
+    }
 
   ngOnInit() {
     this.getShopTypes()
     this.addProductCustomerService.resetProducts();
-  }
-
-  getAll() {
-    return this.shopService.getAll()
   }
 
   getShopTypes() {

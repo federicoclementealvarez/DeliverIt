@@ -16,10 +16,10 @@ export class ShopCustomerService {
 
   getProducts() {
     this.products = []
-    this.products.push({id: '1', name: 'Pizza con Pepperonni', description: '8 porciones', price: 4500}) 
+    /*this.products.push({id: '1', name: 'Pizza con Pepperonni', description: '8 porciones', price: 4500}) 
     this.products.push({id: '2', name: 'Pizza con Cantimpalo', description: '8 porciones', price: 5000})
     this.products.push({id: '3', name: 'Pizza Cuatro Quesos', description: '8 porciones', price: 4200}) 
-    this.products.push({id: '4', name: 'Pizza Veggie', description: '8 porciones', price: 5300}) 
+    this.products.push({id: '4', name: 'Pizza Veggie', description: '8 porciones', price: 5300}) */
     return this.products
   }  
 

@@ -16,9 +16,11 @@ export class ShopModifyProductComponent {
   photoTouched: boolean = false;
   validPhoto: boolean = null;
   submitted: boolean = false;
+  productId:string;
   photo: File=null;
   
   constructor(private router : Router, private validator : ValidatorsService, private productService :ProductService){
+    this.productId = sessionStorage.getItem('productId');
   }
 
   ngOnInit() {
@@ -58,7 +60,7 @@ export class ShopModifyProductComponent {
       this.submitted=true;
       if(this.validPhoto && this.shopModifyProductForm.valid){
         const product : Product = {
-          id: '654be24ab02cc9a8543aacdc',
+          id: this.productId,
           name : this.shopModifyProductForm.get('name').value,
           description: this.shopModifyProductForm.get('description').value,
           price: this.shopModifyProductForm.get('amount').value,
@@ -66,15 +68,11 @@ export class ShopModifyProductComponent {
           photo: this.photo
         }
         this.productService.update(product)
-      //this.router.navigate(['/home-shop']);
+        this.router.navigate(['/home-shop']);
         }
   }
 
   delete(){
-    this.productService.delete('654be24ab02cc9a8543aacdc')
-  }
-
-  getOne(){
-    this.productService.getOne('654be24ab02cc9a8543aacdc')
+    this.productService.delete(this.productId)
   }
 }

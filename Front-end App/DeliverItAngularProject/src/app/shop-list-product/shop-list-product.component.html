@@ -1,16 +1,16 @@
 <div class="banner-container">
-    <img class="banner-image" src="https://wallpaperaccess.com/full/424487.jpg" alt="banner">
+  <img class="banner-image" [src]="'http://localhost:3000/assets/'+this.shop.bannerPath" alt="banner">
   </div>
   <div class="content-container">
     <div class="shop-data">
       <div class="image-container">
-        <img class="shop-icon" src="https://img.restaurantguru.com/r6f0-Lemmys-logo-2020-08.jpg" alt="icono del local">
+        <img class="shop-icon" [src]="'http://localhost:3000/assets/'+this.shop.logoPath" alt="icono del local">
       </div>
       <div class="info-container">
-        <p class="card-title">Lemmy's Pizza</p>
-        <p class="card-subtitle">Urquiza 1500</p>
+        <p class="card-title">{{this.shop.name}}</p>
+        <p class="card-subtitle">{{this.shop.street}} {{this.shop.streetNumber}}</p>
         <div class="text-and-star-container">
-          <p class="card-bottomText">4.8</p>
+          <p class="card-bottomText">{{this.shop.stars}}</p>
           <img class="star-image" src="..\assets\buttons_logos\star_rating_icon.png">
           <p class="opiniones">Ver opiniones</p>
         </div>
@@ -22,10 +22,11 @@
     <div class="cards-container">
       <app-shop-card 
         *ngFor="let product of getProducts()"
-          [productId]=product.id
+          [productId]="product.id"
           title={{product.name}}
           subtitle={{product.description}}
-          bottomText="$ {{product.price}}"
+          bottomText="$ {{product.prices[0].amount}}"
+          imagePath={{product.photoPath}}
           [hasEditButton]="true">
       </app-shop-card>
     </div>  

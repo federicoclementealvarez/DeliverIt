@@ -6,7 +6,7 @@ import { Price } from '../price/price.entity.js'
 import { LineItem } from '../lineItem/lineItem.entity.js'
 
 @Entity()
-@Filter({ name: 'productCategory', cond:  args =>({ productCategory: {$in: args} }) })
+@Filter({ name: 'productCategory', cond:  args =>({ productCategory: {$in: args.par} }) })
 @Filter({ name: 'shopId', cond:  args =>({ shop: args.shopId }) })  
 export class Product extends BaseEntity
 {
@@ -28,7 +28,7 @@ export class Product extends BaseEntity
     @OneToMany(() => Price, (price) => price.product, {
         cascade: [Cascade.ALL],
     })
-    prices : Collection<Price> = new Collection<Price>(this)
+    prices = new Collection<Price>(this)
 
     @OneToMany(() => LineItem, (lineItem) => lineItem.product, {
         cascade: [Cascade.ALL],

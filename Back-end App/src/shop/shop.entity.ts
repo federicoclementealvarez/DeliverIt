@@ -8,8 +8,8 @@ import { Review } from '../review/review.entity.js'
 
 @Entity()
 @Filter({ name: 'name', cond:  args =>({ name: { $regex: args.par } }) }) //the regular expression is sent complete in the 'args' parameter
-@Filter({ name: 'shoptype', cond:  args =>({ shopType: {id: args.par} }) }) //the shopType id is sent as the 'args' parameter
-@Filter({ name: 'getByIds', cond:  args =>({ id: {$in: args} }) })
+@Filter({ name: 'shopType', cond:  args =>({ shopType: args.par }) }) //the shopType id is sent as the 'args' parameter
+@Filter({ name: 'getByIds', cond:  args =>({ id: {$in: args.par} }) })
 export class Shop extends BaseEntity
 {
   @Property({ nullable: false })
@@ -71,5 +71,5 @@ export class Shop extends BaseEntity
     reviews = new Collection<Review>(this)
 
     @OneToOne(() => User, { nullable: false })
-    user!: Rel<User>;
+    owner!: Rel<User>;
 }

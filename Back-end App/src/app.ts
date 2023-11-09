@@ -38,7 +38,7 @@ app.use('/api/productCategories', productCategoryRouter);
 app.use('/api/commissions', commissionRouter);
 app.use('/api/userTypes', userTypeRouter);
 app.use('/api/products', productRouter);
-app.use('/api/shop', shopRouter);
+app.use('/api/shops', shopRouter);
 app.use('/api/order', orderRouter);
 
 app.use((_, res) => {

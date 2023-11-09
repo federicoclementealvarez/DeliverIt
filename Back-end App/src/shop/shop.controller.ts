@@ -68,9 +68,9 @@ export async function findByFilters(req: Request, res: Response)
     try{
         const filters = filterParameters(req)
         let shopsByFilters = await em.find(Shop,{},{filters:filters})
-        if(req.params.productCategoryName!=''){
+        if(req.params.productCategoryName!=' '){
             let shopsByProductsIds = await findShopsByProductCategory(req.params.productCategoryName)
-            let shopsByProducts = await em.find(Shop, {}, {filters: {getByIds: shopsByProductsIds}})
+            let shopsByProducts = await em.find(Shop, {}, {filters: {getByIds: {par: shopsByProductsIds}}})
             let shopsTotal = Array.from(new Set([...shopsByFilters, ...shopsByProducts]))
             shopsByFilters = shopsTotal
         }
@@ -126,10 +126,10 @@ function filterParameters(req: Request){
     
     const filters : filterType={}
 
-    if (req.params.name!=''){
-        filters.name={par:'/'+req.params.name+'/i'}
+    if (req.params.name!=' '){
+        filters.name={par:req.params.name}
     }
-    if(req.params.shopTypeId!=''){
+    if(req.params.shopTypeId!=' '){
         filters.shopType={par:req.params.shopTypeId}
     }
 
