@@ -24,19 +24,25 @@ export class CustomerSearchResultsComponent {
     this.shopTypeId = this._Activatedroute.snapshot.paramMap.get("shopTypeId");
     this.searchInput = this._Activatedroute.snapshot.paramMap.get("searchInput");
 
+    console.log(this.searchInput, this.shopTypeId)
+
     if (this.shopTypeId !== null) {
       this.getShopType(this.shopTypeId)
-      this.shopService.getShopsByShopType(this.shopTypeId)
+      this.shopService.getShopsByShopType(this.shopTypeId).subscribe((data: Shop[]) => {
+        this.shops = data
+      })
+      console.log(this.shops)
     }
 
     if (this.searchInput !== null) {
-      this.shopService.getShopsBySearchInput(this.searchInput)
+      console.log('s')
+      this.shopService.getShopsBySearchInput(this.searchInput).subscribe((data: Shop[]) => {
+        this.shops = data
+      })
     }
   }
 
   getShopType(id: string) {
-    this.shopTypeService.getOne(id).subscribe((data: ShopType) => {
-      this.shopType = data
-    })
+    this.shopTypeService.getOne(id)
   }
 }
