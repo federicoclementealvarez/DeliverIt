@@ -17,7 +17,7 @@ export class Product extends BaseEntity
     description!: string
 
     @Property({ nullable: true })
-    photoPath?: string
+    photoPath!: string
 
     @ManyToOne(() => Shop, { nullable: false })
     shop !: Rel<Shop>

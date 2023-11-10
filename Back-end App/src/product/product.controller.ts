@@ -1,16 +1,15 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { Product } from './product.entity.js';
 import { orm } from '../shared/orm.js';
 import { validator } from '../shared/validator.js';
 import { findByName } from '../productCategory/productCategory.controller.js';
 import * as fs from 'fs';
-import { createByProductId, getLastPriceByProductId} from '../price/price.controller.js';
-import {multerUploadProduct } from '../shared/imageHandler.js';
+import { getLastPriceByProductId} from '../price/price.controller.js';
 import { Loaded } from '@mikro-orm/core';
 
 const em = orm.em.fork();
 
-export function sanitizedInput(req: Request){
+export function sanitizedInput(req: Request, _:Response, next: NextFunction){
 
   req.body.sanitizedInput = {
       id:req.params.id,
@@ -20,7 +19,8 @@ export function sanitizedInput(req: Request){
       validSince:req.body.validSince,
       shop:req.body.shop,
       productCategory:req.body.productCategory,
-      photo:req.body.photo
+      fileBeginner: req.body.fileBeginner,
+      photoPath: req.body.filePath
     }
 
     //add more validations here if necessary
@@ -29,6 +29,8 @@ export function sanitizedInput(req: Request){
         if (req.body.sanitizedInput[key] === undefined) {
           delete req.body.sanitizedInput[key];
         }})
+    
+    next()
 }
 
 export function find(req: Request, res: Response){
@@ -121,11 +123,6 @@ export async function findShopsByProductCategory(productCategoryName: string)
 export async function remove(req: Request, res: Response)
 {
     try{
-      const validatorResponse = validator.validateObjectId(req.params.id)
-      if(!validatorResponse.isValid){
-        return res.status(400).json({message: validatorResponse.message})
-      }
-
       const product = await em.findOne(Product, req.params.id,{populate : ['prices']} ) as Product
 
       if(product===null){
@@ -149,96 +146,77 @@ export async function remove(req: Request, res: Response)
       }
 }
 
-export async function add(req: Request, res: Response)
-{
-    try{
-      //imageHandler tries to upload image ('photo' field in body)
-      multerUploadProduct.single('photo')(req, res, async (err) => {
-        if (err) {
-        return res.status(400).json({message: 'An error has ocurred while uploading the image: ', errorMessage: err.message});
-      }
-      else{
-        const finalProduct = {
-          id: req.body.sanitizedInput.id,
-          name:req.body.sanitizedInput.name,
-          description:req.body.description,
-          photoPath: `${'prd'}-${req.body.sanitizedInput.id}${'.jpeg'}`,
-          shop:req.body.sanitizedInput.shop,
-          productCategory:req.body.productCategory
-        }
-        
-        return res.status(201).json({ message: 'Product created successfully', data: finalProduct })
-        }
-      })
-    }
-    catch(error:any){
-      return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
-    }
-}
-
-export async function update(req: Request, res: Response){
+export async function validateId(req: Request, res: Response, next: NextFunction){
   try{
     const validatorResponse = validator.validateObjectId(req.params.id)
       if(!validatorResponse.isValid){
         return res.status(400).json({message: validatorResponse.message})
       }
 
-    //imageHandler tries to upload image ('photo' field in body)
-    multerUploadProduct.single('photo')(req, res, async (err) => {
-      if (err) {
-      return res.status(400).json({message: 'An error has ocurred while uploading the image: ', errorMessage: err.message});
-    }
-    else{
-      return res.status(201).json({ message: 'Product updated successfully'})
-      }
-    })
+      next()
   }
   catch(error:any){
     return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
   }
 }
 
-export async function createWhileUploadingImage(req: Request) {
+export async function create(req: Request, res: Response, next: NextFunction) {
+  try{
+    const productToCreate = {
+      name:req.body.sanitizedInput.name,
+      description:req.body.description,
+      shop:req.body.sanitizedInput.shop,
+      productCategory:req.body.productCategory,
+      photoPath: req.body.sanitizedInput.photoPath
+    }
 
-        const productToCreate = {
-          name:req.body.sanitizedInput.name,
-          description:req.body.description,
-          shop:req.body.sanitizedInput.shop,
-          productCategory:req.body.productCategory
-        }
+    const product = em.create(Product, productToCreate)
 
-        const product = em.create(Product, productToCreate)
-        
-        req.body.sanitizedInput.id=product.id
+    await em.flush()
 
-        const productToUpdate = {
-          photoPath: `${'prd'}-${req.body.sanitizedInput.id}${'.jpeg'}`
-        }
+    req.body.sanitizedInput.id = product.id
+    req.body.sanitizedInput.validSince = new Date(getTodayDate())
 
-        em.assign(product, productToUpdate)
-
-        //creates Price entity instance for today date
-        createByProductId(req.body.sanitizedInput.price, req.body.sanitizedInput.id, new Date(getTodayDate()), em)
-
-        await em.flush()
+    next()
+  }
+  catch(error:any){
+    return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+  }
 }
 
-export async function updateWhileUploadingImage(req: Request) {
+export async function update(req: Request, res:Response, next: NextFunction) {
+  try{
+    
+    const product = await em.findOne(Product, req.body.sanitizedInput.id,{populate:['prices']})
 
+    if(product===null){
+      return res.status(404).json({message: 'An error has ocurred', errorMessage: 'Product not found'})
+    }
 
-  const product = em.getReference(Product, req.body.sanitizedInput.id)
+    //the relative path here is the Back-end App folder
+    fs.unlink('src/shared/assets/'+`${product.photoPath}`, (err) => {
+      if (err) {
+          return res.status(500).json({message: 'An error has ocurred while deleting the image', errorMessage: err});
+      }
+  })
 
-  const productToUpdate = {
-    name:req.body.sanitizedInput.name,
-    description:req.body.description
+    const productToUpdate = {
+      name:req.body.sanitizedInput.name,
+      description:req.body.description,
+      photoPath: req.body.sanitizedInput.photoPath
+    }
+
+    em.assign(product, productToUpdate)
+
+    await em.flush()
+
+    req.body.sanitizedInput.id = product.id
+
+    next()
   }
-
-  em.assign(product, productToUpdate)
-
-  //creates Price entity instance for today date
-  createByProductId(req.body.sanitizedInput.price, req.body.sanitizedInput.id, new Date(req.body.sanitizedInput.validSince),em)
-
-  await em.flush()
+  catch(error:any){
+    return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+  }
 }
 
 

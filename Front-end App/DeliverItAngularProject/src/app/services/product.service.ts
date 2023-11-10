@@ -17,6 +17,7 @@ export class ProductService {
     formData.append("price", String(prod.price));
     formData.append("shop", prod.shop);
     formData.append("productCategory", prod.productCategory);
+    formData.append("fileBeginner", 'prd');
     formData.append("photo", prod.photo);
 
     const url = this.baseUrlService.getBaseUrl()+'products'
@@ -30,6 +31,7 @@ export class ProductService {
     formData.append("description", prod.description); 
     formData.append("price", String(prod.price));
     formData.append("validSince", prod.validSince.toString());
+    formData.append("fileBeginner", 'prd');
     formData.append("photo", prod.photo);
 
     const url = this.baseUrlService.getBaseUrl()+'products/'+prod.id
@@ -44,13 +46,13 @@ export class ProductService {
   }
 
   getOne(id:string){
-    const url = this.baseUrlService.getBaseUrl()+'products/'+id+'/ '
+    const url = this.baseUrlService.getBaseUrl()+'products/'+id+'/~'
 
     return this.http.get<any>(url)
   }
 
   getByShopId(shopId:string){
-    const url = this.baseUrlService.getBaseUrl()+'products/ /'+shopId
+    const url = this.baseUrlService.getBaseUrl()+'products/~/'+shopId
 
     return this.http.get<any>(url)
   }
