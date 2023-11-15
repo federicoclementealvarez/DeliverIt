@@ -1,0 +1,11 @@
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+<h1 class="descriptionLabel">Todas las categorías de producto</h1>
+<div class="container">
+  <div class="cards-container">
+    <li *ngFor="let productCategory of productCategories" (click)="onEditClick(productCategory.id)">
+      {{productCategory.description}}
+    </li>
+  </div>
+</div>

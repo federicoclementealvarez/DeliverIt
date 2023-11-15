@@ -18,7 +18,14 @@ import { ShopAddProductComponent } from './shop-add-product/shop-add-product.com
 import { ShopModifyProductComponent } from './shop-modify-product/shop-modify-product.component';
 import { AllDeliveredOrdersComponent } from './all-delivered-orders/all-delivered-orders.component';
 import { ShopListProductComponent } from './shop-list-product/shop-list-product.component';
-
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { AddPaymentTypeComponent } from './add-payment-type/add-payment-type.component';
+import { AddProductCategoryComponent } from './add-product-category/add-product-category.component';
+import { EditPaymentTypeComponent } from './edit-payment-type/edit-payment-type.component';
+import { EditProductCategoryComponent } from './edit-product-category/edit-product-category.component';
+import { PaymentTypeListComponent } from './payment-type-list/payment-type-list.component';
+import { ProductCategoryListComponent } from './product-category-list/product-category-list.component';
+import { ErrorPanelComponent } from './error-panel/error-panel.component';
 
 const routes: Routes = [
   { path: "", component: LandingPageComponent },
@@ -39,6 +46,14 @@ const routes: Routes = [
   { path: 'home-delivery-boy', component: HomeDeliveryBoyComponent },
   { path: 'explore-new-deliveries', component: ExploreNewDeliveriesComponent },
   { path: 'all-delivered-orders', component: AllDeliveredOrdersComponent },
+  { path: 'admin-panel', component: AdminPanelComponent },
+  { path: 'add-payment-type', component: AddPaymentTypeComponent },
+  { path: 'add-product-category', component: AddProductCategoryComponent },
+  { path: 'edit-product-category/:id', component: EditProductCategoryComponent },
+  { path: 'edit-payment-type/:id', component: EditPaymentTypeComponent },
+  { path: 'payment-type-list', component: PaymentTypeListComponent },
+  { path: 'product-category-list', component: ProductCategoryListComponent },
+  { path: 'error-panel', component: ErrorPanelComponent},
   { path: '**', component: LandingPageComponent }
   
 ];

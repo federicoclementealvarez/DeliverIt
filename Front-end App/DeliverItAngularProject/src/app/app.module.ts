@@ -33,6 +33,14 @@ import { SecondaryButtonComponent } from './secondary-button/secondary-button.co
 import { AllDeliveredOrdersComponent } from './all-delivered-orders/all-delivered-orders.component';
 import { ShopListProductComponent } from './shop-list-product/shop-list-product.component';
 import { EditProductButtonComponent } from './edit-product-button/edit-product-button.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { AddPaymentTypeComponent } from './add-payment-type/add-payment-type.component';
+import { AddProductCategoryComponent } from './add-product-category/add-product-category.component';
+import { EditProductCategoryComponent } from './edit-product-category/edit-product-category.component';
+import { EditPaymentTypeComponent } from './edit-payment-type/edit-payment-type.component';
+import { ProductCategoryListComponent } from './product-category-list/product-category-list.component';
+import { PaymentTypeListComponent } from './payment-type-list/payment-type-list.component';
+import { ErrorPanelComponent } from './error-panel/error-panel.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +73,14 @@ import { EditProductButtonComponent } from './edit-product-button/edit-product-b
     AllDeliveredOrdersComponent,
     ShopListProductComponent,
     EditProductButtonComponent,
+    AdminPanelComponent,
+    AddPaymentTypeComponent,
+    AddProductCategoryComponent,
+    EditProductCategoryComponent,
+    EditPaymentTypeComponent,
+    ProductCategoryListComponent,
+    PaymentTypeListComponent,
+    ErrorPanelComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,52 @@
+@media screen and (max-width: 576px) {
+  .input-button {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 992px) {
+  .input-button {
+    width: 65%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .input-button {
+    width: 45%;
+  }
+}
+
+.container {
+  position: relative;
+  top: 55px;
+  text-align: left;
+  height: 55vh;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  margin-left: 10%;
+
+}
+
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.descriptionLabel {
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
+
+li {
+  font-family: Poppins;
+  font-size: xx-large;
+  margin-bottom: 5%;
+}

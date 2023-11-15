@@ -1,0 +1,66 @@
+@import '../../styles.scss';
+
+@media screen and (max-width: 576px) {
+  .logo {
+    margin-top: auto;
+    width: 70%;
+  }
+
+  .text-logo {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 992px) {
+  .logo {
+    margin-top: auto;
+    width: 50%;
+  }
+
+  .text-logo {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .logo {
+    margin-top: auto;
+    width: 20%;
+  }
+
+  .text-logo {
+    width: 45%;
+  }
+}
+
+.container {
+  background-color: $secondary-red;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.blank-container {
+  background-color: #FFF;
+  height: 65vh;
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 35px 35px 0 0;
+}
+
+.text-logo {
+  //width: 80%;
+  height: 65vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.highlighter{
+  color:red;
+}
