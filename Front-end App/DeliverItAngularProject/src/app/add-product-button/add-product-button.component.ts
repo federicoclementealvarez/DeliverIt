@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { AddProductCustomerService } from '../services/add-product-customer.service';
+import { OrderService } from '../services/order.service';
+import { Product } from '../entities/product.entity';
 
 @Component({
   selector: 'app-add-product-button',
@@ -8,20 +9,19 @@ import { AddProductCustomerService } from '../services/add-product-customer.serv
 })
 export class AddProductButtonComponent {
   quantity: number;
-  @Input() productId: string;
+  @Input() product: Product;
 
-  constructor(private service: AddProductCustomerService) {
-    this.quantity = 0;
-    console.log('created')
+  constructor(private orderService: OrderService) {
+    this.quantity = 0
   }
 
-  incrementQuantity(productId: string) {
+  incrementQuantity(product: Product) {
     this.quantity++
-    this.service.addProduct(productId)
+    this.orderService.addProduct(product)
   }
 
-  diminishQuantity(productId: string) {
+  diminishQuantity(product: Product) {
     this.quantity--
-    this.service.removeProduct(productId)
+    this.orderService.removeProduct(product)
   }
 }

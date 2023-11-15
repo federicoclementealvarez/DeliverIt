@@ -19,7 +19,7 @@
       [subtitle]="shop.street + ' ' + shop.streetNumber"
       bottomText={{shop.stars}}
       [hasStar]=true
-      routerLink="/shop-customer"
+      [routerLink]="['/shop-customer', shop.id]"
       imagePath={{shop.logoPath}}>
     </app-shop-card>
   </div>

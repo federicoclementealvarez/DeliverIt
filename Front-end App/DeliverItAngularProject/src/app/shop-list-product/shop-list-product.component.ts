@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AddProductCustomerService } from '../services/add-product-customer.service';
+import { OrderService } from '../services/order.service';
 import { Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { Product } from '../entities/product.entity';
@@ -17,23 +17,38 @@ export class ShopListProductComponent {
   shopId: string
   shop: Shop
 
-  constructor(private shopService: ShopService, private addProductCustomerService: AddProductCustomerService, private router: Router, private productService: ProductService) {
-    this.shopId = sessionStorage.getItem('shopId');
-    shopService.getOne(this.shopId).subscribe(res=>this.shop=res.body)
-    productService.getByShopId(this.shopId).subscribe(res=>this.products=res.body)
-   }
-
+  constructor(private shopService: ShopService,
+    private orderService: OrderService,
+    private router: Router,
+    private productService: ProductService) { }
+  
   ngOnInit() {
-    this.addProductCustomerService.editHasBeenClicked.subscribe(({id:productId, clicked: hasBeenClicked}) => {
-      if(hasBeenClicked){
-        sessionStorage.setItem('productId',productId);
+    this.shopId = sessionStorage.getItem('shopId');
+    this.getShop()
+    this.getProducts()
+    this.orderService.editHasBeenClicked.subscribe(({ id: productId, clicked: hasBeenClicked }) => {
+      if (hasBeenClicked) {
+        sessionStorage.setItem('productId', productId);
         this.router.navigate(['/shop-modify-product']);
       }
     });
   }
 
-  getProducts() {
-    return this.products
+  getShop() {
+    this.shopService.getOne(this.shopId)
+      .subscribe((data: Shop) => {
+        this.shop = data
+      })
   }
 
+  getProducts() {
+    this.productService.getByShopId(this.shopId)
+      .subscribe((data: Product[]) => {
+        this.products = data
+      })
+  }
+
+  getProduct(productId: string) {
+    return this.products.find((p) => p.id === productId)
+  }
 }

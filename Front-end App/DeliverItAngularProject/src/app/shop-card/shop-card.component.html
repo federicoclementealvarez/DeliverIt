@@ -24,13 +24,14 @@
   </div>
   <div *ngIf="hasAddButton === true" class="add-product-button-container">
     <div class="button-subcontainer">
-      <app-add-product-button productId="{{ this.productId }}">
+      <app-add-product-button [product]=product>
       </app-add-product-button>
     </div>
   </div>
   <div *ngIf="hasEditButton === true" class="add-product-button-container">
     <div class="button-subcontainer">
-      <app-edit-product-button productId={{productId}}></app-edit-product-button>
+      <!-- DESCOMENTAR!!! -->
+      <!-- <app-edit-product-button productId={{productId}}></app-edit-product-button> -->
     </div>
   </div>
 </div>

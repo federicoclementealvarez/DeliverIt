@@ -22,7 +22,7 @@
   <div class="cards-container">
     <app-shop-card 
       *ngFor="let product of products"
-        productId={{product.id}}
+        [product]=product
         title={{product.name}}
         subtitle={{product.description}}
         bottomText="$ {{product.price}}"

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { AddProductCustomerService } from '../services/add-product-customer.service';
-import { ShopCustomerService } from '../services/shop-customer.service';
+import { OrderService } from '../services/order.service';
 import { Product } from '../entities/product.entity';
+import { ProductService } from '../services/product.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-shop-customer',
@@ -9,26 +10,30 @@ import { Product } from '../entities/product.entity';
   styleUrls: ['./shop-customer.component.scss']
 })
 export class ShopCustomerComponent {
-  products: Product[] = []
+  constructor(private orderService: OrderService,
+    private productService: ProductService,
+    private route: ActivatedRoute) { }
 
-  constructor(private addProductCustomerService: AddProductCustomerService,
-  private shopCustomerService: ShopCustomerService) {
-    this.products = this.shopCustomerService.getProducts()
-  }
-
-  totalQty: number;
+  products: Product[]
+  totalQty: number
+  shopId: string
 
   ngOnInit() {
-    this.addProductCustomerService.totalQty$.subscribe((_totalQty) => {
+    this.shopId = this.route.snapshot.params['shopId']
+    this.getProducts()
+    this.orderService.totalQty$.subscribe((_totalQty) => {
       this.totalQty = _totalQty
     });
   }
 
   getProducts() {
-    return this.products
+    this.productService.getByShopId(this.shopId)
+      .subscribe((data: Product[]) => {
+        this.products = data
+      })
   }
 
   resetProducts() {
-    this.addProductCustomerService.resetProducts()
+    this.orderService.resetProducts()
   }
 }

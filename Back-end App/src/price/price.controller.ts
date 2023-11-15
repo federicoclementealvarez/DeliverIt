@@ -3,6 +3,7 @@ import { EntityManager } from '@mikro-orm/core';
 import { Price } from './price.entity.js';
 //import { Product } from '../product/product.entity.js';
 import { orm } from '../shared/orm.js';
+import { Product } from '../product/product.entity.js';
 
 const em = orm.em.fork()
 
@@ -14,7 +15,7 @@ export async function createByProductId(req: Request, res: Response){
         const priceToCreate = {
             amount: amount,
             validSince: req.body.sanitizedInput.validSince,
-            product: req.body.sanitizedInput.id
+            product: em.getReference(Product, req.body.sanitizedInput.id)
         }
 
         em.create(Price, priceToCreate)

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Product } from '../entities/product.entity';
 
 @Component({
   selector: 'app-shop-card',
@@ -8,7 +9,8 @@ import { Component, Input } from '@angular/core';
 export class ShopCardComponent {
 
   @Input() shopId: string
-  @Input() productId: string;
+  @Input() productId: string
+  @Input() product: Product
   @Input() title: string;
   @Input() subtitle: string;
   @Input() bottomText: string;

@@ -10,22 +10,17 @@ import { Observable, map } from 'rxjs';
 export class ShopTypeService {
   constructor(private http: HttpClient, private baseUrlService: BaseUrlService) { }
 
-  getAll() {
-    const url = this.baseUrlService.getBaseUrl() + 'shopTypes';
-    return this.http.get<any>(url);
-  }
+  readonly baseUrl = `${this.baseUrlService.getBaseUrl()}shopTypes/`;
 
-  getShopTypes(): Observable<ShopType[]> {
-    const url = this.baseUrlService.getBaseUrl() + 'shopTypes/';
-    return this.http.get<ShopType[]>(url)
+  getAll(): Observable<ShopType[]> {
+    return this.http.get<ShopType[]>(this.baseUrl)
       .pipe(
         map((response: any) => response.body)
       );
   }
 
   getOne(id: string): Observable<ShopType> {
-    const url = this.baseUrlService.getBaseUrl() + 'shopTypes/' + id;
-    return this.http.get<ShopType>(url)
+    return this.http.get<ShopType>(this.baseUrl + id)
       .pipe(
         map((response: any) => response.body)
       );

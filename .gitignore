@@ -75,3 +75,6 @@ dist/**/*
 
 ## built vscode extensions
 *.vsix
+
+## images
+assets/*

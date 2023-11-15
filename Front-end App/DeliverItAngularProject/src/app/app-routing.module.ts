@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: 'direccion', component: DireccionComponent },
   { path: 'home-customer', component: HomeCustomerComponent },
   { path: 'search-customer', component: CustomerSearchResultsComponent },
-  { path: 'shop-customer', component: ShopCustomerComponent },
+  { path: 'shop-customer/:shopId', component: ShopCustomerComponent },
   { path: 'order-details', component: OrderDetailsComponent },
   { path: 'order-confirmed', component: OrderConfirmedComponent },
   { path: 'signup_shop_data1', component: SignupShopData1Component },

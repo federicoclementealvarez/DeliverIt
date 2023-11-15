@@ -10,27 +10,32 @@ import { Shop } from '../entities/shop.entity';
 })
 export class HomeShopComponent {
 
-  protected shop : Shop;
+  protected shop: Shop;
 
-  constructor(private router: Router, private shopService: ShopService){}
+  constructor(private router: Router, private shopService: ShopService) { }
 
-  ngOnInit(){
+  ngOnInit() {
     //this id is for example purposes only, it will be retrieved from the signup when ready
-    this.shopService.getOne('654c0a5ada8e9efaeeae025a').subscribe(res => {
-      this.shop = res.body
-      sessionStorage.setItem('shopId', this.shop.id)
-    })
+    this.getShop('654c0a5ada8e9efaeeae025a')
+    sessionStorage.setItem('shopId', this.shop.id)
   }
 
-  onAddProducts(){
+  onAddProducts() {
     this.router.navigate(['/shop-add-product', this.shop]);
   }
 
-  onModifyProducts(){
+  onModifyProducts() {
     this.router.navigate(['/shop-list-product', this.shop]);
   }
 
-  onModifyShopData(){
+  onModifyShopData() {
     this.router.navigate(['/signup_shop_data1']);
+  }
+
+  getShop(id: string) {
+    this.shopService.getOne(id)
+      .subscribe((data: Shop) => {
+        this.shop = data
+      })
   }
 }
