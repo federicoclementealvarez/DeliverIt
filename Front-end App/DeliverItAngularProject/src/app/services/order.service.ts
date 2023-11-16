@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Order } from '../entities/order.entity';
 import { Product } from '../entities/product.entity';
-import { ProductService } from './product.service';
-import { ShopListProductComponent } from '../shop-list-product/shop-list-product.component';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +11,10 @@ import { ShopListProductComponent } from '../shop-list-product/shop-list-product
 export class OrderService {
   order: Order
 
-  constructor() { }
+  constructor() {
+    this.order = new Order()
+    this.order.products = []
+  }
 
   // This variables send the total quantity of items when it changes
   private totalQuantity = new BehaviorSubject<number>(0);
@@ -23,11 +25,6 @@ export class OrderService {
 
   private editClicked = new BehaviorSubject<{ id: string, clicked: boolean }>({ id: '', clicked: false });
   editHasBeenClicked = this.editClicked.asObservable();
-
-  create() {
-    this.order = new Order()
-    this.order.products = []
-  }
 
   addProduct(product: Product) {
     let productInList = this.order.products.find((p) => p.product.id === product.id)
@@ -74,14 +71,12 @@ export class OrderService {
   }
 
   getOrder() {
-    return this.order;
+    return this.order
   }
 
-  getTotal() {
+  getSubTotal() {
     let sum: number = 0
-    this.order.products.forEach((item) => sum += Number(item.product.price) * item.quantity)
-
-    sum += 300
+    this.order.products.forEach((item) => sum += Number(item.product.prices[0].amount) * item.quantity)
     return sum
   }
 

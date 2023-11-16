@@ -31,10 +31,8 @@ export class HomeCustomerComponent {
   }
 
   getAllShops() {
-    console.log(this.shops)
     this.shopService.getAll().subscribe((data: Shop[]) => {
       this.shops = data
     })
-    console.log(this.shops)
   }
 }

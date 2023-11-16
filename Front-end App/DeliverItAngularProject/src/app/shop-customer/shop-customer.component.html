@@ -25,7 +25,7 @@
         [product]=product
         title={{product.name}}
         subtitle={{product.description}}
-        bottomText="$ {{product.price}}"
+        bottomText="$ {{product.prices[0].amount}}"
         imagePath={{product.photoPath}}
         [hasAddButton]="true">
     </app-shop-card>
