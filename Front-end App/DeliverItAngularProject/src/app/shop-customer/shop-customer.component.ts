@@ -21,6 +21,7 @@ export class ShopCustomerComponent {
   ngOnInit() {
     this.shopId = this.route.snapshot.params['shopId']
     this.getProducts()
+    this.orderService.create()
     this.orderService.totalQty$.subscribe((_totalQty) => {
       this.totalQty = _totalQty
     });

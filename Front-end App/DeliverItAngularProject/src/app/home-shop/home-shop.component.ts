@@ -17,7 +17,6 @@ export class HomeShopComponent {
   ngOnInit() {
     //this id is for example purposes only, it will be retrieved from the signup when ready
     this.getShop('654c0a5ada8e9efaeeae025a')
-    sessionStorage.setItem('shopId', this.shop.id)
   }
 
   onAddProducts() {
@@ -36,6 +35,7 @@ export class HomeShopComponent {
     this.shopService.getOne(id)
       .subscribe((data: Shop) => {
         this.shop = data
+        sessionStorage.setItem('shopId', this.shop.id)
       })
   }
 }

@@ -12,7 +12,7 @@ export class ProductService {
 
   constructor(private http: HttpClient, private baseUrlService: BaseUrlService) { }
 
-  readonly url = `${this.baseUrlService.getBaseUrl()}products/`;
+  readonly url = `${this.baseUrlService.getBaseUrl()}products`;
 
   getAll(): Observable<Product[]> {
     return this.http.get<Product[]>(this.url)
@@ -22,7 +22,7 @@ export class ProductService {
   }
 
   getOne(id: string): Observable<Product> {
-    return this.http.get<Product>(this.url + id + '/~')
+    return this.http.get<Product>(`${this.url}/${id}/~`)
       .pipe(
         map((response: any) => response.body)
       );
