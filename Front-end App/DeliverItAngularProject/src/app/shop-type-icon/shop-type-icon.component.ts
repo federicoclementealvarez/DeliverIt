@@ -15,6 +15,6 @@ export class ShopTypeIconComponent {
 
   // When the User clicks the Component
   @HostListener("click") onClick() {
-    this.router.navigate(['/search-customer', { shopTypeId: this.id }])
+    this.router.navigate(['/search-customer'], { queryParams: { shopTypeId: this.id, shopTypeDescription: this.description } })
   }
 }

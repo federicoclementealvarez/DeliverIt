@@ -14,7 +14,7 @@ export class CustomerSearchbarComponent {
   handleSubmit(e) {
     e.preventDefault();
     this.router.routeReuseStrategy.shouldReuseRoute = function () { return false; };
-    this.router.navigate(['/search-customer', { searchInput: this.searchInput }])
+    this.router.navigate(['/search-customer'], { queryParams: { searchInput: this.searchInput } })
   }
 
   handleKeyUp(e) {

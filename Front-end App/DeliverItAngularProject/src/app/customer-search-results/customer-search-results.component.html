@@ -2,12 +2,18 @@
 <div class="container">
   <div class="content">
     <h3 class="link" routerLink="/home-customer">< Volver al Inicio</h3>
-    <h3 *ngIf="shopType; else elseBlock">{{ shopType.description }}</h3>
-    <ng-template #elseBlock
-      ><h3>
-        Resultados de la búsqueda para "{{ this.searchInput }}"
-      </h3></ng-template
-    >
+    <h3 *ngIf="shopTypeId; else elseBlock">{{ shopTypeDescription }}</h3>
+    <ng-template #elseBlock>
+      <h3 *ngIf="shops.length > 0; else elseBlock">
+        <h3>Resultados de la búsqueda para "{{ this.searchInput }}"</h3>
+      </h3>
+      <ng-template #elseBlock>
+        <h3>No se encontraron resultados para "{{ this.searchInput }}"</h3>
+        <div class="container">
+          <img class="img" src="../../assets/casual-life-3d-cardboard-boxes.png" alt="no se encontraron resultados">
+        </div>
+      </ng-template>
+    </ng-template>
     <div class="shops">
       <app-shop-card
         *ngFor="let s of shops"
