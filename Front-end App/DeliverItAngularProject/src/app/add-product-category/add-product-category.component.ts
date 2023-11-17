@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ProductCategory } from '../entities/productCategory';
+import { ProductCategory } from '../entities/productCategory.entity';
 import { ProductCategoryService } from '../services/product-category.service';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProductCategory } from '../entities/productCategory';
+import { ProductCategory } from '../entities/productCategory.entity';
 import { ProductCategoryService } from '../services/product-category.service';
 import { Router } from '@angular/router';
 
@@ -16,7 +16,7 @@ export class ProductCategoryListComponent
 
   ngOnInit() 
   {
-    this.productCategoryService.findAll().subscribe((response) => this.productCategories=response.data)
+    this.productCategoryService.getAll().subscribe((response) => this.productCategories=response.data)
   }
 
   onEditClick(productCategoryId: string)

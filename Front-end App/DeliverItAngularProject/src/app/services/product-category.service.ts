@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseUrlService } from './base-url.service';
 import { Observable } from 'rxjs';
-import { ProductCategory } from '../entities/productCategory';
+import { ProductCategory } from '../entities/productCategory.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class ProductCategoryService
     return this.http.post(this.url,productCategory)
   }
 
-findAll()
+getAll()
 {
   return this.http.get<any>(this.url)
 }
@@ -33,4 +33,5 @@ update(productCategory: ProductCategory): Observable<any>
 delete(productCategoryId: string): Observable<any>
 {
   return this.http.delete<any>(`${this.url}/${productCategoryId}`)
+}
 }

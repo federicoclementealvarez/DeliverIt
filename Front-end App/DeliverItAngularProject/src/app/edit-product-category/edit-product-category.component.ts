@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductCategoryService } from '../services/product-category.service';
-import { ProductCategory } from '../entities/productCategory';
+import { ProductCategory } from '../entities/productCategory.entity';
 
 @Component({
   selector: 'app-edit-product-category',
