@@ -35,7 +35,8 @@ export class AddProductCategoryComponent
       }
       this.productCategoryService.create(productCategory).subscribe(response => console.log(response))
     }
-    this.router.navigate(['product-category-list'])
+    alert('Categoría de producto creada')
+    this.router.navigate(['admin-panel'])
   }
 }
 

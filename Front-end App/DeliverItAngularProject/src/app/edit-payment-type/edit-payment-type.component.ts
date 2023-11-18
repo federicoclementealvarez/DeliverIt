@@ -42,7 +42,8 @@ export class EditPaymentTypeComponent
       
       this.paymentTypeService.update(paymentType).subscribe(response => console.log(response))
       sessionStorage.removeItem('idPaymentType')
-      this.router.navigate(['payment-type-list'])
+      alert('Forma de pago editada')
+      this.router.navigate(['admin-panel'])
     }
 
   }
@@ -52,7 +53,8 @@ export class EditPaymentTypeComponent
     const id = sessionStorage.getItem('idPaymentType')
     this.paymentTypeService.delete(id).subscribe(response => console.log(response))
     sessionStorage.removeItem('idPaymentType')
-    this.router.navigate(['payment-type-list'])
+    alert('Forma de pago eliminada')
+    this.router.navigate(['admin-panel'])
   }
 
 
