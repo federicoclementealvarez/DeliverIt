@@ -10,14 +10,14 @@ import { ProductCategory } from '../entities/productCategory.entity';
 export class ProductCategoryService 
 
 {
-  url: string = this.baseUrlService.getBaseUrl() + 'productCategories'
+  url: string = this.baseUrlService.getBaseUrl() + 'productCategories/'
 
   constructor(private http: HttpClient, private baseUrlService:BaseUrlService ) {}
 
-  create(productCategory: ProductCategory): Observable<any>
-  {
-    return this.http.post(this.url,productCategory)
-  }
+create(productCategory: ProductCategory): Observable<any>
+{
+  return this.http.post(this.url,productCategory)
+}
 
 getAll()
 {
