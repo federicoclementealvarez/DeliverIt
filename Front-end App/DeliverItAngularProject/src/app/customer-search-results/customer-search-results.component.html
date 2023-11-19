@@ -22,6 +22,7 @@
         [subtitle]="s.street + ' ' + s.streetNumber"
         bottomText="{{ s.stars }}"
         [hasStar]="true"
+        [routerLink]="['/shop-customer', s.id]"
         [imagePath]="s.logoPath"
       >
       </app-shop-card>
