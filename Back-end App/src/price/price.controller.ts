@@ -3,6 +3,7 @@ import { EntityManager } from '@mikro-orm/core';
 import { Price } from './price.entity.js';
 //import { Product } from '../product/product.entity.js';
 import { orm } from '../shared/orm.js';
+import { Product } from '../product/product.entity.js';
 
 const em = orm.em.fork()
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AddProductCustomerService } from '../services/add-product-customer.service';
-import { ShopCustomerService } from '../services/shop-customer.service';
+import { OrderService } from '../services/order.service';
+import { Order } from '../entities/order.entity';
 
 @Component({
   selector: 'app-order-details',
@@ -8,18 +8,29 @@ import { ShopCustomerService } from '../services/shop-customer.service';
   styleUrls: ['./order-details.component.scss']
 })
 export class OrderDetailsComponent {
-  constructor(private addProductCustomerService: AddProductCustomerService, private shopCustomerService: ShopCustomerService) {}
+  constructor(private orderService: OrderService) { }
+  items = []
+  subTotal: number
+  shippingPrice: number
+  total: number
+
+  ngOnInit() {
+    this.getItems()
+    this.getSubTotal()
+    this.getShippingPrice()
+    this.total = this.subTotal + this.shippingPrice
+  }
 
   // Devuelvo un Array con los Productos y sus cantidades
   getItems() {
-    return this.addProductCustomerService.getOrder().products
+    this.items = this.orderService.getOrder().products
   }
 
-  getTotal() {
-    return this.addProductCustomerService.getTotal()
+  getSubTotal() {
+    this.subTotal = this.orderService.getSubTotal()
   }
 
   getShippingPrice() {
-    return this.shopCustomerService.getShippingPrice()
+    this.shippingPrice = 300
   }
 }

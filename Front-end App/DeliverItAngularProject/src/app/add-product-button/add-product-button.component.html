@@ -1,10 +1,10 @@
 <div class="container">
-  <button *ngIf="quantity === 0" (click)="incrementQuantity(productId)">Agregar</button>
+  <button *ngIf="quantity === 0" (click)="incrementQuantity(product)">Agregar</button>
   <div *ngIf="quantity !== 0" class="container-buttons">
-    <button class="button-operation" (click)="incrementQuantity(productId)">+</button>
+    <button class="button-operation" (click)="incrementQuantity(product)">+</button>
     <div class="number-container">
       <p class="number-quantity">{{ quantity }}</p>
     </div>
-    <button class="button-operation" (click)="diminishQuantity(productId)">-</button>
+    <button class="button-operation" (click)="diminishQuantity(product)">-</button>
   </div>
 </div>

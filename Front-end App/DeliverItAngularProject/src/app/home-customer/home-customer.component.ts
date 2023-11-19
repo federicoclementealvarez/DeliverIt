@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { AddProductCustomerService } from '../services/add-product-customer.service';
+import { OrderService } from '../services/order.service';
 import { ShopService } from '../services/shop.service';
-import { HomeCustomerService } from '../services/home-customer.service';
 import { ShopType } from '../entities/shopType.entity';
 import { Shop } from '../entities/shop.entity';
-import { Observable } from 'rxjs';
+import { ShopTypeService } from '../services/shop-type.service';
 
 @Component({
   selector: 'app-home-customer',
@@ -15,20 +14,25 @@ export class HomeCustomerComponent {
   public shopTypes: ShopType[]
   public shops: Shop[]
 
-  constructor(private homeCustomerService: HomeCustomerService,
-    private addProductCustomerService: AddProductCustomerService,
-    private shopService: ShopService) { 
-      shopService.getAll().subscribe(response => this.shops = response.body)
-    }
+  constructor(private shopTypeService: ShopTypeService,
+    private orderService: OrderService,
+    private shopService: ShopService) { }
 
   ngOnInit() {
     this.getShopTypes()
-    this.addProductCustomerService.resetProducts();
+    this.getAllShops()
+    this.orderService.resetProducts();
   }
 
   getShopTypes() {
-    this.homeCustomerService.getShopTypes().subscribe((data: ShopType[]) => {
+    this.shopTypeService.getAll().subscribe((data: ShopType[]) => {
       this.shopTypes = data
+    })
+  }
+
+  getAllShops() {
+    this.shopService.getAll().subscribe((data: Shop[]) => {
+      this.shops = data
     })
   }
 }

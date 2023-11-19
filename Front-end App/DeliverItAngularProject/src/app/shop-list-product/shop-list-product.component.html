@@ -21,7 +21,7 @@
   <div class="content-container" id="margin-0">
     <div class="cards-container">
       <app-shop-card 
-        *ngFor="let product of getProducts()"
+        *ngFor="let product of products"
           [productId]="product.id"
           title={{product.name}}
           subtitle={{product.description}}

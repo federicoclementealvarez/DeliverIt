@@ -8,7 +8,7 @@
       <h3>Precio</h3>
     </div>
     <div class="line-items-container">
-      <div *ngFor="let item of getItems()" class="line-item">
+      <div *ngFor="let item of items" class="line-item">
         <div class="title">
           <p class="card-title">{{item.product.name}}</p>
         </div>
@@ -17,18 +17,18 @@
             <p class="card-subtitle">{{item.product.description}}</p>
           </div>
           <div class="total">
-            <p class="card-subtitle">{{item.quantity}} x $ {{item.product.price}}</p>
+            <p class="card-subtitle">{{item.quantity}} x $ {{item.product.prices[0].amount}}</p>
           </div>
         </div>
       </div>
       <div class="quantity-total-container">
           <p class="card-title">Precio del envío</p>
-          <p class="card-subtitle">$ {{ getShippingPrice() }}</p>
+          <p class="card-subtitle">$ {{ shippingPrice }}</p>
       </div>
     </div>
     <div class="total-container">
       <p class="card-title">Total:</p>
-      <p class="card-title">$ {{ getTotal() }}</p>
+      <p class="card-title">$ {{ total }}</p>
     </div>
     <div class="button-container">
       <app-primary-button title="CONFIRMAR" routerLink="/order-confirmed"></app-primary-button>

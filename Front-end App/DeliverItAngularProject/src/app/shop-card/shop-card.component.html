@@ -24,7 +24,7 @@
   </div>
   <div *ngIf="hasAddButton === true" class="add-product-button-container">
     <div class="button-subcontainer">
-      <app-add-product-button productId="{{ this.productId }}">
+      <app-add-product-button [product]=product>
       </app-add-product-button>
     </div>
   </div>

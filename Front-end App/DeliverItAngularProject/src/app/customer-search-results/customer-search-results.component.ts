@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ShopService } from '../services/shop.service';
-import { ShopTypeService } from '../services/shop-type.service';
-import { ShopType } from '../entities/shopType.entity';
 import { Shop } from '../entities/shop.entity';
 
 @Component({
@@ -12,37 +10,29 @@ import { Shop } from '../entities/shop.entity';
 })
 export class CustomerSearchResultsComponent {
   shopTypeId?: string
+  shopTypeDescription?: string
   searchInput?: string
-  shopType: ShopType
-  shops: Shop[] = []
+  shops: Shop[]
 
-  constructor(private _Activatedroute: ActivatedRoute,
-    private shopService: ShopService,
-    private shopTypeService: ShopTypeService) { }
-
-  ngOnInit() {
-    this.shopTypeId = this._Activatedroute.snapshot.paramMap.get("shopTypeId");
-    this.searchInput = this._Activatedroute.snapshot.paramMap.get("searchInput");
-
-    console.log(this.searchInput, this.shopTypeId)
-
-    if (this.shopTypeId !== null) {
-      this.getShopType(this.shopTypeId)
-      this.shopService.getShopsByShopType(this.shopTypeId).subscribe((data: Shop[]) => {
-        this.shops = data
-      })
-      console.log(this.shops)
-    }
-
-    if (this.searchInput !== null) {
-      console.log('s')
-      this.shopService.getShopsBySearchInput(this.searchInput).subscribe((data: Shop[]) => {
-        this.shops = data
-      })
-    }
+  constructor(private route: ActivatedRoute, private shopService: ShopService) {
+    this.shops = []
   }
 
-  getShopType(id: string) {
-    this.shopTypeService.getOne(id)
+  ngOnInit() {
+    this.route.queryParams.subscribe((p: any) => {
+      if (p.shopTypeId && p.shopTypeDescription) {
+        this.shopTypeId = p.shopTypeId
+        this.shopTypeDescription = p.shopTypeDescription
+        this.shopService.getShopsByShopType(this.shopTypeId).subscribe((data: Shop[]) => {
+          this.shops = data
+        })
+      }
+      if (p.searchInput) {
+        this.searchInput = p.searchInput
+        this.shopService.getShopsBySearchInput(this.searchInput).subscribe((data: Shop[]) => {
+          this.shops = data
+        })
+      }
+    })
   }
 }
