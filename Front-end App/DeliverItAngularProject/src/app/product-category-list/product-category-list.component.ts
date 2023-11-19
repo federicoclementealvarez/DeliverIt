@@ -16,7 +16,7 @@ export class ProductCategoryListComponent
 
   ngOnInit() 
   {
-    this.productCategoryService.getAll().subscribe((response) => this.productCategories=response.data)
+    this.productCategoryService.getAll().subscribe((response) => this.productCategories=response.body)
   }
 
   onEditClick(productCategoryId: string)
