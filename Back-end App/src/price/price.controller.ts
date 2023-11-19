@@ -15,7 +15,7 @@ export async function createByProductId(req: Request, res: Response){
         const priceToCreate = {
             amount: amount,
             validSince: req.body.sanitizedInput.validSince,
-            product: em.getReference(Product, req.body.sanitizedInput.id)
+            product: req.body.sanitizedInput.id
         }
 
         em.create(Price, priceToCreate)
