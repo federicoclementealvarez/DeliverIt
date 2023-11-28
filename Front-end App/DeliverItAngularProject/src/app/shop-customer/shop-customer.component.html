@@ -1,17 +1,30 @@
 <div class="banner-container">
-  <img class="banner-image" [src]="'http://localhost:3000/assets/' + this.shop.bannerPath" alt="banner">
+  <img
+    class="banner-image"
+    [src]="'http://localhost:3000/assets/' + this.shop.bannerPath"
+    alt="banner"
+  />
 </div>
 <div class="content-container">
   <div class="shop-data">
     <div class="image-container">
-      <img class="shop-icon" [src]="'http://localhost:3000/assets/' + this.shop.logoPath" alt="icono del local">
+      <img
+        class="shop-icon"
+        [src]="'http://localhost:3000/assets/' + this.shop.logoPath"
+        alt="icono del local"
+      />
     </div>
     <div class="info-container">
       <p class="card-title">{{ this.shop.name }}</p>
-      <p class="card-subtitle">{{ this.shop.street + " " + this.shop.streetNumber }}</p>
+      <p class="card-subtitle">
+        {{ this.shop.street + " " + this.shop.streetNumber }}
+      </p>
       <div class="text-and-star-container">
         <p class="card-bottomText">{{ this.shop.stars }}</p>
-        <img class="star-image" src="..\assets\buttons_logos\star_rating_icon.png">
+        <img
+          class="star-image"
+          src="..\assets\buttons_logos\star_rating_icon.png"
+        />
         <p class="opiniones">Ver opiniones</p>
       </div>
     </div>
@@ -20,24 +33,35 @@
 <h6 class="products-title">Productos</h6>
 <div class="content-container" id="margin-0">
   <div class="cards-container">
-    <app-shop-card 
+    <app-shop-card
       *ngFor="let product of products"
-        [product]=product
-        title={{product.name}}
-        subtitle={{product.description}}
-        bottomText="$ {{product.prices[0].amount}}"
-        imagePath={{product.photoPath}}
-        [hasAddButton]="true">
+      [product]="product"
+      title="{{ product.name }}"
+      subtitle="{{ product.description }}"
+      bottomText="$ {{ product.prices[0].amount }}"
+      imagePath="{{ product.photoPath }}"
+      [hasAddButton]="true"
+    >
     </app-shop-card>
-  </div>  
+  </div>
 </div>
 <div *ngIf="totalQty > 0" class="confirm-order-container">
   <div class="total-container">
-    <p id="total-text">Total de Items:</p><p id="amount-text">{{ totalQty }}</p>
+    <p id="total-text">Total de Items:</p>
+    <p id="amount-text">{{ totalQty }}</p>
   </div>
   <div class="buttons-order-container">
-    <app-primary-button title="SIGUIENTE" routerLink="/order-details"></app-primary-button>
-    <button (click)="resetProducts()" routerLink="/home-customer" class="cancel-button">CANCELAR</button>
+    <app-primary-button
+      title="SIGUIENTE"
+      routerLink="/order-details"
+    ></app-primary-button>
+    <button
+      (click)="resetProducts()"
+      routerLink="/home-customer"
+      class="cancel-button"
+    >
+      CANCELAR
+    </button>
   </div>
 </div>
-<footer [ngClass]="{'footer': totalQty > 0}" class="footer"></footer>
+<footer [ngClass]="{ footer: totalQty > 0 }" class="footer"></footer>

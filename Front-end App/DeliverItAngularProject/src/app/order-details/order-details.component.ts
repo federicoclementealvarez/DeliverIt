@@ -43,7 +43,7 @@ export class OrderDetailsComponent {
   }
 
   getShippingPrice() {
-    this.shippingPrice = 300
+    this.shippingPrice = Number(localStorage.getItem('shippingPrice'))
   }
 
   getSelectedPaymentType() {

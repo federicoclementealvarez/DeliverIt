@@ -34,6 +34,7 @@ export class ShopCustomerComponent {
     this.shopService.getOne(this.shopId)
       .subscribe((data: Shop) => {
         this.shop = data
+        localStorage.setItem('shippingPrice', this.shop.shippingPrice.toString())
       })
   }
 
