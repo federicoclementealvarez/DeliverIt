@@ -1,4 +1,4 @@
-<div class="parent-container">  
+<div class="parent-container">
   <div class="container">
     <div class="title-container">
       <h1>Detalle del Pedido</h1>
@@ -10,28 +10,45 @@
     <div class="line-items-container">
       <div *ngFor="let item of items" class="line-item">
         <div class="title">
-          <p class="card-title">{{item.product.name}}</p>
+          <p class="card-title">{{ item.product.name }}</p>
         </div>
         <div class="quantity-total-container">
           <div class="quantity">
-            <p class="card-subtitle">{{item.product.description}}</p>
+            <p class="card-subtitle">{{ item.product.description }}</p>
           </div>
           <div class="total">
-            <p class="card-subtitle">{{item.quantity}} x $ {{item.product.prices[0].amount}}</p>
+            <p class="card-subtitle">
+              {{ item.quantity }} x $ {{ item.product.prices[0].amount }}
+            </p>
           </div>
         </div>
       </div>
       <div class="quantity-total-container">
-          <p class="card-title">Precio del envío</p>
-          <p class="card-subtitle">$ {{ shippingPrice }}</p>
+        <p class="card-title">Precio del envío</p>
+        <p class="card-subtitle">$ {{ shippingPrice }}</p>
       </div>
     </div>
     <div class="total-container">
       <p class="card-title">Total:</p>
       <p class="card-title">$ {{ total }}</p>
     </div>
+    <div class="payment-container">
+      <h3>Seleccione un método de pago</h3>
+      <form [formGroup]="paymentTypeForm">
+        <select name="paymentType" id="paymentType" class="dropdown" formControlName="selectedPaymentType">
+          <option disabled selected value></option>
+          <option *ngFor="let p of paymentTypes" [value]="p.id">
+            {{ p.description }}
+          </option>
+        </select>
+        <div [ngClass]="{'error-message-show': getSelectedPaymentType().invalid && this.submitted}" class="error-message">
+          <span class="error-icon-red">&#9888;</span>
+          Elija una opción
+        </div>
+      </form>
+    </div>
     <div class="button-container">
-      <app-primary-button title="CONFIRMAR" routerLink="/order-confirmed"></app-primary-button>
+      <button (click)="create()">CONFIRMAR</button>
     </div>
   </div>
 </div>

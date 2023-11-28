@@ -16,7 +16,7 @@ export class PaymentTypeListComponent
 
   ngOnInit() 
   {
-    this.paymentTypeService.findAll().subscribe((response) => this.paymentTypes=response.data)
+    this.paymentTypeService.getAll().subscribe((response) => this.paymentTypes=response)
   }
 
   onEditClick(paymentTypeId: string)
