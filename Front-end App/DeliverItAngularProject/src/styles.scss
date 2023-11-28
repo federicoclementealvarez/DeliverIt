@@ -104,6 +104,26 @@ p {
   margin: 0;
 }
 
+button {
+  background-color: $primary-red;
+  border-radius: 10px;
+  border: none;
+  transition: .2s;
+  color: #FFF;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  height: 50px;
+  width: 100%;
+}
+
+button:hover {
+  transition: .2s;
+  opacity: .9;
+}
+
 /* Styles for the shop-card component,
 they are in the global scss because it's used in different components */
 

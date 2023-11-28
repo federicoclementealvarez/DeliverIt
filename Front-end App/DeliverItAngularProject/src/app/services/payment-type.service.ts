@@ -2,41 +2,38 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseUrlService } from './base-url.service';
 import { PaymentType } from '../entities/paymentType.entity';
-import { Observable} from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PaymentTypeService 
-{
-url: string = this.baseUrlService.getBaseUrl() + 'paymentTypes/'
+export class PaymentTypeService {
+  url: string = this.baseUrlService.getBaseUrl() + 'paymentTypes/'
 
-constructor(private http: HttpClient, private baseUrlService: BaseUrlService) { }
+  constructor(private http: HttpClient, private baseUrlService: BaseUrlService) { }
+  
+  getAll(): Observable<PaymentType[]> {
+    return this.http.get<PaymentType[]>(this.url)
+      .pipe(
+        map((response: any) => response.data)
+      )
+  }
 
-create(paymentType: PaymentType): Observable<any>
-{
-  return this.http.post(this.url,paymentType)
-}
+  findOne(paymentTypeId: string): Observable<PaymentType> {
+    return this.http.get<PaymentType>(`${this.url}/${paymentTypeId}`)
+  }
 
-findAll()
-{
-  return this.http.get<any>(this.url)
-}
+  create(paymentType: PaymentType): Observable<any> {
+    return this.http.post(this.url, paymentType)
+  }
 
-findOne(paymentTypeId: string): Observable<PaymentType>
-{
-  return this.http.get<PaymentType>(`${this.url}/${paymentTypeId}`)
-}
+  update(paymentType: PaymentType): Observable<any> {
+    const data = { description: paymentType.description }
+    return this.http.put<any>(`${this.url}/${paymentType.id}`, data)
+  }
 
-update(paymentType: PaymentType): Observable<any>
-{
-  const data = {description: paymentType.description}
-  return this.http.put<any>(`${this.url}/${paymentType.id}`,data)
-}
-
-delete(paymentTypeId: string): Observable<any>
-{
-  return this.http.delete<any>(`${this.url}/${paymentTypeId}`)
-}
+  delete(paymentTypeId: string): Observable<any> {
+    return this.http.delete<any>(`${this.url}/${paymentTypeId}`)
+  }
 
 }

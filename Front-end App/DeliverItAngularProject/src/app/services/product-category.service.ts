@@ -7,31 +7,25 @@ import { ProductCategory } from '../entities/productCategory.entity';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductCategoryService 
-
-{
+export class ProductCategoryService {
   url: string = this.baseUrlService.getBaseUrl() + 'productCategories/'
 
-  constructor(private http: HttpClient, private baseUrlService:BaseUrlService ) {}
+  constructor(private http: HttpClient, private baseUrlService: BaseUrlService) { }
 
-create(productCategory: ProductCategory): Observable<any>
-{
-  return this.http.post(this.url,productCategory)
-}
+  create(productCategory: ProductCategory): Observable<any> {
+    return this.http.post(this.url, productCategory)
+  }
 
-getAll()
-{
-  return this.http.get<any>(this.url)
-}
+  getAll() {
+    return this.http.get<any>(this.url)
+  }
 
-update(productCategory: ProductCategory): Observable<any>
-{
-  const data = {description: productCategory.description}
-  return this.http.put<any>(`${this.url}/${productCategory.id}`,data)
-}
+  update(productCategory: ProductCategory): Observable<any> {
+    const data = { description: productCategory.description }
+    return this.http.put<any>(`${this.url}/${productCategory.id}`, data)
+  }
 
-delete(productCategoryId: string): Observable<any>
-{
-  return this.http.delete<any>(`${this.url}/${productCategoryId}`)
-}
+  delete(productCategoryId: string): Observable<any> {
+    return this.http.delete<any>(`${this.url}/${productCategoryId}`)
+  }
 }
