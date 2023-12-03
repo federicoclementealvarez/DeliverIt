@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-deliver-order-description',
@@ -7,11 +7,13 @@ import { Component, Input } from '@angular/core';
 })
 export class DeliverOrderDescriptionComponent {
 
+  @Output() buttonClicked = new EventEmitter<void>()
   @Input() description: string;
   @Input() price: string;
   @Input() client: string;
   @Input() paymentType: string;
   @Input() orderStatus: string;
+  @Input() dateTimeArrival: string;
   buttonName: string; 
 
   addButtonName(): string{
@@ -19,6 +21,16 @@ export class DeliverOrderDescriptionComponent {
     else {this.buttonName='Aceptar Pedido'}
     return this.buttonName;
   }
+
+  onClickedButton()
+  {
+    this.buttonClicked.emit()
+  }
+
+
+
+
+
 
   /*paymentType = [
     {id: 0, description: "Efectivo"},

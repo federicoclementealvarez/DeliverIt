@@ -33,10 +33,8 @@ export class AddProductCategoryComponent
       {
         description: this.addProductCategoryForm.get('description').value,
       }
-      this.productCategoryService.create(productCategory).subscribe(response => console.log(response))
+      this.productCategoryService.create(productCategory).subscribe(() => { alert('Categoría de producto creada');this.router.navigate(['admin-panel'])})
     }
-    alert('Categoría de producto creada')
-    this.router.navigate(['admin-panel'])
   }
 }
 

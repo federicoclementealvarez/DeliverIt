@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from '../entities/product.entity';
 
 @Component({
@@ -8,6 +8,7 @@ import { Product } from '../entities/product.entity';
 })
 export class ShopCardComponent {
 
+  @Output() retrieveOrderId = new EventEmitter<string>()
   @Input() shopId: string
   @Input() productId: string
   @Input() product: Product
@@ -19,11 +20,25 @@ export class ShopCardComponent {
   @Input() hasAddButton: boolean;
   @Input() hasEditButton: boolean = false;
   @Input() imagePath: string;
-  orderDescription: boolean = false;
+  @Input() hasDescription: boolean = false; // enables the dropdown order description
+  
+  // dropdown order description parameters
+  @Input() orderId : string;
+  @Input() description: string;
+  @Input() price: string;
+  @Input() client: string;
+  @Input() paymentType: string;
+  @Input() orderStatus: string;
+  @Input() dateTimeArrival: string;
 
   constructor() { }
 
-  showDescription(){
-    this.orderDescription=!this.orderDescription
+  showDescription(){this.hasDescription=!this.hasDescription}
+
+  getOrderId()
+  {
+    this.retrieveOrderId.emit(this.orderId)
   }
+
+
 }

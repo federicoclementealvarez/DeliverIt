@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { HomeDeliveryBoyService } from '../services/home-delivery-boy.service';
-import { Order } from '../explore-new-deliveries/explore-new-deliveries.component'; //esto debera ser eliminado en un futuro y deberemos importar la clase de la carpeta model
-import { Deliver } from '../all-delivered-orders/all-delivered-orders.component'; //esto debera ser eliminado en un futuro y deberemos importar la clase de la carpeta model
+import { Component} from '@angular/core';
+import { OrderService } from '../services/order.service';
+import { Order } from '../entities/order.entity';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-delivery-boy',
@@ -9,32 +9,32 @@ import { Deliver } from '../all-delivered-orders/all-delivered-orders.component'
   styleUrls: ['./home-delivery-boy.component.scss']
 })
 
-export class HomeDeliveryBoyComponent implements OnInit{
-  pedidosEnCurso: boolean = true; //esto será eliminado  junto a la funcion alterView ya que dependen del evento click del h6 del template
-  orderDescription: boolean = false; 
-  totalOrders : Order[] = [];
-  activeOrders : Order[] = [];
-  actualDeliver: Deliver;
-  viewOrders: boolean; //esta opcion mostrara si hay pedidos true y mostrara un determinado template y si es false mostrara que no hay pedidos
+export class HomeDeliveryBoyComponent 
 
-  constructor(private service: HomeDeliveryBoyService) {}
+{
+  currentDeliveries = []
+  pastDeliveries= []
 
-  ngOnInit(): void {
-    if (this.service.showOrders(this.activeOrders))
-      this.viewOrders = true;
-    else
-      this.viewOrders = false;
+  constructor(private orderService: OrderService, private router: Router) {}
+
+  ngOnInit()
+  {
+    this.orderService.findCurrentDeliveryOrders().subscribe((response)=> this.currentDeliveries=response)
+    this.orderService.findAllByDelivery().subscribe((response)=> this.pastDeliveries=response.slice(-3).reverse()) //shows the last 3 delivieries, ordered by dateTimeArrival DESC
+  }
+ 
+  getPrice(order: Order): number
+  {
+    return this.orderService.getSubTotal(order)
   }
 
-  loadActiveOrders(){ //esto podria ir dentro del onInit directamente
-    this.service.getList().subscribe(response => this.totalOrders = response);
-    this.activeOrders = this.totalOrders.filter(order => { return (order.orderStatus === 'En Curso' || order.orderStatus === 'En Camino') && order.deliverId === this.actualDeliver.deliverId })
-  }//Lo que hace esta funcion es busca todas los pedidos Confirmados o En camino del delivery actual, el cual debera ser el que tengamos "logueado"
+  getDescription(order: Order): string
+  {
+    return this.orderService.getDescription(order)
+  }
 
-  alterView (){ //esto será eliminado ya que dependen del evento click del h6 del template
-  this.pedidosEnCurso = !this.pedidosEnCurso;
+  setDateTimeArrival(idOrder: string)
+  {
+    this.orderService.setDateTimeArrival(idOrder).subscribe(()=>{alert('Pedido entregado con éxito');this.router.navigate(['all-delivered-orders'])})
   }
 }
-/* En este componente falta todavia una funcion para actualizar el estado del pedido, de En Curso a En Camino y de En Camino a Entregado la funcion es parecida a la que se usa en el componente al explore-new-deliveries
-tambien falta mostrar las ultimas 2 entregas en la seccion de ultimas entregas, eso se hace parecido a lo que esta hecho en all-delivered-orders
-*/

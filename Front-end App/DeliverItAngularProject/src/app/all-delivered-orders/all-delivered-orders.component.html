@@ -12,23 +12,33 @@
 
 <h2>Todas tus entregas</h2>
 
-  <div class="filter">
-    <select name="filter-options" class="options">
-      <option value="">Filtrar Por</option>
-      <option value="current-month">Este mes</option>
-      <option value="current-year">Este año</option>
-      <option value="comission-upper">Mayor Comisión</option>
-      <option value="comission-lower">Menor Comisión</option>
-    </select>
-  </div>
-
-
+  <!--<div class="filter">
+      <select name="filter-options" class="options">
+        <option value="">Filtrar Por</option>
+        <option value="current-month">Este mes</option>
+        <option value="current-year">Este año</option>
+        <option value="comission-upper">Mayor Comisión</option>
+        <option value="comission-lower">Menor Comisión</option>
+      </select>
+    </div> FILTER WILL BE IMPLEMENTED FOR AD-->
+  
 <div class="all-orders">
-  <!--Aca debere hacer un *ngFor con los datos de los pedidos anteriores, aunque debere mostrar solo los atributos del shop-type como los que se indican abajo-->
   <div class="order-cards-container">
-    <app-shop-card title="Lemmy's Pizza" subtitle="Origen: Urquiza 1500" bottomText="Destino: Paraguay 735 1°B"
-      [hasStar]=false [hasDropdown]=false></app-shop-card>
-    <app-shop-card title="Mostaza" subtitle="Av. Pellegrini 1700" bottomText="Destino: Tucumán 1027 5°A" [hasStar]=false
-      [hasDropdown]=false></app-shop-card>
+    <app-shop-card *ngFor="let order of deliveredOrders" 
+    [title]="order.lineItems[0].product.shop.name"
+    [subtitle]="'Origen: ' + order.lineItems[0].product.shop.street + ' ' + order.lineItems[0].product.shop.streetNumber " 
+    [bottomText]="'Destino: ' + order.client.street + ' ' + order.client.streetNumber" 
+    [hasStar]=false
+    [hasDropdown]=true 
+    [hasDescription]=false
+    imagePath={{order.lineItems[0].product.shop.logoPath}} 
+    description={{getDescription(order)}}
+    [client]="order.client.name + ' ' + order.client.surname" 
+    [paymentType]=order.paymentType.description
+    price={{getPrice(order)}} 
+    orderStatus="Entregada" 
+    orderId={{order.id}}
+    dateTimeArrival={{order.dateTimeArrival}}>
+    </app-shop-card>
   </div>
 </div>
