@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <nav class="navbar">
   <div class="container-pindrop">
@@ -15,8 +16,20 @@
 
 <div class="orders-available">
   <div class="order-cards-container">
-    <!--Aqui se debera hacer un *ngFor con los <app-shop-card> y dentro de los shop-card, los <app-deliver-order-description> con los atributos que tenemos de cada Order que sacamos de nuestra lista del componente.-->
-    <app-shop-card title="Lemmy's Pizza" subtitle="Origen: Urquiza 1500" bottomText="Destino: Paraguay 735 1°B" [hasStar]=false [hasDropdown]=true></app-shop-card>
-    <app-shop-card title="Mostaza" subtitle="Av. Pellegrini 1700" bottomText="Destino: Tucumán 1027 5°A" [hasStar]=false [hasDropdown]=true></app-shop-card>
+    <app-shop-card (retrieveOrderId)="setDelivery($event)" *ngFor="let order of ordersWithoutDelivery" 
+    [title]="order.lineItems[0].product.shop.name"
+    [subtitle]="'Origen: ' + order.lineItems[0].product.shop.street + ' ' + order.lineItems[0].product.shop.streetNumber "
+    [bottomText]="'Destino: ' + order.client.street + ' ' + order.client.streetNumber" 
+    imagePath={{order.lineItems[0].product.shop.logoPath}}
+    [hasStar]=false
+    [hasDropdown]=true 
+    [hasDescription]=false 
+    description="blaablablab"
+    [client]="order.client.name + ' ' + order.client.surname" 
+    [paymentType]=order.paymentType.description
+    price={{getPrice(order)}}
+    orderStatus="Pendiente de repartidor"
+    orderId = {{order.id}}>
+    </app-shop-card>
   </div>
 </div>

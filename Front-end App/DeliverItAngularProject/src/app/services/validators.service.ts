@@ -50,4 +50,13 @@ export class ValidatorsService {
         if (day.length < 2) day = '0' + day;
         return [year, month, day].join('-');
   }
+
+  public getCurrentDateTime()
+  {
+    const d = this.getTodayDate()
+    const t = [(new Date()).getHours(),(new Date()).getMinutes()].join(':')
+    const dt = [d,t].join(' ')
+    return dt
+  }
+
 }

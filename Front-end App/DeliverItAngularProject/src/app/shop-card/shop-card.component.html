@@ -34,12 +34,13 @@
     </div>
   </div>
 </div>
-<!--A este componente de aqui abajo deberán llegar los atributos de la descripcion de la orden-->
-<app-deliver-order-description
-  *ngIf="orderDescription === true"
-  description="1 Fanta 1Lt 2 Mac Combos"
-  price="$5000"
-  client="Mauricio Ferrari"
-  paymentType="Efectivo"
-  orderStatus="En camino"
+
+<app-deliver-order-description (buttonClicked)="getOrderId()"
+  *ngIf="hasDescription === true"
+  description={{description}}
+  price={{price}}
+  client={{client}}
+  paymentType={{paymentType}}
+  orderStatus={{orderStatus}}
+  dateTimeArrival={{dateTimeArrival}}
 ></app-deliver-order-description>

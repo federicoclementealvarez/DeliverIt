@@ -7,6 +7,7 @@
   <p class="paymentType">Método de pago: {{ paymentType }}</p>
   <div class="container-status">
     <p class="orderStatus" *ngIf="this.orderStatus !== 'Pendiente de repartidor'">Estado de la orden: {{ orderStatus }}</p>
-    <button class="status-button" *ngIf="this.orderStatus !== 'En preparación'">{{addButtonName()}}</button>
+    <button (click)="onClickedButton()"class="status-button" *ngIf="this.orderStatus !== 'Entregada'">{{addButtonName()}}</button>
   </div>
+  <p class="orderStatus" *ngIf="this.orderStatus === 'Entregada'">Fecha de entrega: {{ dateTimeArrival }}</p>
 </div>

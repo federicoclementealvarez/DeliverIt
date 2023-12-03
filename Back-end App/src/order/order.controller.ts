@@ -67,7 +67,7 @@ export async function findCurrentCustomerOrders(req: Request, res: Response)
 export async function findOrdersWithoutDelivery(req: Request, res: Response) 
 {
   try { 
-    const ordersWithoutDelivery = await em.find(Order,{},{filters:['deliveryUndefined'],populate:['client','paymentType','lineItems']})
+    const ordersWithoutDelivery = await em.find(Order,{},{filters:['deliveryUndefined'],populate:['client','paymentType','lineItems.product.prices','lineItems.product.shop']})
     return res.status(200).json({message:'found all orders w/o delivery',data: ordersWithoutDelivery})
   }
 
@@ -81,7 +81,7 @@ export async function findCurrentDeliveryOrders(req: Request, res: Response)
   try { 
     const validatorResponse = validator.validateObjectId(req.params.idDelivery)
     if(!validatorResponse.isValid){return res.status(500).json({message: validatorResponse.message})}
-    const currentDeliveryOrders = await em.find(Order,{},{filters:{dateTimeArrival: true,delivery:{par: req.params.idDelivery}},populate:['client','paymentType','lineItems']})
+    const currentDeliveryOrders = await em.find(Order,{},{filters:{dateTimeArrival: true,delivery:{par: req.params.idDelivery}},populate:['client','paymentType','lineItems.product.prices', 'lineItems.product.shop']})
     return res.status(200).json({message:'found all current delivery orders',data: currentDeliveryOrders})
   }
 
@@ -93,7 +93,7 @@ export async function findCurrentDeliveryOrders(req: Request, res: Response)
 export async function findAllByDelivery(req: Request,res: Response) //this method gets every order a single delivery boy has delivered
 { 
 try {
- const orders = await em.find(Order,{},{filters:{delivery:{par: req.params.idDelivery}, dateTimeArrivalSet: true} ,populate: ['client','delivery','paymentType','lineItems']})
+ const orders = await em.find(Order,{},{filters:{delivery:{par: req.params.idDelivery}, dateTimeArrivalSet: true} ,populate: ['client','delivery','paymentType','lineItems.product.prices', 'lineItems.product.shop']})
  return res.status(200).json({message:'found all orders ', data: orders})
 }
 catch(error: any){

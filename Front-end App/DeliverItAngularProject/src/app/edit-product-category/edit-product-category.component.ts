@@ -38,21 +38,16 @@ export class EditProductCategoryComponent
         id: sessionStorage.getItem('idProductCategory'),
         description: this.getDescription().value
       }
-      this.productCategoryService.update(productCategory).subscribe(response => console.log(response))
-      sessionStorage.removeItem('idProductCategory')
-      alert('Categroría de producto editada')
-      this.router.navigate(['admin-panel'])
+      this.productCategoryService.update(productCategory).subscribe(() =>{sessionStorage.removeItem('idProductCategory'); 
+      alert('Categroría de producto editada'); this.router.navigate(['admin-panel']) })
     }
-
   }
 
   delete()
   {
     const id = sessionStorage.getItem('idProductCategory')
-    this.productCategoryService.delete(id).subscribe(response => console.log(response))
-    sessionStorage.removeItem('idPaymentType')
-    alert('Categoría de producto Eliminada')
-    this.router.navigate(['admin-panel'])
+    this.productCategoryService.delete(id).subscribe(() => {sessionStorage.removeItem('idPaymentType'); 
+    alert('Categoría de producto Eliminada');  this.router.navigate(['admin-panel']) })  
   }
 
 

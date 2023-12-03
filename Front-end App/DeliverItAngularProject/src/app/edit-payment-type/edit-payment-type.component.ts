@@ -40,10 +40,7 @@ export class EditPaymentTypeComponent
         description: this.getDescription().value
       }
       
-      this.paymentTypeService.update(paymentType).subscribe(response => console.log(response))
-      sessionStorage.removeItem('idPaymentType')
-      alert('Forma de pago editada')
-      this.router.navigate(['admin-panel'])
+      this.paymentTypeService.update(paymentType).subscribe(() =>{sessionStorage.removeItem('idPaymentType'); alert('Forma de pago editada'); this.router.navigate(['admin-panel'])})
     }
 
   }
@@ -51,10 +48,7 @@ export class EditPaymentTypeComponent
   delete()
   {
     const id = sessionStorage.getItem('idPaymentType')
-    this.paymentTypeService.delete(id).subscribe(response => console.log(response))
-    sessionStorage.removeItem('idPaymentType')
-    alert('Forma de pago eliminada')
-    this.router.navigate(['admin-panel'])
+    this.paymentTypeService.delete(id).subscribe(()=>{sessionStorage.removeItem('idPaymentType'); alert('Forma de pago eliminada'); this.router.navigate(['admin-panel'])})
   }
 
 

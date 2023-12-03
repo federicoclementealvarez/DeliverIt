@@ -32,10 +32,7 @@ export class AddPaymentTypeComponent {
       {
         description: this.getDescription().value,
       }
-      this.paymentTypeService.create(paymentType).subscribe(response => console.log(response))
+      this.paymentTypeService.create(paymentType).subscribe(() => {alert('Forma de pago creada');this.router.navigate(['admin-panel'])})
     }
-    alert('Forma de pago creada')
-    this.router.navigate(['admin-panel'])
   }
-
 }
