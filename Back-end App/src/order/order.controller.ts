@@ -80,8 +80,12 @@ export async function findCurrentDeliveryOrders(req: Request, res: Response)
 {
   try { 
     const validatorResponse = validator.validateObjectId(req.params.idDelivery)
-    if(!validatorResponse.isValid){return res.status(500).json({message: validatorResponse.message})}
-    const currentDeliveryOrders = await em.find(Order,{},{filters:{dateTimeArrival: true,delivery:{par: req.params.idDelivery}},populate:['client','paymentType','lineItems.product.prices', 'lineItems.product.shop']})
+    if(!validatorResponse.isValid)
+    {
+      return res.status(500).json({message: validatorResponse.message})
+    }
+    const currentDeliveryOrders = await em.find(Order,{},{filters:{dateTimeArrival: true,delivery:{par: req.params.idDelivery}},
+    populate:['client','paymentType','lineItems.product.prices', 'lineItems.product.shop']})
     return res.status(200).json({message:'found all current delivery orders',data: currentDeliveryOrders})
   }
 
@@ -92,30 +96,40 @@ export async function findCurrentDeliveryOrders(req: Request, res: Response)
 
 export async function findAllByDelivery(req: Request,res: Response) //this method gets every order a single delivery boy has delivered
 { 
-try {
- const orders = await em.find(Order,{},{filters:{delivery:{par: req.params.idDelivery}, dateTimeArrivalSet: true} ,populate: ['client','delivery','paymentType','lineItems.product.prices', 'lineItems.product.shop']})
+try 
+{
+ const orders = await em.find(Order,{},{filters:{delivery:{par: req.params.idDelivery}, dateTimeArrivalSet: true},
+ populate: ['client','delivery','paymentType','lineItems.product.prices', 'lineItems.product.shop']})
  return res.status(200).json({message:'found all orders ', data: orders})
 }
-catch(error: any){
+catch(error: any)
+{
  return res.status(500).json({message:error.message})
 }
 }
 
-  export async function validateUpdate(req: Request, res: Response, next: NextFunction)
+export async function validateUpdate(req: Request, res: Response, next: NextFunction)
 {
   const validatorResponse = validator.validateObjectId(req.params.id)
   if(!validatorResponse.isValid){return res.status(500).json({message: validatorResponse.message})}
 
-  if (req.body.delivery!==undefined) 
+  if (req.body.delivery!==undefined && req.body.dateTimeArrival===undefined)  
   {
     const order = await em.findOne(Order,req.params.id,{filters:['deliveryUndefined']}) //race condition validation
-    if (order===null){ return res.status(404).json({message: 'someone has already taken this order to deliver'})}
+    if (order===null){ return res.status(404).json({message: 'order not found'})}
+    req.body.orderToUpdate = order
   }
 
-  if (req.body.dateTimeArrival!==undefined) 
+  else if (req.body.dateTimeArrival!==undefined && req.body.delivery===undefined) 
   {
-    const order = await em.findOne(Order,req.params.id)
-    if (order===null) {return res.status(404).json({message:'order not found'})}
+    const order = await em.findOne(Order,req.params.id, {filters:{dateTimeArrival: true}})
+    if (order===null) {return res.status(404).json({message:'order not found'})} //  if null --> order with that id does not exist | order exists but has already been delivered
+    req.body.orderToUpdate = order
+  }
+
+  else
+  {
+    return res.status(401).json({message: 'Not allowed to update'})
   }
 
   next()
@@ -123,56 +137,15 @@ catch(error: any){
 
 export async function update(req:Request, res: Response) 
 {
- try {
-      const order = await em.findOne(Order,req.params.id) 
-      if (order===null) {return}
-      em.assign(order, req.body)
-      await em.flush()
-      res.status(200).json({ message: 'order updated', data: order})}
+ try 
+  {
+    em.assign(req.body.orderToUpdate, req.body)
+    await em.flush()
+    res.status(200).json({ message: 'order updated', data: req.body.orderToUpdate})
+  }
   
   catch (error: any) 
   {
     res.status(500).json({ message: error.message })
   }
 }
-
-/*
-export async function setCompletedOrder(req:Request, res: Response) //used when the arrival time needs to be set 
-{
- try {
-
-    const validatorResponse = validator.validateObjectId(req.params.id)
-    if(!validatorResponse.isValid){return res.status(500).json({message: validatorResponse.message})}
-    const id = req.params.id
-    const order = await em.findOne(Order,id)
-    if (order===null) {return res.status(404).json({message:'order not found'})}
-    em.assign(order, req.body)
-    await em.flush()
-    res.status(200).json({ message: 'order completed by setting arrival time', data: order})} 
-    
-    catch (error: any) {res.status(500).json({ message: error.message })
-  }
-}
-
-
-export async function setDelivery(req:Request, res: Response) //used when the delivery accepts to take an order (it is also an update, but only in this case the race condition is needed)
-{
- try {
-      const validatorResponse = validator.validateObjectId(req.params.id)
-      if(!validatorResponse.isValid){return res.status(500).json({message: validatorResponse.message})}
-      
-      const order = await em.findOne(Order,req.params.id,{filters:['deliveryUndefined']}) //race condition validation
-
-      if (order===null){ return res.status(404).json({message: 'someone has already taken this order to deliver'})}
-      
-    em.assign(order, req.body)
-    await em.flush()
-    res.status(200).json({ message: 'the order now has a delivery boy', data: order})}
-  
-    catch (error: any) {
-    res.status(500).json({ message: error.message })
-  }
-}
-  
-*/
-

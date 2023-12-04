@@ -10,6 +10,10 @@ export class AdminPanelComponent {
 
   constructor(private router: Router){}
 
+  ngOnInit() {
+    sessionStorage.removeItem('idPaymentType')
+  }
+
   onAddPaymentType() {
     this.router.navigate(['add-payment-type'])
   }

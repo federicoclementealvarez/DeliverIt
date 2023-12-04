@@ -17,11 +17,12 @@ export class ProductCategoryListComponent
   ngOnInit() 
   {
     this.productCategoryService.getAll().subscribe((response) => this.productCategories=response.body)
+    sessionStorage.removeItem('idProductCategory')
   }
 
   onEditClick(productCategoryId: string)
   {
     sessionStorage.setItem('idProductCategory',productCategoryId)
-    this.router.navigate(['edit-product-category',productCategoryId])
+    this.router.navigate(['edit-product-category'])
   }
 }

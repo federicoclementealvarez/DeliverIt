@@ -16,12 +16,17 @@ export class PaymentTypeListComponent
 
   ngOnInit() 
   {
-    this.paymentTypeService.getAll().subscribe((response) => this.paymentTypes=response)
+    this.paymentTypeService.getAll().subscribe(
+    {
+        next: (response) => this.paymentTypes=response ,
+        error: (error) => {sessionStorage.setItem('errorMessage',error.error.message);sessionStorage.setItem('statusCode',error.status);this.router.navigate(['error-panel'])}
+      })
+    sessionStorage.removeItem('idPaymentType')
   }
 
   onEditClick(paymentTypeId: string)
   {
     sessionStorage.setItem('idPaymentType',paymentTypeId)
-    this.router.navigate(['edit-payment-type',paymentTypeId])
+    this.router.navigate(['edit-payment-type'])
   }
 }
