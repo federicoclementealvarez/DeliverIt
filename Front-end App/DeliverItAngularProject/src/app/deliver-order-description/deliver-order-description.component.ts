@@ -17,30 +17,19 @@ export class DeliverOrderDescriptionComponent {
   buttonName: string; 
 
   addButtonName(): string{
-    if (this.orderStatus==='En camino'){this.buttonName='Cambiar Estado'}
+    if (this.orderStatus==='Para repartir'){this.buttonName='Cambiar Estado'}
     else {this.buttonName='Aceptar Pedido'}
     return this.buttonName;
+  }
+
+  getOrderStatus(): boolean
+  {
+    if (this.orderStatus!=='Entregada' && this.orderStatus!=='En camino'){return true}
+    else return false
   }
 
   onClickedButton()
   {
     this.buttonClicked.emit()
   }
-
-
-
-
-
-
-  /*paymentType = [
-    {id: 0, description: "Efectivo"},
-    {id: 1, description: "Tarjeta"}
-    ];
-  orderStatus = [
-    {id: 0, description: "Pendiente"},
-    {id: 1, description: "Confirmado"},
-    {id: 2, description: "En camino"},
-    {id: 3, description: "Entregado"},
-    {id: 4, description: "Cancelado"}
-  ];*/
 }

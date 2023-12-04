@@ -76,7 +76,8 @@ export async function update(req: Request, res: Response)
     const validatorResponse = validator.validateObjectId(req.params.id)
     if(!validatorResponse.isValid){
     return res.status(500).json({message: validatorResponse.message})}
-    const productCategory = em.getReference(ProductCategory, req.params.id)
+    const productCategory = await em.findOne(ProductCategory, req.params.id)
+    if (productCategory===null){return res.status(404).json({message:'Product Category not found'})}
     em.assign(productCategory, req.body.sanitizedInput)
     await em.flush()
     return res.status(200).json({message: 'Product Category updated successfully'})
@@ -93,7 +94,8 @@ export async function remove(req: Request, res: Response)
   {
     const validatorResponse = validator.validateObjectId(req.params.id)
     if(!validatorResponse.isValid){return res.status(500).json({message: validatorResponse.message})}
-    const productCategory = em.getReference(ProductCategory, req.params.id)
+    const productCategory = await em.findOne(ProductCategory, req.params.id)
+    if (productCategory===null){return res.status(404).json({message:'Product Category not found'})}
     await em.removeAndFlush(productCategory)
     return res.status(200).json({message: 'Product Category deleted successfully'})
   }

@@ -24,7 +24,7 @@
     [hasStar]=false
     [hasDropdown]=true 
     [hasDescription]=false 
-    description="blaablablab"
+    description={{getDescription(order)}}
     [client]="order.client.name + ' ' + order.client.surname" 
     [paymentType]=order.paymentType.description
     price={{getPrice(order)}}
