@@ -2,7 +2,6 @@ import { Router} from 'express';
 import {find, remove, update, validateId, sanitizedInput, create} from './product.controller.js';
 import { multerUpload } from '../shared/imageHandler.js';
 import multer from 'multer';
-import { createByProductId } from '../price/price.controller.js';
 
 export const productRouter = Router();
 
@@ -19,7 +18,7 @@ productRouter.post('/', function (req, res, next){
         }
         next()
     })
-},sanitizedInput, create, createByProductId)
+},sanitizedInput, create)
 
 productRouter.put('/:id',validateId, function (req, res, next){
     multerUpld(req, res, function (err) {
@@ -29,4 +28,4 @@ productRouter.put('/:id',validateId, function (req, res, next){
         next()
     })
 }
-,sanitizedInput, update, createByProductId);
+,sanitizedInput, update);
