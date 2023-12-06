@@ -74,5 +74,6 @@ export class ShopModifyProductComponent {
 
   delete(){
     this.productService.delete(this.productId)
+    this.router.navigate(['/home-shop'])
   }
 }

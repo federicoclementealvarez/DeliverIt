@@ -1,10 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import { Product } from './product.entity.js';
+import { Price, Product } from './product.entity.js';
 import { orm } from '../shared/orm.js';
 import { validator } from '../shared/validator.js';
 import { findByName } from '../productCategory/productCategory.controller.js';
 import * as fs from 'fs';
-import { getLastPriceByProductId} from '../price/price.controller.js';
 import { Loaded } from '@mikro-orm/core';
 
 const em = orm.em.fork();
@@ -84,19 +83,26 @@ async function findOneById(req: Request, res: Response)
           return res.status(404).json({message: 'An error has ocurred', errorMessage: 'Product not found'})
         }
 
-        const price = await getLastPriceByProductId(req.params.id, getTodayDate(), em)
+        const pricesUpToDate : Price[] = []
 
-        if(price===null){
-          return res.status(404).json({message: 'An error has ocurred', errorMessage: 'Price not found'})
+        for (const price of product.prices){
+          if(price.validSince<=new Date(getTodayDate())){
+            pricesUpToDate.push(price)
+          }
         }
-        
-        const priceWithNoProduct = [{
-          id: price[0].id,
-          validSince: price[0].validSince.toISOString().slice(0,10),
-          amount: price[0].amount
-        }]
 
-        const productToSend = Object.assign(product, {prices: priceWithNoProduct})
+        const pricesUpToDateSorted = pricesUpToDate.sort(compareFunction) 
+
+        const productToSend = {
+          id: product.id,
+          name: product.name, 
+          description: product.description,
+          photoPath: product.photoPath,
+          productCategory: product.productCategory,
+          shop: product.shop,
+          prices: [pricesUpToDateSorted[0]]
+        }
+
 
         return res.status(200).json({message: 'Product found', body: productToSend})
       }
@@ -123,23 +129,23 @@ export async function findShopsByProductCategory(productCategoryName: string)
 export async function remove(req: Request, res: Response)
 {
     try{
-      const product = await em.findOne(Product, req.params.id,{populate : ['prices']} ) as Product
+      const product = await em.findOne(Product, req.params.id) as Product
 
       if(product===null){
         return res.status(404).json({message: 'An error has ocurred', errorMessage: 'Product not found'})
       }
 
-      await em.remove(product).flush()
-
       //the relative path here is the Back-end App folder
-      fs.unlink('src/shared/assets/'+`${'prd'}-${req.params.id}${'.jpeg'}`, (err) => {
+      fs.unlink('src/shared/assets/'+`${product.photoPath}`, (err) => {
         if (err) {
             return res.status(500).json({message: 'An error has ocurred while deleting the image', errorMessage: err});
         }
         else{
             return res.status(200).json({message: 'Product deleted successfully'});
         }
-    })
+      })
+
+      await em.remove(product).flush()
       }
     catch(error:any){
         res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
@@ -162,22 +168,26 @@ export async function validateId(req: Request, res: Response, next: NextFunction
 
 export async function create(req: Request, res: Response, next: NextFunction) {
   try{
+
     const productToCreate = {
       name:req.body.sanitizedInput.name,
       description:req.body.description,
       shop:req.body.sanitizedInput.shop,
       productCategory:req.body.productCategory,
-      photoPath: req.body.sanitizedInput.photoPath
+      photoPath: req.body.sanitizedInput.photoPath,
+      prices: [
+        {
+          amount: Number.parseFloat(req.body.sanitizedInput.price),
+          validSince: new Date()
+        }
+      ]
     }
 
     const product = em.create(Product, productToCreate)
 
     await em.flush()
 
-    req.body.sanitizedInput.id = product.id
-    req.body.sanitizedInput.validSince = new Date(getTodayDate())
-
-    next()
+    return res.status(201).json({ message: 'Product created successfully', body: {product}})
   }
   catch(error:any){
     return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
@@ -187,12 +197,11 @@ export async function create(req: Request, res: Response, next: NextFunction) {
 export async function update(req: Request, res:Response, next: NextFunction) {
   try{
     
-    const product = await em.findOne(Product, req.body.sanitizedInput.id,{populate:['prices']})
+    const product = await em.findOne(Product, req.body.sanitizedInput.id)
 
     if(product===null){
       return res.status(404).json({message: 'An error has ocurred', errorMessage: 'Product not found'})
     }
-
     //the relative path here is the Back-end App folder
     fs.unlink('src/shared/assets/'+`${product.photoPath}`, (err) => {
       if (err) {
@@ -203,16 +212,18 @@ export async function update(req: Request, res:Response, next: NextFunction) {
     const productToUpdate = {
       name:req.body.sanitizedInput.name,
       description:req.body.description,
-      photoPath: req.body.sanitizedInput.photoPath
+      photoPath: req.body.sanitizedInput.photoPath,
+      prices:{
+        amount: Number.parseFloat(req.body.sanitizedInput.price),
+        validSince: new Date(req.body.sanitizedInput.validSince)
+      }
     }
 
     em.assign(product, productToUpdate)
 
     await em.flush()
 
-    req.body.sanitizedInput.id = product.id
-
-    next()
+    return res.status(200).json({ message: 'Product updated successfully'})
   }
   catch(error:any){
     return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
@@ -224,22 +235,35 @@ async function getCompleteProductArray(products : Loaded<Product, never>[], res:
   const productsToSend: any[] = []
 
   for (const prod of products) {
-    const price = await getLastPriceByProductId(prod.id, getTodayDate(), em)
 
-    if(price===null){
-      return res.status(404).json({message: 'An error has ocurred', errorMessage: 'Price not found'})
+    const pricesUpToDate = []
+
+    for (const price of prod.prices){
+      if(price.validSince<=new Date(getTodayDate())){
+        pricesUpToDate.push(price)
+      }
     }
 
+    const pricesSorted = pricesUpToDate.sort(compareFunction)
+
     const priceWithNoProduct = [{
-      id: price[0].id,
-      validSince: price[0].validSince.toISOString().slice(0,10),
-      amount: price[0].amount
+      validSince: pricesSorted[0].validSince, //.toISOString().slice(0,10),
+      amount: pricesSorted[0].amount
     }]
 
-    productsToSend.push(Object.assign(prod, {prices: priceWithNoProduct}))
+    const productToSend = {
+      id: prod.id,
+      name: prod.name, 
+      description: prod.description,
+      photoPath: prod.photoPath,
+      productCategory: prod.productCategory,
+      shop: prod.shop,
+      prices: priceWithNoProduct
+    }
+
+    productsToSend.push(productToSend)
 
   }
-
   return productsToSend
 }
 
@@ -252,4 +276,16 @@ function getTodayDate() : string{
   if (month.length < 2) month = '0' + month;
   if (day.length < 2) day = '0' + day;
   return [year, month, day].join('-');
+}
+
+function compareFunction(a: Price, b: Price){
+  if(a.validSince<b.validSince){
+    return 1;
+  }
+  else if (a.validSince>b.validSince){
+    return -1;
+  }
+  else{
+    return 0;
+  }
 }
