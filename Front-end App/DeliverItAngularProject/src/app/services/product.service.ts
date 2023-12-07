@@ -29,7 +29,7 @@ export class ProductService {
   }
 
   getByShopId(shopId: string): Observable<Product[]> {
-    return this.http.get<Product[]>(this.url + '/~/' + shopId)
+    return this.http.get<any>(this.url + '/~/' + shopId)
       .pipe(
         map((response: any) => response.body)
       );

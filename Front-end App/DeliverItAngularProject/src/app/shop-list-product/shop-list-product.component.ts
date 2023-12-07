@@ -13,7 +13,7 @@ import { Shop } from '../entities/shop.entity';
 })
 export class ShopListProductComponent {
 
-  products: Product[]
+  products: any[]
   shopId: string
   shop: Shop
 
@@ -43,7 +43,7 @@ export class ShopListProductComponent {
 
   getProducts() {
     this.productService.getByShopId(this.shopId)
-      .subscribe((data: Product[]) => {
+      .subscribe((data: any[]) => {
         this.products = data
       })
   }
