@@ -239,7 +239,7 @@ async function getCompleteProductArray(products : Loaded<Product, never>[], res:
     const pricesUpToDate = []
 
     for (const price of prod.prices){
-      if(price.validSince<=new Date(getTodayDate())){
+      if(price.validSince<=new Date()){
         pricesUpToDate.push(price)
       }
     }
