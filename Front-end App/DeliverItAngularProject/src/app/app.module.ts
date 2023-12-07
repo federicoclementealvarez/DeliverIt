@@ -44,6 +44,7 @@ import { EditPaymentTypeComponent } from './edit-payment-type/edit-payment-type.
 import { ProductCategoryListComponent } from './product-category-list/product-category-list.component';
 import { PaymentTypeListComponent } from './payment-type-list/payment-type-list.component';
 import { ErrorPanelComponent } from './error-panel/error-panel.component';
+import { CustomerCurrentOrdersComponent } from './customer-current-orders/customer-current-orders.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { ErrorPanelComponent } from './error-panel/error-panel.component';
     ProductCategoryListComponent,
     PaymentTypeListComponent,
     ErrorPanelComponent,
+    CustomerCurrentOrdersComponent,
   ],
   imports: [
     BrowserModule,

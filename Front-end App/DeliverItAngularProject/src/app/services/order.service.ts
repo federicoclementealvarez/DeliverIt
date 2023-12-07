@@ -121,6 +121,11 @@ export class OrderService {
     return this.http.get<Order[]>(`${this.url}/orders-without-delivery/~`).pipe(map((response: any) => response.data))
   }
 
+  findCurrentCustomerOrders(): Observable<Order[]>
+  {
+    return this.http.get<Order[]>(`${this.url}/current-orders/654c059cda8e9efaeeae024d`).pipe(map((response: any) => response.data));
+  }
+
   findCurrentDeliveryOrders(): Observable<Order[]>
   {
     return this.http.get<Order[]>(`${this.url}/current-deliveries/655b6dd2c6e26081bf21ffb1`).pipe(map((response: any) => response.data));

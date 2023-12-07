@@ -54,8 +54,9 @@ export async function findCurrentCustomerOrders(req: Request, res: Response)
 {
   try { 
     const validatorResponse = validator.validateObjectId(req.params.idCustomer)
-    if(!validatorResponse.isValid){return res.status(500).json({message: validatorResponse.message})}
-    const currentCustomerOrders = await em.find(Order,{},{filters:{dateTimeArrival: true,client:{par: req.params.idCustomer}},populate:['paymentType','lineItems']})
+    if(!validatorResponse.isValid)
+      {return res.status(500).json({message: validatorResponse.message})}
+    const currentCustomerOrders = await em.find(Order,{},{filters:{dateTimeArrival: true,client:{par: req.params.idCustomer}},populate:['client','paymentType','lineItems.product.prices', 'lineItems.product.shop']})
     return res.status(200).json({message:'found all current customer orders',data: currentCustomerOrders})
   }
 
