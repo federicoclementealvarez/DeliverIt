@@ -19,6 +19,7 @@ import { ShopModifyProductComponent } from './shop-modify-product/shop-modify-pr
 import { AllDeliveredOrdersComponent } from './all-delivered-orders/all-delivered-orders.component';
 import { ShopListProductComponent } from './shop-list-product/shop-list-product.component';
 import { CustomerSearchResultsComponent } from './customer-search-results/customer-search-results.component';
+import { CustomerCurrentOrdersComponent } from './customer-current-orders/customer-current-orders.component';
 import { OrderConfirmedComponent } from './order-confirmed/order-confirmed.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { AddPaymentTypeComponent } from './add-payment-type/add-payment-type.component';
@@ -50,6 +51,7 @@ const routes: Routes = [
   { path: 'home-delivery-boy', component: HomeDeliveryBoyComponent },
   { path: 'explore-new-deliveries', component: ExploreNewDeliveriesComponent },
   { path: 'all-delivered-orders', component: AllDeliveredOrdersComponent },
+  { path: 'customer-current-orders', component: CustomerCurrentOrdersComponent},
   { path: 'admin-panel', component: AdminPanelComponent },
   { path: 'add-payment-type', component: AddPaymentTypeComponent },
   { path: 'add-product-category', component: AddProductCategoryComponent },
@@ -59,7 +61,6 @@ const routes: Routes = [
   { path: 'product-category-list', component: ProductCategoryListComponent },
   { path: 'error-panel', component: ErrorPanelComponent},
   { path: '**', component: LandingPageComponent }
-
 ];
 
 @NgModule({

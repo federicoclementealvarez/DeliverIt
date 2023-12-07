@@ -10,6 +10,7 @@ import { LineItem } from '../lineItem/lineItem.entity.js'
 @Filter({ name: 'dateTimeArrivalSet', cond: { dateTimeArrival: { $ne: undefined } } })
 @Filter({ name: 'delivery', cond:  args =>({ delivery: {_id: args.par} }) })
 @Filter({ name: 'client', cond:  args =>({ client: {_id: args.par} }) })
+
 export class Order extends BaseEntity
 {
     @Property({ nullable: false })
