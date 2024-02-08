@@ -19,7 +19,9 @@ export function sanitizedInput(req: Request, _:Response, next: NextFunction){
       shop:req.body.shop,
       productCategory:req.body.productCategory,
       fileBeginner: req.body.fileBeginner,
-      photoPath: req.body.filePath
+      photoPath: req.body.filePath,
+      allowsVariations: req.body.allowsVariations,
+      maxVariations: req.body.maxVariations
     }
 
     //add more validations here if necessary
@@ -93,6 +95,12 @@ async function findOneById(req: Request, res: Response)
 
         const pricesUpToDateSorted = pricesUpToDate.sort(compareFunction) 
 
+        var maxVariations : undefined | number = undefined
+
+        if (product.allowsVariations){
+          maxVariations = product.maxVariations
+        }
+        
         const productToSend = {
           id: product.id,
           name: product.name, 
@@ -100,9 +108,10 @@ async function findOneById(req: Request, res: Response)
           photoPath: product.photoPath,
           productCategory: product.productCategory,
           shop: product.shop,
-          prices: [pricesUpToDateSorted[0]]
+          prices: [pricesUpToDateSorted[0]],
+          allowsVariations: product.allowsVariations,
+          maxVariations: maxVariations
         }
-
 
         return res.status(200).json({message: 'Product found', body: productToSend})
       }
@@ -169,6 +178,12 @@ export async function validateId(req: Request, res: Response, next: NextFunction
 export async function create(req: Request, res: Response, next: NextFunction) {
   try{
 
+    var maxVariations : undefined | number = undefined
+
+    if (req.body.sanitizedInput.allowsVariations){
+      maxVariations = req.body.sanitizedInput.maxVariations
+    }
+
     const productToCreate = {
       name:req.body.sanitizedInput.name,
       description:req.body.description,
@@ -180,7 +195,9 @@ export async function create(req: Request, res: Response, next: NextFunction) {
           amount: Number.parseFloat(req.body.sanitizedInput.price),
           validSince: new Date()
         }
-      ]
+      ],
+      allowsVariations: req.body.sanitizedInput.allowsVariations,
+      maxVariations: maxVariations
     }
 
     const product = em.create(Product, productToCreate)
@@ -251,6 +268,12 @@ async function getCompleteProductArray(products : Loaded<Product, never>[], res:
       amount: pricesSorted[0].amount
     }]
 
+    var maxVariations : undefined | number = undefined
+
+    if (prod.allowsVariations){
+      maxVariations = prod.maxVariations
+    }
+
     const productToSend = {
       id: prod.id,
       name: prod.name, 
@@ -258,7 +281,9 @@ async function getCompleteProductArray(products : Loaded<Product, never>[], res:
       photoPath: prod.photoPath,
       productCategory: prod.productCategory,
       shop: prod.shop,
-      prices: priceWithNoProduct
+      prices: priceWithNoProduct,
+      allowsVariations: prod.allowsVariations,
+      maxVariations: maxVariations
     }
 
     productsToSend.push(productToSend)

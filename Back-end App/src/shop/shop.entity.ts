@@ -54,7 +54,7 @@ export class Shop extends BaseEntity
     @ManyToOne(() => ShopType, { nullable: false })
     shopType !: Rel<ShopType>
 
-    @OneToMany(() => ProductVariation, (order) => order.shop, {
+    @OneToMany(() => ProductVariation, (productVariation) => productVariation.shop, {
         cascade: [Cascade.ALL],
     })
     productVariations = new Collection<ProductVariation>(this)
