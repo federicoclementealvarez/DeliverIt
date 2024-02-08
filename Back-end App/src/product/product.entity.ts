@@ -18,6 +18,12 @@ export class Product extends BaseEntity
     @Property({ nullable: true })
     photoPath!: string
 
+    @Property({ nullable: false })
+    allowsVariations!: boolean
+
+    @Property({ nullable: true })
+    maxVariations?: number
+
     @ManyToOne(() => Shop, { nullable: false })
     shop !: Rel<Shop>
 
@@ -31,7 +37,6 @@ export class Product extends BaseEntity
         cascade: [Cascade.ALL],
     })
     lineItems = new Collection<LineItem>(this)
-
 }
 
 
