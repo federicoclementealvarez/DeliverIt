@@ -29,6 +29,7 @@ import { EditProductCategoryComponent } from './edit-product-category/edit-produ
 import { PaymentTypeListComponent } from './payment-type-list/payment-type-list.component';
 import { ProductCategoryListComponent } from './product-category-list/product-category-list.component';
 import { ErrorPanelComponent } from './error-panel/error-panel.component';
+import { FlavoursCustomerComponent } from './flavours-customer/flavours-customer.component';
 
 const routes: Routes = [
   { path: "", component: LandingPageComponent },
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'home-customer', component: HomeCustomerComponent },
   { path: 'search-customer', component: CustomerSearchResultsComponent },
   { path: 'shop-customer/:shopId', component: ShopCustomerComponent },
+  { path: 'flavours-customer', component: FlavoursCustomerComponent },
   { path: 'order-details', component: OrderDetailsComponent },
   { path: 'order-confirmed', component: OrderConfirmedComponent },
   { path: 'signup_shop_data1', component: SignupShopData1Component },

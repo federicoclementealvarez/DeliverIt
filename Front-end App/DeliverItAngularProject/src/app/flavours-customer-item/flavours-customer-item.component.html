@@ -1,0 +1,15 @@
+<div class="flavour">
+  <p>s</p>
+  <button
+    *ngIf="stateAdd; else elseBlock"
+    class="button"
+    (click)="toggleButton()"
+  >
+    +
+  </button>
+  <ng-template #elseBlock
+    ><button class="button sec-button" (click)="toggleButton()">
+      -
+    </button></ng-template
+  >
+</div>

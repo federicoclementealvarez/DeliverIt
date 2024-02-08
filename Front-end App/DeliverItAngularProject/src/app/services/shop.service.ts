@@ -12,18 +12,25 @@ export class ShopService {
 
   readonly baseUrl = `${this.baseUrlService.getBaseUrl()}shops/`;
 
+  public shops: Observable<Shop[]>;
+  public shop: Observable<Shop>;
+
   getAll(): Observable<Shop[]> {
-    return this.http.get<Shop[]>(this.baseUrl)
+    this.shops = this.http.get<Shop[]>(this.baseUrl)
       .pipe(
         map((response: any) => response.body)
       )
+
+    return this.shops
   }
 
   getOne(shopId: string): Observable<Shop> {
-    return this.http.get<Shop>(this.baseUrl + shopId)
+    this.shop = this.http.get<Shop>(this.baseUrl + shopId)
       .pipe(
         map((response: any) => response.body)
       );
+
+    return this.shop
   }
 
   getShopsByShopType(shopTypeId: string): Observable<Shop[]> {

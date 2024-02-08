@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -45,6 +45,8 @@ import { ProductCategoryListComponent } from './product-category-list/product-ca
 import { PaymentTypeListComponent } from './payment-type-list/payment-type-list.component';
 import { ErrorPanelComponent } from './error-panel/error-panel.component';
 import { CustomerCurrentOrdersComponent } from './customer-current-orders/customer-current-orders.component';
+import { FlavoursCustomerComponent } from './flavours-customer/flavours-customer.component';
+import { FlavoursCustomerItemComponent } from './flavours-customer-item/flavours-customer-item.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +91,8 @@ import { CustomerCurrentOrdersComponent } from './customer-current-orders/custom
     PaymentTypeListComponent,
     ErrorPanelComponent,
     CustomerCurrentOrdersComponent,
+    FlavoursCustomerComponent,
+    FlavoursCustomerItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,6 +102,9 @@ import { CustomerCurrentOrdersComponent } from './customer-current-orders/custom
     ReactiveFormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
 })
 export class AppModule { }

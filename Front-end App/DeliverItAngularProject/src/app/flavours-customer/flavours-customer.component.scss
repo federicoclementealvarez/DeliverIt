@@ -1,0 +1,66 @@
+@import "src/styles.scss";
+
+@media screen and (max-width: 576px) {
+  .container {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 992px) {
+  .container {
+    width: 65%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .container {
+    width: 45%;
+  }
+}
+
+.parent-container {
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.title {
+  text-align: center;
+}
+
+.flavour-container {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.45);
+  width: 100%;
+}
+
+.flavour-container:last-of-type {
+  border-bottom: 0;
+}
+
+.button {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.secondary-button {
+  margin: 10px 0px;
+  background-color: white;
+  color: $primary-red;
+  border: 2px solid $primary-red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
