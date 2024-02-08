@@ -50,6 +50,8 @@ export async function add(req: Request, res: Response)
   }
 }
 
+//validar que el gusto pertezca a la tienda, y que no se exceda del máximo
+
 export async function findCurrentCustomerOrders(req: Request, res: Response)
 {
   try { 

@@ -1,7 +1,8 @@
-import { Rel, Entity, ManyToOne, Property } from '@mikro-orm/core'
+import { Rel, Entity, ManyToOne, Property, Embedded, Embeddable, ManyToMany, Cascade, Collection } from '@mikro-orm/core'
 import { BaseEntity } from '../shared/baseEntity.entity.js'
 import { Product } from '../product/product.entity.js'
 import { Order } from '../order/order.entity.js'
+import { ProductVariation } from '../productVariation/productVariation.entity.js'
 
 @Entity()
 export class LineItem extends BaseEntity
@@ -14,4 +15,14 @@ export class LineItem extends BaseEntity
 
     @ManyToOne(() => Order, { nullable: false })
     order !: Rel<Order>
+
+    @Embedded(() => ProductVariationArray, {nullable:true, array: true})
+    productVariationArrays ?: ProductVariationArray[]
+}
+
+@Embeddable()
+export class ProductVariationArray
+{
+    @ManyToMany(() => ProductVariation)
+        productVariations: Collection<ProductVariation> = new Collection<ProductVariation>(this)
 }
