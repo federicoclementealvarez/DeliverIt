@@ -3,6 +3,7 @@ import { Order } from "./order.entity.js";
 import { Request, Response} from "express";
 import { validator } from "../shared/validator.js";
 import { NextFunction } from "express";
+import { Product } from "../product/product.entity.js";
 // import { addByOrderId } from "../lineItem/lineItem.controller.js"; TO BE ANALYZED
 
 
@@ -38,6 +39,25 @@ export async function findOne (req: Request, res:Response)
 export async function add(req: Request, res: Response)
 {
   try{
+    let productIds = new Set();
+
+    for (const lineItem of req.body.lineItems){
+      productIds.add(lineItem.product)
+    }
+    
+    const productsInOrder = await em.find(Product, {},{filters:{ids:{par: productIds}}})
+
+    for (const lineItem of req.body.lineItems){
+      let completeProduct = productsInOrder.find(prd => prd.id == lineItem.product)
+      lineItem.product = completeProduct
+    }
+
+    const validatorResponse = validator.validateOrder(req.body as Order)
+    if(!validatorResponse.isValid)
+    {
+      return res.status(500).json({message: validatorResponse.message})
+    }
+    
     const newOrder = em.create(Order,req.body)
     req.body.id = newOrder.id
     /*for (const lineItem of newOrder.lineItems){ addByOrderId(lineItem.quantity,lineItem.product.id,newOrder.id)}  TO BE ANALYZED */
@@ -50,7 +70,6 @@ export async function add(req: Request, res: Response)
   }
 }
 
-//validar que el gusto pertezca a la tienda, y que no se exceda del máximo
 
 export async function findCurrentCustomerOrders(req: Request, res: Response)
 {
