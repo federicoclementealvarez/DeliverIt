@@ -21,22 +21,13 @@ export class FlavoursCustomerItemComponent {
 
   toggleButton() {
     if (this.stateAdd) {
-      this.icecreamflavorsService.addFlavour(this.flavourId)
+      if (this.icecreamflavorsService.addFlavour(this.flavourId)) {
+        this.stateAdd = !this.stateAdd
+      }
     } else {
       this.icecreamflavorsService.removeFlavour(this.flavourId)
+      this.stateAdd = !this.stateAdd
     }
-
-    console.log(this.icecreamflavorsService.selectedCustFlav.length, this.maxVariations);
-
-
-    if (this.icecreamflavorsService.selectedCustFlav.length === this.maxVariations) {
-      return
-    }
-
-    console.log(this.icecreamflavorsService.selectedCustFlav);
-
-    this.stateAdd = !this.stateAdd
-
   }
 }
 

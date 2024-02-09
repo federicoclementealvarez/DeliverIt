@@ -3,7 +3,9 @@ import { ShopService } from '../services/shop.service';
 import { Shop } from '../entities/shop.entity';
 import { IcecreamflavorsService } from '../services/icecreamflavors.service';
 import { ProductVariation } from '../entities/productVariation.entity';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { Product } from '../entities/product.entity';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-flavours-customer',
@@ -13,22 +15,30 @@ import { ActivatedRoute } from '@angular/router';
 export class FlavoursCustomerComponent {
   public productVariations: ProductVariation[];
   maxVariations: number;
+  product: Product
 
   constructor(
     private shopService: ShopService,
-    private route: ActivatedRoute,
-    private icecreamflavorsService: IcecreamflavorsService
-  ) { }
+    private router: Router,
+    private icecreamflavorsService: IcecreamflavorsService,
+    private location: Location
+  ) {
+    this.product = this.router.getCurrentNavigation().extras.state as Product;
+    this.maxVariations = this.product.maxVariations
+  }
 
   ngOnInit() {
-    this.route.queryParams.subscribe((p: any) => {
-      this.maxVariations = p.maxVariations
-    })
-
     this.shopService.shop.subscribe((data: Shop) => {
       this.productVariations = data.productVariations;
     });
   }
 
-  submitCustFlavours() { }
+  submitCustFlavours() {
+    this.icecreamflavorsService.submitCustFlavours(this.product)
+    this.goBack()
+  }
+  
+  goBack() {
+    this.location.back()    
+  }
 }

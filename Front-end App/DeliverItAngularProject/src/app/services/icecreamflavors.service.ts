@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ItemCardComponent } from '../item-card/item-card.component';
-import { CustomerSelectedFlavour } from '../entities/productVariation.entity';
-import { Subject } from 'rxjs';
+import { CustomerSelectedFlavour, ProductVariation } from '../entities/productVariation.entity';
+import { OrderService } from './order.service';
+import { Product } from '../entities/product.entity';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IcecreamflavorsService {
+  constructor(private orderService: OrderService) { }
 
   flavors: ItemCardComponent[] = [];
   lastIndex = 0;
@@ -36,21 +38,24 @@ export class IcecreamflavorsService {
     this.selectedCustFlav = []
   }
 
-  addFlavour(flavourId: string) {
-    console.log('added');
-
-    if (this.selectedCustFlav.length === this.maxFlav) return;
-    this.selectedCustFlav.push({ id: flavourId })
-    console.log(this.selectedCustFlav);
+  // Returns true if the variation was added to change the state of the button in the component
+  addFlavour(flavourId: string): boolean {
+    if (this.selectedCustFlav.length < this.maxFlav) {
+      this.selectedCustFlav.push({ id: flavourId })
+      return true
+    } else {
+      return false
+    }
   }
 
   removeFlavour(flavourId: string) {
-    console.log('removed');
-
     const index = this.selectedCustFlav.findIndex(f => f.id === flavourId)
-    console.log('index', index);
+    this.selectedCustFlav.splice(index, 1)
+  }
 
-    this.selectedCustFlav = this.selectedCustFlav.splice(index, 1)
-    console.log(this.selectedCustFlav);
+  submitCustFlavours(product: Product) {
+    console.log('r');
+    
+    this.orderService.addProduct(product, this.selectedCustFlav)
   }
 }

@@ -12,18 +12,21 @@ export class AddProductButtonComponent {
   quantity: number;
   @Input() product: Product;
 
-  constructor(private router: Router, private orderService: OrderService) {
-    this.quantity = 0
+  constructor(private router: Router, private orderService: OrderService) { }
+  
+  ngOnInit() {
+    this.quantity = this.orderService.getQuantity(this.product.id)
   }
 
   incrementQuantity(product: Product) {
     this.quantity++
 
     if (product.allowsVariations) {
-      this.router.navigate(['/flavours-customer'], { queryParams: { maxVariations: this.product.maxVariations } })
-
+      this.router.navigate(['/flavours-customer'], { state: this.product })
+    } else {
+      // If the product has variations, the addProduct method is called in icecreamflavors service
+      this.orderService.addProduct(product)
     }
-    this.orderService.addProduct(product)
   }
 
   diminishQuantity(product: Product) {
