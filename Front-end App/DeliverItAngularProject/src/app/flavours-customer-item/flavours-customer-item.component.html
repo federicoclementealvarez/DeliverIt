@@ -1,5 +1,9 @@
 <div class="flavour">
-  <p>s</p>
+  <div>
+    <p class="card-title">{{ productVariation.name }}</p>
+    <p class="card-subtitle">{{ productVariation.description }}</p>
+  </div>
+
   <button
     *ngIf="stateAdd; else elseBlock"
     class="button"

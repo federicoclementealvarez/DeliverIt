@@ -37,13 +37,19 @@ export class IcecreamflavorsService {
   }
 
   addFlavour(flavourId: string) {
+    console.log('added');
+
     if (this.selectedCustFlav.length === this.maxFlav) return;
     this.selectedCustFlav.push({ id: flavourId })
-    console.log(this.selectedCustFlav);    
+    console.log(this.selectedCustFlav);
   }
 
   removeFlavour(flavourId: string) {
+    console.log('removed');
+
     const index = this.selectedCustFlav.findIndex(f => f.id === flavourId)
+    console.log('index', index);
+
     this.selectedCustFlav = this.selectedCustFlav.splice(index, 1)
     console.log(this.selectedCustFlav);
   }

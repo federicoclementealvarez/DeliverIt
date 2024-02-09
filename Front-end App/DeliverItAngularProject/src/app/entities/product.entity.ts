@@ -4,6 +4,8 @@ export class Product {
   public id?: string
   public name: string
   public description: string
+  public allowsVariations?: string
+  public maxVariations?: number
   public price?: number|string
   public prices?: Price[]
   public validSince?: Date

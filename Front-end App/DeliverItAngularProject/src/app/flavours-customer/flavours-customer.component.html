@@ -1,16 +1,17 @@
 <div class="parent-container">
   <div class="container">
-    <h1 class="tile">Elige hasta {{ this.maxFlavours }}</h1>
+    <h1 class="tile">Elige hasta {{ maxVariations }}</h1>
 
-    <div class="flavour-container" *ngFor="let i of [1, 2, 3, 4, 5, 6]">
+    <div class="flavour-container" *ngFor="let pv of productVariations">
       <app-flavours-customer-item
-        [maxFlavours]="maxFlavours"
+        [maxVariations]="maxVariations"
+        [productVariation]="pv"
+        [flavourId]="pv.id"
       ></app-flavours-customer-item>
     </div>
 
     <button class="button" (click)="submitCustFlavours()">
-      <ion-icon name="checkmark" size="20"></ion-icon>
-      Listo
+      <ion-icon name="checkmark" size="20"></ion-icon>Listo
     </button>
     <button class="secondary-button" routerLink="../">
       <ion-icon name="close"></ion-icon>Cancelar

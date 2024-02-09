@@ -18,7 +18,11 @@ export class AddProductButtonComponent {
 
   incrementQuantity(product: Product) {
     this.quantity++
-    this.router.navigateByUrl('/flavours-customer', { state: product })
+
+    if (product.allowsVariations) {
+      this.router.navigate(['/flavours-customer'], { queryParams: { maxVariations: this.product.maxVariations } })
+
+    }
     this.orderService.addProduct(product)
   }
 
