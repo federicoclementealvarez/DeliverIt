@@ -5,9 +5,11 @@ import { ProductCategory } from '../productCategory/productCategory.entity.js'
 import { LineItem } from '../lineItem/lineItem.entity.js'
 
 @Entity()
-@Filter({ name: 'productCategory', cond: args => ({ productCategory: { $in: args.par } }) })
-@Filter({ name: 'shopId', cond: args => ({ shop: args.shopId }) })
-export class Product extends BaseEntity {
+@Filter({ name: 'productCategory', cond:  args =>({ productCategory: {$in: args.par} }) })
+@Filter({ name: 'shopId', cond:  args =>({ shop: args.shopId }) }) 
+@Filter({ name: 'ids', cond:  args =>({ id: {$in: args.par} }) }) 
+export class Product extends BaseEntity
+{
     @Property({ nullable: false })
     name!: string
 
