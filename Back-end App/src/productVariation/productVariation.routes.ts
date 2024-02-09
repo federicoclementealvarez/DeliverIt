@@ -1,13 +1,13 @@
 import { Router} from 'express';
-import {sanitizedInput, create} from './productVariation.controller.js';
+import {sanitizedInput, create, remove, update, findByShop} from './productVariation.controller.js';
 
 export const productVariationRouter = Router();
 
 
-//productRouter.get('/:id?/:shopId?', find)
+productVariationRouter.get('/:shopId', findByShop)
 
-//productRouter.delete('/:id', validateId, remove)
+productVariationRouter.delete('/:id', remove)
 
 productVariationRouter.post('/', sanitizedInput, create)
 
-//productRouter.put('/:id',validateId, sanitizedInput, update);
+productVariationRouter.put('/:id', sanitizedInput, update);
