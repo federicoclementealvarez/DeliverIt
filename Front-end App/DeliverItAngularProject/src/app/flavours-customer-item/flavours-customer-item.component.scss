@@ -1,0 +1,25 @@
+@import "src/styles.scss";
+
+.flavour {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: auto;
+}
+
+.button {
+  margin: 15px;
+  width: 40px;
+  height: 40px;
+}
+
+.sec-button {
+  background-color: white;
+  color: $primary-red;
+  border: 2px solid $primary-red;
+}
+
+.card-title {
+  margin-bottom: 5px;
+}

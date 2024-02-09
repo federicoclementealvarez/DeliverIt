@@ -1,4 +1,4 @@
-import { Rel, Entity, ManyToOne, Property, Collection, OneToMany, Cascade, Filter, Embedded, Embeddable, DateType} from '@mikro-orm/core'
+import { Rel, Entity, ManyToOne, Property, Collection, OneToMany, Cascade, Filter, Embedded, Embeddable, DateType } from '@mikro-orm/core'
 import { BaseEntity } from '../shared/baseEntity.entity.js'
 import { Shop } from '../shop/shop.entity.js'
 import { ProductCategory } from '../productCategory/productCategory.entity.js'
@@ -12,7 +12,7 @@ export class Product extends BaseEntity
 {
     @Property({ nullable: false })
     name!: string
-    
+
     @Property({ nullable: false })
     description!: string
 
@@ -31,7 +31,7 @@ export class Product extends BaseEntity
     @ManyToOne(() => ProductCategory, { nullable: false })
     productCategory !: Rel<ProductCategory>
 
-    @Embedded(() => Price, {nullable:false, array: true})
+    @Embedded(() => Price, { nullable: false, array: true })
     prices !: Price[]
 
     @OneToMany(() => LineItem, (lineItem) => lineItem.product, {
@@ -42,11 +42,10 @@ export class Product extends BaseEntity
 
 
 @Embeddable()
-export class Price
-{
+export class Price {
     @Property({ nullable: false })
-        amount!: number
+    amount!: number
 
-    @Property({ nullable: false , type: DateType})
-        validSince!: Date
+    @Property({ nullable: false, type: DateType })
+    validSince!: Date
 }

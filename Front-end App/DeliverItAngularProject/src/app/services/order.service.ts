@@ -5,6 +5,7 @@ import { Product } from '../entities/product.entity';
 import { HttpClient } from '@angular/common/http';
 import { BaseUrlService } from './base-url.service';
 import { ValidatorsService } from './validators.service';
+import { CustomerSelectedFlavour, ProductVariation } from '../entities/productVariation.entity';
 
 
 @Injectable({
@@ -30,11 +31,13 @@ export class OrderService {
   private editClicked = new BehaviorSubject<{ id: string, clicked: boolean }>({ id: '', clicked: false });
   editHasBeenClicked = this.editClicked.asObservable();
 
-  addProduct(product: Product) {
+  addProduct(product: Product, variations?: CustomerSelectedFlavour[]) {
     let productInList = this.order.lineItems.find((p) => p.product.id === product.id)
 
     if (!productInList) {
-      this.order.lineItems.push({ product: product, quantity: 1 })
+      this.order.lineItems.push({ product: product, quantity: 1, productVariationArrays: [variations] })
+      console.log('li', this.order.lineItems);
+
 
       let currentValue = this.totalQuantity.value
       let newValue = currentValue + 1
@@ -42,14 +45,24 @@ export class OrderService {
     }
     else {
       let index: number = this.order.lineItems.findIndex((p) =>
-        p.product.id == productInList.product.id)
+        p.product.id === productInList.product.id)
 
       this.order.lineItems[index].quantity++;
+      this.order.lineItems[index].productVariationArrays.push(variations)
 
       let currentValue = this.totalQuantity.value
       let newValue = currentValue + 1
       this.totalQuantity.next(newValue)
     }
+
+    console.log(this.order);
+
+  }
+
+  getQuantity(id: string): number {
+    const li = this.order.lineItems.find(li => li.product.id === id)
+
+    return li ? li.quantity : 0
   }
 
   removeProduct(product: Product) {
@@ -57,6 +70,7 @@ export class OrderService {
 
     if (index !== -1) {
       this.order.lineItems[index].quantity--;
+      this.order.lineItems[index].productVariationArrays.pop()
 
       let currentValue = this.totalQuantity.value
       let newValue = currentValue - 1
@@ -66,13 +80,17 @@ export class OrderService {
         this.order.lineItems.splice(index, 1)
       }
     }
+
+    console.log(this.order);
+
   }
 
   create(paymentTypeId: string): Observable<Order> {
-    const lineItems = this.order.lineItems.map(({ product, quantity }) => {
-      const lineItem: any = { }
+    const lineItems = this.order.lineItems.map(({ product, quantity, productVariationArrays }) => {
+      const lineItem: any = {}
       lineItem.product = product.id
       lineItem.quantity = quantity
+      lineItem.productVariationArrays = productVariationArrays
       return lineItem
     })
     const dateTime = this.validatorsService.getCurrentDateTime()
@@ -82,6 +100,8 @@ export class OrderService {
       "lineItems": lineItems,
       "client": '654c059cda8e9efaeeae024d'
     }
+    console.log(body);
+
     return this.http.post<Order>(this.url, body)
       .pipe(
         map((response: any) => response.body)
@@ -101,11 +121,9 @@ export class OrderService {
 
   getSubTotal(par?: Order) {
     let sum: number = 0
-    if (par)
-    {
+    if (par) {
       par.lineItems.forEach((lineItem) => sum += Number(lineItem.product.prices[0].amount) * lineItem.quantity)
-    } else 
-    {
+    } else {
       this.order.lineItems.forEach((item) => sum += Number(item.product.prices[0].amount) * item.quantity)
     }
     return sum
@@ -116,47 +134,39 @@ export class OrderService {
   }
 
 
-  findOrdersWithoutDelivery(): Observable<Order[]>
-  {
+  findOrdersWithoutDelivery(): Observable<Order[]> {
     return this.http.get<Order[]>(`${this.url}/orders-without-delivery/~`).pipe(map((response: any) => response.data))
   }
 
-  findCurrentCustomerOrders(): Observable<Order[]>
-  {
+  findCurrentCustomerOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(`${this.url}/current-orders/654c059cda8e9efaeeae024d`).pipe(map((response: any) => response.data));
   }
 
-  findCurrentDeliveryOrders(): Observable<Order[]>
-  {
+  findCurrentDeliveryOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(`${this.url}/current-deliveries/655b6dd2c6e26081bf21ffb1`).pipe(map((response: any) => response.data));
   }
 
-  setDelivery(orderId: string)
-  {
-    const body = {"delivery": '655b6dd2c6e26081bf21ffb1'}
+  setDelivery(orderId: string) {
+    const body = { "delivery": '655b6dd2c6e26081bf21ffb1' }
     return this.http.put<Order>(`${this.url}/${orderId}`, body).pipe(map((response: any) => response.body));
   }
 
-  setDateTimeArrival(orderId: string)
-  {
+  setDateTimeArrival(orderId: string) {
     const dateTime = this.validatorsService.getCurrentDateTime()
-    const body = {"dateTimeArrival": dateTime}
+    const body = { "dateTimeArrival": dateTime }
     return this.http.put<Order>(`${this.url}/${orderId}`, body).pipe(map((response: any) => response.body));
   }
 
-  findAllByDelivery(): Observable<Order[]>
-  {
+  findAllByDelivery(): Observable<Order[]> {
     return this.http.get<Order[]>(`${this.url}/all-orders-delivered/655b6dd2c6e26081bf21ffb1`).pipe(map((response: any) => response.data));
   }
 
-  getDescription(order: Order) 
-  {
+  getDescription(order: Order) {
     let description: string = ''
     {
-      order.lineItems.forEach((lineItem,index: number) => 
-      {
-        if (index!== order.lineItems.length-1) {description += lineItem.quantity + ' x '  + lineItem.product.name + ', '}
-        else {description += lineItem.quantity + ' x '  + lineItem.product.name}
+      order.lineItems.forEach((lineItem, index: number) => {
+        if (index !== order.lineItems.length - 1) { description += lineItem.quantity + ' x ' + lineItem.product.name + ', ' }
+        else { description += lineItem.quantity + ' x ' + lineItem.product.name }
       })
     }
     return description
