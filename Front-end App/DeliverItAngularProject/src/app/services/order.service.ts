@@ -90,7 +90,13 @@ export class OrderService {
       const lineItem: any = {}
       lineItem.product = product.id
       lineItem.quantity = quantity
-      lineItem.productVariationArrays = productVariationArrays
+      
+      if (productVariationArrays[0] === undefined) {
+        lineItem.productVariationArrays = []
+      } else {
+        lineItem.productVariationArrays = productVariationArrays
+      }
+
       return lineItem
     })
     const dateTime = this.validatorsService.getCurrentDateTime()
