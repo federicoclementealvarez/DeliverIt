@@ -1,0 +1,85 @@
+@import '../../styles.scss';
+
+@media screen and (max-width: 576px) {
+  .input-buttons {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 992px) {
+  .input-buttons {
+    width: 65%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .input-buttons {
+    width: 45%;
+  }
+}
+
+.top-limit {
+  margin-top: 10px;
+  display: flex;
+  justify-content: right;
+  height: 7.5vh;
+}
+
+h1,h2 {
+  text-align: center;
+  font-family: Poppins;
+}
+
+ .container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 95px;
+   margin-left: 10%;
+   margin-right: 10%;
+   margin-top: 10%;
+   margin-bottom: 10%;
+ }
+
+ .balance-container {
+   border: 1px solid black;
+   justify-content: center;
+   border-radius: 10px;
+   padding: 5px;
+   width: 328px;
+ }
+
+ #division {
+   border: 0;
+   border-top: 1px solid black;
+   width: 85%;
+ }
+
+ h4 {
+  line-height: 2;
+ }
+
+.container-buttons {
+  position: relative;
+  top: 10px;
+  text-align: center;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.secondary-button {
+  background-color: #FFF;
+  border-color: $primary-red;
+  border-style: solid;
+  color: $primary-red;
+}
+
