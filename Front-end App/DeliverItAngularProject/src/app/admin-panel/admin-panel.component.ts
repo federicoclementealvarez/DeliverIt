@@ -31,4 +31,12 @@ export class AdminPanelComponent {
     this.router.navigate(['product-category-list'])
   }
 
+  onAddCommissionPercentage() {
+    this.router.navigate(['add-commission-percentage'])
+  }
+
+  onEditCommissionPercentage() {
+    this.router.navigate(['commission-percentage-list'])
+  }
+
 }

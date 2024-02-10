@@ -29,6 +29,13 @@ import { EditProductCategoryComponent } from './edit-product-category/edit-produ
 import { PaymentTypeListComponent } from './payment-type-list/payment-type-list.component';
 import { ProductCategoryListComponent } from './product-category-list/product-category-list.component';
 import { ErrorPanelComponent } from './error-panel/error-panel.component';
+import { WithdrawalMenuComponent } from './withdrawal-menu/withdrawal-menu.component';
+import { WithdrawOptionsComponent } from './withdraw-options/withdraw-options.component';
+import { WithdrawalConfirmedComponent } from './withdrawal-confirmed/withdrawal-confirmed.component';
+import { WithdrawalAmountComponent } from './withdrawal-amount/withdrawal-amount.component';
+import { AddCommissionPercentageComponent } from './add-commission-percentage/add-commission-percentage.component';
+import { CommissionPercentageListComponent } from './commission-percentage-list/commission-percentage-list.component';
+import { EditCommissionPercentageComponent } from './edit-commission-percentage/edit-commission-percentage.component';
 
 const routes: Routes = [
   { path: "", component: LandingPageComponent },
@@ -60,6 +67,13 @@ const routes: Routes = [
   { path: 'payment-type-list', component: PaymentTypeListComponent },
   { path: 'product-category-list', component: ProductCategoryListComponent },
   { path: 'error-panel', component: ErrorPanelComponent},
+  { path: 'withdrawal-menu', component: WithdrawalMenuComponent},
+  { path: 'withdraw-options', component: WithdrawOptionsComponent},
+  { path: 'withdrawal-confirmed', component: WithdrawalConfirmedComponent},
+  { path: 'withdrawal-amount', component: WithdrawalAmountComponent},
+  { path: 'add-commission-percentage', component: AddCommissionPercentageComponent},
+  { path: 'commission-percentage-list', component: CommissionPercentageListComponent},
+  { path: 'edit-commission-percentage', component: EditCommissionPercentageComponent},
   { path: '**', component: LandingPageComponent }
 ];
 

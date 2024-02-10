@@ -45,6 +45,13 @@ import { ProductCategoryListComponent } from './product-category-list/product-ca
 import { PaymentTypeListComponent } from './payment-type-list/payment-type-list.component';
 import { ErrorPanelComponent } from './error-panel/error-panel.component';
 import { CustomerCurrentOrdersComponent } from './customer-current-orders/customer-current-orders.component';
+import { WithdrawalMenuComponent } from './withdrawal-menu/withdrawal-menu.component';
+import { WithdrawOptionsComponent } from './withdraw-options/withdraw-options.component';
+import { WithdrawalConfirmedComponent } from './withdrawal-confirmed/withdrawal-confirmed.component';
+import { WithdrawalAmountComponent } from './withdrawal-amount/withdrawal-amount.component';
+import { AddCommissionPercentageComponent } from './add-commission-percentage/add-commission-percentage.component';
+import { CommissionPercentageListComponent } from './commission-percentage-list/commission-percentage-list.component';
+import { EditCommissionPercentageComponent } from './edit-commission-percentage/edit-commission-percentage.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +96,13 @@ import { CustomerCurrentOrdersComponent } from './customer-current-orders/custom
     PaymentTypeListComponent,
     ErrorPanelComponent,
     CustomerCurrentOrdersComponent,
+    WithdrawalMenuComponent,
+    WithdrawOptionsComponent,
+    WithdrawalConfirmedComponent,
+    WithdrawalAmountComponent,
+    AddCommissionPercentageComponent,
+    CommissionPercentageListComponent,
+    EditCommissionPercentageComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,109 @@
+@import '../../styles.scss';
+
+.navbar {
+  margin-top: 10px;
+  display: flex;
+  justify-content: right;
+  height: 7.5vh;
+}
+
+.container-menu {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.menu {
+  font-size: 50px;
+}
+
+h1 {
+  text-align: left;
+  margin-left: 10%;
+  font-family: Poppins;
+}
+
+h2 {
+  text-align: center;
+  font-family: Poppins;
+}
+
+h3 {
+  text-align: center;
+  font-family: Poppins;
+}
+
+ .container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 20vh;
+   margin-left: 10%;
+   margin-right: 10%;
+ }
+
+ .balance-container {
+   border: 1px solid black;
+   justify-content: center;
+   border-radius: 10px;
+   padding: 5px;
+   width: 328px;
+ }
+
+ .container-withdraw {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+ }
+
+ .expand_more {
+   font-size: 40px;
+   display: flex;
+   justify-content: center;
+ }
+
+ .options {
+   margin-bottom: 20%;
+   border-color: #d1d1d1;
+   border-radius: 20px;
+   border-style: solid;
+   border-width: 2px;
+   height: 50px;
+   display: flex;
+   align-items: center;
+   flex: 1;
+ }
+
+ .center {
+   display: flex;
+   align-items: center;
+   flex: 1;
+ }
+
+ .options-container {
+   margin-top: 10%;
+   margin-left: 18%;
+   margin-right: 18%;
+   margin-bottom: 10%;
+ }
+
+ .buttons_logos {
+   margin-left: 5%;
+   display: flex;
+ }
+
+ #plus_icon {
+   width: 35px;
+   height: 35px;
+ }
+
+ .button_text {
+   font-family: Poppins;
+   font-size: 18px;
+   font-style: normal;
+   font-weight: 500;
+   overflow: hidden;
+   margin-left: 6%;
+   padding: 2px;
+ }

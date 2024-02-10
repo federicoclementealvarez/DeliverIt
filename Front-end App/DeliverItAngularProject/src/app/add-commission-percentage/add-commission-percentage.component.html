@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+<div class="container">
+  <h1>Agregar porcentaje de comisión</h1>
+  <form class="input-button" [formGroup]="addCommissionPercentageForm">
+    <div class="input-group">
+      <h6>Porcentaje</h6>
+      <div class="percentage">
+        <span id="percentage-sign">%</span>
+        <input id="amount" type="number" min="0" max="100" formControlName="num">
+      </div>
+      <div [ngClass]="{'error-message-show': getNum().invalid && (submitted || getNum().touched)}"
+        class="error-message" style="align-self: flex-start;" id="errors">
+        <span class="error-icon-red">&#9888;</span>
+        Ingresa algún monto válido
+      </div>
+    </div>
+    <div>
+      <div class="input-group">
+        <h6>Válido desde</h6>
+        <input id="date" type="date" formControlName="validSince">
+        <div [ngClass]="{'error-message-show': getValidSince().invalid  && (submitted || getValidSince().touched)}"
+          class="error-message" style="align-self: flex-start;" id="errors">
+          <span class="error-icon-red">&#9888;</span>
+          La fecha debe ser la del día de hoy o después
+        </div>
+      </div>
+    </div>
+    <div class="button-container">
+      <app-primary-button class="button-style" title='CONFIRMAR' (click)="submit()">
+      </app-primary-button>
+    </div>
+  </form>
+</div>
