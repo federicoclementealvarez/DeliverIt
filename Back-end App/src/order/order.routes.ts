@@ -1,7 +1,7 @@
 import { Router } from "express";
 import 
 { 
-  add, findAll,findAllByDelivery,findCurrentCustomerOrders,findCurrentDeliveryOrders,findOne,findOrdersWithoutDelivery, // setCompletedOrder, setDelivery, 
+  add, findAll,findAllByDelivery,findCurrentCustomerOrders,findCurrentDeliveryOrders,findOne,findOrdersWithoutDelivery, sanitizedInput, // setCompletedOrder, setDelivery, 
   update, validateUpdate 
 } from "./order.controller.js";
 
@@ -15,4 +15,4 @@ orderRouter.get('/orders-without-delivery/~', findOrdersWithoutDelivery)
 orderRouter.get('/current-deliveries/:idDelivery', findCurrentDeliveryOrders)
 orderRouter.get('/current-orders/:idCustomer',findCurrentCustomerOrders)
 orderRouter.put('/:id', validateUpdate,update)
-orderRouter.post('/',add)
+orderRouter.post('/',sanitizedInput,add)

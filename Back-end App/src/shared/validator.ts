@@ -68,16 +68,18 @@ function validateVariationsAndQuantities(order:Order){
 }
 
 function validateMaxVariations(order:Order){
+    let validatorMaxVariations = new validatorResponse(true, '') 
     for (const lineItem of order.lineItems){
         if(lineItem.productVariationArrays!==undefined && lineItem.product.allowsVariations===true){
-            lineItem.productVariationArrays?.forEach((productVariationArray)=>{
+            lineItem.productVariationArrays.forEach((productVariationArray)=>{
                 if (lineItem.product.maxVariations!==undefined && productVariationArray.productVariations.length>lineItem.product.maxVariations){
-                    return new validatorResponse(false, 'The amount of variations in a product is greater than the maximum expected')
+                    validatorMaxVariations = {isValid: false, message:'The amount of variations in a product is greater than the maximum expected'}
+                    return
                 }
             })
         }
     }
-    return new validatorResponse(true, '')
+    return validatorMaxVariations
 }
 
 

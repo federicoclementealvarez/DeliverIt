@@ -5,7 +5,7 @@ import { Product } from '../entities/product.entity';
 import { HttpClient } from '@angular/common/http';
 import { BaseUrlService } from './base-url.service';
 import { ValidatorsService } from './validators.service';
-import { CustomerSelectedFlavour, ProductVariation } from '../entities/productVariation.entity';
+import {CustomerSelectedFlavour, ProductVariation } from '../entities/productVariation.entity';
 
 
 @Injectable({
@@ -35,7 +35,7 @@ export class OrderService {
     let productInList = this.order.lineItems.find((p) => p.product.id === product.id)
 
     if (!productInList) {
-      this.order.lineItems.push({ product: product, quantity: 1, productVariationArrays: [variations] })
+      this.order.lineItems.push({ product: product, quantity: 1, productVariationArrays: [{productVariations: variations}] })
       console.log('li', this.order.lineItems);
 
 
@@ -48,7 +48,7 @@ export class OrderService {
         p.product.id === productInList.product.id)
 
       this.order.lineItems[index].quantity++;
-      this.order.lineItems[index].productVariationArrays.push(variations)
+      this.order.lineItems[index].productVariationArrays.push({productVariations: variations})
 
       let currentValue = this.totalQuantity.value
       let newValue = currentValue + 1
