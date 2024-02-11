@@ -23,6 +23,27 @@ export class LineItem extends BaseEntity
 @Embeddable()
 export class ProductVariationArray
 {
-    @ManyToMany(() => ProductVariation)
-        productVariations: Collection<ProductVariation> = new Collection<ProductVariation>(this)
+    @ManyToMany({ entity: () => ProductVariation, owner: true })
+        productVariations = new Collection<ProductVariation>(this);
 }
+/*
+lineItem:{
+    productVariationArrays:[
+        {productVariations:[
+            {
+
+            },
+            {
+
+            }
+        ]},
+        {productVariations:[
+            {
+
+            },
+            {
+
+            }
+        ]}
+    ]
+}*/

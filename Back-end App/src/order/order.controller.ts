@@ -9,6 +9,18 @@ import { Product } from "../product/product.entity.js";
 
 const em = orm.em
 
+
+export function sanitizedInput(req: Request, _: Response, next: NextFunction){
+  req.body.sanitizedInput = {
+    dateTimeOrder: req.body.dateTimeOrder,
+    client: req.body.client,
+    paymentType: req.body.paymentType,
+    lineItems: req.body.lineItems 
+  }
+
+  next();
+}
+
 export async function findAll(req: Request,res: Response)
 { 
 try {
@@ -41,27 +53,26 @@ export async function add(req: Request, res: Response)
   try{
     let productIds = new Set();
 
-    for (const lineItem of req.body.lineItems){
+    for (const lineItem of req.body.sanitizedInput.lineItems){
       productIds.add(lineItem.product)
     }
     
-    const productsInOrder = await em.find(Product, {},{filters:{ids:{par: productIds}}})
+    const productsInOrder = await em.find(Product, {},{filters:{ids:{par: Array.from(productIds)}}})
 
-    for (const lineItem of req.body.lineItems){
+    for (const lineItem of req.body.sanitizedInput.lineItems){
       let completeProduct = productsInOrder.find(prd => prd.id == lineItem.product)
       lineItem.product = completeProduct
     }
 
-    const validatorResponse = validator.validateOrder(req.body as Order)
+    const validatorResponse = validator.validateOrder(req.body.sanitizedInput as Order)
     if(!validatorResponse.isValid)
     {
       return res.status(500).json({message: validatorResponse.message})
     }
-    
-    const newOrder = em.create(Order,req.body)
-    req.body.id = newOrder.id
-    /*for (const lineItem of newOrder.lineItems){ addByOrderId(lineItem.quantity,lineItem.product.id,newOrder.id)}  TO BE ANALYZED */
+
+    const newOrder = em.create(Order,req.body.sanitizedInput)
     await em.flush()
+    
     return res.status(201).json({message:'order created',data:newOrder})
   }
 
