@@ -44,6 +44,11 @@ export class ProductService {
     formData.append("productCategory", prod.productCategory);
     formData.append("fileBeginner", 'prd');
     formData.append("photo", prod.photo);
+    formData.append("allowsVariations", prod.allowsVariations);
+
+    if(prod.maxVariations!==undefined){
+      formData.append("maxVariations", String(prod.maxVariations));
+    }
 
     this.http.post<any>(this.url, formData).subscribe(response => console.log(response))
   }
