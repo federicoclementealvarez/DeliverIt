@@ -31,7 +31,7 @@ export class ShopCardComponent {
   @Input() orderStatus: string;
   @Input() dateTimeArrival: string;
 
-  constructor() { }
+  constructor() {}
 
   showDescription(){this.hasDescription=!this.hasDescription}
 

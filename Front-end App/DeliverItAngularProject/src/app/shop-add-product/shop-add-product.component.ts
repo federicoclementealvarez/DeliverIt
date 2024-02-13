@@ -17,12 +17,14 @@ import { ProductCategory } from '../entities/productCategory.entity';
 export class ShopAddProductComponent {
 
     shopAddProductForm : FormGroup;
+    shopMaxVariationForm: FormGroup;
     photoTouched: boolean = false;
     validPhoto: boolean = null;
     submitted: boolean = false;
     productCategories: ProductCategory [] = [];
     shopId: string;
     photo: File=null;
+    maxVariationsAllowed: boolean = false;
     
     constructor(private router : Router, private validator : ValidatorsService, private productCategoryService : ProductCategoryService, private productService :ProductService, private route: ActivatedRoute){
         productCategoryService.getAll().subscribe(response => this.productCategories = response.body)
@@ -35,8 +37,12 @@ export class ShopAddProductComponent {
           description: new FormControl('', Validators.required),
           amount: new FormControl('', [Validators.required,this.validator.validatePrice()]),
           validSince: new FormControl(this.validator.getTodayDate(),this.validator.validateTodayDate()),
-          productCategory: new FormControl('', Validators.required)  
+          productCategory: new FormControl('', Validators.required)
         })
+
+        this.shopMaxVariationForm = new FormGroup({
+            maxVariations: new FormControl('', [Validators.required,this.validator.validatePrice()])
+          })
 
       }
 
@@ -64,6 +70,14 @@ export class ShopAddProductComponent {
         return this.validator.getTodayDate();
     }
 
+    getMaxVariations(){
+        return this.shopMaxVariationForm.get('maxVariations');
+    }
+
+    toggleSwitch(){
+        this.maxVariationsAllowed = !this.maxVariationsAllowed;
+    }
+
     onPhotoSelected(event){
         this.validPhoto = this.validator.validateImageFormat(event.target.files[0]);
         if(this.validPhoto){
@@ -74,14 +88,16 @@ export class ShopAddProductComponent {
     
     submit(){
         this.submitted=true;
-        if(this.validPhoto && this.shopAddProductForm.valid){
+        if(this.validPhoto && this.shopAddProductForm.valid && (this.shopMaxVariationForm.valid || this.maxVariationsAllowed==false)){
             const product : Product = {
                 name : this.shopAddProductForm.get('name').value,
                 description: this.shopAddProductForm.get('description').value,
                 price: this.shopAddProductForm.get('amount').value,
                 shop:this.shopId,
                 productCategory: this.shopAddProductForm.get('productCategory').value,
-                photo: this.photo
+                photo: this.photo,
+                allowsVariations: this.maxVariationsAllowed.toString(),
+                maxVariations: this.maxVariationsAllowed?this.shopMaxVariationForm.get('maxVariations').value:undefined
             }
             this.productService.create(product)
             this.router.navigate(['/home-shop']);

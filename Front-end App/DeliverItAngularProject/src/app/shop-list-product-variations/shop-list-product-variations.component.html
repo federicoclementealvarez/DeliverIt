@@ -1,0 +1,32 @@
+<div class="banner-container">
+    <img class="banner-image" [src]="'http://localhost:3000/assets/'+this.shop.bannerPath" alt="banner">
+    </div>
+    <div class="content-container">
+      <div class="shop-data">
+        <div class="image-container">
+          <img class="shop-icon" [src]="'http://localhost:3000/assets/'+this.shop.logoPath" alt="icono del local">
+        </div>
+        <div class="info-container">
+          <p class="card-title">{{this.shop.name}}</p>
+          <p class="card-subtitle">{{this.shop.street}} {{this.shop.streetNumber}}</p>
+          <div class="text-and-star-container">
+            <p class="card-bottomText">{{this.shop.stars}}</p>
+            <img class="star-image" src="..\assets\buttons_logos\star_rating_icon.png">
+            <p class="opiniones">Ver opiniones</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h6 class="products-title">Productos</h6>
+    <div class="content-container" id="margin-0">
+      <div class="cards-container">
+        <app-shop-card 
+          *ngFor="let productVariation of productVariations"
+            [productId]="productVariation.id"
+            title={{productVariation.name}}
+            subtitle={{productVariation.description}}
+            imagePath='information_logo.png'
+            [hasEditButton]="true">
+        </app-shop-card>
+      </div>  
+    </div>
