@@ -1,4 +1,4 @@
-import { Rel, Entity, ManyToOne, Property, Embedded, Embeddable, ManyToMany, Cascade, Collection } from '@mikro-orm/core'
+import { Rel, Entity, ManyToOne, Property, Embedded, Embeddable, ManyToMany, Cascade, Collection, OneToMany } from '@mikro-orm/core'
 import { BaseEntity } from '../shared/baseEntity.entity.js'
 import { Product } from '../product/product.entity.js'
 import { Order } from '../order/order.entity.js'
@@ -13,37 +13,34 @@ export class LineItem extends BaseEntity
     @ManyToOne(() => Product, { nullable: false })
     product !: Rel<Product>
 
-    @ManyToOne(() => Order, { nullable: false })
+    @ManyToOne(() => Order, { nullable: false})
     order !: Rel<Order>
 
-    @Embedded(() => ProductVariationArray, {nullable:true, array: true})
-    productVariationArrays ?: ProductVariationArray[]
+    @OneToMany(() => ProductVariationArray, (productVariationArray) => productVariationArray.lineItem, {
+        cascade: [Cascade.ALL]
+    })
+    productVariationArrays = new Collection<ProductVariationArray>(this)
 }
 
-@Embeddable()
-export class ProductVariationArray
+
+@Entity()
+export class ProductVariationArray extends BaseEntity
 {
-    @ManyToMany({ entity: () => ProductVariation, owner: true })
-        productVariations = new Collection<ProductVariation>(this);
+    @ManyToOne(() => LineItem, { nullable: false})
+    lineItem !: Rel<LineItem>
+
+    @ManyToMany(() => ProductVariation, 'productVariationArrays', { owner: true })
+    productVariations = new Collection<ProductVariation>(this);
 }
+
 /*
 lineItem:{
     productVariationArrays:[
         {productVariations:[
-            {
-
-            },
-            {
-
-            }
-        ]},
+            "dfsdfsdf","dfsdfsdfsd","dfsdfsd"
+        ],
         {productVariations:[
-            {
-
-            },
-            {
-
-            }
-        ]}
+            "dfsdfsdf","dfsdfsdfsd","dfsdfsd"
+        ]
     ]
 }*/

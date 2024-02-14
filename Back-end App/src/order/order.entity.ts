@@ -29,7 +29,7 @@ export class Order extends BaseEntity
     paymentType !: Rel<PaymentType>
 
     @OneToMany(() => LineItem, (lineItem) => lineItem.order, {
-        cascade: [Cascade.ALL]
+        eager: true, cascade: [Cascade.ALL]
     })
     lineItems = new Collection<LineItem>(this)
 }

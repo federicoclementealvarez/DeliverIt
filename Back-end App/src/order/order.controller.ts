@@ -38,7 +38,7 @@ export async function findOne (req: Request, res:Response)
     const validatorResponse = validator.validateObjectId(req.params.id)
     if(!validatorResponse.isValid){  return res.status(500).json({message: validatorResponse.message})}
     
-    const order = await em.findOne(Order,req.params.id,{populate:['client','paymentType','lineItems','delivery']})
+    const order = await em.findOne(Order,req.params.id,{populate:['client','paymentType','lineItems.productVariationArrays.productVariations','delivery']})
     
     if(order===null){ return res.status(404).json({message: 'Order not found'})}
     
@@ -71,6 +71,7 @@ export async function add(req: Request, res: Response)
     }
 
     const newOrder = em.create(Order,req.body.sanitizedInput)
+
     await em.flush()
     
     return res.status(201).json({message:'order created',data:newOrder})
