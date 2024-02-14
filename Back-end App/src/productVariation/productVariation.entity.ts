@@ -19,6 +19,6 @@ export class ProductVariation extends BaseEntity
     @ManyToOne(() => Shop, { nullable: false })
       shop !: Rel<Shop>
 
-    @ManyToMany(() => ProductVariationArray, productVariationArray => productVariationArray.productVariations,  { owner: false })
+    @ManyToMany(() => ProductVariationArray, productVariationArray => productVariationArray.productVariations)
     productVariationArrays = new Collection<ProductVariationArray>(this);
 }
