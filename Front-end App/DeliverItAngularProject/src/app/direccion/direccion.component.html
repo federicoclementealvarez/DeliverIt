@@ -31,10 +31,7 @@
         <input formControlName="additionalInfo" type="text" placeholder="(opcional)">
       </div>
       <div class="margin-button">
-        <app-primary-button
-        (buttonClicked)="submitForm()"
-        title="CONFIRMAR">
-        </app-primary-button>
+        <button (click)="submitForm()">CONFIRMAR</button>
       </div>
     </form>
   </div>
