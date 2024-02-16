@@ -37,6 +37,8 @@ import { WithdrawalAmountComponent } from './withdrawal-amount/withdrawal-amount
 import { AddCommissionPercentageComponent } from './add-commission-percentage/add-commission-percentage.component';
 import { CommissionPercentageListComponent } from './commission-percentage-list/commission-percentage-list.component';
 import { EditCommissionPercentageComponent } from './edit-commission-percentage/edit-commission-percentage.component';
+import { ShopListProductVariationsComponent } from './shop-list-product-variations/shop-list-product-variations.component';
+import { ShopModifyProductVariationsComponent } from './shop-modify-product-variations/shop-modify-product-variations.component';
 
 const routes: Routes = [
   { path: "", component: LandingPageComponent },
@@ -76,6 +78,8 @@ const routes: Routes = [
   { path: 'add-commission-percentage', component: AddCommissionPercentageComponent},
   { path: 'commission-percentage-list', component: CommissionPercentageListComponent},
   { path: 'edit-commission-percentage', component: EditCommissionPercentageComponent},
+  { path: 'shop-list-productVariations', component: ShopListProductVariationsComponent},
+  { path: 'shop-modify-productVariations', component: ShopModifyProductVariationsComponent},
   { path: '**', component: LandingPageComponent }
 ];
 

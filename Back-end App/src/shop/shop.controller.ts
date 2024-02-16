@@ -56,13 +56,10 @@ export async function findOneById(req: Request, res: Response)
         if(shop===null){
           return res.status(404).json({message: 'Shop not found'})
         }
-        console.log(JSON.stringify(shop))
 
         return res.status(200).json({message: 'Shop found', body: shop})
       }
       catch(error:any){
-        console.log(error)
-        console.log(error.message)
         return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
       }
 }

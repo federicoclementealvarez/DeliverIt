@@ -58,6 +58,8 @@ import { AddCommissionPercentageComponent } from './add-commission-percentage/ad
 import { CommissionPercentageListComponent } from './commission-percentage-list/commission-percentage-list.component';
 import { EditCommissionPercentageComponent } from './edit-commission-percentage/edit-commission-percentage.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ShopListProductVariationsComponent } from './shop-list-product-variations/shop-list-product-variations.component';
+import { ShopModifyProductVariationsComponent } from './shop-modify-product-variations/shop-modify-product-variations.component';
 
 @NgModule({
   declarations: [
@@ -111,6 +113,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AddCommissionPercentageComponent,
     CommissionPercentageListComponent,
     EditCommissionPercentageComponent,
+    ShopListProductVariationsComponent,
+    ShopModifyProductVariationsComponent,
   ],
   imports: [
     BrowserModule,

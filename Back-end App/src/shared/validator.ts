@@ -71,12 +71,11 @@ function validateMaxVariations(order:Order){
     let validatorMaxVariations = new validatorResponse(true, '') 
     for (const lineItem of order.lineItems){
         if(lineItem.productVariationArrays!==undefined && lineItem.product.allowsVariations===true){
-            lineItem.productVariationArrays.forEach((productVariationArray)=>{
+            for (const productVariationArray of lineItem.productVariationArrays){
                 if (lineItem.product.maxVariations!==undefined && productVariationArray.productVariations.length>lineItem.product.maxVariations){
-                    validatorMaxVariations = {isValid: false, message:'The amount of variations in a product is greater than the maximum expected'}
-                    return
+                    return validatorMaxVariations = {isValid: false, message:'The amount of variations in a product is greater than the maximum expected'}
                 }
-            })
+            }
         }
     }
     return validatorMaxVariations
