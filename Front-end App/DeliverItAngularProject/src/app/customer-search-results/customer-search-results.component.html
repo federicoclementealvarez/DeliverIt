@@ -1,7 +1,11 @@
-<app-customer-searchbar></app-customer-searchbar>
 <div class="container">
   <div class="content">
-    <h3 class="link" routerLink="/home-customer">< Volver al Inicio</h3>
+    <div class="searchbar-container">
+      <button routerLink="/home-customer">
+        <ion-icon name="arrow-back-outline" class="arrow-icon"></ion-icon>
+      </button>
+      <app-customer-searchbar></app-customer-searchbar>
+    </div>
     <h3 *ngIf="shopTypeId; else elseBlock">{{ shopTypeDescription }}</h3>
     <ng-template #elseBlock>
       <h3 *ngIf="shops.length > 0; else elseBlock">

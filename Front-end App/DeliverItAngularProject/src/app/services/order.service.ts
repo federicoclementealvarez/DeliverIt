@@ -5,7 +5,7 @@ import { Product } from '../entities/product.entity';
 import { HttpClient } from '@angular/common/http';
 import { BaseUrlService } from './base-url.service';
 import { ValidatorsService } from './validators.service';
-import {CustomerSelectedFlavour, ProductVariation } from '../entities/productVariation.entity';
+import { CustomerSelectedFlavour, ProductVariation } from '../entities/productVariation.entity';
 
 
 @Injectable({
@@ -31,11 +31,11 @@ export class OrderService {
   private editClicked = new BehaviorSubject<{ id: string, clicked: boolean }>({ id: '', clicked: false });
   editHasBeenClicked = this.editClicked.asObservable();
 
-  addProduct(product: Product, variations?: CustomerSelectedFlavour[]) {
+  addProduct(product: Product, variations?: string[]) {
     let productInList = this.order.lineItems.find((p) => p.product.id === product.id)
 
     if (!productInList) {
-      this.order.lineItems.push({ product: product, quantity: 1, productVariationArrays: [{productVariations: variations}] })
+      this.order.lineItems.push({ product: product, quantity: 1, productVariationArrays: [{ productVariations: variations }] })
       console.log('li', this.order.lineItems);
 
 
@@ -48,7 +48,7 @@ export class OrderService {
         p.product.id === productInList.product.id)
 
       this.order.lineItems[index].quantity++;
-      this.order.lineItems[index].productVariationArrays.push({productVariations: variations})
+      this.order.lineItems[index].productVariationArrays.push({ productVariations: variations })
 
       let currentValue = this.totalQuantity.value
       let newValue = currentValue + 1
@@ -90,8 +90,8 @@ export class OrderService {
       const lineItem: any = {}
       lineItem.product = product.id
       lineItem.quantity = quantity
-      
-      if (productVariationArrays[0] === undefined) {
+
+      if (productVariationArrays[0].productVariations === undefined) {
         lineItem.productVariationArrays = []
       } else {
         lineItem.productVariationArrays = productVariationArrays
