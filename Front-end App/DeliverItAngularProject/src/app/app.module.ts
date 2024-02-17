@@ -2,6 +2,9 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MatSidenavModule } from '@angular/material/sidenav'
+import { MatDividerModule } from '@angular/material/divider'
+import { MatIconModule } from '@angular/material/icon'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -54,6 +57,7 @@ import { WithdrawalAmountComponent } from './withdrawal-amount/withdrawal-amount
 import { AddCommissionPercentageComponent } from './add-commission-percentage/add-commission-percentage.component';
 import { CommissionPercentageListComponent } from './commission-percentage-list/commission-percentage-list.component';
 import { EditCommissionPercentageComponent } from './edit-commission-percentage/edit-commission-percentage.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShopListProductVariationsComponent } from './shop-list-product-variations/shop-list-product-variations.component';
 import { ShopModifyProductVariationsComponent } from './shop-modify-product-variations/shop-modify-product-variations.component';
 
@@ -117,7 +121,11 @@ import { ShopModifyProductVariationsComponent } from './shop-modify-product-vari
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatDividerModule,
+    MatIconModule,
+    MatSidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent],

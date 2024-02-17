@@ -1,6 +1,6 @@
 import { PaymentType } from "./paymentType.entity";
 import { Product } from "./product.entity";
-import {CustomerSelectedFlavour, ProductVariation } from "./productVariation.entity";
+import { ProductVariation } from "./productVariation.entity";
 import { User } from "./user.entity";
 
 export class Order {
@@ -14,9 +14,9 @@ export class Order {
     product: Product
     quantity: number
     productVariationArrays?: CustomerSelectedFlavours[]
-  } []
+  }[]
 }
 
-class CustomerSelectedFlavours{
-  public productVariations: CustomerSelectedFlavour[]
+class CustomerSelectedFlavours {
+  public productVariations: string[]
 }

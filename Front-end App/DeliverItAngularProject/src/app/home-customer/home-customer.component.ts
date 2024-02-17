@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { OrderService } from '../services/order.service';
 import { ShopService } from '../services/shop.service';
 import { ShopType } from '../entities/shopType.entity';
 import { Shop } from '../entities/shop.entity';
 import { ShopTypeService } from '../services/shop-type.service';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-home-customer',
@@ -13,6 +14,9 @@ import { ShopTypeService } from '../services/shop-type.service';
 export class HomeCustomerComponent {
   public shopTypes: ShopType[]
   public shops: Shop[]
+
+  @ViewChild(MatSidenav)
+  sidenav!: MatSidenav
 
   constructor(private shopTypeService: ShopTypeService,
     private orderService: OrderService,
