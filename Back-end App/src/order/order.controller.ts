@@ -1,21 +1,19 @@
 import { orm } from "../shared/orm.js";
 import { Order } from "./order.entity.js";
-import { Request, Response} from "express";
+import { Request, Response, NextFunction } from "express";
 import { validator } from "../shared/validator.js";
-import { NextFunction } from "express";
 import { Product } from "../product/product.entity.js";
-// import { addByOrderId } from "../lineItem/lineItem.controller.js"; TO BE ANALYZED
-
+import { findCurrentCommission } from "../commission/commission.controller.js";
 
 const em = orm.em
-
 
 export function sanitizedInput(req: Request, _: Response, next: NextFunction){
   req.body.sanitizedInput = {
     dateTimeOrder: req.body.dateTimeOrder,
     client: req.body.client,
     paymentType: req.body.paymentType,
-    lineItems: req.body.lineItems 
+    lineItems: req.body.lineItems,
+    priceToPay: req.body.priceToPay,
   }
 
   next();
@@ -70,6 +68,9 @@ export async function add(req: Request, res: Response)
       return res.status(500).json({message: validatorResponse.message})
     }
 
+    const currentCommission = await findCurrentCommission()
+    req.body.sanitizedInput.commissionForDelivery = currentCommission.percentage * req.body.sanitizedInput.priceToPay
+
     const newOrder = em.create(Order,req.body.sanitizedInput)
 
     await em.flush()
@@ -112,34 +113,36 @@ export async function findOrdersWithoutDelivery(req: Request, res: Response)
 
 export async function findCurrentDeliveryOrders(req: Request, res: Response)
 {
-  try { 
+  try 
+  { 
     const validatorResponse = validator.validateObjectId(req.params.idDelivery)
-    if(!validatorResponse.isValid)
-    {
-      return res.status(500).json({message: validatorResponse.message})
-    }
+    if(!validatorResponse.isValid){ return res.status(500).json({message: validatorResponse.message})}
+    
     const currentDeliveryOrders = await em.find(Order,{},{filters:{dateTimeArrival: true,delivery:{par: req.params.idDelivery}},
     populate:['client','paymentType','lineItems.product.prices', 'lineItems.product.shop']})
+    
     return res.status(200).json({message:'found all current delivery orders',data: currentDeliveryOrders})
   }
 
-  catch(error:any){
+  catch(error:any)
+  {
     return res.status(500).json({message:error.message})
   }
 }
 
 export async function findAllByDelivery(req: Request,res: Response) //this method gets every order a single delivery boy has delivered
 { 
-try 
-{
- const orders = await em.find(Order,{},{filters:{delivery:{par: req.params.idDelivery}, dateTimeArrivalSet: true},
- populate: ['client','delivery','paymentType','lineItems.product.prices', 'lineItems.product.shop']})
- return res.status(200).json({message:'found all orders ', data: orders})
-}
-catch(error: any)
-{
- return res.status(500).json({message:error.message})
-}
+  try 
+  {
+    const orders = await em.find(Order,{},{filters:{delivery:{par: req.params.idDelivery}, dateTimeArrivalSet: true},
+    populate: ['client','delivery','paymentType','lineItems.product.prices', 'lineItems.product.shop']})
+    return res.status(200).json({message:'found all orders ', data: orders})
+  }
+  
+  catch(error: any)
+  {
+    return res.status(500).json({message:error.message})
+  }
 }
 
 export async function validateUpdate(req: Request, res: Response, next: NextFunction)

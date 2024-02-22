@@ -15,6 +15,12 @@ export class Order extends BaseEntity
 {
     @Property({ nullable: false })
     dateTimeOrder!: DateTimeType
+
+    @Property({ nullable: false })
+    priceToPay!: number
+
+    @Property({ nullable: false })
+    commissionForDelivery!: number
     
     @Property({ nullable: true })
     dateTimeArrival?: DateTimeType

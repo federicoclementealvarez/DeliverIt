@@ -2,13 +2,13 @@
 
 <div class="container">
   <h1>Seleccionar Monto</h1>
-  <h2>Tu Balance: ${{withdrawalAmount}}</h2>
+  <h2>Tu Balance: ${{user.creditBalance}}</h2>
   <form class="input-button" [formGroup]="addWithdrawalAmountForm">
     <div class="input-group">
       <h6>Monto de retiro</h6>
       <div class="currency">
         <span id="money-sign">$</span>
-        <input id="amount" type="number" min="0" [max]="withdrawalAmount" formControlName="amount">
+        <input id="amount" type="number" min="0" [max]="user.creditBalance" formControlName="amount">
       </div>
       <div [ngClass]="{'error-message-show': getAmount().invalid && (submitted || getAmount().touched)}"
         class="error-message" style="align-self: flex-start;" id="errors">
@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="button-container">
-      <app-primary-button  title="CONFIRMAR"></app-primary-button>
+      <app-primary-button  title="CONFIRMAR" (click)="submit()"></app-primary-button>
     </div>
   </form>
 </div>

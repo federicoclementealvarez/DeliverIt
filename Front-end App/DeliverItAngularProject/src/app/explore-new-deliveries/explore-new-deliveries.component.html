@@ -27,7 +27,7 @@
     description={{getDescription(order)}}
     [client]="order.client.name + ' ' + order.client.surname" 
     [paymentType]=order.paymentType.description
-    price={{getPrice(order)}}
+    price={{order.priceToPay}}
     orderStatus="Pendiente de repartidor"
     orderId = {{order.id}}>
     </app-shop-card>

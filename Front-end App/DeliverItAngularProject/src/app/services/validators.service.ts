@@ -54,7 +54,12 @@ export class ValidatorsService {
   public getCurrentDateTime()
   {
     const d = this.getTodayDate()
-    const t = [(new Date()).getHours(),(new Date()).getMinutes()].join(':')
+    //const h = [(new Date()).getHours(),(new Date()).getMinutes()].join(':')
+    let h = '' + (new Date()).getHours()
+    let m = '' + (new Date()).getMinutes()
+    if (h.length < 2) h = '0' + h;
+    if (m.length < 2) m = '0' + m;
+    const t = [h,m].join(':')
     const dt = [d,t].join(' ')
     return dt
   }

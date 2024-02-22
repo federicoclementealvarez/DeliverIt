@@ -15,6 +15,7 @@ export class OrderDetailsComponent {
     private paymentTypeService: PaymentTypeService,
     private router: Router) { }
 
+  
   items = []
   subTotal: number
   shippingPrice: number
@@ -53,7 +54,7 @@ export class OrderDetailsComponent {
   create() {
     this.submitted = true
     if (this.paymentTypeForm.valid) {
-      this.orderService.create(this.getSelectedPaymentType().value).subscribe(() => {
+      this.orderService.create(this.getSelectedPaymentType().value, this.total).subscribe(() => {
         this.router.navigate(['order-confirmed'])
       })
     }

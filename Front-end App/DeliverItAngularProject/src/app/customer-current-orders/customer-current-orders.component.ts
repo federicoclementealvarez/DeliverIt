@@ -21,11 +21,6 @@ export class CustomerCurrentOrdersComponent
     this.orderService.findCurrentCustomerOrders().subscribe((response)=> this.currentOrders=response)
   }
  
-  getPrice(order: Order): number
-  {
-    return this.orderService.getSubTotal(order)
-  }
-
   getDescription(order: Order): string
   {
     return this.orderService.getDescription(order)

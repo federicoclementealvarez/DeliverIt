@@ -7,7 +7,7 @@ import { BaseEntity } from '../shared/baseEntity.entity.js'
 export class Commission extends BaseEntity
 {
   @Property({ nullable: false })
-    validSince!: DateType
+  validSince!: DateType
 
   @Property({ nullable: false })
   percentage!: number
