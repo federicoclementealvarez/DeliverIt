@@ -4,4 +4,5 @@ export class User {
   public surname: string;
   public street: string;
   public streetNumber: string;
+  public creditBalance?: number;
 }

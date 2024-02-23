@@ -58,7 +58,7 @@
       </div>
       <div *ngIf="currentDeliveries.length > 0" class="active-orders">
         <app-shop-card
-          (retrieveOrderId)="setDateTimeArrival($event)"
+          (retrieveOrderId)="setArrival($event,order.commissionForDelivery)"
           *ngFor="let order of currentDeliveries"
           [title]="order.lineItems[0].product.shop.name"
           [subtitle]="
@@ -77,7 +77,7 @@
           description="{{ getDescription(order) }}"
           [client]="order.client.name + ' ' + order.client.surname"
           [paymentType]="order.paymentType.description"
-          price="{{ getPrice(order) }}"
+          [price]="order.priceToPay"
           orderStatus="Para repartir"
           orderId="{{ order.id }}"
         >

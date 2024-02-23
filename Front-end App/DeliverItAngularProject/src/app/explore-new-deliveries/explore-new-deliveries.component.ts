@@ -20,11 +20,6 @@ export class ExploreNewDeliveriesComponent
     this.orderService.findOrdersWithoutDelivery().subscribe((response)=> this.ordersWithoutDelivery=response)
   }
 
-  getPrice(order: Order): number
-  {
-    return this.orderService.getSubTotal(order)
-  }
-
   getDescription(order: Order): string
   {
     return this.orderService.getDescription(order)

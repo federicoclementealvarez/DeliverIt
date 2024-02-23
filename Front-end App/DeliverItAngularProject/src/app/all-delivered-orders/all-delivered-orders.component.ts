@@ -18,11 +18,6 @@ export class AllDeliveredOrdersComponent{
     this.orderService.findAllByDelivery().subscribe((response)=> this.deliveredOrders=response.reverse()) //shows all delivieries, ordered by dateTimeArrival DESC
   }
 
-   getPrice(order: Order): number
-  {
-    return this.orderService.getSubTotal(order)
-  }
-
   getDescription(order: Order): string
   {
     return this.orderService.getDescription(order)

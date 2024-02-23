@@ -33,66 +33,10 @@
   margin-top: 50px;
 }
 
-.input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-#date {
-  height: 30px;
-  width: 50%;
-  border-color: (#d1d1d1);
-  border-style: solid;
-  border-width: 2.5px;
-  border-radius: 3.5px;
-  font-family: Poppins;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 22.5px;
-  letter-spacing: 0.06px;
-}
-
 .button-style {
   margin-top: 25px;
 }
 
-.percentage {
-  text-align: left;
-  border-style: solid;
-  border-width: 2.5px;
-  border-color: (#d1d1d1);
-  border-radius: 3.5px;
-  width: 45%;
-  height: auto;
-  display: flex;
-  flex: 1;
-}
-
-#amount {
-  width: 70%;
-  border-style: none;
-  height: 95%;
-  font-family: Poppins;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 22.5px;
-  letter-spacing: 0.06px;
-}
-
-#percentage-sign {
-  padding: 5px 10px 5px 10px;
-  border-right: 0;
-  border-color: (#d1d1d1);
-  border-style: solid;
-  border-width: 1px;
-  color: adjust-color($color: #444444d3);
-  background-color: adjust-color($color: #d1d1d1);
-}
-
-.button-container {
+.last-button-container {
   margin-bottom: 50px;
 }

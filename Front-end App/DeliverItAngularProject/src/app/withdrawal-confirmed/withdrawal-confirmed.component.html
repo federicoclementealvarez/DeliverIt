@@ -1,11 +1,11 @@
 <div class="parent-container">
   <div class="container">
     <h1>Retiro realizado con éxito</h1>
-    <h4>Has retirado $24 de tu balance</h4>
+    <h4>Has retirado ${{amount}} de tu balance</h4>
     <div class="video-container">
       <video src="../../assets/vecteezy_green-check-mark-icon-animation-animated-check-mark-on_17110950.mp4" width="400"
         autoplay loop></video>
     </div>
-    <app-primary-button title="VOLVER AL MENÚ DE RETIROS" routerLink="/withdrawal-menu"></app-primary-button>
+    <app-primary-button (click)="goBackToMenu()" title="VOLVER AL MENÚ DE RETIROS" routerLink="/withdrawal-menu"></app-primary-button>
   </div>
 </div>

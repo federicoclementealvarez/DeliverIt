@@ -1,0 +1,54 @@
+@import '../../styles.scss';
+
+.navbar {
+  margin-top: 10px;
+  display: flex;
+  justify-content: right;
+  height: 7.5vh;
+}
+
+.container-menu {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.menu {
+  font-size: 50px;
+}
+
+h1 {
+  text-align: left;
+  margin-left: 10%;
+  font-family: Poppins;
+}
+
+h3 {
+  text-align: center;
+  font-family: Poppins;
+}
+
+ .container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 20vh;
+   margin-left: 10%;
+   margin-right: 10%;
+ }
+
+ .balance-container {
+   border: 1px solid black;
+   justify-content: center;
+   border-radius: 10px;
+   padding: 5px;
+   width: 328px;
+ }
+
+ .container-withdraw {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+ }
+

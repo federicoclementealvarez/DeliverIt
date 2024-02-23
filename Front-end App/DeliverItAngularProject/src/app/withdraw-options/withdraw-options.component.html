@@ -4,7 +4,7 @@
 
 <div class="container">
   <div class="balance-container">
-    <h2>$24</h2>
+    <h2>$ {{user.creditBalance}}</h2>
   </div> 
 </div>
 
@@ -17,7 +17,7 @@
 
 <div class="container-buttons">
   <div class="input-buttons" >
-    <app-primary-button  title="Retirar todo"></app-primary-button>
-    <button class="secondary-button">Seleccionar monto</button>
+    <app-primary-button (click)="withdrawAll()" title="Retirar todo"></app-primary-button>
+    <button class="secondary-button" (click)="selectAmount()">Seleccionar monto</button>
   </div>
 </div>
