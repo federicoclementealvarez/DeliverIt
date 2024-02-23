@@ -63,7 +63,17 @@ export async function findOne (req: Request, res: Response)
 export async function findCurrentCommission() 
 {
     const commissionList = await em.find(Commission, {})
-    return commissionList.sort(compareFunction)[0]
+
+    const commissionsUpToDate = []
+
+    for (const commission of commissionList)
+    {
+      if(commission.validSince <= new Date())
+      {
+        commissionsUpToDate.push(commission)
+      }
+    }
+    return commissionsUpToDate.sort(compareFunction)[0]
 }
 
 export async function add(req: Request, res:Response)

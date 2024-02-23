@@ -3,8 +3,8 @@
 <h1 class="descriptionLabel">Todas las comisiones</h1>
 <div class="container">
   <div class="cards-container">
-    <li *ngFor="let commission of commissions" (click)="onEditClick(commission.id)">
-      Desde: {{commission.validSince}} - Porcentaje: {{commission.percentage*100}}%
+    <li *ngFor="let commission of commissions" [ngClass]="{ 'current': commission === getCurrentCommission() }" (click)="onEditClick(commission)">
+      Desde: {{commission.validSince}} - Porcentaje: {{(commission.percentage*100).toFixed(2)}}%  
     </li>
   </div>
 </div>

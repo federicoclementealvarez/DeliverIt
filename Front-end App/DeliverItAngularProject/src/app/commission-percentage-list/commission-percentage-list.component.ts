@@ -18,25 +18,23 @@ export class CommissionPercentageListComponent
 
   ngOnInit() 
   {
-    this.CommissionService.findAll().subscribe(
-    {
-        next: (response) => this.commissions=response ,
-        error: (error) => {sessionStorage.setItem('errorMessage',error.error.message);sessionStorage.setItem('statusCode',error.status);this.router.navigate(['error-panel'])}
-      })
-    sessionStorage.removeItem('idCommission')
-
-    
-
-
+    this.CommissionService.findAll().subscribe((response) => this.commissions = response)
   }
 
-  onEditClick(commissionId: string)
+  getCurrentCommission()
   {
-    sessionStorage.setItem('idCommission',commissionId)
-    this.router.navigate(['edit-commission-percentage'])
+    return this.CommissionService.getCurrentCommission(this.commissions)
+  }
+
+  onEditClick(commission: Commission)
+  {
+    if (commission.validSince >= (new Date()).toISOString().slice(0,10)) 
+    {
+      sessionStorage.setItem('idCommission',commission.id)
+      this.router.navigate(['edit-commission-percentage'])
+    }
   }
 }
-
 
 
 

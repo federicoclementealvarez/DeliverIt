@@ -20,7 +20,7 @@ export class WithdrawalMenuComponent
   ngOnInit()
   {
     this.userService.findOne().subscribe((response) => this.user = response)
-    this.withdrawalService.findAllByDelivery().subscribe((response)=>this.pastWithdrawals=response)
+    this.withdrawalService.findAllByDelivery().subscribe((response)=>this.pastWithdrawals=response.slice(-3))
   }
 
   onSeeCommissions()
