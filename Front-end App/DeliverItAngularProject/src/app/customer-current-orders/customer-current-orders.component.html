@@ -31,7 +31,7 @@
       description={{getDescription(order)}} 
       [client]="order.client.name + ' ' + order.client.surname"
       [paymentType]=order.paymentType.description 
-      price={{order.priceToPay}}
+      price={{order.totalAmount}}
       orderStatus="En camino"
       orderId={{order.id}}>
     </app-shop-card>
