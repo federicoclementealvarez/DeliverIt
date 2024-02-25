@@ -77,7 +77,7 @@
           description="{{ getDescription(order) }}"
           [client]="order.client.name + ' ' + order.client.surname"
           [paymentType]="order.paymentType.description"
-          [price]="order.priceToPay"
+          [price]="order.totalAmount"
           orderStatus="Para repartir"
           orderId="{{ order.id }}"
         >
