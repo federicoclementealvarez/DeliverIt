@@ -60,6 +60,22 @@ export async function findOne (req: Request, res: Response)
   }
 }
 
+export async function findCurrentCommission() 
+{
+    const commissionList = await em.find(Commission, {})
+
+    const commissionsUpToDate = []
+
+    for (const commission of commissionList)
+    {
+      if(commission.validSince <= new Date())
+      {
+        commissionsUpToDate.push(commission)
+      }
+    }
+    return commissionsUpToDate.sort(compareFunction)[0]
+}
+
 export async function add(req: Request, res:Response)
 {
   try
@@ -144,3 +160,14 @@ export async function remove (req:Request, res: Response)
   }
 }
 
+function compareFunction(a: Commission, b: Commission){
+  if(a.validSince<b.validSince){
+    return 1;
+  }
+  else if (a.validSince>b.validSince){
+    return -1;
+  }
+  else{
+    return 0;
+  }
+}

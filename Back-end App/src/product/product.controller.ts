@@ -292,7 +292,7 @@ async function getCompleteProductArray(products : Loaded<Product, never>[], res:
 }
 
 
-function getTodayDate() : string{
+export function getTodayDate() : string{
   const d = new Date(new Date());
   let month = '' + (d.getMonth() + 1);
   let day = '' + d.getDate();

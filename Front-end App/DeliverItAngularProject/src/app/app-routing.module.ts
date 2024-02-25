@@ -42,6 +42,8 @@ import { ShopModifyProductVariationsComponent } from './shop-modify-product-vari
 import { CustomerPendShopReviewsComponent } from './customer-pend-shop-reviews/customer-pend-shop-reviews.component';
 import { ReviewComponent } from './review/review.component';
 import { ShopReviewsComponent } from './shop-reviews/shop-reviews.component';
+import { AllDeliveryWithdrawalsComponent } from './all-delivery-withdrawals/all-delivery-withdrawals.component';
+import { ShopStatsComponent } from './shop-stats/shop-stats.component';
 
 const routes: Routes = [
   { path: "", component: LandingPageComponent },
@@ -76,16 +78,18 @@ const routes: Routes = [
   { path: 'edit-payment-type', component: EditPaymentTypeComponent },
   { path: 'payment-type-list', component: PaymentTypeListComponent },
   { path: 'product-category-list', component: ProductCategoryListComponent },
-  { path: 'error-panel', component: ErrorPanelComponent },
-  { path: 'withdrawal-menu', component: WithdrawalMenuComponent },
-  { path: 'withdraw-options', component: WithdrawOptionsComponent },
-  { path: 'withdrawal-confirmed', component: WithdrawalConfirmedComponent },
-  { path: 'withdrawal-amount', component: WithdrawalAmountComponent },
-  { path: 'add-commission-percentage', component: AddCommissionPercentageComponent },
-  { path: 'commission-percentage-list', component: CommissionPercentageListComponent },
-  { path: 'edit-commission-percentage', component: EditCommissionPercentageComponent },
-  { path: 'shop-list-productVariations', component: ShopListProductVariationsComponent },
-  { path: 'shop-modify-productVariations', component: ShopModifyProductVariationsComponent },
+  { path: 'error-panel', component: ErrorPanelComponent},
+  { path: 'withdrawal-menu', component: WithdrawalMenuComponent},
+  { path: 'withdraw-options', component: WithdrawOptionsComponent},
+  { path: 'withdrawal-confirmed', component: WithdrawalConfirmedComponent},
+  { path: 'withdrawal-amount', component: WithdrawalAmountComponent},
+  { path: 'add-commission-percentage', component: AddCommissionPercentageComponent},
+  { path: 'commission-percentage-list', component: CommissionPercentageListComponent},
+  { path: 'edit-commission-percentage', component: EditCommissionPercentageComponent},
+  { path: 'shop-list-productVariations', component: ShopListProductVariationsComponent},
+  { path: 'shop-modify-productVariations', component: ShopModifyProductVariationsComponent},
+  { path: 'all-delivery-withdrawals', component: AllDeliveryWithdrawalsComponent},
+  { path: 'shop-stats', component: ShopStatsComponent},
   { path: '**', component: LandingPageComponent }
 ];
 

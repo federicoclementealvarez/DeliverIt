@@ -65,6 +65,8 @@ import { ShopModifyProductVariationsComponent } from './shop-modify-product-vari
 import { CustomerPendShopReviewsComponent } from './customer-pend-shop-reviews/customer-pend-shop-reviews.component';
 import { ReviewComponent } from './review/review.component';
 import { ShopReviewsComponent } from './shop-reviews/shop-reviews.component';
+import { AllDeliveryWithdrawalsComponent } from './all-delivery-withdrawals/all-delivery-withdrawals.component';
+import { ShopStatsComponent } from './shop-stats/shop-stats.component';
 
 @NgModule({
   declarations: [
@@ -123,6 +125,8 @@ import { ShopReviewsComponent } from './shop-reviews/shop-reviews.component';
     CustomerPendShopReviewsComponent,
     ReviewComponent,
     ShopReviewsComponent,
+    AllDeliveryWithdrawalsComponent,
+    ShopStatsComponent,
   ],
   imports: [
     BrowserModule,

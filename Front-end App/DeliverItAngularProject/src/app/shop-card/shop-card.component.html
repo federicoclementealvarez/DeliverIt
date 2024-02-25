@@ -4,7 +4,7 @@
 />
 
 <div class="container">
-  <img class="image" [src]="'http://localhost:3000/assets/' + imagePath" />
+  <img class="image" *ngIf="hasImage" [src]="'http://localhost:3000/assets/'+imagePath">
   <div class="text-container">
     <p class="card-title">{{ title }}</p>
     <p class="card-subtitle">{{ subtitle }}</p>

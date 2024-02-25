@@ -10,6 +10,8 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { productRouter } from './product/product.routes.js';
+import { withdrawalRouter } from './withdrawal/withdrawal.routes.js';
+import { userRouter } from './user/user.routes.js';
 import { orderRouter } from './order/order.routes.js';
 import { shopRouter } from './shop/shop.routes.js';
 import { productVariationRouter } from './productVariation/productVariation.routes.js';
@@ -39,9 +41,11 @@ app.use('/api/paymentTypes', paymentTypeRouter);
 app.use('/api/productCategories', productCategoryRouter);
 app.use('/api/commissions', commissionRouter);
 app.use('/api/userTypes', userTypeRouter);
+app.use('/api/user', userRouter);
 app.use('/api/products', productRouter);
 app.use('/api/shops', shopRouter);
 app.use('/api/order', orderRouter);
+app.use('/api/withdrawal', withdrawalRouter);
 app.use('/api/productVariations', productVariationRouter);
 app.use('/api/reviews', reviewRouter)
 

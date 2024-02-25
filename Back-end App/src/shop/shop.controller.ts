@@ -3,8 +3,22 @@ import { Shop } from './shop.entity.js';
 import { orm } from '../shared/orm.js';
 import { validator } from '../shared/validator.js';
 import { findShopsByProductCategory } from '../product/product.controller.js';
+import { findByMonthAndShop } from '../order/order.controller.js';
+import { Product } from '../product/product.entity.js';
 
 const em = orm.em
+
+type statsType = {
+  totalSellAmount: number,
+  topProducts: productStatsType[]
+}
+
+type productStatsType = {
+    product: Product,
+    amount: number
+}
+
+//DEFINE A RIGHT TYPE PLS
 
 export function sanitizedInput(req: Request, _: Response, next: NextFunction){
 
@@ -117,6 +131,57 @@ export async function update(req: Request, res: Response){
       }
 }
 
+export async function calculateStats(req: Request, res: Response){
+  try{
+      
+      const validatorResponse = validator.validateObjectId(req.params.id)
+      if(!validatorResponse.isValid){
+        return res.status(400).json({message: validatorResponse.message})
+      }
+
+      if(req.params.calculateStats!='true'){
+        return res.status(400).json({message: 'Wrong stats request'})
+      }
+
+      let shop = await em.findOne(Shop, req.params.id)
+      if(shop===null){
+        return res.status(404).json({message: 'An error has ocurred', errorMessage: 'Shop not found'})
+      }
+
+      const filteredOrders = await findByMonthAndShop(shop.id)
+
+      let stats : statsType = {
+        totalSellAmount: 0,
+        topProducts: []
+      }
+
+      filteredOrders.forEach((order) => {
+        stats.totalSellAmount+=order.totalAmount
+
+        for (const lineItem of order.lineItems){
+          const foundIndex = stats.topProducts.findIndex((element) => element.product == lineItem.product)
+
+          if(foundIndex==-1){
+            stats.topProducts.push({product: lineItem.product, amount: lineItem.quantity})
+          }
+          else{
+            stats.topProducts[foundIndex].amount+=lineItem.quantity
+          }
+        }
+
+      })
+
+      stats.topProducts = stats.topProducts.sort(compareFunction)
+
+      stats.topProducts.splice(3)
+
+      return res.status(200).json({message: 'Shop stats successfully retrieved', body: stats})
+      }
+    catch(error:any){
+      return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+    }
+}
+
 
 function filterParameters(req: Request){
 
@@ -135,4 +200,16 @@ function filterParameters(req: Request){
     }
 
     return filters
+}
+
+function compareFunction(a: productStatsType, b: productStatsType){
+  if(a.amount<b.amount){
+    return 1;
+  }
+  else if (a.amount>b.amount){
+    return -1;
+  }
+  else{
+    return 0;
+  }
 }

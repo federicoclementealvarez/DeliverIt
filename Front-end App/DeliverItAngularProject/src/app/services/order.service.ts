@@ -76,7 +76,7 @@ export class OrderService {
     }
   }
 
-  create(paymentTypeId: string): Observable<Order> {
+  create(paymentTypeId: string, totalAmount: number): Observable<Order> {
     const lineItems = this.order.lineItems.map(({ product, quantity, productVariationArrays }) => {
       const lineItem: any = {}
       lineItem.product = product.id
@@ -92,12 +92,14 @@ export class OrderService {
       
       return lineItem
     })
+    
     const dateTime = this.validatorsService.getCurrentDateTime()
     const body = {
       "dateTimeOrder": dateTime,
       "paymentType": paymentTypeId,
       "lineItems": lineItems,
-      "client": '654c059cda8e9efaeeae024d'
+      "client": '654c059cda8e9efaeeae024d',
+      "totalAmount": totalAmount
     }
 
     return this.http.post<Order>(this.url, body)

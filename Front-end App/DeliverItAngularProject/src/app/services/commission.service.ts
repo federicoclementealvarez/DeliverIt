@@ -17,7 +17,7 @@ export class CommissionService
 
   findAll(): Observable<Commission[]>
   {
-    return this.http.get<Commission[]>(this.url).pipe(map((response: any) => response.data))
+    return this.http.get<Commission[]>(this.url).pipe(map((response: any) => response.data.sort(this.compareFunction)))
   }
   
   findOne(commissionId): Observable<Commission>
@@ -44,5 +44,28 @@ export class CommissionService
     }
     
     return this.http.put<any>(`${this.url}/${commission.id}`, data)
+  }
+
+  getCurrentCommission(commissions: Commission[])
+  {
+    const commissionsUpToDate = []
+
+    for (const commission of commissions)
+    {
+      if(commission.validSince <= (new Date()).toISOString())
+      {
+        commissionsUpToDate.push(commission)
+      }
+    }
+    return commissionsUpToDate[0]
+  }
+
+  compareFunction(a: Commission, b: Commission)
+  {
+    if(a.validSince<b.validSince){ return 1;}
+    
+    else if (a.validSince>b.validSince){return -1;}
+  
+    else{return 0;}
   }
 }

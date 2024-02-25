@@ -35,7 +35,7 @@
     description={{getDescription(order)}}
     [client]="order.client.name + ' ' + order.client.surname" 
     [paymentType]=order.paymentType.description
-    price={{getPrice(order)}} 
+    [price]="' $' + order.totalAmount + ' ; Tu comisión: $' + order.commissionForDelivery "
     orderStatus="Entregada" 
     orderId={{order.id}}
     dateTimeArrival={{order.dateTimeArrival}}>
