@@ -4,7 +4,11 @@
 />
 
 <div class="container">
-  <img class="image" *ngIf="hasImage" [src]="'http://localhost:3000/assets/'+imagePath">
+  <img
+    class="image"
+    *ngIf="hasImage"
+    [src]="'http://localhost:3000/assets/' + imagePath"
+  />
   <div class="text-container">
     <p class="card-title">{{ title }}</p>
     <p class="card-subtitle">{{ subtitle }}</p>
@@ -15,6 +19,7 @@
         class="star-image"
         src="..\assets\buttons_logos\star_rating_icon.png"
       />
+      <p *ngIf="totalReviews" class="card-bottomText">({{ totalReviews }})</p>
     </div>
   </div>
   <div *ngIf="hasDropdown === true" class="dropdown">
