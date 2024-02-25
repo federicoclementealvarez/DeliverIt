@@ -22,6 +22,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": ["plotly.js-dist"],
             "outputPath": "dist/deliver-it-angular-project",
             "index": "src/index.html",
             "main": "src/main.ts",
