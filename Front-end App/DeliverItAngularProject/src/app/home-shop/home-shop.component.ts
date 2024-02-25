@@ -15,7 +15,7 @@ export class HomeShopComponent {
 
   protected shop: Shop;
 
-  constructor(private router: Router, private shopService: ShopService, private productVariationsService: ProductVariationsService, private statsService: StatsService) { }
+  constructor(private router: Router, private shopService: ShopService, private productVariationsService: ProductVariationsService, private reviewService: ReviewService, private statsService: StatsService) { }
 
   ngOnInit() {
     //this id is for example purposes only, it will be retrieved from the signup when ready
