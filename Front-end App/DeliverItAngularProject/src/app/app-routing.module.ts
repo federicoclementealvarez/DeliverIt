@@ -39,6 +39,9 @@ import { CommissionPercentageListComponent } from './commission-percentage-list/
 import { EditCommissionPercentageComponent } from './edit-commission-percentage/edit-commission-percentage.component';
 import { ShopListProductVariationsComponent } from './shop-list-product-variations/shop-list-product-variations.component';
 import { ShopModifyProductVariationsComponent } from './shop-modify-product-variations/shop-modify-product-variations.component';
+import { CustomerPendShopReviewsComponent } from './customer-pend-shop-reviews/customer-pend-shop-reviews.component';
+import { ReviewComponent } from './review/review.component';
+import { ShopReviewsComponent } from './shop-reviews/shop-reviews.component';
 
 const routes: Routes = [
   { path: "", component: LandingPageComponent },
@@ -52,6 +55,9 @@ const routes: Routes = [
   { path: 'flavours-customer', component: FlavoursCustomerComponent },
   { path: 'order-details', component: OrderDetailsComponent },
   { path: 'order-confirmed', component: OrderConfirmedComponent },
+  { path: 'customer-pend-shop-reviews', component: CustomerPendShopReviewsComponent },
+  { path: 'review', component: ReviewComponent },
+  { path: 'reviews/shop', component: ShopReviewsComponent },
   { path: 'signup_shop_data1', component: SignupShopData1Component },
   { path: 'signup_shop_data2', component: SignupShopData2Component },
   { path: 'signup_shop_data_icecreamflavors', component: SignupShopDataIcecreamflavorsComponent },
@@ -62,7 +68,7 @@ const routes: Routes = [
   { path: 'home-delivery-boy', component: HomeDeliveryBoyComponent },
   { path: 'explore-new-deliveries', component: ExploreNewDeliveriesComponent },
   { path: 'all-delivered-orders', component: AllDeliveredOrdersComponent },
-  { path: 'customer-current-orders', component: CustomerCurrentOrdersComponent},
+  { path: 'customer-current-orders', component: CustomerCurrentOrdersComponent },
   { path: 'admin-panel', component: AdminPanelComponent },
   { path: 'add-payment-type', component: AddPaymentTypeComponent },
   { path: 'add-product-category', component: AddProductCategoryComponent },
@@ -70,16 +76,16 @@ const routes: Routes = [
   { path: 'edit-payment-type', component: EditPaymentTypeComponent },
   { path: 'payment-type-list', component: PaymentTypeListComponent },
   { path: 'product-category-list', component: ProductCategoryListComponent },
-  { path: 'error-panel', component: ErrorPanelComponent},
-  { path: 'withdrawal-menu', component: WithdrawalMenuComponent},
-  { path: 'withdraw-options', component: WithdrawOptionsComponent},
-  { path: 'withdrawal-confirmed', component: WithdrawalConfirmedComponent},
-  { path: 'withdrawal-amount', component: WithdrawalAmountComponent},
-  { path: 'add-commission-percentage', component: AddCommissionPercentageComponent},
-  { path: 'commission-percentage-list', component: CommissionPercentageListComponent},
-  { path: 'edit-commission-percentage', component: EditCommissionPercentageComponent},
-  { path: 'shop-list-productVariations', component: ShopListProductVariationsComponent},
-  { path: 'shop-modify-productVariations', component: ShopModifyProductVariationsComponent},
+  { path: 'error-panel', component: ErrorPanelComponent },
+  { path: 'withdrawal-menu', component: WithdrawalMenuComponent },
+  { path: 'withdraw-options', component: WithdrawOptionsComponent },
+  { path: 'withdrawal-confirmed', component: WithdrawalConfirmedComponent },
+  { path: 'withdrawal-amount', component: WithdrawalAmountComponent },
+  { path: 'add-commission-percentage', component: AddCommissionPercentageComponent },
+  { path: 'commission-percentage-list', component: CommissionPercentageListComponent },
+  { path: 'edit-commission-percentage', component: EditCommissionPercentageComponent },
+  { path: 'shop-list-productVariations', component: ShopListProductVariationsComponent },
+  { path: 'shop-modify-productVariations', component: ShopModifyProductVariationsComponent },
   { path: '**', component: LandingPageComponent }
 ];
 

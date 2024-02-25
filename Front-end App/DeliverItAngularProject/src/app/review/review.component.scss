@@ -1,0 +1,114 @@
+@import "../../styles.scss";
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subcontainer {
+  margin-top: 50px;
+  width: 90%;
+}
+
+.shop-data {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  width: 90%;
+  display: flex;
+  height: 80px;
+}
+
+.shop-icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.image-container {
+  aspect-ratio: 1;
+}
+
+.info-container {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.text-and-star-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 14px;
+}
+
+.opiniones {
+  font-family: Poppins;
+  font-weight: 500;
+  text-decoration: underline;
+  font-size: 13px;
+  margin-left: 10px;
+}
+
+img {
+  width: 50px;
+}
+
+.star-outline {
+  font-size: 50px;
+  color: rgba($color: #000000, $alpha: 0.4);
+}
+
+.star {
+  font-size: 50px;
+  color: $yellow-star;
+}
+
+.stars-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+ion-icon {
+  --ionicon-stroke-width: 20px;
+}
+
+#text-review {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  font-family: Poppins;
+  font-weight: 300;
+  font-size: 15px;
+  outline: none;
+  transition: 0.2s;
+  resize: none;
+}
+
+#text-review:focus {
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  transition: 0.2s;
+}
+
+button {
+  margin-top: 20px;
+}
+
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: #c00a0a;
+}
+
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  height: 60px;
+}

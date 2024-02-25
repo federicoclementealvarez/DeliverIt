@@ -1,0 +1,96 @@
+@import "../../styles.scss";
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subcontainer {
+  width: 90%;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: #c00a0a;
+}
+
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.shop-data {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  width: 90%;
+  display: flex;
+  height: 80px;
+}
+
+.shop-icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.image-container {
+  aspect-ratio: 1;
+}
+
+.info-container {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.text-and-star-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 14px;
+}
+
+.reviews-container {
+  margin-top: 20px;
+}
+
+.review {
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.review > h3 {
+  margin: 0;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.review-header > .card-subtitle {
+  margin-left: 5px;
+}
+
+.review > .card-subtitle {
+  margin-top: 5px;
+}
+
+.star {
+  color: $yellow-star;
+  font-size: 15px;
+}
+
+.text-no-reviews {
+  margin-top: 20px;
+}

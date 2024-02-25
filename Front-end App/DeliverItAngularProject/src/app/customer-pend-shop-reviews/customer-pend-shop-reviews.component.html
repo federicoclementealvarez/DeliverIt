@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="subcontainer">
+    <h1>Locales en los que puedes escribir una opinión</h1>
+    <mat-spinner
+      diameter="50"
+      class="loading"
+      *ngIf="loadingData; else notLoading"
+    ></mat-spinner>
+    <ng-template #notLoading>
+      <h6
+        *ngIf="
+          pendingShopsReviews.shopReviewsAvailable.length === 0;
+          else shopReviewsAvailable
+        "
+      >
+        No tienes locales para escribir una opinión
+      </h6>
+      <ng-template #shopReviewsAvailable>
+        <app-shop-card
+          *ngFor="let shop of pendingShopsReviews.shopReviewsAvailable"
+          title="{{ shop.name }}"
+          [subtitle]="shop.street + ' ' + shop.streetNumber"
+          bottomText="{{ shop.stars }}"
+          [hasStar]="true"
+          [routerLink]="['/review']"
+          imagePath="{{ shop.logoPath }}"
+          (click)="setShopToReview(shop)"
+        >
+        </app-shop-card>
+      </ng-template>
+      <h3>Opiniones que ya escribiste</h3>
+      <h6
+        *ngIf="
+          pendingShopsReviews.allReviewsMadeByCustomer.length === 0;
+          else reviewsAvailable
+        "
+      >
+        No has escrito todavía ninguna opinión
+      </h6>
+      <ng-template #reviewsAvailable>
+        <app-shop-card
+          *ngFor="let review of pendingShopsReviews.allReviewsMadeByCustomer"
+          title="{{ review.shop.name }}"
+          [subtitle]="review.comment"
+          bottomText="{{ review.stars }}"
+          [hasStar]="true"
+          [routerLink]="['/review']"
+          imagePath="{{ review.shop.logoPath }}"
+          [hasEditButton]="true"
+          (click)="setReviewToUpdate(review)"
+        >
+        </app-shop-card>
+      </ng-template>
+    </ng-template>
+  </div>
+</div>

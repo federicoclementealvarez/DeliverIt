@@ -4,7 +4,7 @@
 />
 
 <div class="container">
-  <img class="image" [src]="'http://localhost:3000/assets/'+imagePath">
+  <img class="image" [src]="'http://localhost:3000/assets/' + imagePath" />
   <div class="text-container">
     <p class="card-title">{{ title }}</p>
     <p class="card-subtitle">{{ subtitle }}</p>
@@ -22,25 +22,29 @@
       >expand_more</span
     >
   </div>
-  <div *ngIf="hasAddButton === true" class="add-product-button-container">
-    <div class="button-subcontainer">
-      <app-add-product-button [product]=product>
-      </app-add-product-button>
+  <div class="buttons-container">
+    <div *ngIf="hasAddButton === true" class="add-product-button-container">
+      <div class="button-subcontainer">
+        <app-add-product-button [product]="product"> </app-add-product-button>
+      </div>
     </div>
-  </div>
-  <div *ngIf="hasEditButton === true" class="add-product-button-container">
-    <div class="button-subcontainer">
-      <app-edit-product-button productId={{productId}}></app-edit-product-button>
+    <div *ngIf="hasEditButton === true" class="add-product-button-container">
+      <div class="button-subcontainer">
+        <app-edit-product-button
+          productId="{{ productId }}"
+        ></app-edit-product-button>
+      </div>
     </div>
   </div>
 </div>
 
-<app-deliver-order-description (buttonClicked)="getOrderId()"
+<app-deliver-order-description
+  (buttonClicked)="getOrderId()"
   *ngIf="hasDescription === true"
-  description={{description}}
-  price={{price}}
-  client={{client}}
-  paymentType={{paymentType}}
-  orderStatus={{orderStatus}}
-  dateTimeArrival={{dateTimeArrival}}
+  description="{{ description }}"
+  price="{{ price }}"
+  client="{{ client }}"
+  paymentType="{{ paymentType }}"
+  orderStatus="{{ orderStatus }}"
+  dateTimeArrival="{{ dateTimeArrival }}"
 ></app-deliver-order-description>

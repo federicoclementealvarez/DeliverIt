@@ -1,5 +1,4 @@
-@import '../../styles.scss';
-
+@import "../../styles.scss";
 
 .banner {
   &-container {
@@ -57,59 +56,62 @@
 
 .opiniones {
   font-family: Poppins;
-  font-weight: 200;
+  font-weight: 500;
   font-size: 13px;
   margin-left: 5px;
+  text-decoration: underline;
+  font-size: 13px;
+  margin-left: 10px;
 }
 
-.options{
-    margin-bottom: 20%;
-    border-color: #d1d1d1;
-    border-radius: 20px;
-    border-style: solid;
-    border-width: 2px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    flex: 1;
+.options {
+  margin-bottom: 20%;
+  border-color: #d1d1d1;
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 2px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  flex: 1;
 }
 
-.center{
-   display: flex;
-   align-items: center;
-   flex: 1;
+.center {
+  display: flex;
+  align-items: center;
+  flex: 1;
 }
 
-.options-container{
-    margin-top: 30%;
-    margin-left: 18%;
-    margin-right: 18%;
-    margin-bottom: 18%;
+.options-container {
+  margin-top: 30%;
+  margin-left: 18%;
+  margin-right: 18%;
+  margin-bottom: 18%;
 }
 
-.buttons_logos{
-    margin-left: 5%;
-    display: flex;
+.buttons_logos {
+  margin-left: 5%;
+  display: flex;
 }
 
-#plus_icon{
-    width: 35px;
-    height: 35px;
+#plus_icon {
+  width: 35px;
+  height: 35px;
 }
 
-#pencil_icon{
+#pencil_icon {
   width: 30px;
   height: 30px;
   margin-right: 4px;
   margin-left: 3px;
 }
 
-.button_text{
-    font-family: Poppins;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 500;
-    overflow: hidden;
-    margin-left: 6%;
-    padding: 2px;
+.button_text {
+  font-family: Poppins;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  overflow: hidden;
+  margin-left: 6%;
+  padding: 2px;
 }

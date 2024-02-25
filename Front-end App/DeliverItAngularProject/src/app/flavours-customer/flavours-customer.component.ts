@@ -6,6 +6,7 @@ import { ProductVariation } from '../entities/productVariation.entity';
 import { Router } from '@angular/router';
 import { Product } from '../entities/product.entity';
 import { Location } from '@angular/common';
+import { ProductVariationsService } from '../services/product-variations.service';
 
 @Component({
   selector: 'app-flavours-customer',
@@ -16,11 +17,13 @@ export class FlavoursCustomerComponent {
   public productVariations: ProductVariation[];
   maxVariations: number;
   product: Product
+  submitted = false
 
   constructor(
     private shopService: ShopService,
     private router: Router,
     private icecreamflavorsService: IcecreamflavorsService,
+    private productVariationService: ProductVariationsService,
     private location: Location
   ) {
     this.product = this.router.getCurrentNavigation().extras.state as Product;
@@ -29,16 +32,26 @@ export class FlavoursCustomerComponent {
 
   ngOnInit() {
     this.shopService.shop.subscribe((data: Shop) => {
-      this.productVariations = data.productVariations;
+      let productVariationsWithoutFiltered = data.productVariations;
+      this.productVariations = this.productVariationService.filterProductVariations(productVariationsWithoutFiltered)
     });
   }
 
-  submitCustFlavours() {
-    this.icecreamflavorsService.submitCustFlavours(this.product)
-    this.goBack()
+  atLeastOneFlavourSelected() {
+    return this.icecreamflavorsService.selectedCustFlav.length > 0
   }
-  
+
+  submitCustFlavours() {
+    this.submitted = true
+    console.log(this.atLeastOneFlavourSelected());
+    
+    if (this.atLeastOneFlavourSelected()) {
+      this.icecreamflavorsService.submitCustFlavours(this.product)
+      this.goBack()
+    }
+  }
+
   goBack() {
-    this.location.back()    
+    this.location.back()
   }
 }

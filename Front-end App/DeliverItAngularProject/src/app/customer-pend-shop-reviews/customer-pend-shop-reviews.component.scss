@@ -1,0 +1,43 @@
+@import "../../styles.scss";
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subcontainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 90%;
+  margin-top: 50px;
+}
+
+mat-spinner {
+  margin-top: 20px;
+}
+
+margin-top {
+  margin-top: 50px;
+}
+
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: #c00a0a;
+}
+
+h6 {
+  font-weight: 300;
+}
+
+h6,
+h3 {
+  align-self: flex-start;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+app-shop-card {
+  width: 100%;
+}
