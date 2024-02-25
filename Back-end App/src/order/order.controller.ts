@@ -16,8 +16,7 @@ export function sanitizedInput(req: Request, _: Response, next: NextFunction){
     totalAmount: req.body.totalAmount,
     client: req.body.client,
     paymentType: req.body.paymentType,
-    lineItems: req.body.lineItems,
-    priceToPay: req.body.priceToPay,
+    lineItems: req.body.lineItems
   }
 
   next();
@@ -75,7 +74,7 @@ export async function add(req: Request, res: Response)
     }
 
     const currentCommission = await findCurrentCommission()
-    req.body.sanitizedInput.commissionForDelivery = currentCommission.percentage * req.body.sanitizedInput.priceToPay
+    req.body.sanitizedInput.commissionForDelivery = currentCommission.percentage * req.body.sanitizedInput.totalAmount
 
     const newOrder = em.create(Order,req.body.sanitizedInput)
 
