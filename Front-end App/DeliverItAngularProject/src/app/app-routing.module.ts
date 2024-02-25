@@ -39,6 +39,7 @@ import { CommissionPercentageListComponent } from './commission-percentage-list/
 import { EditCommissionPercentageComponent } from './edit-commission-percentage/edit-commission-percentage.component';
 import { ShopListProductVariationsComponent } from './shop-list-product-variations/shop-list-product-variations.component';
 import { ShopModifyProductVariationsComponent } from './shop-modify-product-variations/shop-modify-product-variations.component';
+import { ShopStatsComponent } from './shop-stats/shop-stats.component';
 
 const routes: Routes = [
   { path: "", component: LandingPageComponent },
@@ -80,6 +81,7 @@ const routes: Routes = [
   { path: 'edit-commission-percentage', component: EditCommissionPercentageComponent},
   { path: 'shop-list-productVariations', component: ShopListProductVariationsComponent},
   { path: 'shop-modify-productVariations', component: ShopModifyProductVariationsComponent},
+  { path: 'shop-stats', component: ShopStatsComponent},
   { path: '**', component: LandingPageComponent }
 ];
 
