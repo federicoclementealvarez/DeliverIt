@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ItemCardComponent } from '../item-card/item-card.component';
 import { OrderService } from './order.service';
 import { Product } from '../entities/product.entity';
+import { ProductVariation } from '../entities/productVariation.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class IcecreamflavorsService {
   // Implementation of the selection of flavours by the customer
 
   maxFlav: number;
-  selectedCustFlav: string[]
+  selectedCustFlav: ProductVariation[]
 
   setMaxFlav(quant: number) {
     this.maxFlav = quant
@@ -38,23 +39,21 @@ export class IcecreamflavorsService {
   }
 
   // Returns true if the variation was added to change the state of the button in the component
-  addFlavour(flavourId: string): boolean {
-    if (this.selectedCustFlav.length < this.maxFlav) {
-      this.selectedCustFlav.push(flavourId)
+  addFlavour(productVariation: ProductVariation): boolean {
+    if (this.selectedCustFlav.length < this.maxFlav) {      
+      this.selectedCustFlav.push(productVariation)
       return true
     } else {
       return false
     }
   }
 
-  removeFlavour(flavourId: string) {
-    const index = this.selectedCustFlav.findIndex(f => f === flavourId)
+  removeFlavour(productVariation: ProductVariation) {
+    const index = this.selectedCustFlav.findIndex(f => f.id === productVariation.id)
     this.selectedCustFlav.splice(index, 1)
   }
 
   submitCustFlavours(product: Product) {
-    console.log('r');
-    
     this.orderService.addProduct(product, this.selectedCustFlav)
   }
 }

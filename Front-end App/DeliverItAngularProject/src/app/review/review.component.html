@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="subcontainer">
+    <h1>Escribe una opinión</h1>
+    <div class="shop-data">
+      <div class="image-container">
+        <img class="shop-icon" [src]="shopImageUrl" alt="icono del local" />
+      </div>
+      <div class="info-container">
+        <p class="card-title">{{ this.shopToReview.name }}</p>
+        <p class="card-subtitle">
+          {{ this.shopToReview.street + " " + this.shopToReview.streetNumber }}
+        </p>
+        <div class="text-and-star-container">
+          <p class="card-bottomText">{{ this.shopToReview.stars }}</p>
+          <img
+            class="star-image"
+            src="..\assets\buttons_logos\star_rating_icon.png"
+          />
+          <p class="card-bottomText">({{ this.shopToReview.totalReviews }})</p>
+          <p
+            class="opiniones"
+            [routerLink]="'/reviews/shop'"
+          >
+            Ver opiniones
+          </p>
+        </div>
+      </div>
+    </div>
+    <h3>Seleccione cantidad de estrellas</h3>
+    <form [formGroup]="reviewForm">
+      <div class="stars-container">
+        <div class="star-button" *ngFor="let star of stars">
+          <ion-icon
+            *ngIf="star.clicked; else notClicked"
+            class="star"
+            name="star"
+            (click)="toggleStar(star.number)"
+          ></ion-icon>
+          <ng-template #notClicked>
+            <ion-icon
+              class="star-outline"
+              name="star-outline"
+              (click)="toggleStar(star.number)"
+            ></ion-icon>
+          </ng-template>
+        </div>
+      </div>
+      <div
+        [ngClass]="{
+          'error-message-show': getStars().invalid && formSubmitted === true
+        }"
+        class="error-message"
+      >
+        <ion-icon class="error-icon-red" name="warning-outline"></ion-icon>
+        Elija una puntuación
+      </div>
+      <h3>Escribe la opinión</h3>
+      <textarea
+        formControlName="comment"
+        name="text-review"
+        id="text-review"
+      ></textarea>
+      <div
+        [ngClass]="{
+          'error-message-show': getComment().invalid && formSubmitted === true
+        }"
+        class="error-message"
+      >
+        <ion-icon class="error-icon-red" name="warning-outline"></ion-icon>
+        Este campo es obligatorio
+      </div>
+      <div class="spinner-container">
+        <mat-spinner diameter="50" *ngIf="loading"></mat-spinner>
+      </div>
+      <button
+        *ngIf="!reviewToUpdate; else updateButton"
+        (click)="submitReview()"
+      >
+        ENVIAR
+      </button>
+      <ng-template #updateButton
+        ><button (click)="submitReview()">ACTUALIZAR</button
+        ><button (click)="deleteReview()" class="secondary-button">
+          ELIMINAR
+        </button></ng-template
+      >
+    </form>
+  </div>
+</div>

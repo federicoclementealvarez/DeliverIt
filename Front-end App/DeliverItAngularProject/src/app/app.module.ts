@@ -2,9 +2,11 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { MatSidenavModule } from '@angular/material/sidenav'
-import { MatDividerModule } from '@angular/material/divider'
-import { MatIconModule } from '@angular/material/icon'
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -60,6 +62,9 @@ import { EditCommissionPercentageComponent } from './edit-commission-percentage/
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShopListProductVariationsComponent } from './shop-list-product-variations/shop-list-product-variations.component';
 import { ShopModifyProductVariationsComponent } from './shop-modify-product-variations/shop-modify-product-variations.component';
+import { CustomerPendShopReviewsComponent } from './customer-pend-shop-reviews/customer-pend-shop-reviews.component';
+import { ReviewComponent } from './review/review.component';
+import { ShopReviewsComponent } from './shop-reviews/shop-reviews.component';
 
 @NgModule({
   declarations: [
@@ -115,6 +120,9 @@ import { ShopModifyProductVariationsComponent } from './shop-modify-product-vari
     EditCommissionPercentageComponent,
     ShopListProductVariationsComponent,
     ShopModifyProductVariationsComponent,
+    CustomerPendShopReviewsComponent,
+    ReviewComponent,
+    ShopReviewsComponent,
   ],
   imports: [
     BrowserModule,
@@ -125,7 +133,8 @@ import { ShopModifyProductVariationsComponent } from './shop-modify-product-vari
     BrowserAnimationsModule,
     MatDividerModule,
     MatIconModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent],

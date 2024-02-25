@@ -25,7 +25,8 @@
           class="star-image"
           src="..\assets\buttons_logos\star_rating_icon.png"
         />
-        <p class="opiniones">Ver opiniones</p>
+        <p class="card-bottomText">({{ this.shop.totalReviews }})</p>
+        <p class="opiniones" (click)="navigateToReviews()">Ver opiniones</p>
       </div>
     </div>
   </div>

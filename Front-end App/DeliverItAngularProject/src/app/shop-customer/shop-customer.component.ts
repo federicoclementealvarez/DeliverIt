@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { OrderService } from '../services/order.service';
 import { Product } from '../entities/product.entity';
 import { ProductService } from '../services/product.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Shop } from '../entities/shop.entity';
 import { ShopService } from '../services/shop.service';
+import { ReviewService } from '../services/review.service';
 
 @Component({
   selector: 'app-shop-customer',
@@ -14,12 +15,12 @@ import { ShopService } from '../services/shop.service';
 export class ShopCustomerComponent {
   constructor(private orderService: OrderService,
     private productService: ProductService,
-    private route: ActivatedRoute, private shopService: ShopService) { }
+    private route: ActivatedRoute, private shopService: ShopService, private reviewService: ReviewService, private router: Router) { }
 
   products: Product[]
   totalQty: number
   shopId: string
-  shop: Shop
+  shop: Shop = new Shop()
 
   ngOnInit() {
     this.shopId = this.route.snapshot.params['shopId']
@@ -47,5 +48,10 @@ export class ShopCustomerComponent {
 
   resetProducts() {
     this.orderService.resetProducts()
+  }
+
+  navigateToReviews() {
+    this.reviewService.shopToReview = this.shop
+    this.router.navigate(['/reviews/shop'])
   }
 }

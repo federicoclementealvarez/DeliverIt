@@ -10,11 +10,13 @@ export class Order {
   public client: User
   public delivery?: User
   public paymentType: PaymentType
-  public lineItems: {
-    product: Product
-    quantity: number
-    productVariationArrays?: CustomerSelectedFlavours[]
-  }[]
+  public lineItems: LineItem[]
+}
+
+export interface LineItem {
+  product: Product
+  quantity: number
+  productVariationArrays?: ProductVariation[][]
 }
 
 class CustomerSelectedFlavours {

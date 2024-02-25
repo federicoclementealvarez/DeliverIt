@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { PaymentTypeService } from '../services/payment-type.service';
 import { PaymentType } from '../entities/paymentType.entity';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { LineItem } from '../entities/order.entity';
+import { ProductVariation } from '../entities/productVariation.entity';
 
 @Component({
   selector: 'app-order-details',
@@ -15,7 +17,7 @@ export class OrderDetailsComponent {
     private paymentTypeService: PaymentTypeService,
     private router: Router) { }
 
-  items = []
+  items: LineItem[] = []
   subTotal: number
   shippingPrice: number
   total: number
@@ -36,6 +38,20 @@ export class OrderDetailsComponent {
   // Devuelvo un Array con los Productos y sus cantidades
   getItems() {
     this.items = this.orderService.getOrder().lineItems
+  }
+
+  getProductVariationDescription(productVariations: ProductVariation[]) {
+    const pvCopy = [...productVariations]
+
+    if (pvCopy.length === 1) {
+      return pvCopy[0].description;
+    } else if (pvCopy.length === 2) {
+      return pvCopy.map(pv => pv.description).join(' y ');
+    } else {
+      const lastVariation = pvCopy.pop().description;
+      const descriptions = pvCopy.map(pv => pv.description);
+      return descriptions.join(', ') + ' y ' + lastVariation;
+    }
   }
 
   getSubTotal() {

@@ -15,6 +15,18 @@
         <div class="quantity-total-container">
           <div class="quantity">
             <p class="card-subtitle">{{ item.product.description }}</p>
+            <div
+              class="pv-desc-container"
+              *ngIf="item.productVariationArrays[0] !== undefined"
+            >
+              <ul>
+                <li *ngFor="let pv of item.productVariationArrays">
+                  <p class="card-subtitle">
+                    {{ getProductVariationDescription(pv) }}
+                  </p>
+                </li>
+              </ul>
+            </div>
           </div>
           <div class="total">
             <p class="card-subtitle">
@@ -35,13 +47,24 @@
     <div class="payment-container">
       <h3>Seleccione un método de pago</h3>
       <form [formGroup]="paymentTypeForm">
-        <select name="paymentType" id="paymentType" class="dropdown" formControlName="selectedPaymentType">
+        <select
+          name="paymentType"
+          id="paymentType"
+          class="dropdown"
+          formControlName="selectedPaymentType"
+        >
           <option disabled selected value></option>
           <option *ngFor="let p of paymentTypes" [value]="p.id">
             {{ p.description }}
           </option>
         </select>
-        <div [ngClass]="{'error-message-show': getSelectedPaymentType().invalid && this.submitted}" class="error-message">
+        <div
+          [ngClass]="{
+            'error-message-show':
+              getSelectedPaymentType().invalid && this.submitted
+          }"
+          class="error-message"
+        >
           <span class="error-icon-red">&#9888;</span>
           Elija una opción
         </div>

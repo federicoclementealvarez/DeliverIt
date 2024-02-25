@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ShopService } from '../services/shop.service';
 import { Shop } from '../entities/shop.entity';
 import { ProductVariationsService } from '../services/product-variations.service';
+import { ReviewService } from '../services/review.service';
 
 @Component({
   selector: 'app-home-shop',
@@ -13,7 +14,7 @@ export class HomeShopComponent {
 
   protected shop: Shop;
 
-  constructor(private router: Router, private shopService: ShopService, private productVariationsService: ProductVariationsService) { }
+  constructor(private router: Router, private shopService: ShopService, private productVariationsService: ProductVariationsService, private reviewService: ReviewService) { }
 
   ngOnInit() {
     //this id is for example purposes only, it will be retrieved from the signup when ready
@@ -43,5 +44,10 @@ export class HomeShopComponent {
         this.shop = data
         sessionStorage.setItem('shopId', this.shop.id)
       })
+  }
+
+  navigateToReviews() {
+    this.reviewService.shopToReview = this.shop
+    this.router.navigate(['/reviews/shop'])
   }
 }

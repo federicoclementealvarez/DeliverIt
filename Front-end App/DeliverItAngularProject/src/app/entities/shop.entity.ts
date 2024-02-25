@@ -6,6 +6,7 @@ export class Shop {
   public phoneNumber: string
   public shippingPrice: number
   public stars: number
+  public totalReviews: number
   public email: string
   public logoPath: string
   public bannerPath?: string
