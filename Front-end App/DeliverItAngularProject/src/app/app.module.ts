@@ -61,6 +61,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShopListProductVariationsComponent } from './shop-list-product-variations/shop-list-product-variations.component';
 import { ShopModifyProductVariationsComponent } from './shop-modify-product-variations/shop-modify-product-variations.component';
 import { AllDeliveryWithdrawalsComponent } from './all-delivery-withdrawals/all-delivery-withdrawals.component';
+import { ShopStatsComponent } from './shop-stats/shop-stats.component';
 
 @NgModule({
   declarations: [
@@ -117,6 +118,7 @@ import { AllDeliveryWithdrawalsComponent } from './all-delivery-withdrawals/all-
     ShopListProductVariationsComponent,
     ShopModifyProductVariationsComponent,
     AllDeliveryWithdrawalsComponent,
+    ShopStatsComponent,
   ],
   imports: [
     BrowserModule,

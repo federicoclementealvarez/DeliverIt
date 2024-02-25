@@ -10,11 +10,12 @@ import { LineItem } from '../lineItem/lineItem.entity.js'
 @Filter({ name: 'dateTimeArrivalSet', cond: { dateTimeArrival: { $ne: undefined } } })
 @Filter({ name: 'delivery', cond:  args =>({ delivery: {_id: args.par} }) })
 @Filter({ name: 'client', cond:  args =>({ client: {_id: args.par} }) })
+@Filter({ name: 'thisMonth', cond:  args =>({ dateTimeOrder: {$gte: args.monthFirstDate, $lt: args.monthLastDate} }) })
 
 export class Order extends BaseEntity
 {
-    @Property({ nullable: false })
-    dateTimeOrder!: DateTimeType
+    @Property({ nullable: false, type: DateTimeType})
+    dateTimeOrder!: Date
 
     @Property({ nullable: false })
     priceToPay!: number
@@ -22,8 +23,11 @@ export class Order extends BaseEntity
     @Property({ nullable: false })
     commissionForDelivery!: number
     
+    @Property({ nullable: true, type: DateTimeType })
+    dateTimeArrival?: Date
+
     @Property({ nullable: true })
-    dateTimeArrival?: DateTimeType
+    totalAmount!: number
 
     @ManyToOne(() => User, { nullable: false })
     client !: Rel<User>

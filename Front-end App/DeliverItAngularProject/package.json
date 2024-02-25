@@ -23,6 +23,7 @@
     "bootstrap": "^3.4.1",
     "bootstrap4-toggle": "^3.6.1",
     "normalize.css": "^8.0.1",
+    "plotly.js-dist": "^2.29.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"

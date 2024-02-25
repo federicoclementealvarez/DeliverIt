@@ -40,6 +40,7 @@ import { EditCommissionPercentageComponent } from './edit-commission-percentage/
 import { ShopListProductVariationsComponent } from './shop-list-product-variations/shop-list-product-variations.component';
 import { ShopModifyProductVariationsComponent } from './shop-modify-product-variations/shop-modify-product-variations.component';
 import { AllDeliveryWithdrawalsComponent } from './all-delivery-withdrawals/all-delivery-withdrawals.component';
+import { ShopStatsComponent } from './shop-stats/shop-stats.component';
 
 const routes: Routes = [
   { path: "", component: LandingPageComponent },
@@ -82,6 +83,7 @@ const routes: Routes = [
   { path: 'shop-list-productVariations', component: ShopListProductVariationsComponent},
   { path: 'shop-modify-productVariations', component: ShopModifyProductVariationsComponent},
   { path: 'all-delivery-withdrawals', component: AllDeliveryWithdrawalsComponent},
+  { path: 'shop-stats', component: ShopStatsComponent},
   { path: '**', component: LandingPageComponent }
 ];
 
