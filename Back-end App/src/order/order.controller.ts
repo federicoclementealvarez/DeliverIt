@@ -141,7 +141,9 @@ export async function findAllByDelivery(req: Request,res: Response) //this metho
   {
     const orders = await em.find(Order,{},{filters:{delivery:{par: req.params.idDelivery}, dateTimeArrivalSet: true},
     populate: ['client','delivery','paymentType','lineItems.product.prices', 'lineItems.product.shop']})
-    return res.status(200).json({message:'found all orders ', data: orders})
+
+    const sortedOrders = orders.sort(compareFunction)
+    return res.status(200).json({message:'found all orders ', data: sortedOrders})
   }
   
   catch(error: any)
@@ -231,3 +233,14 @@ function filterOrdersByMonth(orders: Order[]){
   return filteredOrders
 }
 
+function compareFunction(a: any, b: any){
+  if(a.dateTimeArrival<b.dateTimeArrival){
+    return 1;
+  }
+  else if (a.dateTimeArrival>b.dateTimeArrival){
+    return -1;
+  }
+  else{
+    return 0;
+  }
+}

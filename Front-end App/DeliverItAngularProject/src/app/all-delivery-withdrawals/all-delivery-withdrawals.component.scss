@@ -3,7 +3,7 @@
 .navbar {
   margin-top: 10px;
   display: flex;
-  justify-content: right;
+  justify-content: left;
   height: 7.5vh;
 }
 
@@ -52,3 +52,18 @@ h3 {
    align-items: center;
  }
 
+.img-no-orders {
+  width: 268px;
+  height: 184px;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.no-orders {
+  margin-top: 90px;
+  display: flex;
+  justify-content: center;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}

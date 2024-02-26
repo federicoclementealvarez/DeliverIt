@@ -56,6 +56,8 @@ export async function findAllByDelivery(req: Request, res:Response)
     if(!validatorResponse.isValid){ return res.status(500).json({message: validatorResponse.message})}
     
     const allDeliveryWithdrawals = await em.find(Withdrawal,{},{filters:{delivery:{par: req.params.idDelivery}}, populate:['user']})
+
+    const withdrawalsInOrder = allDeliveryWithdrawals.sort(compareFunction)
     
     return res.status(200).json({message:'found all delivery withdrawals', data: allDeliveryWithdrawals})
   }
@@ -79,4 +81,16 @@ export async function add(req: Request, res: Response)
   {
     return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
   }  
+}
+
+function compareFunction(a: Withdrawal, b: Withdrawal){
+  if(a.dateTime<b.dateTime){
+    return 1;
+  }
+  else if (a.dateTime>b.dateTime){
+    return -1;
+  }
+  else{
+    return 0;
+  }
 }
