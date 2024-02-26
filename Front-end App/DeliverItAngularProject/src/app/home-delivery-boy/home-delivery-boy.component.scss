@@ -3,33 +3,16 @@
 .navbar {
   margin-top: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
   height: 7.5vh;
 }
 
-.container {
-  &-pindrop {
+.container-menu {
     width: 25%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-
-  &-menu {
-    width: 25%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-.menu {
-  font-size: 50px;
-}
-
-.pin_drop {
-  font-size: 38px;
-}
 
 #welcome-sign {
   margin-top: 25px;

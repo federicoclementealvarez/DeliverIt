@@ -17,7 +17,7 @@ export class CommissionService
 
   findAll(): Observable<Commission[]>
   {
-    return this.http.get<Commission[]>(this.url).pipe(map((response: any) => response.data.sort(this.compareFunction)))
+    return this.http.get<Commission[]>(this.url).pipe(map((response: any) => response.data))
   }
   
   findOne(commissionId): Observable<Commission>
@@ -58,14 +58,5 @@ export class CommissionService
       }
     }
     return commissionsUpToDate[0]
-  }
-
-  compareFunction(a: Commission, b: Commission)
-  {
-    if(a.validSince<b.validSince){ return 1;}
-    
-    else if (a.validSince>b.validSince){return -1;}
-  
-    else{return 0;}
   }
 }

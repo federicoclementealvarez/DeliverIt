@@ -24,13 +24,18 @@ export class WithdrawOptionsComponent
 
   withdrawAll()
   {
-    const withdrawal = {
-      amount: (this.user.creditBalance),
-      dateTime: this.validatorsService.getCurrentDateTime()
-    }
-
+    if (this.user.creditBalance > 0)
+    {
+      const withdrawal = 
+      {
+        amount: (this.user.creditBalance),
+        dateTime: this.validatorsService.getCurrentDateTime()
+      }
     this.userService.update(this.user.creditBalance*-1).subscribe((response)=>console.log(response))
     this.withdrawalService.add(withdrawal).subscribe((response) => { console.log(response); localStorage.setItem('withdrawalAmount',this.user.creditBalance.toString()) ; this.router.navigate(['withdrawal-confirmed']) })
+    }
+    
+    else alert("No puedes retirar $0")
   }
 
   selectAmount()

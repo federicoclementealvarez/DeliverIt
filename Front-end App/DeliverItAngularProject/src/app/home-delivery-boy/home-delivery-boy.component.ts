@@ -23,7 +23,7 @@ export class HomeDeliveryBoyComponent
 
   ngOnInit() {
     this.orderService.findCurrentDeliveryOrders().subscribe((response) => this.currentDeliveries = response)
-    this.orderService.findAllByDelivery().subscribe((response) => this.pastDeliveries = response.slice(-3).reverse()) //shows the last 3 delivieries, ordered by dateTimeArrival DESC
+    this.orderService.findAllByDelivery().subscribe((response) => this.pastDeliveries = response.slice(0,3)) //shows the last 3 delivieries, ordered by dateTimeArrival DESC
   }
 
   getDescription(order: Order): string {
@@ -39,7 +39,10 @@ export class HomeDeliveryBoyComponent
     return this.userService.update(ammountToUpdate).subscribe((response)=>console.log(response))
   }
 
-
+  navigateForward()
+  {
+    this.router.navigate(['/all-delivered-orders'], { queryParams: { origin: 'home-delivery-boy' } });
+  }
 
 
 

@@ -26,14 +26,15 @@
         <ion-icon name="log-out-outline"></ion-icon>
         Cerrar sesión
       </h3>
+      <h3 class="link menu-option" routerLink="/withdrawal-menu">
+        <ion-icon name="cash-outline"></ion-icon>
+        Tus retiros
+      </h3>
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
     <!-- Component html tags -->
     <nav class="navbar">
-      <div class="container-pindrop">
-        <span class="material-symbols-rounded pin_drop"> pin_drop </span>
-      </div>
       <div class="container-menu">
         <span
           class="material-symbols-rounded menu-open-button"
@@ -110,7 +111,7 @@
     </div>
 
     <footer *ngIf="pastDeliveries.length > 0">
-      <a id="all-delivered-dropdown" routerLink="/all-delivered-orders"
+      <a id="all-delivered-dropdown" (click)="navigateForward()"
         ><span class="material-symbols-rounded expand_more"
           >expand_more
         </span></a

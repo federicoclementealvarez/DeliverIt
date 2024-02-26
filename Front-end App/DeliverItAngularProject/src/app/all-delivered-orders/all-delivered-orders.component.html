@@ -1,29 +1,15 @@
-<link rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <nav class="navbar">
-  <div class="container-pindrop">
-    <span class="material-symbols-rounded pin_drop"> pin_drop </span>
-  </div>
   <div class="container-menu">
-    <span class="material-symbols-rounded menu">menu</span>
+    <span class="material-symbols-outlined" (click)="goBackToOrigin()">arrow_back</span>
   </div>
 </nav>
 
 <h2>Todas tus entregas</h2>
-
-  <!--<div class="filter">
-      <select name="filter-options" class="options">
-        <option value="">Filtrar Por</option>
-        <option value="current-month">Este mes</option>
-        <option value="current-year">Este año</option>
-        <option value="comission-upper">Mayor Comisión</option>
-        <option value="comission-lower">Menor Comisión</option>
-      </select>
-    </div> FILTER WILL BE IMPLEMENTED FOR AD-->
   
 <div class="all-orders">
-  <div class="order-cards-container">
+  <div class="order-cards-container" *ngIf="deliveredOrders.length > 0">
     <app-shop-card *ngFor="let order of deliveredOrders" 
     [title]="order.lineItems[0].product.shop.name"
     [subtitle]="'Origen: ' + order.lineItems[0].product.shop.street + ' ' + order.lineItems[0].product.shop.streetNumber " 
@@ -40,5 +26,9 @@
     orderId={{order.id}}
     dateTimeArrival={{order.dateTimeArrival}}>
     </app-shop-card>
+  </div>
+  <div *ngIf="deliveredOrders.length === 0" class="no-orders">
+    <img class="img-no-orders" src="../assets/casual-life-3d-shopping-cart-with-boxes.png" />
+    <h3>Aún no has entregado ningún pedido</h3>
   </div>
 </div>

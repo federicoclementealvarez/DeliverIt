@@ -29,6 +29,7 @@ export async function findAll(_: Request, res: Response)
   try
   {
     const commissions = await em.find(Commission, {})
+    const sortedCommissions = commissions.sort(compareFunction)
     return res.status(200).json({message: 'All commissions found', data: commissions})
   }
   catch(error:any)

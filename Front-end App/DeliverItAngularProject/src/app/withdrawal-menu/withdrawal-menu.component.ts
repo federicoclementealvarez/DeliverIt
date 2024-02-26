@@ -20,12 +20,12 @@ export class WithdrawalMenuComponent
   ngOnInit()
   {
     this.userService.findOne().subscribe((response) => this.user = response)
-    this.withdrawalService.findAllByDelivery().subscribe((response)=>this.pastWithdrawals=response.slice(-3))
+    this.withdrawalService.findAllByDelivery().subscribe((response)=>this.pastWithdrawals=response.slice(0,3))
   }
 
   onSeeCommissions()
   {
-    this.router.navigate(['all-delivered-orders'])
+    this.router.navigate(['/all-delivered-orders'], { queryParams: { origin: 'withdrawal-menu' } });
   }
-
+  
 }

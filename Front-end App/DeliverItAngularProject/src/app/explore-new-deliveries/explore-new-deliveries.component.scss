@@ -3,26 +3,17 @@
 .navbar {
   margin-top: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
   height: 7.5vh;
 }
 
-.container {
-  &-pindrop {
-    width: 25%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-  }
-
-  &-menu {
+.container-menu {
     width: 25%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-}
+
 
 .menu {
   font-size: 50px;
@@ -55,3 +46,18 @@ h2 {
 }
 
 
+.no-orders {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.img-no-orders {
+  width: 268px;
+  height: 238px;
+  flex-shrink: 0;
+  align-self: center;
+}

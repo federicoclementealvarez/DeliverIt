@@ -14,16 +14,16 @@ export class CommissionPercentageListComponent
 {
   commissions?: Commission[] = []
 
-  constructor(private CommissionService: CommissionService, private router: Router, private validatorService: ValidatorsService){}
+  constructor(private commissionService: CommissionService, private router: Router, private validatorService: ValidatorsService){}
 
   ngOnInit() 
   {
-    this.CommissionService.findAll().subscribe((response) => this.commissions = response)
+    this.commissionService.findAll().subscribe((response) => this.commissions = response)
   }
 
   getCurrentCommission()
   {
-    return this.CommissionService.getCurrentCommission(this.commissions)
+    return this.commissionService.getCurrentCommission(this.commissions)
   }
 
   onEditClick(commission: Commission)
