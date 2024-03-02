@@ -45,4 +45,18 @@ export class CommissionService
     
     return this.http.put<any>(`${this.url}/${commission.id}`, data)
   }
+
+  getCurrentCommission(commissions: Commission[])
+  {
+    const commissionsUpToDate = []
+
+    for (const commission of commissions)
+    {
+      if(commission.validSince <= (new Date()).toISOString())
+      {
+        commissionsUpToDate.push(commission)
+      }
+    }
+    return commissionsUpToDate[0]
+  }
 }

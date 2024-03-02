@@ -1,0 +1,20 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<nav class="navbar">
+  <div class="container-menu">
+    <span class="material-symbols-outlined" routerLink="/withdrawal-menu">arrow_back</span>
+  </div>
+</nav>
+
+<h1>Tus retiros</h1>
+
+<div class="container-withdraw" *ngIf="pastWithdrawals.length > 0">
+  <h3 *ngFor="let withdrawal of pastWithdrawals" class="balance-container">{{withdrawal.dateTime}} | Retiro:
+    ${{withdrawal.amount}}</h3>
+</div>
+
+
+<div *ngIf="pastWithdrawals.length === 0" class="no-orders">
+  <img class="img-no-orders" src="../assets/3d-casual-life-man-with-laptop-using-credit-card.png" />
+  <h3>Aún no has retirado dinero de tu balance</h3>
+</div>

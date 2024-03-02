@@ -59,7 +59,7 @@ export async function findOne(req: Request, res: Response)
     
     if(!user){ return res.status(404).json({message: 'User not found'})}
     
-    return res.status(200).json({message: 'User found', body: user})
+    return res.status(200).json({message: 'User found', data: user})
   }
       
   catch(error:any){
@@ -205,12 +205,38 @@ export async function logout(_: Request, res: Response)
   }
 }
 
-export async function update(_: Request, res: Response)
+
+export async function validateUpdate(req: Request, res: Response, next: NextFunction)
 {
-    try{
-        res.status(500).json({message: 'Method not implemented'})
-      }
-      catch(error:any){
-        res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
-      }
+  const validatorResponse = validator.validateObjectId(req.params.id)
+  if(!validatorResponse.isValid){return res.status(500).json({message: validatorResponse.message})}
+
+  if (req.body.sanitizedInput.creditBalance!==undefined)  
+  {
+    const user = await em.findOne(User,req.params.id) //race condition validation
+    if (user===null){ return res.status(404).json({message: 'User not found'})}
+    req.body.sanitizedInput.creditBalance = req.body.sanitizedInput.creditBalance + user.creditBalance
+    req.body.sanitizedInput.userToUpdate = user
+  }
+
+  else
+  {
+    return res.status(401).json({message: 'Not allowed to update'})
+  }
+
+  next()
+} 
+
+export async function update(req: Request, res: Response)
+{
+  try
+  {
+    em.assign(req.body.sanitizedInput.userToUpdate, req.body.sanitizedInput)
+    await em.flush()
+    return res.status(200).json({message: 'User updated successfully'})
+  }
+  catch(error:any)
+  {
+    return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+  }
 }

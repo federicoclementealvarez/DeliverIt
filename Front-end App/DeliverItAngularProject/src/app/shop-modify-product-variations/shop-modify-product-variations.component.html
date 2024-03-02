@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+
+<div class="container">
+  <h1>Editar producto</h1>
+  <form class="input-button" [formGroup]="shopModifyProductVariationForm">
+    <div class="input-group">
+      <h6>Nombre</h6>
+      <input type="text" autofocus formControlName="name">
+      <div [ngClass]="{'error-message-show': getName().invalid && (submitted || getName().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+        <span class="error-icon-red">&#9888;</span>
+          Ingresa algún nombre
+      </div>
+    </div>
+    <div class="input-group">
+      <h6>Descripción</h6>
+      <input type="text" formControlName="description">
+      <div [ngClass]="{'error-message-show': getDescription().invalid && (submitted || getDescription().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+        <span class="error-icon-red">&#9888;</span>
+          Ingresa alguna descripción
+      </div>
+    </div>
+    <app-primary-button class="button-style" title="ACTUALIZAR" (click)="submit()"></app-primary-button>
+    <div class="last-button-container">
+        <app-secondary-button class="button-style" title="ELIMINAR" (click)="delete()"></app-secondary-button>
+    </div>
+  </form>
+</div>

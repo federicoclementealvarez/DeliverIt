@@ -1,6 +1,6 @@
 @media screen and (max-width: 576px) {
   .container {
-    width: 80%;
+    width: 90%;
   }
 }
 
@@ -22,6 +22,10 @@
   align-items: center;
 }
 
+.title {
+  width: 70%;
+}
+
 .title-container {
   margin: 50px 0 20px 0;
   text-align: center;
@@ -31,6 +35,13 @@
   margin-top: 15px;
   display: flex;
   justify-content: space-between;
+}
+
+.quantity {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 70%;
 }
 
 .quantity-total-container {
@@ -45,12 +56,24 @@
 
 .line-item {
   margin-bottom: 13px;
+  display: flex;
+  flex-direction: column;
+}
+
+ul {
+  margin-bottom: 0;
+  margin-top: 7px;
+  padding-left: 30px;
+}
+
+.total {
+  align-self: flex-end;
 }
 
 .total-container {
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid rgba(0, 0, 0, .2);
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
   padding-top: 10px;
 }
 

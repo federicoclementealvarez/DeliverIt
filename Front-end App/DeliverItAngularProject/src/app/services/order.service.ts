@@ -5,7 +5,7 @@ import { Product } from '../entities/product.entity';
 import { HttpClient } from '@angular/common/http';
 import { BaseUrlService } from './base-url.service';
 import { ValidatorsService } from './validators.service';
-import {CustomerSelectedFlavour, ProductVariation } from '../entities/productVariation.entity';
+import { CustomerSelectedFlavour, ProductVariation } from '../entities/productVariation.entity';
 
 
 @Injectable({
@@ -31,14 +31,11 @@ export class OrderService {
   private editClicked = new BehaviorSubject<{ id: string, clicked: boolean }>({ id: '', clicked: false });
   editHasBeenClicked = this.editClicked.asObservable();
 
-  addProduct(product: Product, variations?: CustomerSelectedFlavour[]) {
+  addProduct(product: Product, variations?: ProductVariation[]) {
     let productInList = this.order.lineItems.find((p) => p.product.id === product.id)
 
     if (!productInList) {
-      this.order.lineItems.push({ product: product, quantity: 1, productVariationArrays: [{productVariations: variations}] })
-      console.log('li', this.order.lineItems);
-
-
+      this.order.lineItems.push({ product: product, quantity: 1, productVariationArrays: [variations] })
       let currentValue = this.totalQuantity.value
       let newValue = currentValue + 1
       this.totalQuantity.next(newValue)
@@ -48,15 +45,12 @@ export class OrderService {
         p.product.id === productInList.product.id)
 
       this.order.lineItems[index].quantity++;
-      this.order.lineItems[index].productVariationArrays.push({productVariations: variations})
+      this.order.lineItems[index].productVariationArrays.push(variations)
 
       let currentValue = this.totalQuantity.value
       let newValue = currentValue + 1
       this.totalQuantity.next(newValue)
     }
-
-    console.log(this.order);
-
   }
 
   getQuantity(id: string): number {
@@ -80,33 +74,33 @@ export class OrderService {
         this.order.lineItems.splice(index, 1)
       }
     }
-
-    console.log(this.order);
-
   }
 
-  create(paymentTypeId: string): Observable<Order> {
+  create(paymentTypeId: string, totalAmount: number): Observable<Order> {
     const lineItems = this.order.lineItems.map(({ product, quantity, productVariationArrays }) => {
       const lineItem: any = {}
       lineItem.product = product.id
       lineItem.quantity = quantity
-      
-      if (productVariationArrays[0] === undefined) {
-        lineItem.productVariationArrays = []
-      } else {
-        lineItem.productVariationArrays = productVariationArrays
-      }
 
+      if (productVariationArrays[0] !== undefined) {
+        lineItem.productVariationArrays = productVariationArrays.map((pva) => {
+          return { productVariations: pva.map(pv => pv.id) }
+        })
+      } else {
+        lineItem.productVariationArrays = []
+      }
+      
       return lineItem
     })
+    
     const dateTime = this.validatorsService.getCurrentDateTime()
     const body = {
       "dateTimeOrder": dateTime,
       "paymentType": paymentTypeId,
       "lineItems": lineItems,
-      "client": '654c059cda8e9efaeeae024d'
+      "client": '654c059cda8e9efaeeae024d',
+      "totalAmount": totalAmount
     }
-    console.log(body);
 
     return this.http.post<Order>(this.url, body)
       .pipe(

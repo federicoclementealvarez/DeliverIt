@@ -11,9 +11,12 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { productRouter } from './product/product.routes.js';
+import { withdrawalRouter } from './withdrawal/withdrawal.routes.js';
+import { userRouter } from './user/user.routes.js';
 import { orderRouter } from './order/order.routes.js';
 import { shopRouter } from './shop/shop.routes.js';
 import { productVariationRouter } from './productVariation/productVariation.routes.js';
+import { reviewRouter } from './review/review.routes.js';
 import cookieParser from 'cookie-parser';
 
 
@@ -45,7 +48,9 @@ app.use('/api/user', userRouter);
 app.use('/api/products', productRouter);
 app.use('/api/shops', shopRouter);
 app.use('/api/order', orderRouter);
+app.use('/api/withdrawal', withdrawalRouter);
 app.use('/api/productVariations', productVariationRouter);
+app.use('/api/reviews', reviewRouter)
 
 app.use((_, res) => {
     return res.status(404).send({ message: 'Resource not found' });

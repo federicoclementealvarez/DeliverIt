@@ -1,8 +1,10 @@
-import { Rel, Entity, ManyToOne, Property, DateTimeType } from '@mikro-orm/core'
+import { Rel, Entity, ManyToOne, Property, DateTimeType, Filter } from '@mikro-orm/core'
 import { BaseEntity } from '../shared/baseEntity.entity.js'
 import { User } from '../user/user.entity.js'
 
 @Entity()
+@Filter({ name: 'delivery', cond:  args =>({ user: {_id: args.par} }) })
+
 export class Withdrawal extends BaseEntity
 {
     @Property({ nullable: false })

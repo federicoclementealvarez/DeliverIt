@@ -2,29 +2,29 @@
 
 @media screen and (max-width: 576px) {
   .buttons-order-container {
-    width: 80%;
+    width: 90%;
   }
 
   .total-container {
     display: flex;
     justify-content: space-between;
-    width: 80%;
+    width: 90%;
   }
 
   .cards-container {
-    width: 80%;
+    width: 90%;
     margin-bottom: 40px;
   }
 
   .shop-data {
-    width: 80%;
+    width: 90%;
     display: flex;
     height: 80px;
   }
 
   .products-title {
     text-align: left;
-    margin-left: 10%;
+    margin-left: 5%;
     margin-top: 40px;
   }
 }
@@ -115,7 +115,7 @@
 }
 
 .image-container {
-  width: 25%;
+  aspect-ratio: 1;
 }
 
 .info-container {
@@ -135,9 +135,12 @@
 
 .opiniones {
   font-family: Poppins;
-  font-weight: 200;
+  font-weight: 500;
   font-size: 13px;
   margin-left: 5px;
+  text-decoration: underline;
+  font-size: 13px;
+  margin-left: 10px;
 }
 
 .container-add-button {

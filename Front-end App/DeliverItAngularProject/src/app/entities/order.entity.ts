@@ -1,6 +1,6 @@
 import { PaymentType } from "./paymentType.entity";
 import { Product } from "./product.entity";
-import {CustomerSelectedFlavour, ProductVariation } from "./productVariation.entity";
+import { ProductVariation } from "./productVariation.entity";
 import { User } from "./user.entity";
 
 export class Order {
@@ -10,13 +10,15 @@ export class Order {
   public client: User
   public delivery?: User
   public paymentType: PaymentType
-  public lineItems: {
-    product: Product
-    quantity: number
-    productVariationArrays?: CustomerSelectedFlavours[]
-  } []
+  public lineItems: LineItem[]
 }
 
-class CustomerSelectedFlavours{
-  public productVariations: CustomerSelectedFlavour[]
+export interface LineItem {
+  product: Product
+  quantity: number
+  productVariationArrays?: ProductVariation[][]
+}
+
+class CustomerSelectedFlavours {
+  public productVariations: string[]
 }

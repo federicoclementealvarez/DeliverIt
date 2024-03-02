@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="subcontainer">
+    <h1>Opiniones</h1>
+    <div class="shop-data">
+      <div class="image-container">
+        <img class="shop-icon" [src]="shopImageURL" alt="icono del local" />
+      </div>
+      <div class="info-container">
+        <p class="card-title">{{ this.shop.name }}</p>
+        <p class="card-subtitle">
+          {{ this.shop.street + " " + this.shop.streetNumber }}
+        </p>
+        <div class="text-and-star-container">
+          <p class="card-bottomText">{{ this.shop.stars }}</p>
+          <img
+            class="star-image"
+            src="..\assets\buttons_logos\star_rating_icon.png"
+          />
+          <p class="card-bottomText">({{ this.shop.totalReviews }})</p>
+        </div>
+      </div>
+    </div>
+    <div class="spinner-container" *ngIf="loadingData; else loaded">
+      <mat-spinner diameter="50" class="loading"></mat-spinner>
+    </div>
+    <ng-template #loaded>
+      <div class="reviews-container" *ngIf="reviews.length > 0; else noReviews">
+        <div class="review" *ngFor="let review of reviews">
+          <div class="review-header">
+            <p class="card-title">
+              {{ review.user.name + " " + review.user.surname }}
+            </p>
+            <p class="card-subtitle">{{ review.stars }}</p>
+            <ion-icon class="star" name="star"></ion-icon>
+          </div>
+          <p class="card-subtitle">{{ review.comment }}</p>
+        </div>
+      </div>
+      <ng-template #noReviews>
+        <p class="card-title text-no-reviews">
+          Este local todavía no tiene opiniones
+        </p>
+      </ng-template>
+    </ng-template>
+  </div>
+</div>

@@ -1,51 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
 
-
-@media screen and (max-width: 375px) {
-
-  .text-container {
-    margin-left: 10px;
-    max-height: 80px;
-  }
-
-  .container {
-    height: 80px;
-  }
-}
-
-@media screen and (min-width: 375px) {
-
-  .text-container {
-    margin-left: 15px;
-    max-height: 90px;
-  }
-
-  .container {
-    height: 90px;
-  }
+.text-container {
+  margin-left: 15px;
+  max-height: 90px;
 }
 
 .container {
+  height: 90px;
   margin-top: 20px;
   fill: none;
-  border: 1px solid rgba(#000000, .2);
+  border: 1px solid rgba(#000000, 0.2);
   border-radius: 15px;
   display: flex;
+  flex-direction: row;
+  // justify-content: space-between;
 }
 
 .image {
   float: left;
-  width: 25%;
+  aspect-ratio: 1;
   align-items: center;
   border-radius: 15px 0 0 15px;
 }
 
-.text-container { 
-  width: 100%;
+.text-container {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+}
+
+.title-container {
+  height: 30px;
 }
 
 p {
@@ -74,6 +60,11 @@ p {
   flex-direction: column;
   align-items: center;
   margin-right: 10px;
+}
+
+.buttons-container {
+  margin-left: auto;
+  align-self: flex-end;
 }
 
 .button-subcontainer {

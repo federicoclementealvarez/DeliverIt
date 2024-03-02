@@ -1,0 +1,24 @@
+<head>
+    <link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="https://cdn.plot.ly/plotly-2.29.1.min.js" charset="utf-8"></script>
+</head>
+<body>
+    <div class="titleContainer">
+        <h1>Estadísticas del local</h1>
+    </div>
+    <div class="monthCardContainer">
+        <h3 id="actualMonthText">Mes actual</h3>
+        <h6 id="actualMonth">{{this.date}}</h6>
+    </div>
+    <div class="amountCardContainer">
+        <h3 id="totalAmountText">Monto total recaudado</h3>
+        <h2 id="totalSellAmount">ARS$ {{this.stats.totalSellAmount}}</h2>
+    </div>
+    <div class="chartContainer">
+        <div class="chartTitleContainer">
+            <h3>Productos más vendidos (en unidades)</h3>
+        </div>
+        <div id="barChart" style="width:350px; height: 300px;"></div>
+    </div>
+</body>

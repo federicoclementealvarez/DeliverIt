@@ -1,52 +1,105 @@
 <div class="banner-container">
-    <img class="banner-image" [src]="'http://localhost:3000/assets/'+this.shop.bannerPath" alt="banner">
+  <img
+    class="banner-image"
+    [src]="'http://localhost:3000/assets/' + this.shop.bannerPath"
+    alt="banner"
+  />
 </div>
 <div class="shop-card-container">
-    <div class="shop-data">
-      <div class="image-container">
-        <img class="shop-icon" [src]="'http://localhost:3000/assets/'+this.shop.logoPath" alt="icono del local">
-      </div>
-      <div class="info-container">
-        <p class="card-title">{{this.shop.name}}</p>
-        <p class="card-subtitle">{{this.shop.street}} {{this.shop.streetNumber}}</p>
-        <div class="text-and-star-container">
-          <p class="card-bottomText">{{this.shop.stars}}</p>
-          <img class="star-image" src="..\assets\buttons_logos\star_rating_icon.png">
-          <p class="opiniones">Ver opiniones</p>
-        </div>
+  <div class="shop-data">
+    <div class="image-container">
+      <img
+        class="shop-icon"
+        [src]="'http://localhost:3000/assets/' + this.shop.logoPath"
+        alt="icono del local"
+      />
+    </div>
+    <div class="info-container">
+      <p class="card-title">{{ this.shop.name }}</p>
+      <p class="card-subtitle">
+        {{ this.shop.street }} {{ this.shop.streetNumber }}
+      </p>
+      <div class="text-and-star-container">
+        <p class="card-bottomText">{{ this.shop.stars }}</p>
+        <img
+          class="star-image"
+          src="..\assets\buttons_logos\star_rating_icon.png"
+        />
+        <p class="card-bottomText">({{ this.shop.totalReviews }})</p>
+        <p class="opiniones" (click)="navigateToReviews()">Ver opiniones</p>
       </div>
     </div>
+  </div>
 </div>
 <div class="options-container">
-    <div class="options" (click)="onAddProducts()">
-        <div class="center">
-            <div class="buttons_logos">
-                <img id="plus_icon" src="assets\buttons_logos\plus_sign_icon.png" alt="plus_sign_icon">
-            </div>
-            <div class="button_text">
-                <p id="add_prod_text">Agregar producto</p>
-            </div>
-        </div>
+  <div class="options" (click)="onAddProducts()">
+    <div class="center">
+      <div class="buttons_logos">
+        <img
+          id="plus_icon"
+          src="assets\buttons_logos\plus_sign_icon.png"
+          alt="plus_sign_icon"
+        />
+      </div>
+      <div class="button_text">
+        <p id="add_prod_text">Agregar producto</p>
+      </div>
     </div>
-    <div class="options" (click)="onModifyProducts()">
-        <div class="center">
-            <div class="buttons_logos">
-                <img id="pencil_icon" src="assets\buttons_logos\pencil_edit_icon.png" alt="plus_sign_icon">
-            </div>
-            <div class="button_text">
-                <p id="add_prod_text">Editar producto</p>
-            </div>
-        </div>
+  </div>
+  <div class="options" (click)="onModifyProducts()">
+    <div class="center">
+      <div class="buttons_logos">
+        <img
+          id="pencil_icon"
+          src="assets\buttons_logos\pencil_edit_icon.png"
+          alt="pencil_icon"
+        />
+      </div>
+      <div class="button_text">
+        <p id="add_prod_text">Editar producto</p>
+      </div>
     </div>
-    <div class="options" (click)="onModifyShopData()">
-        <div class="center">
-            <div class="buttons_logos">
-                <img id="pencil_icon" src="assets\buttons_logos\pencil_edit_icon.png" alt="plus_sign_icon">
-            </div>
-            <div class="button_text">
-                <p id="add_prod_text">Editar información del negocio</p>
-            </div>
-        </div>
+  </div>
+  <div class="options" (click)="onModifyProductVariations()">
+    <div class="center">
+      <div class="buttons_logos">
+        <img
+          id="pencil_icon"
+          src="assets\buttons_logos\pencil_edit_icon.png"
+          alt="pencil_icon"
+        />
+      </div>
+      <div class="button_text">
+        <p id="add_prod_text">Editar variaciones de producto</p>
+      </div>
     </div>
+  </div>
+  <div class="options" (click)="onModifyShopData()">
+    <div class="center">
+      <div class="buttons_logos">
+        <img
+          id="pencil_icon"
+          src="assets\buttons_logos\pencil_edit_icon.png"
+          alt="pencil_icon"
+        />
+      </div>
+      <div class="button_text">
+        <p id="add_prod_text">Editar información del negocio</p>
+      </div>
+    </div>
+  </div>
+  <div class="options" (click)="onStats()">
+    <div class="center">
+      <div class="buttons_logos">
+        <img
+          id="pencil_icon"
+          src="assets\buttons_logos\stats_icon.png"
+          alt="stats_icon"
+        />
+      </div>
+      <div class="button_text">
+        <p id="add_prod_text">Ver estadísticas del mes</p>
+      </div>
+    </div>
+  </div>
 </div>
- 

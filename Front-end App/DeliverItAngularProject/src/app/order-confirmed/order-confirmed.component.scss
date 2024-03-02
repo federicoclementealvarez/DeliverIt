@@ -1,6 +1,6 @@
 @media screen and (max-width: 576px) {
   .container {
-    width: 80%;
+    width: 90%;
   }
 }
 
@@ -23,11 +23,12 @@
   justify-content: center;
 }
 
-.video-container {  
+.video-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 20px;
+  aspect-ratio: 334.617 / 225;
+  margin-bottom: 20px;
 }
 
 h1 {

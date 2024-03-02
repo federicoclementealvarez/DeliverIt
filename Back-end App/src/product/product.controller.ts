@@ -20,8 +20,8 @@ export function sanitizedInput(req: Request, _:Response, next: NextFunction){
       productCategory:req.body.productCategory,
       fileBeginner: req.body.fileBeginner,
       photoPath: req.body.filePath,
-      allowsVariations: req.body.allowsVariations,
-      maxVariations: req.body.maxVariations
+      allowsVariations: req.body.allowsVariations=='true'?true:false,
+      maxVariations: req.body.maxVariations!==undefined?Number(req.body.maxVariations):undefined
     }
 
     //add more validations here if necessary
@@ -177,7 +177,6 @@ export async function validateId(req: Request, res: Response, next: NextFunction
 
 export async function create(req: Request, res: Response, next: NextFunction) {
   try{
-
     var maxVariations : undefined | number = undefined
 
     if (req.body.sanitizedInput.allowsVariations){
@@ -293,7 +292,7 @@ async function getCompleteProductArray(products : Loaded<Product, never>[], res:
 }
 
 
-function getTodayDate() : string{
+export function getTodayDate() : string{
   const d = new Date(new Date());
   let month = '' + (d.getMonth() + 1);
   let day = '' + d.getDate();

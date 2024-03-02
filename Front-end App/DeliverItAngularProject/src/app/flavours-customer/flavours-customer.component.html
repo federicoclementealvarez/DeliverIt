@@ -1,6 +1,6 @@
 <div class="parent-container">
   <div class="container">
-    <h1 class="tile">Elige hasta {{ maxVariations }}</h1>
+    <h1 class="title">Elige hasta {{ maxVariations }}</h1>
 
     <div class="flavour-container" *ngFor="let pv of productVariations">
       <app-flavours-customer-item
@@ -9,6 +9,19 @@
         [flavourId]="pv.id"
       ></app-flavours-customer-item>
     </div>
+    
+    <span>
+      <div
+        [ngClass]="{
+          'error-message-show':
+            submitted === true && !atLeastOneFlavourSelected()
+        }"
+        class="error-message"
+      >
+        <ion-icon class="error-icon-red" name="warning-outline"></ion-icon>
+        Elija al menos uno
+      </div>
+    </span>
 
     <button class="button" (click)="submitCustFlavours()">
       <ion-icon name="checkmark" size="20"></ion-icon>Listo

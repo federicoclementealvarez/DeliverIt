@@ -1,27 +1,80 @@
-<app-customer-searchbar></app-customer-searchbar>
-<h3 class="link margin-left" routerLink="/customer-current-orders">Pedidos pendientes ></h3>
-<h6 id="categories-title">Explorá nuestras categorías</h6>
-<div class="parent-container-max-width">
-  <div class="shop-types-container">
-    <app-shop-type-icon *ngFor="let st of shopTypes"
-      id={{st.id}}
-      description={{st.description}}
-      iconDescription={{st.iconDescription}}
-      class="margin-top">
-    </app-shop-type-icon>
-  </div>
-</div>
-<h6 id="popular-shops-title">Los locales más populares</h6>
-<div class="parent-container-max-width">
-  <div class="shop-cards-container">
-    <app-shop-card *ngFor="let shop of shops"
-      title={{shop.name}}
-      [subtitle]="shop.street + ' ' + shop.streetNumber"
-      bottomText={{shop.stars}}
-      [hasStar]=true
-      [routerLink]="['/shop-customer', shop.id]"
-      imagePath={{shop.logoPath}}>
-    </app-shop-card>
-  </div>
-</div>
-<footer class="footer"></footer>
+<!-- Menu html tags -->
+<mat-sidenav-container>
+  <mat-sidenav position="end">
+    <div class="close-button-container">
+      <ion-icon
+        name="close-outline"
+        class="close-menu-button"
+        (click)="this.sidenav.toggle()"
+      ></ion-icon>
+    </div>
+    <div class="menu-title-container">
+      <h2 class="margin-0">Hola, Fabrizio!</h2>
+      <h3 class="address margin-0">Avenida Wheelwright 200 Dpto 15 A</h3>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="menu-options-container">
+      <h3 class="link menu-option" routerLink="/customer-current-orders">
+        <ion-icon name="timer-outline" class="menu-icon"></ion-icon>
+        Ver pedidos pendientes
+      </h3>
+      <h3 class="link menu-option" routerLink="/customer-pend-shop-reviews">
+        <ion-icon name="star-outline" class="menu-icon"></ion-icon>
+        Escribir la opinión de un local
+      </h3>
+      <h3 class="link menu-option" routerLink="/direccion">
+        <ion-icon name="home-outline"></ion-icon>
+        Cambiar dirección
+      </h3>
+      <h3 class="link menu-option" routerLink="/customer-current-orders">
+        <ion-icon name="lock-closed-outline"></ion-icon>
+        Cambiar contraseña
+      </h3>
+      <h3 class="link menu-option" routerLink="/customer-current-orders">
+        <ion-icon name="log-out-outline"></ion-icon>
+        Cerrar sesión
+      </h3>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!-- Component html tags -->
+    <div class="container-searchbar">
+      <app-customer-searchbar></app-customer-searchbar>
+      <span
+        class="material-symbols-rounded menu-open-button"
+        (click)="this.sidenav.toggle()"
+        >menu</span
+      >
+    </div>
+    <h6 id="categories-title">Explorá nuestras categorías</h6>
+    <div class="parent-container-max-width">
+      <div class="shop-types-container">
+        <app-shop-type-icon
+          *ngFor="let st of shopTypes"
+          id="{{ st.id }}"
+          description="{{ st.description }}"
+          iconDescription="{{ st.iconDescription }}"
+          class="margin-top"
+        >
+        </app-shop-type-icon>
+      </div>
+    </div>
+    <h6 id="popular-shops-title">Los locales más populares</h6>
+    <div class="parent-container-max-width">
+      <div class="shop-cards-container">
+        <app-shop-card
+          *ngFor="let shop of shops"
+          title="{{ shop.name }}"
+          [subtitle]="shop.street + ' ' + shop.streetNumber"
+          bottomText="{{ shop.stars }}"
+          [hasStar]="true"
+          [routerLink]="['/shop-customer', shop.id]"
+          imagePath="{{ shop.logoPath }}"
+          totalReviews="{{shop.totalReviews}}"
+        >
+        </app-shop-card>
+      </div>
+    </div>
+    <footer class="footer"></footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

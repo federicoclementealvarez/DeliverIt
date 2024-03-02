@@ -1,9 +1,9 @@
-@import '~normalize.css';
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500;600&display=swap');
+@import "~normalize.css";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500;600&display=swap");
 
-
-$primary-red: #C00A0A;
-$secondary-red: #F3B5B5;
+$primary-red: #c00a0a;
+$secondary-red: #f3b5b5;
+$yellow-star: #ffcc00;
 
 * {
   user-select: none;
@@ -24,6 +24,11 @@ h1 {
   margin: 0;
 }
 
+h2 {
+  font-family: Poppins;
+  font-size: 28px;
+}
+
 h3 {
   font-family: Poppins;
   font-size: 16px;
@@ -31,7 +36,7 @@ h3 {
 }
 
 h4 {
-  opacity: .65;
+  opacity: 0.65;
   color: #000;
   text-align: center;
   font-family: Poppins;
@@ -43,7 +48,7 @@ h4 {
   margin: 0;
 }
 
-h6, 
+h6,
 select,
 label {
   color: rgba(0, 0, 0, 1);
@@ -61,43 +66,43 @@ input[type="email"],
 input[type="password"],
 input[type="text"] {
   border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   font-family: Poppins;
   font-size: 15px;
   outline: none;
-  transition: .2s;
+  transition: 0.2s;
 }
 
-input[type="text"]{
+input[type="text"] {
   border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   font-family: Poppins;
   font-size: 13px;
   outline: none;
-  transition: .2s;
+  transition: 0.2s;
 }
 
 input[type="email"]:focus,
 input[type="password"]:focus,
 input[type="text"]:focus {
-  border-bottom: 1px solid rgba(0, 0, 0, .8);
-  transition: .2s;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+  transition: 0.2s;
 }
 
 select {
   border-radius: 8px;
   height: 30px;
   width: 100%;
-  border-color: rgba(0, 0, 0, .2);
+  border-color: rgba(0, 0, 0, 0.2);
   font-family: Poppins;
   font-size: 14px;
-  transition: .2s;
+  transition: 0.2s;
 }
 
 select:focus {
   outline: none;
-  transition: .2s;
-  border-color: rgba(0, 0, 0, .8);
+  transition: 0.2s;
+  border-color: rgba(0, 0, 0, 0.8);
 }
 
 p {
@@ -108,8 +113,8 @@ button {
   background-color: $primary-red;
   border-radius: 10px;
   border: none;
-  transition: .2s;
-  color: #FFF;
+  transition: 0.2s;
+  color: #fff;
   text-align: center;
   font-family: Poppins;
   font-size: 20px;
@@ -117,11 +122,26 @@ button {
   font-weight: 500;
   height: 50px;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.secondary-button {
+  margin: 10px 0px;
+  background-color: white;
+  color: $primary-red;
+  border: 2px solid $primary-red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
 }
 
 button:hover {
-  transition: .2s;
-  opacity: .9;
+  transition: 0.2s;
+  opacity: 0.9;
 }
 
 /* Styles for the shop-card component,
@@ -130,6 +150,7 @@ they are in the global scss because it's used in different components */
 .star-image {
   height: 100%;
   margin-left: 5px;
+  margin-right: 5px;
   width: auto;
   background-size: cover;
   background-repeat: no-repeat;
@@ -143,7 +164,20 @@ they are in the global scss because it's used in different components */
   font-size: 15px;
   font-style: normal;
   font-weight: 500;
+  white-space: normal;
   overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.card-subtitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .card-subtitle,
@@ -164,11 +198,22 @@ they are in the global scss because it's used in different components */
   font-style: normal;
   color: #ff0000;
   opacity: 0;
-  transition: opacity .35s ease;
+  transition: opacity 0.35s ease;
+  display: flex;
+  align-items: center;
+  gap: 3px;
 
   &-show {
     opacity: 1;
+    display: flex;
+    align-items: center;
+    gap: 3px;
   }
+}
+
+.error-icon-red {
+  font-size: 14px;
+  font-weight: bold;
 }
 
 // Make Cursor pointer
@@ -176,3 +221,5 @@ they are in the global scss because it's used in different components */
   cursor: pointer;
   margin-bottom: 30px;
 }
+// html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

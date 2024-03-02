@@ -21,11 +21,11 @@ export class FlavoursCustomerItemComponent {
 
   toggleButton() {
     if (this.stateAdd) {
-      if (this.icecreamflavorsService.addFlavour(this.flavourId)) {
+      if (this.icecreamflavorsService.addFlavour(this.productVariation)) {
         this.stateAdd = !this.stateAdd
       }
     } else {
-      this.icecreamflavorsService.removeFlavour(this.flavourId)
+      this.icecreamflavorsService.removeFlavour(this.productVariation)
       this.stateAdd = !this.stateAdd
     }
   }

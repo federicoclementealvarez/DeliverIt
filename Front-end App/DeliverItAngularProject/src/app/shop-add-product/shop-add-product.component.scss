@@ -93,6 +93,33 @@
     background-color:adjust-color($color: #d1d1d1);
 }
 
+#variationsCheck{
+  width: 4.5rem;
+  height: 1.5rem;
+  margin-left:15px;
+}
+
+#leftCol{
+  margin-right: auto;
+  text-align: left;
+  margin-left: -25px;
+}
+
+#rightCol{
+  text-align: left;
+  margin-right: auto;
+  margin-left: -50px;
+}
+
+#midCol{
+  margin-right: auto;
+  margin-left: -60px;
+}
+
+.inputContainer{
+  display: flex;
+}
+
 select{
     width: 90%;
     height: 40px;

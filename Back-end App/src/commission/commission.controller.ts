@@ -29,6 +29,7 @@ export async function findAll(_: Request, res: Response)
   try
   {
     const commissions = await em.find(Commission, {})
+    const sortedCommissions = commissions.sort(compareFunction)
     return res.status(200).json({message: 'All commissions found', data: commissions})
   }
   catch(error:any)
@@ -58,6 +59,22 @@ export async function findOne (req: Request, res: Response)
   {
     return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
   }
+}
+
+export async function findCurrentCommission() 
+{
+    const commissionList = await em.find(Commission, {})
+
+    const commissionsUpToDate = []
+
+    for (const commission of commissionList)
+    {
+      if(commission.validSince <= new Date())
+      {
+        commissionsUpToDate.push(commission)
+      }
+    }
+    return commissionsUpToDate.sort(compareFunction)[0]
 }
 
 export async function add(req: Request, res:Response)
@@ -144,3 +161,14 @@ export async function remove (req:Request, res: Response)
   }
 }
 
+function compareFunction(a: Commission, b: Commission){
+  if(a.validSince<b.validSince){
+    return 1;
+  }
+  else if (a.validSince>b.validSince){
+    return -1;
+  }
+  else{
+    return 0;
+  }
+}

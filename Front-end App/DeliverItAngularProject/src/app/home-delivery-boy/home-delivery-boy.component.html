@@ -1,59 +1,121 @@
-<link rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+/>
 
-<nav class="navbar">
-  <div class="container-pindrop">
-    <span class="material-symbols-rounded pin_drop"> pin_drop </span>
-  </div>
-  <div class="container-menu">
-    <span class="material-symbols-rounded menu">menu</span>
-  </div>
-</nav>
+<!-- Menu html tags -->
+<mat-sidenav-container>
+  <mat-sidenav position="end">
+    <div class="close-button-container">
+      <ion-icon
+        name="close-outline"
+        class="close-menu-button"
+        (click)="this.sidenav.toggle()"
+      ></ion-icon>
+    </div>
+    <div class="menu-title-container">
+      <h2 class="margin-0">Hola, Fabrizio!</h2>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="menu-options-container">
+      <h3 class="link menu-option" routerLink="">
+        <ion-icon name="lock-closed-outline"></ion-icon>
+        Cambiar contraseña
+      </h3>
+      <h3 class="link menu-option" routerLink="">
+        <ion-icon name="log-out-outline"></ion-icon>
+        Cerrar sesión
+      </h3>
+      <h3 class="link menu-option" routerLink="/withdrawal-menu">
+        <ion-icon name="cash-outline"></ion-icon>
+        Tus retiros
+      </h3>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!-- Component html tags -->
+    <nav class="navbar">
+      <div class="container-menu">
+        <span
+          class="material-symbols-rounded menu-open-button"
+          (click)="this.sidenav.toggle()"
+          >menu</span
+        >
+      </div>
+    </nav>
 
-<h6 id="welcome-sign">Bienvenido: Sergio Tomás</h6> <!--el evento es para testear, va a ser removido-->
+    <h6 id="welcome-sign">Bienvenido: Sergio Tomás</h6>
+    <!--el evento es para testear, va a ser removido-->
 
-<h2>Tus Pedidos en Curso</h2>
+    <h2>Tus Pedidos en Curso</h2>
 
-<div class="current-orders">
-  <div *ngIf="currentDeliveries.length === 0" class="no-orders">
-    <img class="img-no-orders" src="../assets/delivery boy on scooter.png">
-    <h3>Vaya... No tienes pedidos en curso</h3>
-  </div>
-  <div *ngIf="currentDeliveries.length > 0" class="active-orders">
-    <app-shop-card (retrieveOrderId)="setDateTimeArrival($event)" *ngFor="let order of currentDeliveries" 
-    [title]="order.lineItems[0].product.shop.name"
-    [subtitle]="'Origen: ' + order.lineItems[0].product.shop.street + ' ' + order.lineItems[0].product.shop.streetNumber "
-    [bottomText]="'Destino: ' + order.client.street + ' ' + order.client.streetNumber" 
-    [hasStar]=false
-    [hasDropdown]=true 
-    [hasDescription]=false 
-    imagePath={{order.lineItems[0].product.shop.logoPath}}
-    description={{getDescription(order)}}
-    [client]="order.client.name + ' ' + order.client.surname" 
-    [paymentType]=order.paymentType.description
-    price={{getPrice(order)}} 
-    orderStatus="Para repartir" 
-    orderId={{order.id}}>
-    </app-shop-card>
-  </div>
-  <a id="explore-more-deliveries" routerLink="/explore-new-deliveries"><app-primary-button title="Explorar más pedidos"></app-primary-button></a>
-</div>
+    <div class="current-orders">
+      <div *ngIf="currentDeliveries.length === 0" class="no-orders">
+        <img
+          class="img-no-orders"
+          src="../assets/delivery boy on scooter.png"
+        />
+        <h3>Vaya... No tienes pedidos en curso</h3>
+      </div>
+      <div *ngIf="currentDeliveries.length > 0" class="active-orders">
+        <app-shop-card
+          (retrieveOrderId)="setArrival($event,order.commissionForDelivery)"
+          *ngFor="let order of currentDeliveries"
+          [title]="order.lineItems[0].product.shop.name"
+          [subtitle]="
+            'Origen: ' +
+            order.lineItems[0].product.shop.street +
+            ' ' +
+            order.lineItems[0].product.shop.streetNumber
+          "
+          [bottomText]="
+            'Destino: ' + order.client.street + ' ' + order.client.streetNumber
+          "
+          [hasStar]="false"
+          [hasDropdown]="true"
+          [hasDescription]="false"
+          imagePath="{{ order.lineItems[0].product.shop.logoPath }}"
+          description="{{ getDescription(order) }}"
+          [client]="order.client.name + ' ' + order.client.surname"
+          [paymentType]="order.paymentType.description"
+          [price]="order.totalAmount"
+          orderStatus="Para repartir"
+          orderId="{{ order.id }}"
+        >
+        </app-shop-card>
+      </div>
+      <a id="explore-more-deliveries" routerLink="/explore-new-deliveries"
+        ><app-primary-button title="Explorar más pedidos"></app-primary-button
+      ></a>
+    </div>
 
-<hr id="division" *ngIf="pastDeliveries.length > 0">
+    <hr id="division" *ngIf="pastDeliveries.length > 0" />
 
-<h6 *ngIf="pastDeliveries.length > 0" id="welcome-sign">Tus últimas entregas</h6>
+    <h6 *ngIf="pastDeliveries.length > 0" id="welcome-sign">
+      Tus últimas entregas
+    </h6>
 
-<div *ngIf="pastDeliveries.length > 0" class="last-orders-container">
-  <div class="shop-cards-container">
-    <app-shop-card  *ngFor="let order of pastDeliveries"
-    [title]="order.lineItems[0].product.shop.name"
-    imagePath={{order.lineItems[0].product.shop.logoPath}}
-    [subtitle]="'Destino: ' + order.client.street + ' ' + order.client.streetNumber" 
-    [bottomText]="'Entregada: ' + order.dateTimeArrival"
-    [hasStar]=false></app-shop-card>
-  </div>
-</div>
+    <div *ngIf="pastDeliveries.length > 0" class="last-orders-container">
+      <div class="shop-cards-container">
+        <app-shop-card
+          *ngFor="let order of pastDeliveries"
+          [title]="order.lineItems[0].product.shop.name"
+          imagePath="{{ order.lineItems[0].product.shop.logoPath }}"
+          [subtitle]="
+            'Destino: ' + order.client.street + ' ' + order.client.streetNumber
+          "
+          [bottomText]="'Entregada: ' + order.dateTimeArrival"
+          [hasStar]="false"
+        ></app-shop-card>
+      </div>
+    </div>
 
-<footer *ngIf="pastDeliveries.length > 0">
-  <a id="all-delivered-dropdown" routerLink="/all-delivered-orders"><span class="material-symbols-rounded expand_more">expand_more </span></a>
-</footer>
+    <footer *ngIf="pastDeliveries.length > 0">
+      <a id="all-delivered-dropdown" (click)="navigateForward()"
+        ><span class="material-symbols-rounded expand_more"
+          >expand_more
+        </span></a
+      >
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

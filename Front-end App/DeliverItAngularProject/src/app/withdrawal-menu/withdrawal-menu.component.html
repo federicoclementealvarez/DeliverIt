@@ -1,9 +1,9 @@
-<link rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <nav class="navbar">
   <div class="container-menu">
-    <span class="material-symbols-rounded menu">menu</span>
+    <span class="material-symbols-outlined" routerLink="/home-delivery-boy">arrow_back</span>
   </div>
 </nav>
 
@@ -11,13 +11,13 @@
 
 <div class="container">
   <div class="balance-container">
-    <h2>$24</h2>
-    <app-primary-button title="Cobrar" routerLink="/withdraw-options"></app-primary-button>
+    <h2>$ {{user.creditBalance}}</h2>
+    <app-primary-button *ngIf="user.creditBalance > 0" title="Cobrar" routerLink="/withdraw-options"></app-primary-button>
   </div>
 </div>
 
 <div class="options-container">
-  <div class="options">
+  <div class="options" (click)="onSeeCommissions()">
     <div class="center">
       <div class="buttons_logos">
         <img id="plus_icon" src="assets\buttons_logos\plus_sign_icon.png" alt="plus_sign_icon">
@@ -29,16 +29,12 @@
   </div>
 </div>
 
-<h1>Tus Extracciones</h1>
+<h1 *ngIf="pastWithdrawals.length>0">Tus Extracciones</h1>
 
-<div class="container-withdraw">
-<h3 class="balance-container">Retiro 24-08-24: $24</h3>
-<h3 class="balance-container">Retiro 24-08-24: $24</h3>
-<h3 class="balance-container">Retiro 24-08-24: $24</h3>
-<h3 class="balance-container">Retiro 24-08-24: $24</h3>
-<h3 class="balance-container">Retiro 24-08-24: $24</h3>
+<div class="container-withdraw" *ngIf="pastWithdrawals.length > 0">
+<h3 *ngFor="let withdrawal of pastWithdrawals" class="balance-container">{{withdrawal.dateTime}} | Retiro: ${{withdrawal.amount}}</h3>
 </div>
 
-<footer >
+<footer *ngIf="pastWithdrawals.length>0" routerLink="/all-delivery-withdrawals">
   <span class="material-symbols-rounded expand_more">expand_more </span>
 </footer>

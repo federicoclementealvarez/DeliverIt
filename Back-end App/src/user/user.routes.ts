@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { sanitizedInput, findAll, findOne, remove, add, update, login, logout, addAdmin} from './user.controller.js';
+import { sanitizedInput, findAll, findOne, remove, add, update, login, logout, addAdmin, validateUpdate} from './user.controller.js';
 import { verifyClient, verifyAdmin } from '../shared/verifyToken.js';
 
 
@@ -12,5 +12,5 @@ userRouter.post('/register', sanitizedInput, add); //register
 userRouter.post('/login', sanitizedInput, login); //login
 userRouter.post('/register-admin', sanitizedInput, addAdmin); //register admin
 userRouter.post('/logout', logout)  
-userRouter.put('/:id', sanitizedInput, update);
+userRouter.put('/:id', sanitizedInput, validateUpdate, update);
 userRouter.patch('/:id', sanitizedInput, update);
