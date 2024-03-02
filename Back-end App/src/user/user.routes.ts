@@ -1,0 +1,16 @@
+import { Router } from 'express';
+import { sanitizedInput, findAll, findOne, remove, add, update, login, logout, addAdmin} from './user.controller.js';
+import { verifyClient, verifyAdmin } from '../shared/verifyToken.js';
+
+
+export const userRouter = Router();
+
+userRouter.get('/', verifyAdmin, findAll); //protected route - Only Admin
+userRouter.get('/:id', verifyClient, findOne); //protected route - Only Current User
+userRouter.delete('/:id', remove);
+userRouter.post('/register', sanitizedInput, add); //register
+userRouter.post('/login', sanitizedInput, login); //login
+userRouter.post('/register-admin', sanitizedInput, addAdmin); //register admin
+userRouter.post('/logout', logout)  
+userRouter.put('/:id', sanitizedInput, update);
+userRouter.patch('/:id', sanitizedInput, update);

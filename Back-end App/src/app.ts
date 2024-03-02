@@ -4,6 +4,7 @@ import { paymentTypeRouter } from './paymentType/paymentType.routes.js';
 import { productCategoryRouter } from './productCategory/productCategory.routes.js';
 import { commissionRouter } from './commission/commission.routes.js';
 import { userTypeRouter } from './userType/userType.routes.js';
+import { userRouter } from './user/user.routes.js';
 import { RequestContext } from '@mikro-orm/core';
 import { orm } from './shared/orm.js';
 import cors from 'cors';
@@ -13,6 +14,8 @@ import { productRouter } from './product/product.routes.js';
 import { orderRouter } from './order/order.routes.js';
 import { shopRouter } from './shop/shop.routes.js';
 import { productVariationRouter } from './productVariation/productVariation.routes.js';
+import cookieParser from 'cookie-parser';
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,7 +27,7 @@ app.use(cors());
 
 app.use(express.json());
 
-
+app.use(cookieParser());
 
 //middleware that serves the images in the src/shared/assets folder
 app.use('/assets', express.static(path.join(__dirname, '../src/shared/assets')))
@@ -38,6 +41,7 @@ app.use('/api/paymentTypes', paymentTypeRouter);
 app.use('/api/productCategories', productCategoryRouter);
 app.use('/api/commissions', commissionRouter);
 app.use('/api/userTypes', userTypeRouter);
+app.use('/api/user', userRouter);
 app.use('/api/products', productRouter);
 app.use('/api/shops', shopRouter);
 app.use('/api/order', orderRouter);
