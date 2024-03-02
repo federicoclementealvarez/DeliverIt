@@ -36,7 +36,7 @@ export async function findOne (req: Request, res:Response)
 {
  try{
     const validatorResponse = validator.validateObjectId(req.params.id)
-    if(!validatorResponse.isValid){  return res.status(500).json({message: validatorResponse.message})}
+    if(!validatorResponse.isValid){return res.status(500).json({message: validatorResponse.message})}
     
     const order = await em.findOne(Order,req.params.id,{populate:['client','paymentType','lineItems','delivery']})
     

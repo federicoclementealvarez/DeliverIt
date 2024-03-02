@@ -9,7 +9,7 @@ import { Order } from '../order/order.entity.js'
 @Entity()
 export class User extends BaseEntity
 {
-  @Property({ nullable: false })
+    @Property({ nullable: false })
     name!: string
     
     @Property({ nullable: false })
