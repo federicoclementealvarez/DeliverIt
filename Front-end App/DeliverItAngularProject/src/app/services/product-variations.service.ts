@@ -17,7 +17,7 @@ export class ProductVariationsService {
 
   constructor(private http: HttpClient, private baseUrlService: BaseUrlService) { }
 
-  readonly url = `${this.baseUrlService.getBaseUrl()}productVariations/`;
+  readonly url = `${this.baseUrlService.getBaseUrl()}productVariations`;
 
 
   filterProductVariations(productVariations: ProductVariation[]){
@@ -48,8 +48,16 @@ export class ProductVariationsService {
     return this.selectedShop.asObservable();
   }
 
+  create(productVariations: ProductVariation[]) {
+    const url = `${this.url}`
+
+    const body = {productVariations: productVariations}
+
+    this.http.post<ProductVariation>(url, body).subscribe(response => console.log(response))
+  }
+  
   update(productVariation: ProductVariation) {
-    const url = `${this.url}${productVariation.id}`
+    const url = `${this.url}/${productVariation.id}`
 
     const body = {
       productVariations:[
@@ -61,7 +69,7 @@ export class ProductVariationsService {
   }
 
   delete(id: string) {
-    const url = `${this.url}${id}`
+    const url = `${this.url}/${id}`
 
     this.http.delete<any>(url).subscribe(response => console.log(response))
   }

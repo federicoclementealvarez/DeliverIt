@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductVariationsService } from '../services/product-variations.service';
 import { ProductVariation } from '../entities/productVariation.entity';
+import { ValidatorsService } from '../services/validators.service';
 
 @Component({
   selector: 'app-shop-modify-product-variations',
@@ -16,12 +17,12 @@ export class ShopModifyProductVariationsComponent {
   productVariationId: string;
   
 
-  constructor(private router : Router, private productVariationService :ProductVariationsService){}
+  constructor(private router : Router, private productVariationService :ProductVariationsService, private validator : ValidatorsService){}
 
   ngOnInit() {
       this.shopModifyProductVariationForm = new FormGroup({
-        name: new FormControl('', Validators.required),
-        description: new FormControl('', Validators.required)
+        name: new FormControl('', [Validators.required, this.validator.validateMaxCharString(30)]),
+        description: new FormControl('', [Validators.required, this.validator.validateMaxCharString(30)])
       })
 
       this.setProductVariationId()

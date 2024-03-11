@@ -27,6 +27,13 @@ export class ValidatorsService {
     }
   }
 
+  public validateMaxCharString(maxChar: number):ValidatorFn{
+    return(control: AbstractControl) : ValidationErrors| null =>{
+      const isInvalid = (control.value.length>maxChar);
+      return (isInvalid)? {'notValid':true}:null;
+    }
+  }
+
   public validateFutureDate():ValidatorFn{
     return(control: AbstractControl) : ValidationErrors| null =>{
       const isInvalid = (control.value<this.getTodayDate());

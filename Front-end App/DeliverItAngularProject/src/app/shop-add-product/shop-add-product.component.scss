@@ -40,6 +40,11 @@
     margin-bottom: 15px;
   }
 
+  #variationsgGroup{
+    flex-direction:row;
+    margin-bottom: -10px;
+  }
+
   #date{
     height: 30px;
     width: 50%;
@@ -83,6 +88,30 @@
     letter-spacing: 0.06px;
 }
 
+.variationsQuantityContainer{
+  text-align: left;
+  border-style: solid;
+  border-width: 2.5px;
+  border-color:(#d1d1d1);
+  border-radius: 3.5px;
+  width: 20%;
+  height: auto;
+  display: flex;
+  flex: 1;
+}
+
+#quantity{
+    width: 100%;
+    border-style: none;
+    height: 95%;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22.5px;
+    letter-spacing: 0.06px;
+}
+
 #money-sign{
     padding: 5px 10px 5px 10px;
     border-right: 0;
@@ -94,7 +123,7 @@
 }
 
 #variationsCheck{
-  width: 4.5rem;
+  width: 2.5rem;
   height: 1.5rem;
   margin-left:15px;
 }
@@ -132,4 +161,72 @@ select{
 
 .button-container{
   margin-bottom: 50px;
+}
+
+input[type="checkbox"] {
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  appearance: none;
+  /* For iOS < 15 to remove gradient background */
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #ffffff;
+  /* Not removed via appearance */
+  margin: 0;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  color-scheme: light dark;
+  background-color: #ffffff;
+  margin: 0;
+  font: inherit;
+  color: #c00a0a;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+}
+
+input[type="checkbox"] {
+  /* ...existing styles */
+
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em #c00a0a;
+}
+
+input[type="checkbox"] {
+  /* ...existing styles */
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em #c00a0a;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+input[type="checkbox"]::before {
+  /* ...existing styles */
+
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 }

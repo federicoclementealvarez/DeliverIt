@@ -25,8 +25,8 @@ export class ShopModifyProductComponent {
 
   ngOnInit() {
       this.shopModifyProductForm = new FormGroup({
-        name: new FormControl('', Validators.required),
-        description: new FormControl('', Validators.required),
+        name: new FormControl('', [Validators.required, this.validator.validateMaxCharString(30)]),
+        description: new FormControl('', [Validators.required, this.validator.validateMaxCharString(75)]),
         amount: new FormControl('', [Validators.required,this.validator.validatePrice()]),
         validSince: new FormControl({value: this.validator.getTodayDate(),disabled : false}, [Validators.required, this.validator.validateFutureDate()]) 
       })

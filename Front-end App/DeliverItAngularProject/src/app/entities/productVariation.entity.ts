@@ -9,5 +9,5 @@ export class ProductVariation {
   name: string;
   description: string;
   isDisabled?:boolean;
-  shop?:Shop;
+  shop?:Shop|string;
 }

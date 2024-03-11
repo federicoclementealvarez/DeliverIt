@@ -1,19 +1,27 @@
 <div class="container">
     <h1>Agregar sabores de <br>helado</h1>
     <div class="input-button">
-        <form onsubmit="event.preventDefault()">
+        <form onsubmit="event.preventDefault()" [formGroup]="productVariationForm">
             <div class="input-group">
                 <h6>Nombre</h6>
-                <input #input_name id="input-flavor-name" type="text" autofocus minlength="1">
+                <input #input_name id="input-flavor-name" type="text" autofocus minlength="1" formControlName="name">
+                <div *ngIf="getName().invalid && submitted"
+                [ngClass]="{'error-message-show': getName().invalid && submitted}" class="error-message" style="align-self: flex-start;" id="error-message-name">
+                    <span class="error-icon-red">&#9888;</span>
+                      Nombre inválido
+                  </div>
                 <h6>Descripción</h6>
-                <input #input_description type="text" autofocus minlength="1">
+                <input #input_description type="text" autofocus minlength="1" formControlName="description">
+                <div *ngIf="getDescription().invalid && submitted"
+                [ngClass]="{'error-message-show': getDescription().invalid && submitted}" class="error-message" style="align-self: flex-start;" id="error-message-desc">
+                    <span class="error-icon-red">&#9888;</span>
+                      Descripción inválida
+                  </div>
             </div>
                 <app-primary-button 
                 class="button-style" 
                 title="AGREGAR"
-                (click)="createFlavor(input_name.value, input_description.value); 
-                         input_name.value='';
-                         input_description.value=''"
+                (click)="onClickCreateFlavor(input_name.value, input_description.value);"
                 ></app-primary-button>
         </form>
         <div 
@@ -31,11 +39,11 @@
                 <div id="delete-button-container">
                     <app-delete-button 
                     class="delete-button"
-                    (click)="deleteFlavor(flavor.id)"
+                    (click)="deleteFlavor(flavor.arrayId)"
                     ></app-delete-button>
                 </div>
             </div>
         </div>
-      <app-primary-button class="button-style" title="SIGUIENTE"></app-primary-button>
+      <app-primary-button class="button-style" title="SIGUIENTE" (click)="submit()"></app-primary-button>
     </div>
 </div>
