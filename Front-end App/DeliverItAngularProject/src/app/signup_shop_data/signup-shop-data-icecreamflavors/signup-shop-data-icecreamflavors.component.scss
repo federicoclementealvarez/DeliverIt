@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 15px;
 }
 
 .input-button {
@@ -75,4 +76,13 @@
 
 #input-flavor-name{
     margin-bottom: 15%;
+}
+
+#error-message-name{
+  margin-top: -10%;
+  margin-bottom: 10%;
+}
+
+#error-message-desc{
+  margin-top: 5%;
 }

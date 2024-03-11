@@ -9,7 +9,7 @@
       <input type="text" autofocus formControlName="name">
       <div [ngClass]="{'error-message-show': getName().invalid && (submitted || getName().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
         <span class="error-icon-red">&#9888;</span>
-          Ingresa algún nombre
+          Ingresa algún nombre válido
       </div>
     </div>
     <div class="input-group">
@@ -17,7 +17,7 @@
       <input type="text" formControlName="description">
       <div [ngClass]="{'error-message-show': getDescription().invalid && (submitted || getDescription().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
         <span class="error-icon-red">&#9888;</span>
-          Ingresa alguna descripción
+          Ingresa alguna descripción válida
       </div>
     </div>
     <div class="input-group">
@@ -45,7 +45,7 @@
             <input id="date" type="date" formControlName="validSince">
             <div [ngClass]="{'error-message-show': getValidSince().invalid  && (submitted || getValidSince().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
               <span class="error-icon-red">&#9888;</span>
-              La fecha debe ser la del día de hoy o después
+              La fecha debe ser la del día de hoy o posterior
             </div>
         </div>
     </div>

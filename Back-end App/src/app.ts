@@ -12,7 +12,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { productRouter } from './product/product.routes.js';
 import { withdrawalRouter } from './withdrawal/withdrawal.routes.js';
-import { userRouter } from './user/user.routes.js';
 import { orderRouter } from './order/order.routes.js';
 import { shopRouter } from './shop/shop.routes.js';
 import { productVariationRouter } from './productVariation/productVariation.routes.js';

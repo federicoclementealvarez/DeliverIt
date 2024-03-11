@@ -33,8 +33,8 @@ export class ShopAddProductComponent {
 
     ngOnInit() {
         this.shopAddProductForm = new FormGroup({
-          name: new FormControl('', Validators.required),
-          description: new FormControl('', Validators.required),
+          name: new FormControl('', [Validators.required, this.validator.validateMaxCharString(30)]),
+          description: new FormControl('', [Validators.required, this.validator.validateMaxCharString(75)]),
           amount: new FormControl('', [Validators.required,this.validator.validatePrice()]),
           validSince: new FormControl(this.validator.getTodayDate(),this.validator.validateTodayDate()),
           productCategory: new FormControl('', Validators.required)

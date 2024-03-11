@@ -3,29 +3,35 @@ import { ItemCardComponent } from '../item-card/item-card.component';
 import { OrderService } from './order.service';
 import { Product } from '../entities/product.entity';
 import { ProductVariation } from '../entities/productVariation.entity';
+import { ProductVariationsService } from './product-variations.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IcecreamflavorsService {
-  constructor(private orderService: OrderService) { }
+  constructor(private orderService: OrderService, private productVariationsService: ProductVariationsService) { }
 
   flavors: ItemCardComponent[] = [];
   lastIndex = 0;
 
-  createFlavor(name: string, description: string) {
+  createFlavor(name: string, description: string, shopId: string) {
     const flavor = new ItemCardComponent();
-    flavor.id = this.lastIndex;
+    flavor.arrayId = this.lastIndex;
     flavor.name = name;
     flavor.description = description;
+    flavor.shop = shopId;
     this.flavors.push(flavor);
     this.lastIndex++;
   }
 
   deleteFlavor(id: number) {
-    const index = this.flavors.findIndex((flavor) => (flavor.id == id));
+    const index = this.flavors.findIndex((flavor) => (flavor.arrayId == id));
     this.flavors.splice(index, 1);
     this.lastIndex--;
+  }
+
+  postFlavors(){
+    this.productVariationsService.create(this.flavors)
   }
 
   // Implementation of the selection of flavours by the customer
