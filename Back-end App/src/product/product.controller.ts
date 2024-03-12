@@ -175,6 +175,23 @@ export async function validateId(req: Request, res: Response, next: NextFunction
   }
 }
 
+export async function validateInputStringLength(req: Request, res: Response, next: NextFunction){
+  try{
+    const validatorResponseName = validator.validateMaxCharLength(req.body.sanitizedInput.name, 30)
+    const validatorResponseDescription = validator.validateMaxCharLength(req.body.sanitizedInput.description, 75)
+    
+    if((!validatorResponseName.isValid) || (!validatorResponseDescription.isValid)){
+      const message = (validatorResponseName.message=='')?validatorResponseDescription.message:validatorResponseName.message
+      return res.status(400).json({message: message})
+    }
+
+      next()
+  }
+  catch(error:any){
+    return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+  }
+}
+
 export async function create(req: Request, res: Response, next: NextFunction) {
   try{
     var maxVariations : undefined | number = undefined

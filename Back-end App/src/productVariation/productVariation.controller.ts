@@ -95,3 +95,20 @@ export async function update(req: Request, res: Response){
       return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
     }
 }
+
+export async function validateInputStringLength(req: Request, res: Response, next: NextFunction){
+  try{
+    const validatorResponseName = validator.validateMaxCharLength(req.body.sanitizedProductVariations[0].name, 30)
+    const validatorResponseDescription = validator.validateMaxCharLength(req.body.sanitizedProductVariations[0].description, 75)
+
+    if((!validatorResponseName.isValid) || (!validatorResponseDescription.isValid)){
+        const message = (validatorResponseName.message=='')?validatorResponseDescription.message:validatorResponseName.message
+        return res.status(400).json({message: message})
+      }
+
+      next()
+  }
+  catch(error:any){
+    return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+  }
+}
