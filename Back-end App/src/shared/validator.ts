@@ -81,6 +81,14 @@ function validateMaxVariations(order:Order){
     return validatorMaxVariations
 }
 
+function validateMaxCharLength(stringToValidate: string, maxLength: number){
+    if(stringToValidate.length>maxLength){
+        return new validatorResponse(false, 'The length of a text input exceeded the allowed maximum')
+    }else{
+        return new validatorResponse(true, '')
+    }
+}
+
 
 
 
@@ -88,6 +96,7 @@ function validateMaxVariations(order:Order){
 export const validator = {
     validateObjectId,
     validatePriceAmount,
-    validateOrder
+    validateOrder,
+    validateMaxCharLength
 }
 
