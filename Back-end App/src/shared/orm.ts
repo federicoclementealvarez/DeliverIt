@@ -6,7 +6,7 @@ export const orm = await MikroORM.init({
   entitiesTs: ['src/**/*.entity.ts'],
   dbName: 'deliver_it',
   type: 'mongo',
-  clientUrl: 'mongodb://localhost:27017',
+  clientUrl: process.env.DB_URL,
   highlighter: new MongoHighlighter(),
   debug: true
 })
