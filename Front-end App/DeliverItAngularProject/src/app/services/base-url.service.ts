@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -6,6 +7,6 @@ import { Injectable } from '@angular/core';
 export class BaseUrlService {
 
   getBaseUrl(){
-    return 'http://localhost:3000/api/'
+    return `${environment.apiUrl}/`
   }
 }
