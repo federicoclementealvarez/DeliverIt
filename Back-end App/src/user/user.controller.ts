@@ -55,7 +55,7 @@ export async function findOne(req: Request, res: Response)
     const validatorResponse = validator.validateObjectId(req.params.id)
     if(!validatorResponse.isValid){return res.status(500).json({message: validatorResponse.message})}
     
-    const user = await em.findOne(User,req.params.id,{populate:['userType']}) //ver el populate si es correcto
+    const user = await em.findOne(User,req.params.id,{populate:['userType','withdrawals']}) //ver el populate si es correcto
     
     if(!user){ return res.status(404).json({message: 'User not found'})}
     

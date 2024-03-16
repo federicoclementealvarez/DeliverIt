@@ -19,7 +19,7 @@ export class WithdrawalService
 
   findAllByDelivery(): Observable<Withdrawal[]>
   {
-    return this.http.get<Withdrawal[]>(`${this.url}/all-delivery-withdrawals/655b6dd2c6e26081bf21ffb1`).pipe(map((response: any) => response.data))
+    return this.http.get<Withdrawal[]>(`${this.url}/all-delivery-withdrawals/65dff25c076e3ac03ba6ed89`).pipe(map((response: any) => response.data))
   }
 
   add(withdrawal: any): Observable<Withdrawal>
@@ -27,7 +27,7 @@ export class WithdrawalService
       const body = {
       "amount": withdrawal.amount,
       "dateTime": withdrawal.dateTime,
-      "user": "655b6dd2c6e26081bf21ffb1"
+      "user": "65dff25c076e3ac03ba6ed89"
     }
     return this.http.post<Withdrawal>(this.url, body).pipe(map((response: any) => response.message))
   }
