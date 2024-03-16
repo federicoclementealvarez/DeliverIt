@@ -1,27 +1,28 @@
 import express from 'express';
+import cors from 'cors';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
 import { shopTypeRouter } from './shopType/shopType.routes.js';
 import { paymentTypeRouter } from './paymentType/paymentType.routes.js';
 import { productCategoryRouter } from './productCategory/productCategory.routes.js';
 import { commissionRouter } from './commission/commission.routes.js';
 import { userTypeRouter } from './userType/userType.routes.js';
 import { userRouter } from './user/user.routes.js';
-import { RequestContext } from '@mikro-orm/core';
-import { orm } from './shared/orm.js';
-import cors from 'cors';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import { productRouter } from './product/product.routes.js';
 import { withdrawalRouter } from './withdrawal/withdrawal.routes.js';
 import { orderRouter } from './order/order.routes.js';
 import { shopRouter } from './shop/shop.routes.js';
 import { productVariationRouter } from './productVariation/productVariation.routes.js';
 import { reviewRouter } from './review/review.routes.js';
-import cookieParser from 'cookie-parser';
+import { RequestContext } from '@mikro-orm/core';
+import { orm } from './shared/orm.js';
+import { fileURLToPath } from 'url';
 
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 
 const app = express();
 
@@ -55,8 +56,6 @@ app.use((_, res) => {
     return res.status(404).send({ message: 'Resource not found' });
 })
 
-app.listen(3000, () => {
-    console.log('Server running on http://localhost:3000/')
+app.listen(process.env.API_PORT, () => {
+    console.log(`Server running on ${process.env.API_SERVER}:${process.env.API_PORT}`)
 })
-
-
