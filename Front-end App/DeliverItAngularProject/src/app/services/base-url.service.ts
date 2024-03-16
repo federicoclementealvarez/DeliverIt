@@ -7,6 +7,6 @@ import { environment } from 'src/environments/environment';
 export class BaseUrlService {
 
   getBaseUrl(){
-    return `${environment.apiUrl}/`
+    return `${environment.apiUrl}/api/`
   }
 }
