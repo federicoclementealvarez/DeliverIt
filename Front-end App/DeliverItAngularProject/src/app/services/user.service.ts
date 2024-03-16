@@ -18,13 +18,13 @@ export class UserService
 
   findOne(): Observable<User>
   {
-    return this.http.get<User>(`${this.url}/655b6dd2c6e26081bf21ffb1`).pipe(map((response: any) => response.data));
+    return this.http.get<User>(`${this.url}/65dff25c076e3ac03ba6ed89`).pipe(map((response: any) => response.data));
   }
 
   update(ammountToUpdate: number): Observable<User>
   {
     const body = { "creditBalance": ammountToUpdate }
-    return this.http.put<User>(`${this.url}/655b6dd2c6e26081bf21ffb1`,body).pipe(map((response: any) => response.message));
+    return this.http.put<User>(`${this.url}/65dff25c076e3ac03ba6ed89`,body).pipe(map((response: any) => response.message));
   }
 
 
