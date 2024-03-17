@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Shop } from '../entities/shop.entity';
 import { ShopService } from '../services/shop.service';
 import { ReviewService } from '../services/review.service';
+import { BaseUrlService } from '../services/base-url.service';
 
 @Component({
   selector: 'app-shop-customer',
@@ -15,14 +16,16 @@ import { ReviewService } from '../services/review.service';
 export class ShopCustomerComponent {
   constructor(private orderService: OrderService,
     private productService: ProductService,
-    private route: ActivatedRoute, private shopService: ShopService, private reviewService: ReviewService, private router: Router) { }
+    private route: ActivatedRoute, private shopService: ShopService, private reviewService: ReviewService, private router: Router, private baseUrlService: BaseUrlService) { }
 
   products: Product[]
   totalQty: number
   shopId: string
   shop: Shop = new Shop()
+  baseUrl: string;
 
   ngOnInit() {
+    this.baseUrl = this.baseUrlService.getBaseUrl()
     this.shopId = this.route.snapshot.params['shopId']
     this.getShop()
     this.getProducts()
