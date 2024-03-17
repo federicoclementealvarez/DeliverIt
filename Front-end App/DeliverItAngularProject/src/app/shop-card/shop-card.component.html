@@ -7,7 +7,7 @@
   <img
     class="image"
     *ngIf="hasImage"
-    [src]="'http://localhost:3000/assets/' + imagePath"
+    [src]="this.baseUrl + 'assets/' + imagePath"
   />
   <div class="text-container">
     <p class="card-title">{{ title }}</p>

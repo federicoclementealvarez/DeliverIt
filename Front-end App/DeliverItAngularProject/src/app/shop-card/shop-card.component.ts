@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from '../entities/product.entity';
+import { BaseUrlService } from '../services/base-url.service';
 
 @Component({
   selector: 'app-shop-card',
@@ -33,7 +34,13 @@ export class ShopCardComponent {
   @Input() orderStatus: string;
   @Input() dateTimeArrival: string;
 
-  constructor() {}
+  protected baseUrl: string;
+
+  constructor(private baseUrlService: BaseUrlService) {}
+
+  ngOnInit(){
+    this.baseUrl =  this.baseUrlService.getBaseUrl()
+  }
 
   showDescription(){this.hasDescription=!this.hasDescription}
 

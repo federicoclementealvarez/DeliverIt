@@ -1,7 +1,7 @@
 <div class="banner-container">
   <img
     class="banner-image"
-    [src]="'http://localhost:3000/assets/' + this.shop.bannerPath"
+    [src]="this.baseUrl + 'assets/' + this.shop.bannerPath"
     alt="banner"
   />
 </div>
@@ -10,7 +10,7 @@
     <div class="image-container">
       <img
         class="shop-icon"
-        [src]="'http://localhost:3000/assets/' + this.shop.logoPath"
+        [src]="this.baseUrl + 'assets/' + this.shop.logoPath"
         alt="icono del local"
       />
     </div>

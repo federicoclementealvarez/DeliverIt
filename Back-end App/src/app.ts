@@ -33,7 +33,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 //middleware that serves the images in the src/shared/assets folder
-app.use('/assets', express.static(path.join(__dirname, '../src/shared/assets')))
+app.use('/api/assets', express.static(path.join(__dirname, '../src/shared/assets')))
 
 app.use((req, res, next) => {
     RequestContext.create(orm.em, next)
