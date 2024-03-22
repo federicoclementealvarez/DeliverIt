@@ -1,8 +1,7 @@
 import { Router } from "express";
 import 
 { 
-  add, findAll,findAllByDelivery,findCurrentCustomerOrders,findCurrentDeliveryOrders,findOne,findOrdersWithoutDelivery, sanitizedInput, // setCompletedOrder, setDelivery, 
-  update, validateUpdate 
+  add, findAll,findAllByDelivery,findCurrentCustomerOrders,findCurrentDeliveryOrders,findOne,findOrdersWithoutDelivery, sanitizedInput, update, validateUpdate, remove
 } from "./order.controller.js";
 
 export const orderRouter = Router()
@@ -16,3 +15,4 @@ orderRouter.get('/current-deliveries/:idDelivery', findCurrentDeliveryOrders)
 orderRouter.get('/current-orders/:idCustomer',findCurrentCustomerOrders)
 orderRouter.put('/:id', validateUpdate,update)
 orderRouter.post('/',sanitizedInput,add)
+orderRouter.delete('/:id',remove)

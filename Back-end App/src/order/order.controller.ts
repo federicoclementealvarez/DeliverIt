@@ -216,6 +216,32 @@ function filterOrdersByShop(orders: Order[], shopId: string){
   return filteredOrders
 }
 
+export async function remove(req: Request, res: Response) 
+{
+  try
+  {
+    const validatorResponse = validator.validateObjectId(req.params.id)
+    if(!validatorResponse.isValid)
+    {
+    return res.status(500).json({message: validatorResponse.message})
+    }
+
+    const order = await em.findOne(Order, req.params.id)
+    if (order===null)
+    {
+      return res.status(404).json({message:'Order not found'})
+    }
+    await em.removeAndFlush(order)
+    return res.status(200).json({message: 'Order deleted successfully'})
+  }
+
+  catch(error:any)
+  {
+    return res.status(500).json({message: 'an error has occurred', errorMessage: error.message})
+  }
+  
+}
+
 function filterOrdersByMonth(orders: Order[]){
   const todayDate = new Date()
   const monthFirstDate = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1,0,0)

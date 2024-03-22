@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Commission } from '../entities/commission.entity';
 import { Router } from '@angular/router';
 import { CommissionService } from '../services/commission.service';
+import { ErrorPanelService } from '../services/error-panel.service';
 
 @Component({
   selector: 'app-add-commission-percentage',
@@ -15,7 +16,7 @@ export class AddCommissionPercentageComponent
   addCommissionPercentageForm : FormGroup;
   submitted: boolean = false;
 
-  constructor(private router : Router, private validator : ValidatorsService, private commissionService: CommissionService){}
+  constructor(private router : Router, private validator : ValidatorsService, private commissionService: CommissionService, private errorPanelService: ErrorPanelService){}
 
   getValidSince()
   {
@@ -41,8 +42,19 @@ export class AddCommissionPercentageComponent
         percentage: this.addCommissionPercentageForm.get('num').value,
         validSince: this.addCommissionPercentageForm.get('validSince').value
       }
-      this.commissionService.add(commission).subscribe(() => {alert('Comisión creada');this.router.navigate(['admin-panel'])})
+
+      this.commissionService.add(commission).subscribe(
+    {
+        next: () => {alert('Comisión creada');this.router.navigate(['admin-panel'])} ,
+        error: (err) => 
+        {
+          console.log(err)
+          this.errorPanelService.setProperties(err)
+          this.router.navigate(['error-panel'],{ queryParams: { origin: 'add-commission-percentage' }})
+        }
+      })
     }
 
   }  
 }
+
