@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-
+import { ErrorPanelService } from '../services/error-panel.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-error-panel',
@@ -8,7 +9,21 @@ import { Component } from '@angular/core';
 })
 export class ErrorPanelComponent 
 {
-  statusCode?: string = sessionStorage.getItem('statusCode')
-  errorMsg?: string = sessionStorage.getItem('errorMessage')
+  statusCode: string 
+  errorMsg: string 
+  origin: string
 
+  constructor(private errorPanelService: ErrorPanelService, private activatedRoute: ActivatedRoute, private router: Router){}
+
+  ngOnInit()
+  {
+    this.activatedRoute.queryParams.subscribe(params => {this.origin = params['origin'] || '/';})
+    this.statusCode = this.errorPanelService.errorStatusCode
+    this.errorMsg = this.errorPanelService.errorMessage
+  }
+
+  goBackToOrigin()
+  {
+    this.router.navigateByUrl(this.origin)
+  }
 }
