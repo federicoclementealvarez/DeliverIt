@@ -45,7 +45,7 @@ export async function findAll(_: Request, res: Response)
         return res.status(200).json({message:'found all users ', data: users})
       }
       catch(error:any){
-        res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+        res.status(500).json({message: error.message})
       }
 }
 
@@ -63,7 +63,7 @@ export async function findOne(req: Request, res: Response)
   }
       
   catch(error:any){
-  return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+  return res.status(500).json({message: error.message})
   }
 }
 
@@ -73,7 +73,7 @@ export async function remove(_: Request, res: Response)
       res.status(500).json({message: 'Method not implemented'})
     }
     catch(error:any){
-      res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+      res.status(500).json({message: error.message})
       }
 }
 
@@ -237,6 +237,6 @@ export async function update(req: Request, res: Response)
   }
   catch(error:any)
   {
-    return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+    return res.status(500).json({message: error.message})
   }
 }

@@ -22,7 +22,7 @@ export function findAll(_: Request, res: Response)
         res.status(500).json({message: 'Method not implemented'})
       }
       catch(error:any){
-        res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+        res.status(500).json({message: error.message})
       }
 }
 
@@ -32,7 +32,7 @@ export function findOne(_: Request, res: Response)
         res.status(500).json({message: 'Method not implemented'})
       }
       catch(error:any){
-        res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+        res.status(500).json({message: error.message})
       }
 }
 
@@ -42,7 +42,7 @@ export function remove(_: Request, res: Response)
         res.status(500).json({message: 'Method not implemented'})
       }
       catch(error:any){
-        res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+        res.status(500).json({message: error.message})
       }
 }
 
@@ -52,7 +52,7 @@ export function add(_: Request, res: Response)
         res.status(500).json({message: 'Method not implemented'})
       }
       catch(error:any){
-        res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+        res.status(500).json({message: error.message})
       }
 }
 
@@ -62,6 +62,6 @@ export function update(_: Request, res: Response)
         res.status(500).json({message: 'Method not implemented'})
       }
       catch(error:any){
-        res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+        res.status(500).json({message: error.message})
       }
 }

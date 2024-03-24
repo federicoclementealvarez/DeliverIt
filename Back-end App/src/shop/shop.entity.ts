@@ -23,8 +23,14 @@ export class Shop extends BaseEntity {
     @Property({ nullable: false })
     logoPath!: string
 
+    @Property({ nullable: false })
+    logoId!: string
+
     @Property({ nullable: true })
     bannerPath?: string
+
+    @Property({ nullable: true })
+    bannerId?: string
 
     @Property({ nullable: false })
     openingTime!: TimeType

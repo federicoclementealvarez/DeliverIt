@@ -28,7 +28,7 @@ export async function findAll(_: Request, res: Response) {
     return res.status(200).json({ message: 'All shop types found', body: shopTypes })
   }
   catch (error: any) {
-    return res.status(500).json({ message: 'An error has ocurred', errorMessage: error.message })
+    return res.status(500).json({ message: error.message })
   }
 }
 
@@ -45,7 +45,7 @@ export async function findOne(req: Request, res: Response) {
     return res.status(200).json({ message: 'Shop type found', body: shopType })
   }
   catch (error: any) {
-    return res.status(500).json({ message: 'An error has ocurred', errorMessage: error.message })
+    return res.status(500).json({ message: error.message })
   }
 }
 
@@ -60,7 +60,7 @@ export async function remove(req: Request, res: Response) {
     return res.status(200).json({ message: 'Shop type deleted successfully' })
   }
   catch (error: any) {
-    res.status(500).json({ message: 'An error has ocurred', errorMessage: error.message })
+    res.status(500).json({ message: error.message })
   }
 }
 
@@ -71,7 +71,7 @@ export async function add(req: Request, res: Response) {
     return res.status(201).json({ message: 'Shop type created successfully', data: shopType })
   }
   catch (error: any) {
-    return res.status(500).json({ message: 'An error has ocurred', errorMessage: error.message })
+    return res.status(500).json({ message: error.message })
   }
 }
 
@@ -87,6 +87,6 @@ export async function update(req: Request, res: Response) {
     return res.status(200).json({ message: 'Shop type updated successfully' })
   }
   catch (error: any) {
-    return res.status(500).json({ message: 'An error has ocurred', errorMessage: error.message })
+    return res.status(500).json({ message: error.message })
   }
 }

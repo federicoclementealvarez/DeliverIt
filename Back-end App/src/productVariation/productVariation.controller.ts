@@ -23,7 +23,7 @@ export async function findByShop(req: Request, res: Response){
   try{
     const validatorResponse = validator.validateObjectId(req.params.shopId)
     if(!validatorResponse.isValid){
-      return res.status(400).json({message: 'An error has ocurred', errorMessage: validatorResponse.message})
+      return res.status(400).json({message: validatorResponse.message})
     }
 
     const productVariations = await em.find(ProductVariation,{},{filters:{'shopId':{shopId:req.params.shopId}}})
@@ -31,7 +31,7 @@ export async function findByShop(req: Request, res: Response){
     return res.status(200).json({message: 'Product Variations found', body: productVariations})
   }
   catch(error:any){
-    return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+    return res.status(500).json({message: error.message})
   }
 }
 
@@ -52,7 +52,7 @@ export async function remove(req: Request, res: Response)
         return res.status(200).json({message: 'Product Variation deleted successfully'})
       }
     catch(error:any){
-        res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+        res.status(500).json({message: error.message})
       }
 }
 
@@ -70,7 +70,7 @@ export async function create(req: Request, res: Response) {
       return res.status(201).json({ message: 'Product Variations created successfully', body: {createdProductVariations}})
     }
     catch(error:any){
-      return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+      return res.status(500).json({message: error.message})
     }
 }
 
@@ -92,7 +92,7 @@ export async function update(req: Request, res: Response){
       return res.status(200).json({message: 'Product Variation updated successfully'})
     }
     catch(error:any){
-      return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+      return res.status(500).json({message: error.message})
     }
 }
 
@@ -109,6 +109,6 @@ export async function validateInputStringLength(req: Request, res: Response, nex
       next()
   }
   catch(error:any){
-    return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+    return res.status(500).json({message: error.message})
   }
 }

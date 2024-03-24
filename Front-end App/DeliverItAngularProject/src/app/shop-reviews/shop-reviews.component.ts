@@ -20,7 +20,7 @@ export class ShopReviewsComponent {
 
   ngOnInit() {
     this.shop = this.reviewService.shopToReview
-    this.shopImageURL = `${this.baseUrl}assets/${this.shop.logoPath}`;
+    this.shopImageURL = `${this.shop.logoPath}`;
 
     this.getShopReviews()
   }

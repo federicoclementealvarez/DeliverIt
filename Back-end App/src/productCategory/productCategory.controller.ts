@@ -28,7 +28,7 @@ export async function findAll(_: Request, res: Response)
   }
   catch (error: any) 
   {
-    return res.status(500).json({ message: 'An error has ocurred', errorMessage: error.message })
+    return res.status(500).json({ message: error.message })
   }
 }
 
@@ -51,7 +51,7 @@ export async function findOne(req: Request, res: Response)
   }
   catch(error:any)
   {
-    return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+    return res.status(500).json({message: error.message})
   }
 }
 
@@ -65,7 +65,7 @@ export async function add(req: Request, res:Response)
   }
   catch(error:any)
   {
-    return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+    return res.status(500).json({message: error.message})
   }
 }
 
@@ -84,7 +84,7 @@ export async function update(req: Request, res: Response)
   }
   catch(error:any)
   {
-    return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+    return res.status(500).json({message: error.message})
   }
 }
 
@@ -101,7 +101,7 @@ export async function remove(req: Request, res: Response)
   }
   catch(error:any)
   {
-    res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+    res.status(500).json({message: error.message})
   }
 }
 

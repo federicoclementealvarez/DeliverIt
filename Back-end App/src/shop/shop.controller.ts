@@ -55,7 +55,7 @@ export async function findAll(_: Request, res: Response)
         return res.status(200).json({message: 'All shops found', body: shopTypes})
         }
     catch(error:any){
-        return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+        return res.status(500).json({message: error.message})
         }
 }
 
@@ -74,7 +74,7 @@ export async function findOneById(req: Request, res: Response)
         return res.status(200).json({message: 'Shop found', body: shop})
       }
       catch(error:any){
-        return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+        return res.status(500).json({message: error.message})
       }
 }
 
@@ -92,7 +92,7 @@ export async function findByFilters(req: Request, res: Response)
         return res.status(200).json({message: 'All filtered shops found', body: shopsByFilters})
       }
       catch(error:any){
-        return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+        return res.status(500).json({message: error.message})
       }
 }
 
@@ -108,7 +108,7 @@ export async function remove(req: Request, res: Response)
       return res.status(200).json({message: 'Shop deleted successfully'})
       }
     catch(error:any){
-        res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+        res.status(500).json({message: error.message})
       }
 }
 
@@ -118,7 +118,7 @@ export async function add(_: Request, res: Response)
         return res.status(500).json({message: 'Method not implemented'})
       }
       catch(error:any){
-        return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+        return res.status(500).json({message: error.message})
       }
 }
 
@@ -127,7 +127,7 @@ export async function update(req: Request, res: Response){
         return res.status(500).json({message: 'Method not implemented'})
         }
       catch(error:any){
-        return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+        return res.status(500).json({message: error.message})
       }
 }
 
@@ -145,7 +145,7 @@ export async function calculateStats(req: Request, res: Response){
 
       let shop = await em.findOne(Shop, req.params.id)
       if(shop===null){
-        return res.status(404).json({message: 'An error has ocurred', errorMessage: 'Shop not found'})
+        return res.status(404).json({message: 'Shop not found'})
       }
 
       const filteredOrders = await findByMonthAndShop(shop.id)
@@ -178,7 +178,7 @@ export async function calculateStats(req: Request, res: Response){
       return res.status(200).json({message: 'Shop stats successfully retrieved', body: stats})
       }
     catch(error:any){
-      return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+      return res.status(500).json({message: error.message})
     }
 }
 

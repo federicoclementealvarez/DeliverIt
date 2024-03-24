@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import path from 'path';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import { shopTypeRouter } from './shopType/shopType.routes.js';
@@ -17,12 +16,8 @@ import { productVariationRouter } from './productVariation/productVariation.rout
 import { reviewRouter } from './review/review.routes.js';
 import { RequestContext } from '@mikro-orm/core';
 import { orm } from './shared/orm.js';
-import { fileURLToPath } from 'url';
 
 dotenv.config();
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -31,9 +26,6 @@ app.use(cors());
 app.use(express.json());
 
 app.use(cookieParser());
-
-//middleware that serves the images in the src/shared/assets folder
-app.use('/api/assets', express.static(path.join(__dirname, '../src/shared/assets')))
 
 app.use((req, res, next) => {
     RequestContext.create(orm.em, next)

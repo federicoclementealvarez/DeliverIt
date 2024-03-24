@@ -44,7 +44,7 @@ export async function findOne (req: Request, res:Response)
       
   catch(error:any)
   {
-    return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+    return res.status(500).json({message: error.message})
   }
 }
 
@@ -79,7 +79,7 @@ export async function add(req: Request, res: Response)
   
   catch(error:any)
   {
-    return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+    return res.status(500).json({message: error.message})
   }  
 }
 

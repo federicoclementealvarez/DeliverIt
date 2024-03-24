@@ -46,7 +46,7 @@ export async function findOne (req: Request, res:Response)
     return res.status(200).json({message: 'Order found', body: order})}
       
   catch(error:any){
-  return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})}
+  return res.status(500).json({message: error.message})}
 }
 
 export async function add(req: Request, res: Response)
@@ -237,7 +237,7 @@ export async function remove(req: Request, res: Response)
 
   catch(error:any)
   {
-    return res.status(500).json({message: 'an error has occurred', errorMessage: error.message})
+    return res.status(500).json({message: error.message})
   }
   
 }

@@ -54,7 +54,7 @@ export class ReviewComponent {
       this.reviewForm.patchValue({ comment: this.reviewToUpdate.comment })
     }
 
-    this.shopImageUrl = `${baseUrl}assets/${this.shopToReview.logoPath}`;
+    this.shopImageUrl = `${this.shopToReview.logoPath}`;
   }
 
   toggleStar(number) {

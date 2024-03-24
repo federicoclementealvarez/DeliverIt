@@ -5,7 +5,6 @@ import { Shop } from '../entities/shop.entity';
 import { ProductVariationsService } from '../services/product-variations.service';
 import { ReviewService } from '../services/review.service';
 import { StatsService } from '../services/stats.service';
-import { BaseUrlService } from '../services/base-url.service';
 
 @Component({
   selector: 'app-home-shop',
@@ -15,15 +14,13 @@ import { BaseUrlService } from '../services/base-url.service';
 export class HomeShopComponent {
 
   protected shop: Shop;
-  protected baseUrl: string;
 
   constructor(private router: Router, private shopService: ShopService, private productVariationsService: ProductVariationsService, 
-    private reviewService: ReviewService, private statsService: StatsService, private baseUrlService: BaseUrlService) { }
+    private reviewService: ReviewService, private statsService: StatsService) { }
 
   ngOnInit() {
     //this id is for example purposes only, it will be retrieved from the signup when ready
     this.getShop('654c0a5ada8e9efaeeae025a')
-    this.baseUrl = this.baseUrlService.getBaseUrl()
   }
 
   onAddProducts() {

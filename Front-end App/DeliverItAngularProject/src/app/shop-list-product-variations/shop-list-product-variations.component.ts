@@ -3,7 +3,6 @@ import { OrderService } from '../services/order.service';
 import { Router } from '@angular/router';
 import { Shop } from '../entities/shop.entity';
 import { ProductVariationsService } from '../services/product-variations.service';
-import { BaseUrlService } from '../services/base-url.service';
 
 @Component({
   selector: 'app-shop-list-product-variations',
@@ -14,17 +13,13 @@ export class ShopListProductVariationsComponent {
 
   productVariations: any[]
   shop: Shop
-  protected baseUrl: string
 
   constructor(private orderService: OrderService,
     private productVariationsService: ProductVariationsService,
-    private router: Router,
-    private baseUrlService: BaseUrlService) { }
+    private router: Router) { }
   
   ngOnInit() {
     this.getShop()
-
-    this.baseUrl = this.baseUrlService.getBaseUrl()
 
     this.productVariations = this.productVariationsService.filterProductVariations(this.shop.productVariations)
     

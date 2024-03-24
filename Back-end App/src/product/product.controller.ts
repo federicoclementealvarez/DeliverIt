@@ -44,11 +44,11 @@ export function find(req: Request, res: Response){
       findByShop(req, res)
     }
     else{
-      return res.status(400).json({message: 'An error has ocurred', errorMessage: 'No parameter received in request'})
+      return res.status(400).json({message: 'No parameter received in request'})
     }
   }
   catch(error:any){
-    return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+    return res.status(500).json({message: error.message})
   }
 }
 
@@ -57,7 +57,7 @@ async function findByShop(req: Request, res: Response){
   try{
     const validatorResponse = validator.validateObjectId(req.params.shopId)
     if(!validatorResponse.isValid){
-      return res.status(400).json({message: 'An error has ocurred', errorMessage: validatorResponse.message})
+      return res.status(400).json({message: validatorResponse.message})
     }
 
     const products = await em.find(Product,{},{filters:{'shopId':{shopId:req.params.shopId}}})
@@ -67,7 +67,7 @@ async function findByShop(req: Request, res: Response){
     return res.status(200).json({message: 'Products found', body: productsToSend})
   }
   catch(error:any){
-    return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+    return res.status(500).json({message: error.message})
   }
 }
 
@@ -77,13 +77,13 @@ async function findOneById(req: Request, res: Response)
     try{
         const validatorResponse = validator.validateObjectId(req.params.id)
         if(!validatorResponse.isValid){
-          return res.status(400).json({message: 'An error has ocurred', errorMessage: validatorResponse.message})
+          return res.status(400).json({message: validatorResponse.message})
         }
 
         const product = await em.findOne(Product,req.params.id)
 
         if(product===null){
-          return res.status(404).json({message: 'An error has ocurred', errorMessage: 'Product not found'})
+          return res.status(404).json({message: 'Product not found'})
         }
 
         const pricesUpToDate : Price[] = []
@@ -117,7 +117,7 @@ async function findOneById(req: Request, res: Response)
         return res.status(200).json({message: 'Product found', body: productToSend})
       }
       catch(error:any){
-        return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+        return res.status(500).json({message: error.message})
       }
 }
 
@@ -142,7 +142,7 @@ export async function remove(req: Request, res: Response)
       const product = await em.findOne(Product, req.params.id) as Product
 
       if(product===null){
-        return res.status(404).json({message: 'An error has ocurred', errorMessage: 'Product not found'})
+        return res.status(404).json({message: 'Product not found'})
       }
 
       cloudinary.uploader.destroy(product.photoId)
@@ -152,7 +152,7 @@ export async function remove(req: Request, res: Response)
       return res.status(200).json({message: 'Product deleted successfully'});
       }
     catch(error:any){
-        res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+        res.status(500).json({message: error.message})
       }
 }
 
@@ -166,7 +166,7 @@ export async function validateId(req: Request, res: Response, next: NextFunction
       next()
   }
   catch(error:any){
-    return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+    return res.status(500).json({message: error.message})
   }
 }
 
@@ -183,7 +183,7 @@ export async function validateInputStringLength(req: Request, res: Response, nex
       next()
   }
   catch(error:any){
-    return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+    return res.status(500).json({message: error.message})
   }
 }
 
@@ -218,7 +218,7 @@ export async function create(req: Request, res: Response) {
 
     fs.unlink('src/shared/assets/'+`${localPhotoPath}`, (err) => {
       if (err) {
-          return res.status(500).json({message: 'An error has ocurred while deleting the image', errorMessage: err});
+          return res.status(500).json({message: 'An error has ocurred while deleting the image: '+err});
       }
       else{
           return res.status(201).json({ message: 'Product created successfully', body: {product}})
@@ -227,7 +227,7 @@ export async function create(req: Request, res: Response) {
   }
   catch(error:any){
     console.log(error)
-    return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+    return res.status(500).json({message: error.message})
   }
 }
 
@@ -236,7 +236,7 @@ export async function update(req: Request, res:Response, next: NextFunction) {
     const product = await em.findOne(Product, req.body.sanitizedInput.id)
 
     if(product===null){
-      return res.status(404).json({message: 'An error has ocurred', errorMessage: 'Product not found'})
+      return res.status(404).json({message: 'Product not found'})
     }
 
     const cloudinaryResult = await cloudinary.uploader.upload('src/shared/assets/'+`${req.body.sanitizedInput.photoPath}`,
@@ -265,7 +265,7 @@ export async function update(req: Request, res:Response, next: NextFunction) {
 
     fs.unlink('src/shared/assets/'+`${localPhotoPath}`, (err) => {
       if (err) {
-          return res.status(500).json({message: 'An error has ocurred while deleting the image', errorMessage: err});
+          return res.status(500).json({message: 'An error has ocurred while deleting the image: '+err});
       }
       else{
           return res.status(200).json({ message: 'Product updated successfully'})
@@ -273,7 +273,7 @@ export async function update(req: Request, res:Response, next: NextFunction) {
     })
   }
   catch(error:any){
-    return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
+    return res.status(500).json({message: error.message})
   }
 }
 
