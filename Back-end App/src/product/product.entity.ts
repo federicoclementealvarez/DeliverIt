@@ -19,6 +19,9 @@ export class Product extends BaseEntity
     @Property({ nullable: true })
     photoPath!: string
 
+    @Property({ nullable: true })
+    photoId!: string
+
     @Property({ nullable: false })
     allowsVariations!: boolean
 

@@ -1,7 +1,7 @@
 import { Router} from 'express';
 import {find, remove, update, validateId, sanitizedInput, create, validateInputStringLength} from './product.controller.js';
-import { multerUpload } from '../shared/imageHandler.js';
 import multer from 'multer';
+import { multerUpload } from '../shared/imageHandler.js';
 
 export const productRouter = Router();
 
