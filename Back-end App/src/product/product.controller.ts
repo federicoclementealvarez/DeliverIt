@@ -5,6 +5,7 @@ import { validator } from '../shared/validator.js';
 import { findByName } from '../productCategory/productCategory.controller.js';
 import * as fs from 'fs';
 import { Loaded } from '@mikro-orm/core';
+import {v2 as cloudinary} from 'cloudinary';
 
 const em = orm.em.fork();
 
@@ -144,17 +145,11 @@ export async function remove(req: Request, res: Response)
         return res.status(404).json({message: 'An error has ocurred', errorMessage: 'Product not found'})
       }
 
-      //the relative path here is the Back-end App folder
-      fs.unlink('src/shared/assets/'+`${product.photoPath}`, (err) => {
-        if (err) {
-            return res.status(500).json({message: 'An error has ocurred while deleting the image', errorMessage: err});
-        }
-        else{
-            return res.status(200).json({message: 'Product deleted successfully'});
-        }
-      })
+      cloudinary.uploader.destroy(product.photoId)
 
       await em.remove(product).flush()
+
+      return res.status(200).json({message: 'Product deleted successfully'});
       }
     catch(error:any){
         res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
@@ -192,60 +187,72 @@ export async function validateInputStringLength(req: Request, res: Response, nex
   }
 }
 
-export async function create(req: Request, res: Response, next: NextFunction) {
+export async function create(req: Request, res: Response) {
   try{
+    const cloudinaryResult = await cloudinary.uploader.upload('src/shared/assets/'+`${req.body.sanitizedInput.photoPath}`,
+      {folder:'DeliverIt/products/', transformation: [{aspect_ratio: '1:1', crop: 'fill'}]})
+
+    let localPhotoPath = req.body.sanitizedInput.photoPath
+    req.body.sanitizedInput.photoPath = cloudinaryResult.secure_url
+    req.body.sanitizedInput.photoId = cloudinaryResult.public_id
+
     var maxVariations : undefined | number = undefined
 
     if (req.body.sanitizedInput.allowsVariations){
       maxVariations = req.body.sanitizedInput.maxVariations
     }
 
-    const productToCreate = {
-      name:req.body.sanitizedInput.name,
-      description:req.body.description,
-      shop:req.body.sanitizedInput.shop,
-      productCategory:req.body.productCategory,
-      photoPath: req.body.sanitizedInput.photoPath,
-      prices: [
-        {
-          amount: Number.parseFloat(req.body.sanitizedInput.price),
-          validSince: new Date()
+    const product = em.create(Product, Object.assign(
+        req.body.sanitizedInput,
+        {maxVariations: maxVariations,
+          prices: [
+            {
+              amount: Number.parseFloat(req.body.sanitizedInput.price),
+              validSince: new Date()
+            }
+          ]
         }
-      ],
-      allowsVariations: req.body.sanitizedInput.allowsVariations,
-      maxVariations: maxVariations
-    }
-
-    const product = em.create(Product, productToCreate)
+      ))
 
     await em.flush()
 
-    return res.status(201).json({ message: 'Product created successfully', body: {product}})
+    fs.unlink('src/shared/assets/'+`${localPhotoPath}`, (err) => {
+      if (err) {
+          return res.status(500).json({message: 'An error has ocurred while deleting the image', errorMessage: err});
+      }
+      else{
+          return res.status(201).json({ message: 'Product created successfully', body: {product}})
+      }
+    })
   }
   catch(error:any){
+    console.log(error)
     return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})
   }
 }
 
 export async function update(req: Request, res:Response, next: NextFunction) {
   try{
-    
     const product = await em.findOne(Product, req.body.sanitizedInput.id)
 
     if(product===null){
       return res.status(404).json({message: 'An error has ocurred', errorMessage: 'Product not found'})
     }
-    //the relative path here is the Back-end App folder
-    fs.unlink('src/shared/assets/'+`${product.photoPath}`, (err) => {
-      if (err) {
-          return res.status(500).json({message: 'An error has ocurred while deleting the image', errorMessage: err});
-      }
-  })
+
+    const cloudinaryResult = await cloudinary.uploader.upload('src/shared/assets/'+`${req.body.sanitizedInput.photoPath}`,
+      {folder:'DeliverIt/products/', transformation: [{aspect_ratio: '1:1', crop: 'fill'}]})
+
+    await cloudinary.uploader.destroy(product.photoId)
+
+    let localPhotoPath = req.body.sanitizedInput.photoPath
+    req.body.sanitizedInput.photoPath = cloudinaryResult.secure_url
+    req.body.sanitizedInput.photoId = cloudinaryResult.public_id
 
     const productToUpdate = {
       name:req.body.sanitizedInput.name,
       description:req.body.description,
       photoPath: req.body.sanitizedInput.photoPath,
+      photoId: req.body.sanitizedInput.photoId,
       prices:{
         amount: Number.parseFloat(req.body.sanitizedInput.price),
         validSince: new Date(req.body.sanitizedInput.validSince)
@@ -256,7 +263,14 @@ export async function update(req: Request, res:Response, next: NextFunction) {
 
     await em.flush()
 
-    return res.status(200).json({ message: 'Product updated successfully'})
+    fs.unlink('src/shared/assets/'+`${localPhotoPath}`, (err) => {
+      if (err) {
+          return res.status(500).json({message: 'An error has ocurred while deleting the image', errorMessage: err});
+      }
+      else{
+          return res.status(200).json({ message: 'Product updated successfully'})
+      }
+    })
   }
   catch(error:any){
     return res.status(500).json({message: 'An error has ocurred', errorMessage: error.message})

@@ -17,7 +17,7 @@ export const multerUpload = multer({
     storage: multer.diskStorage({
     destination: join(__dirname, '../../src/shared/assets'),
     filename: (req, file, cb) => {
-        const filePath = `${req.body.fileBeginner}-${uuid()}${'.jpeg'}`
+        const filePath = `${uuid()}.jpeg`
         req.body.filePath= filePath
         cb(null, filePath)
     },
