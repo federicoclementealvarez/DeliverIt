@@ -17,24 +17,23 @@
             src="..\assets\buttons_logos\star_rating_icon.png"
           />
           <p class="card-bottomText">({{ this.shopToReview.totalReviews }})</p>
-          <p
-            class="opiniones"
-            [routerLink]="'/reviews/shop'"
-          >
-            Ver opiniones
-          </p>
+          <p class="opiniones" [routerLink]="'/reviews/shop'">Ver opiniones</p>
         </div>
       </div>
     </div>
     <h3>Seleccione cantidad de estrellas</h3>
     <form [formGroup]="reviewForm">
       <div class="stars-container">
-        <div class="star-button" *ngFor="let star of stars">
+        <div
+          class="star-button"
+          [attr.id]="'star-' + star.number"
+          *ngFor="let star of stars"
+          (click)="toggleStar(star.number)"
+        >
           <ion-icon
             *ngIf="star.clicked; else notClicked"
             class="star"
             name="star"
-            (click)="toggleStar(star.number)"
           ></ion-icon>
           <ng-template #notClicked>
             <ion-icon
@@ -75,12 +74,17 @@
       <button
         *ngIf="!reviewToUpdate; else updateButton"
         (click)="submitReview()"
+        id="enviar"
       >
         ENVIAR
       </button>
       <ng-template #updateButton
-        ><button (click)="submitReview()">ACTUALIZAR</button
-        ><button (click)="deleteReview()" class="secondary-button">
+        ><button (click)="submitReview()" id="actualizar">ACTUALIZAR</button
+        ><button
+          (click)="deleteReview()"
+          id="eliminar"
+          class="secondary-button"
+        >
           ELIMINAR
         </button></ng-template
       >
