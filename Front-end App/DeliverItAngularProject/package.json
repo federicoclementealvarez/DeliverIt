@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "jest",
+    "test": "jest -- review.component.spec.ts",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
@@ -49,11 +49,14 @@
       "<rootDir>/dist/"
     ],
     "globals": {
-      "ts-jest": {
-        "tsConfig": "<rootDir>/tsconfig.spec.json",
-        "stringifyContentPathRegex": "\\.html$"
+      "transform": {
+        "<transform_regex>": [
+          "ts-jest",
+          {
+            "tsConfig": "<rootDir>/tsconfig.spec.json"
+          }
+        ]
       }
     }
   }
-
 }

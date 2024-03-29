@@ -2,11 +2,9 @@ import { Component } from '@angular/core';
 import { ReviewService } from '../services/review.service';
 import { Shop } from '../entities/shop.entity';
 import { Review, ReviewRequest } from '../entities/review.entity';
-import { BaseUrlService } from '../services/base-url.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsService } from '../services/validators.service';
 import { Location } from '@angular/common';
-
 
 @Component({
   selector: 'app-review',
@@ -15,8 +13,7 @@ import { Location } from '@angular/common';
 })
 export class ReviewComponent {
   constructor(
-    private reviewService: ReviewService,
-    private baseUrlService: BaseUrlService,
+    public reviewService: ReviewService,
     private validatorsService: ValidatorsService,
     private location: Location
   ) { }
@@ -45,8 +42,6 @@ export class ReviewComponent {
     this.shopToReview = this.reviewService.shopToReview;
     this.reviewToUpdate = this.reviewService.reviewToUpdate;
 
-    const baseUrl = this.baseUrlService.getBaseUrl().replace("api/", "");
-
     if (this.reviewToUpdate) {
       this.shopToReview = this.reviewToUpdate.shop
       this.reviewService.shopToReview = this.shopToReview
@@ -57,7 +52,7 @@ export class ReviewComponent {
     this.shopImageUrl = `${this.shopToReview.logoPath}`;
   }
 
-  toggleStar(number) {
+  toggleStar(number: number) {
     this.reviewForm.patchValue({ stars: number })
 
     this.stars = this.stars.map((s) => {
