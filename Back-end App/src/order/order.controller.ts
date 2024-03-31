@@ -3,9 +3,6 @@ import { Order } from "./order.entity.js";
 import { Request, Response, NextFunction } from "express";
 import { validator } from "../shared/validator.js";
 import { Product } from "../product/product.entity.js";
-import { Shop } from "../shop/shop.entity.js";
-import { getTodayDate } from "../product/product.controller.js";
-// import { addByOrderId } from "../lineItem/lineItem.controller.js"; TO BE ANALYZED
 import { findCurrentCommission } from "../commission/commission.controller.js";
 
 const em = orm.em
@@ -37,7 +34,7 @@ export async function findOne (req: Request, res:Response)
 {
  try{
     const validatorResponse = validator.validateObjectId(req.params.id)
-    if(!validatorResponse.isValid){return res.status(500).json({message: validatorResponse.message})}
+    if(!validatorResponse.isValid){return res.status(400).json({message: validatorResponse.message})}
     
     const order = await em.findOne(Order,req.params.id,{populate:['client','paymentType','lineItems.productVariationArrays.productVariations','delivery']})
     
@@ -70,7 +67,7 @@ export async function add(req: Request, res: Response)
     const validatorResponse = validator.validateOrder(req.body.sanitizedInput as Order)
     if(!validatorResponse.isValid)
     {
-      return res.status(500).json({message: validatorResponse.message})
+      return res.status(400).json({message: validatorResponse.message})
     }
 
     const currentCommission = await findCurrentCommission()
@@ -94,7 +91,7 @@ export async function findCurrentCustomerOrders(req: Request, res: Response)
   try { 
     const validatorResponse = validator.validateObjectId(req.params.idCustomer)
     if(!validatorResponse.isValid)
-      {return res.status(500).json({message: validatorResponse.message})}
+      {return res.status(400).json({message: validatorResponse.message})}
     const currentCustomerOrders = await em.find(Order,{},{filters:{dateTimeArrival: true,client:{par: req.params.idCustomer}},populate:['client','paymentType','lineItems.product.prices', 'lineItems.product.shop']})
     return res.status(200).json({message:'found all current customer orders',data: currentCustomerOrders})
   }
@@ -155,7 +152,7 @@ export async function findAllByDelivery(req: Request,res: Response) //this metho
 export async function validateUpdate(req: Request, res: Response, next: NextFunction)
 {
   const validatorResponse = validator.validateObjectId(req.params.id)
-  if(!validatorResponse.isValid){return res.status(500).json({message: validatorResponse.message})}
+  if(!validatorResponse.isValid){return res.status(400).json({message: validatorResponse.message})}
 
   if (req.body.delivery!==undefined && req.body.dateTimeArrival===undefined)  
   {
@@ -223,7 +220,7 @@ export async function remove(req: Request, res: Response)
     const validatorResponse = validator.validateObjectId(req.params.id)
     if(!validatorResponse.isValid)
     {
-    return res.status(500).json({message: validatorResponse.message})
+    return res.status(400).json({message: validatorResponse.message})
     }
 
     const order = await em.findOne(Order, req.params.id)

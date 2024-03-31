@@ -174,13 +174,16 @@ export async function validateInputStringLength(req: Request, res: Response, nex
   try{
     const validatorResponseName = validator.validateMaxCharLength(req.body.sanitizedInput.name, 30)
     const validatorResponseDescription = validator.validateMaxCharLength(req.body.sanitizedInput.description, 75)
-    
+
     if((!validatorResponseName.isValid) || (!validatorResponseDescription.isValid)){
       const message = (validatorResponseName.message=='')?validatorResponseDescription.message:validatorResponseName.message
+
+      fs.unlink('src/shared/assets/'+`${req.body.sanitizedInput.photoPath}`, () => {}) //callback not used because exception is already handled
+
       return res.status(400).json({message: message})
     }
 
-      next()
+    next()
   }
   catch(error:any){
     return res.status(500).json({message: error.message})
@@ -221,12 +224,12 @@ export async function create(req: Request, res: Response) {
           return res.status(500).json({message: 'An error has ocurred while deleting the image: '+err});
       }
       else{
-          return res.status(201).json({ message: 'Product created successfully', body: {product}})
+          return res.status(201).json({ message: 'Product created successfully', data: product})
       }
     })
   }
   catch(error:any){
-    console.log(error)
+    //console.log(error)
     return res.status(500).json({message: error.message})
   }
 }

@@ -1,4 +1,9 @@
+import { LineItem } from "../lineItem/lineItem.entity"
 import { Order } from "../order/order.entity"
+import { PaymentType } from "../paymentType/paymentType.entity"
+import { Product } from "../product/product.entity"
+import { ProductVariation } from "../productVariation/productVariation.entity"
+import { User } from "../user/user.entity"
 
 class validatorResponse {
     constructor(v: boolean, m: string){
@@ -8,6 +13,23 @@ class validatorResponse {
 
     isValid: boolean
     message: string
+}
+
+type partialOrder = {
+    dateTimeOrder: Date,
+    totalAmount: number,
+    client: User | string,
+    paymentType: PaymentType | string,
+    lineItems: LineItem[] | {
+        quantity: number,
+        product: Product|{
+            allowsVariations: boolean,
+            maxVariations?: number
+        },
+        productVariationArrays: {
+            productVariations:ProductVariation[]|string[]
+        }[]
+    }[]
 }
 
 function validatePriceAmount(amount: string){
@@ -29,7 +51,7 @@ function validateObjectId(id:string){
     return new validatorResponse(true, '')
 }
 
-function validateOrder(order:Order){
+function validateOrder(order: Order | partialOrder){
     const validatorVariationsSize = validateVariationsSize(order)
     if (!validatorVariationsSize.isValid){
         return validatorVariationsSize
@@ -48,7 +70,7 @@ function validateOrder(order:Order){
     return new validatorResponse(true, '')
 }
 
-function validateVariationsSize(order:Order){
+function validateVariationsSize(order: Order|partialOrder){
     for (const lineItem of order.lineItems){
         if (lineItem.productVariationArrays!==undefined && lineItem.productVariationArrays.length>0 && lineItem.product.allowsVariations===false){
             return new validatorResponse(false, 'A product does not accept variations but at least one was provided')
@@ -57,7 +79,7 @@ function validateVariationsSize(order:Order){
     return new validatorResponse(true, '')
 }
 
-function validateVariationsAndQuantities(order:Order){
+function validateVariationsAndQuantities(order:Order|partialOrder){
     for (const lineItem of order.lineItems){
         if (lineItem.productVariationArrays!==undefined && lineItem.productVariationArrays.length>0 && lineItem.product.allowsVariations===true){
             if(lineItem.quantity != lineItem.productVariationArrays.length)
@@ -67,7 +89,7 @@ function validateVariationsAndQuantities(order:Order){
     return new validatorResponse(true, '')
 }
 
-function validateMaxVariations(order:Order){
+function validateMaxVariations(order:Order|partialOrder){
     let validatorMaxVariations = new validatorResponse(true, '') 
     for (const lineItem of order.lineItems){
         if(lineItem.productVariationArrays!==undefined && lineItem.product.allowsVariations===true){
@@ -97,6 +119,9 @@ export const validator = {
     validateObjectId,
     validatePriceAmount,
     validateOrder,
-    validateMaxCharLength
+    validateMaxCharLength,
+    validateVariationsSize,
+    validateVariationsAndQuantities,
+    validateMaxVariations
 }
 
