@@ -1,0 +1,5 @@
+{
+    "forceExit":true,
+    "testMatch":["**/**/*.test.js"],
+    "setupFiles": ["<rootDir>/dist/__tests__/setupTests.js"]
+}

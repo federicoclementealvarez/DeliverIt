@@ -42,7 +42,6 @@ export class ProductService {
     formData.append("price", String(prod.price));
     formData.append("shop", prod.shop);
     formData.append("productCategory", prod.productCategory);
-    formData.append("fileBeginner", 'prd');
     formData.append("photo", prod.photo);
     formData.append("allowsVariations", prod.allowsVariations);
 
@@ -59,7 +58,6 @@ export class ProductService {
     formData.append("description", prod.description);
     formData.append("price", String(prod.price));
     formData.append("validSince", prod.validSince.toString());
-    formData.append("fileBeginner", 'prd');
     formData.append("photo", prod.photo);
 
     const url = this.baseUrlService.getBaseUrl() + 'products/' + prod.id

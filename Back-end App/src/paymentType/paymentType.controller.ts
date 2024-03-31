@@ -37,7 +37,7 @@ export async function findOne(req: Request, res: Response)
   try
   {
     const validatorResponse = validator.validateObjectId(req.params.id)
-    if(!validatorResponse.isValid){return res.status(500).json({message: validatorResponse.message})}
+    if(!validatorResponse.isValid){return res.status(400).json({message: validatorResponse.message})}
     const paymentType = await em.findOne(PaymentType,req.params.id)
     if(paymentType===null){return res.status(404).json({message: 'Payment type not found'})}
     return res.status(200).json({message: 'Payment type found', data: paymentType})
@@ -53,7 +53,7 @@ export async function remove(req: Request, res: Response)
   try
   {
     const validatorResponse = validator.validateObjectId(req.params.id)
-    if(!validatorResponse.isValid){return res.status(500).json({message: validatorResponse.message})}
+    if(!validatorResponse.isValid){return res.status(400).json({message: validatorResponse.message})}
     const paymentType = await em.findOne(PaymentType, req.params.id)
     if (paymentType===null){return res.status(404).json({message:'Payment type not found'})}
     await em.removeAndFlush(paymentType)
@@ -84,7 +84,7 @@ export async function update(req: Request, res: Response)
   {
     const validatorResponse = validator.validateObjectId(req.params.id)
     if(!validatorResponse.isValid){
-    return res.status(500).json({message: validatorResponse.message})}
+    return res.status(400).json({message: validatorResponse.message})}
     const paymentType = await em.findOne(PaymentType, req.params.id)
     if (paymentType===null){return res.status(404).json({message:'Payment type not found'})}
     em.assign(paymentType, req.body.sanitizedInput)
