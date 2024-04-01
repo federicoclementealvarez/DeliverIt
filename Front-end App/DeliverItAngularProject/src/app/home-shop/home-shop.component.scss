@@ -36,7 +36,7 @@
 }
 
 .image-container {
-  width: 25%;
+  aspect-ratio: 1;
 }
 
 .info-container {
@@ -65,7 +65,7 @@
 }
 
 .options {
-  margin-bottom: 20%;
+  margin-bottom: 10%;
   border-color: #d1d1d1;
   border-radius: 20px;
   border-style: solid;
@@ -83,10 +83,14 @@
 }
 
 .options-container {
-  margin-top: 20%;
-  margin-left: 18%;
-  margin-right: 18%;
+  margin-top: 10%;
+  margin-left: 10%;
+  margin-right: 10%;
   margin-bottom: 18%;
+}
+
+.extra-shop-info-container {
+  margin-left: 10%;
 }
 
 .buttons_logos {

@@ -1,18 +1,10 @@
 <div class="banner-container">
-  <img
-    class="banner-image"
-    [src]="this.shop.bannerPath"
-    alt="banner"
-  />
+  <img class="banner-image" [src]="this.shop.bannerPath" alt="banner" />
 </div>
 <div class="shop-card-container">
   <div class="shop-data">
     <div class="image-container">
-      <img
-        class="shop-icon"
-        [src]="this.shop.logoPath"
-        alt="icono del local"
-      />
+      <img class="shop-icon" [src]="this.shop.logoPath" alt="icono del local" />
     </div>
     <div class="info-container">
       <p class="card-title">{{ this.shop.name }}</p>
@@ -29,6 +21,14 @@
         <p class="opiniones" (click)="navigateToReviews()">Ver opiniones</p>
       </div>
     </div>
+  </div>
+  <div class="extra-shop-info-container">
+    <p class="card-bottomText">
+      Horarios: de {{ this.shop.openingTime }} a {{ this.shop.closingTime }}
+    </p>
+    <p class="card-bottomText">
+      Precio del envío: ${{ this.shop.shippingPrice }}
+    </p>
   </div>
 </div>
 <div class="options-container">

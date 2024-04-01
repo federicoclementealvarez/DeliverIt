@@ -1,13 +1,21 @@
 <div class="container">
   <div class="subcontainer">
-    <h1>Agregar una Dirección</h1>
-    <h4>Esta es la dirección donde enviaremos tus pedidos. Luego puedes modificarla o añadir otras.</h4>
+    <h1 *ngIf="this.userToUpdate; else elseBlock">Cambiar Dirección</h1>
+    <ng-template #elseBlock><h1>Agregar una Dirección</h1></ng-template>
+    <h4>
+      Esta es la dirección donde enviaremos tus pedidos. Luego puedes
+      modificarla o añadir otras.
+    </h4>
     <form [formGroup]="direccionForm" class="input-group">
       <div class="input-subgroup">
         <h6>Calle</h6>
-        <input formControlName="street" type="text">
-        <div [ngClass]="{'error-message-show': getStreet().invalid && submitted === true}"
-        class="error-message">
+        <input formControlName="street" type="text" />
+        <div
+          [ngClass]="{
+            'error-message-show': getStreet().invalid && submitted === true
+          }"
+          class="error-message"
+        >
           <span class="error-icon-red">&#9888;</span>
           Campo obligatorio
         </div>
@@ -15,20 +23,33 @@
       <div class="input-subgroup-altura">
         <div class="subgroup-altura">
           <h6>Altura</h6>
-          <input formControlName="number" type="text">
-          <div [ngClass]="{'error-message-show': getNumber().invalid && submitted === true}" class="error-message">
+          <input formControlName="streetNumber" type="text" />
+          <div
+            [ngClass]="{
+              'error-message-show': getNumber().invalid && submitted === true
+            }"
+            class="error-message"
+          >
             <span class="error-icon-red">&#9888;</span>
             Campo obligatorio
           </div>
         </div>
         <div class="subgroup-piso">
           <h6>Piso o Departamento</h6>
-          <input formControlName="appartment" type="text" placeholder="(opcional)">
+          <input
+            formControlName="apartment"
+            type="text"
+            placeholder="(opcional)"
+          />
         </div>
       </div>
       <div class="input-subgroup">
         <h6>Información adicional que nos resulte útiil para el envio</h6>
-        <input formControlName="additionalInfo" type="text" placeholder="(opcional)">
+        <input
+          formControlName="additionalInfo"
+          type="text"
+          placeholder="(opcional)"
+        />
       </div>
       <div class="margin-button">
         <button (click)="submitForm()">CONFIRMAR</button>

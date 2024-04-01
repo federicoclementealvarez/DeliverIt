@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { User } from '../entities/user.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,8 @@ export class DireccionService {
 
   constructor() { }
 
-  sendForm(direccionForm: FormGroup) {
-    console.log(direccionForm.value)
+  userToUpdate: User = null;
+
+  create(direccionForm: FormGroup) {
   }
 }
