@@ -1,4 +1,4 @@
-@import '../../styles.scss';
+@import "../../styles.scss";
 
 .navbar {
   margin-top: 10px;
@@ -13,7 +13,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
   }
 
   &-menu {
@@ -32,7 +31,6 @@
   font-size: 38px;
 }
 
-
 #welcome-sign {
   margin-top: 25px;
   font-size: 16px;
@@ -43,7 +41,6 @@
   display: flex;
   justify-content: space-between;
   height: auto;
-  display: flex;
   flex-direction: column;
 }
 
@@ -59,7 +56,6 @@ h6 {
   height: auto;
   display: flex;
   flex-direction: column;
-
 }
 
 .active-orders {
@@ -67,25 +63,24 @@ h6 {
   height: auto;
   display: flex;
   flex-direction: column;
-  width: 85%;
+  width: 90%;
   align-self: center;
-  justify-content: space-evenly
+  justify-content: space-evenly;
 }
 
 h2 {
   text-align: left;
-  margin-left: 10%;
+  margin-top: 50px;
+  margin-left: 5%;
   font-family: Poppins;
 }
 
 .img-no-orders {
-
   width: 203px;
   height: 205px;
   flex-shrink: 0;
   align-self: center;
 }
-
 
 h3 {
   text-align: left;

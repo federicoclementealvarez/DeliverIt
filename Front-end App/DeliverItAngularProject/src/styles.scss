@@ -223,3 +223,14 @@ they are in the global scss because it's used in different components */
 }
 // html, body { height: 100%; }
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.extra-shop-info-container {
+  width: 100%;
+  margin-left: 5%;
+  margin-top: 10px;
+  align-self: flex-start;
+}
+
+.extra-shop-info-container > p {
+  margin-top: 5px;
+}

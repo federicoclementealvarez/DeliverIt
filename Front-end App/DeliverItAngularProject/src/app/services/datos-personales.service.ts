@@ -13,10 +13,8 @@ export class DatosPersonalesService {
   }
 
   sendSignUpForm(signUpForm: FormGroup) {
-    console.log(signUpForm.value)
   }
 
   sendUserDataForm(userDataForm: FormGroup) {
-    console.log(userDataForm.value)
   }
 }

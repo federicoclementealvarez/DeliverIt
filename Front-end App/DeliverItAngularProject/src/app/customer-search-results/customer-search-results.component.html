@@ -1,9 +1,20 @@
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+/>
+
 <div class="container">
   <div class="content">
     <div class="searchbar-container">
-      <button routerLink="/home-customer">
-        <ion-icon name="arrow-back-outline" class="arrow-icon"></ion-icon>
-      </button>
+      <div class="back-button-container">
+        <span class="material-symbols-rounded arrow" routerLink="/home-customer"
+          >navigate_before</span
+        >
+      </div>
       <app-customer-searchbar></app-customer-searchbar>
     </div>
     <h3 *ngIf="shopTypeId; else elseBlock">{{ shopTypeDescription }}</h3>
@@ -14,7 +25,11 @@
       <ng-template #elseBlock>
         <h3>No se encontraron resultados para "{{ this.searchInput }}"</h3>
         <div class="container">
-          <img class="img" src="../../assets/casual-life-3d-cardboard-boxes.png" alt="no se encontraron resultados">
+          <img
+            class="img"
+            src="../../assets/casual-life-3d-cardboard-boxes.png"
+            alt="no se encontraron resultados"
+          />
         </div>
       </ng-template>
     </ng-template>
