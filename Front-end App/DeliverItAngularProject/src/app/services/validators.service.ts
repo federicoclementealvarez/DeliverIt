@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -71,4 +71,18 @@ export class ValidatorsService {
     return dt
   }
 
+
+  public checkPasswords: ValidatorFn = (
+    control: AbstractControl
+  ): ValidationErrors | null => {
+    const password = control.get("password");
+    const confirmPassword = control.get("confirmPassword");
+    
+    //Comprobamos unicamente
+    return password &&
+      confirmPassword &&
+      password.value !== confirmPassword.value
+      ? { passwordNotMatch: true }
+      : null;
+  };
 }

@@ -20,6 +20,11 @@
         <span *ngIf="!passwordVisible" class="material-symbols-outlined" (click)="changeVisibilityPass(true)">visibility_off</span>
         <span *ngIf="passwordVisible" class="material-symbols-outlined" (click)="changeVisibilityPass(false)">visibility</span>
       </div>
+      <div [ngClass]="{'error-message-show': getPassword().errors?.['minlength'] || getPassword().errors?.['required'] && (submitted || getPassword().touched)}" class="error-message"
+        style="align-self: flex-start;">
+        <span class="error-icon-red">&#9888;</span>
+        La contraseña debe contener al menos 8 caracteres
+      </div>
     </div>
     <div class="input-group">
       <h6>Confirmar Contraseña</h6>
@@ -27,6 +32,12 @@
         <input formControlName="confirmPassword" type="{{ confirmPasswordVisible ? 'text' : 'password' }}">
         <span *ngIf="!confirmPasswordVisible" class="material-symbols-outlined" (click)="changeVisibilityConfirmPass(true)">visibility_off</span>
         <span *ngIf="confirmPasswordVisible" class="material-symbols-outlined" (click)="changeVisibilityConfirmPass(false)">visibility</span>
+      </div>
+      <div
+        [ngClass]="{'error-message-show': signupForm.errors?.['passwordNotMatch']}"
+        class="error-message" style="align-self: flex-start;">
+        <span class="error-icon-red">&#9888;</span>
+        Las contraseñas deben coincidir
       </div>
     </div>
     <app-primary-button
