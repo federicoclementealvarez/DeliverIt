@@ -117,3 +117,42 @@ describe('unit test of validateVariationsSize()', ()=>{
     })
 })
 
+describe('unit test of validatePriceAmount() test', () => {
+    test('should return false because the string passed is not a number', () =>
+    {
+        const validatorResponse = validator.validatePriceAmount('test value') 
+        expect(validatorResponse.isValid).toEqual(false)
+    })
+    test('should return false because the string passed is a negative number', () => 
+    {
+        const validatorResponse = validator.validatePriceAmount('-24') 
+        expect(validatorResponse.isValid).toEqual(false)
+    })
+    test('should return true because the string passed is a number higher than 0', () =>
+    {
+        const validatorResponse = validator.validatePriceAmount('24') 
+        expect(validatorResponse.isValid).toEqual(true)
+    })
+})
+
+describe('unit test of validateMaxCharLength', () => {
+    test('should return false because the string length is higher than the maxLength provided', () => 
+    {
+        const validatorResponse = validator.validateMaxCharLength('undefinedislife',9)
+        expect(validatorResponse.isValid).toEqual(false)
+    })
+    test('should return true because the string length is equal to the maxLength provided', () => 
+    {
+        const validatorResponse = validator.validateMaxCharLength('undefined',9)
+        expect(validatorResponse.isValid).toEqual(true)
+    })
+    test('should return true because the string length is lower than the maxLength provided', () => 
+    {
+        const validatorResponse = validator.validateMaxCharLength('undefined',10)
+        expect(validatorResponse.isValid).toEqual(true)
+    })
+})
+
+
+
+
