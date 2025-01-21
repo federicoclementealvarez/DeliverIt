@@ -1,12 +1,11 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -67,6 +66,8 @@ import { ReviewComponent } from './review/review.component';
 import { ShopReviewsComponent } from './shop-reviews/shop-reviews.component';
 import { AllDeliveryWithdrawalsComponent } from './all-delivery-withdrawals/all-delivery-withdrawals.component';
 import { ShopStatsComponent } from './shop-stats/shop-stats.component';
+import { ErrorInterceptor } from './services/interceptors/error.service';
+import { LoginService } from './services/login.service';
 
 @NgModule({
   declarations: [
@@ -138,12 +139,12 @@ import { ShopStatsComponent } from './shop-stats/shop-stats.component';
     MatDividerModule,
     MatIconModule,
     MatSidenavModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule { }
+export class AppModule {}

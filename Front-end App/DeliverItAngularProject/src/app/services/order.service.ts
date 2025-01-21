@@ -5,20 +5,27 @@ import { Product } from '../entities/product.entity';
 import { HttpClient } from '@angular/common/http';
 import { BaseUrlService } from './base-url.service';
 import { ValidatorsService } from './validators.service';
-import { CustomerSelectedFlavour, ProductVariation } from '../entities/productVariation.entity';
-
+import {
+  CustomerSelectedFlavour,
+  ProductVariation,
+} from '../entities/productVariation.entity';
+import { LoginService } from './login.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class OrderService {
-  order: Order
-  readonly url = `${this.baseUrl.getBaseUrl()}order`
+  order: Order;
+  readonly url = `${this.baseUrl.getBaseUrl()}order`;
 
-  constructor(private http: HttpClient, private baseUrl: BaseUrlService, private validatorsService: ValidatorsService) {
-    this.order = new Order()
-    this.order.lineItems = []
+  constructor(
+    private http: HttpClient,
+    private baseUrl: BaseUrlService,
+    private validatorsService: ValidatorsService,
+    private loginService: LoginService
+  ) {
+    this.order = new Order();
+    this.order.lineItems = [];
   }
 
   // This variables send the total quantity of items when it changes
@@ -28,147 +35,182 @@ export class OrderService {
   private sendLastTotalQty = new BehaviorSubject<any[]>([]);
   lastTotalQty = this.sendLastTotalQty.asObservable();
 
-  private editClicked = new BehaviorSubject<{ id: string, clicked: boolean }>({ id: '', clicked: false });
+  private editClicked = new BehaviorSubject<{ id: string; clicked: boolean }>({
+    id: '',
+    clicked: false,
+  });
   editHasBeenClicked = this.editClicked.asObservable();
 
+  loggedUser = this.loginService.getLoggedUser();
+
   addProduct(product: Product, variations?: ProductVariation[]) {
-    let productInList = this.order.lineItems.find((p) => p.product.id === product.id)
+    let productInList = this.order.lineItems.find(
+      (p) => p.product.id === product.id
+    );
 
     if (!productInList) {
-      this.order.lineItems.push({ product: product, quantity: 1, productVariationArrays: [variations] })
-      let currentValue = this.totalQuantity.value
-      let newValue = currentValue + 1
-      this.totalQuantity.next(newValue)
-    }
-    else {
-      let index: number = this.order.lineItems.findIndex((p) =>
-        p.product.id === productInList.product.id)
+      this.order.lineItems.push({
+        product: product,
+        quantity: 1,
+        productVariationArrays: [variations],
+      });
+      let currentValue = this.totalQuantity.value;
+      let newValue = currentValue + 1;
+      this.totalQuantity.next(newValue);
+    } else {
+      let index: number = this.order.lineItems.findIndex(
+        (p) => p.product.id === productInList.product.id
+      );
 
       this.order.lineItems[index].quantity++;
-      this.order.lineItems[index].productVariationArrays.push(variations)
+      this.order.lineItems[index].productVariationArrays.push(variations);
 
-      let currentValue = this.totalQuantity.value
-      let newValue = currentValue + 1
-      this.totalQuantity.next(newValue)
+      let currentValue = this.totalQuantity.value;
+      let newValue = currentValue + 1;
+      this.totalQuantity.next(newValue);
     }
   }
 
   getQuantity(id: string): number {
-    const li = this.order.lineItems.find(li => li.product.id === id)
+    const li = this.order.lineItems.find((li) => li.product.id === id);
 
-    return li ? li.quantity : 0
+    return li ? li.quantity : 0;
   }
 
   removeProduct(product: Product) {
-    const index = this.order.lineItems.findIndex((item) => item.product.id == product.id)
+    const index = this.order.lineItems.findIndex(
+      (item) => item.product.id == product.id
+    );
 
     if (index !== -1) {
       this.order.lineItems[index].quantity--;
-      this.order.lineItems[index].productVariationArrays.pop()
+      this.order.lineItems[index].productVariationArrays.pop();
 
-      let currentValue = this.totalQuantity.value
-      let newValue = currentValue - 1
-      this.totalQuantity.next(newValue)
+      let currentValue = this.totalQuantity.value;
+      let newValue = currentValue - 1;
+      this.totalQuantity.next(newValue);
 
       if (this.order.lineItems[index].quantity === 0) {
-        this.order.lineItems.splice(index, 1)
+        this.order.lineItems.splice(index, 1);
       }
     }
   }
 
   create(paymentTypeId: string, totalAmount: number): Observable<Order> {
-    const lineItems = this.order.lineItems.map(({ product, quantity, productVariationArrays }) => {
-      const lineItem: any = {}
-      lineItem.product = product.id
-      lineItem.quantity = quantity
+    const lineItems = this.order.lineItems.map(
+      ({ product, quantity, productVariationArrays }) => {
+        const lineItem: any = {};
+        lineItem.product = product.id;
+        lineItem.quantity = quantity;
 
-      if (productVariationArrays[0] !== undefined) {
-        lineItem.productVariationArrays = productVariationArrays.map((pva) => {
-          return { productVariations: pva.map(pv => pv.id) }
-        })
-      } else {
-        lineItem.productVariationArrays = []
+        if (productVariationArrays[0] !== undefined) {
+          lineItem.productVariationArrays = productVariationArrays.map(
+            (pva) => {
+              return { productVariations: pva.map((pv) => pv.id) };
+            }
+          );
+        } else {
+          lineItem.productVariationArrays = [];
+        }
+
+        return lineItem;
       }
-      
-      return lineItem
-    })
-    
-    const dateTime = this.validatorsService.getCurrentDateTime()
-    const body = {
-      "dateTimeOrder": dateTime,
-      "paymentType": paymentTypeId,
-      "lineItems": lineItems,
-      "client": '654c059cda8e9efaeeae024d',
-      "totalAmount": totalAmount
-    }
+    );
 
-    return this.http.post<Order>(this.url, body)
-      .pipe(
-        map((response: any) => response.body)
-      );
+    const dateTime = this.validatorsService.getCurrentDateTime();
+    const body = {
+      dateTimeOrder: dateTime,
+      paymentType: paymentTypeId,
+      lineItems: lineItems,
+      client: this.loginService.getLoggedUser(),
+      totalAmount: totalAmount,
+    };
+
+    return this.http
+      .post<Order>(this.url, body)
+      .pipe(map((response: any) => response.body));
   }
 
-
   resetProducts() {
-    this.order = new Order()
-    this.order.lineItems = []
-    this.totalQuantity.next(0)
+    this.order = new Order();
+    this.order.lineItems = [];
+    this.totalQuantity.next(0);
   }
 
   getOrder() {
-    return this.order
+    return this.order;
   }
 
   getSubTotal(par?: Order) {
-    let sum: number = 0
+    let sum: number = 0;
     if (par) {
-      par.lineItems.forEach((lineItem) => sum += Number(lineItem.product.prices[0].amount) * lineItem.quantity)
+      par.lineItems.forEach(
+        (lineItem) =>
+          (sum += Number(lineItem.product.prices[0].amount) * lineItem.quantity)
+      );
     } else {
-      this.order.lineItems.forEach((item) => sum += Number(item.product.prices[0].amount) * item.quantity)
+      this.order.lineItems.forEach(
+        (item) => (sum += Number(item.product.prices[0].amount) * item.quantity)
+      );
     }
-    return sum
+    return sum;
   }
 
   clickOnEdit(productId: string) {
     this.editClicked.next({ id: productId, clicked: true });
   }
 
-
   findOrdersWithoutDelivery(): Observable<Order[]> {
-    return this.http.get<Order[]>(`${this.url}/orders-without-delivery/~`).pipe(map((response: any) => response.data))
+    return this.http
+      .get<Order[]>(`${this.url}/orders-without-delivery/~`)
+      .pipe(map((response: any) => response.data));
   }
 
   findCurrentCustomerOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(`${this.url}/current-orders/654c059cda8e9efaeeae024d`).pipe(map((response: any) => response.data));
+    return this.http
+      .get<Order[]>(`${this.url}/current-orders/${this.loggedUser.id}`)
+      .pipe(map((response: any) => response.data));
   }
 
   findCurrentDeliveryOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(`${this.url}/current-deliveries/65dff25c076e3ac03ba6ed89`).pipe(map((response: any) => response.data));
+    return this.http
+      .get<Order[]>(`${this.url}/current-deliveries/${this.loggedUser.id}`)
+      .pipe(map((response: any) => response.data));
   }
 
   setDelivery(orderId: string) {
-    const body = { "delivery": '65dff25c076e3ac03ba6ed89' }
-    return this.http.put<Order>(`${this.url}/${orderId}`, body).pipe(map((response: any) => response.body));
+    const body = { delivery: this.loggedUser.id };
+    return this.http
+      .put<Order>(`${this.url}/${orderId}`, body)
+      .pipe(map((response: any) => response.body));
   }
 
   setDateTimeArrival(orderId: string) {
-    const dateTime = this.validatorsService.getCurrentDateTime()
-    const body = { "dateTimeArrival": dateTime }
-    return this.http.put<Order>(`${this.url}/${orderId}`, body).pipe(map((response: any) => response.body));
+    const dateTime = this.validatorsService.getCurrentDateTime();
+    const body = { dateTimeArrival: dateTime };
+    return this.http
+      .put<Order>(`${this.url}/${orderId}`, body)
+      .pipe(map((response: any) => response.body));
   }
 
   findAllByDelivery(): Observable<Order[]> {
-    return this.http.get<Order[]>(`${this.url}/all-orders-delivered/65dff25c076e3ac03ba6ed89`).pipe(map((response: any) => response.data));
+    return this.http
+      .get<Order[]>(`${this.url}/all-orders-delivered/${this.loggedUser.id}`)
+      .pipe(map((response: any) => response.data));
   }
 
   getDescription(order: Order) {
-    let description: string = ''
+    let description: string = '';
     {
       order.lineItems.forEach((lineItem, index: number) => {
-        if (index !== order.lineItems.length - 1) { description += lineItem.quantity + ' x ' + lineItem.product.name + ', ' }
-        else { description += lineItem.quantity + ' x ' + lineItem.product.name }
-      })
+        if (index !== order.lineItems.length - 1) {
+          description +=
+            lineItem.quantity + ' x ' + lineItem.product.name + ', ';
+        } else {
+          description += lineItem.quantity + ' x ' + lineItem.product.name;
+        }
+      });
     }
-    return description
+    return description;
   }
 }

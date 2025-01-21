@@ -1,14 +1,20 @@
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+/>
 
 <div class="container">
-  <h1>Crear una Cuenta</h1>
+  <h1 *ngIf="this.userToUpdate; else elseBlock">Actualizar Datos</h1>
+  <ng-template #elseBlock><h1>Crear una Cuenta</h1></ng-template>
   <form [formGroup]="signupForm" class="input-button">
     <div class="input-group">
       <h6>Dirección de correo electrónico</h6>
-      <input formControlName="email" type="email" autofocus>
-      <div [ngClass]="{'error-message-show': (getEmail().errors?.['email'] || getEmail().errors?.['required']) && (submitted || getEmail().touched)}"
-        class="error-message" style="align-self: flex-start;">
+      <input formControlName="email" type="email" autofocus />
+      <div
+        [ngClass]="{'error-message-show': (getEmail().errors?.['email'] || getEmail().errors?.['required']) && (submitted || getEmail().touched)}"
+        class="error-message"
+        style="align-self: flex-start"
+      >
         <span class="error-icon-red">&#9888;</span>
         Ingrese un email válido
       </div>
@@ -16,12 +22,28 @@
     <div class="input-group">
       <h6>Contraseña</h6>
       <div class="input-and-icon">
-        <input formControlName="password" type="{{ passwordVisible ? 'text' : 'password' }}">
-        <span *ngIf="!passwordVisible" class="material-symbols-outlined" (click)="changeVisibilityPass(true)">visibility_off</span>
-        <span *ngIf="passwordVisible" class="material-symbols-outlined" (click)="changeVisibilityPass(false)">visibility</span>
+        <input
+          formControlName="password"
+          type="{{ passwordVisible ? 'text' : 'password' }}"
+        />
+        <span
+          *ngIf="!passwordVisible"
+          class="material-symbols-outlined"
+          (click)="changeVisibilityPass(true)"
+          >visibility_off</span
+        >
+        <span
+          *ngIf="passwordVisible"
+          class="material-symbols-outlined"
+          (click)="changeVisibilityPass(false)"
+          >visibility</span
+        >
       </div>
-      <div [ngClass]="{'error-message-show': getPassword().errors?.['minlength'] || getPassword().errors?.['required'] && (submitted || getPassword().touched)}" class="error-message"
-        style="align-self: flex-start;">
+      <div
+        [ngClass]="{'error-message-show': getPassword().errors?.['minlength'] || getPassword().errors?.['required'] && (submitted || getPassword().touched)}"
+        class="error-message"
+        style="align-self: flex-start"
+      >
         <span class="error-icon-red">&#9888;</span>
         La contraseña debe contener al menos 8 caracteres
       </div>
@@ -29,20 +51,36 @@
     <div class="input-group">
       <h6>Confirmar Contraseña</h6>
       <div class="input-and-icon">
-        <input formControlName="confirmPassword" type="{{ confirmPasswordVisible ? 'text' : 'password' }}">
-        <span *ngIf="!confirmPasswordVisible" class="material-symbols-outlined" (click)="changeVisibilityConfirmPass(true)">visibility_off</span>
-        <span *ngIf="confirmPasswordVisible" class="material-symbols-outlined" (click)="changeVisibilityConfirmPass(false)">visibility</span>
+        <input
+          formControlName="confirmPassword"
+          type="{{ confirmPasswordVisible ? 'text' : 'password' }}"
+        />
+        <span
+          *ngIf="!confirmPasswordVisible"
+          class="material-symbols-outlined"
+          (click)="changeVisibilityConfirmPass(true)"
+          >visibility_off</span
+        >
+        <span
+          *ngIf="confirmPasswordVisible"
+          class="material-symbols-outlined"
+          (click)="changeVisibilityConfirmPass(false)"
+          >visibility</span
+        >
       </div>
       <div
         [ngClass]="{'error-message-show': signupForm.errors?.['passwordNotMatch']}"
-        class="error-message" style="align-self: flex-start;">
+        class="error-message"
+        style="align-self: flex-start"
+      >
         <span class="error-icon-red">&#9888;</span>
         Las contraseñas deben coincidir
       </div>
     </div>
     <app-primary-button
-    (buttonClicked)="submitForm()"
-    class="button-style" 
-    title="SIGUIENTE"></app-primary-button>
+      (buttonClicked)="submitForm()"
+      class="button-style"
+      title="SIGUIENTE"
+    ></app-primary-button>
   </form>
 </div>

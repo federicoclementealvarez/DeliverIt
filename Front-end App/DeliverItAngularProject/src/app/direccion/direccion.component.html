@@ -26,7 +26,8 @@
           <input formControlName="streetNumber" type="text" />
           <div
             [ngClass]="{
-              'error-message-show': getNumber().invalid && submitted === true
+              'error-message-show':
+                getStreetNumber().invalid && submitted === true
             }"
             class="error-message"
           >

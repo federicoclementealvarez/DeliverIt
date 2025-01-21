@@ -9,8 +9,12 @@
       ></ion-icon>
     </div>
     <div class="menu-title-container">
-      <h2 class="margin-0">Hola, Fabrizio!</h2>
-      <h3 class="address margin-0">Avenida Wheelwright 200 Dpto 15 A</h3>
+      <h2 class="margin-0">Hola, {{ loggedUser.name }}!</h2>
+      <h3 class="address margin-0">
+        {{ loggedUser.street }}
+        {{ loggedUser.streetNumber }}
+        {{ loggedUser.apartment }}
+      </h3>
     </div>
     <mat-divider></mat-divider>
     <div class="menu-options-container">
@@ -30,7 +34,7 @@
         <ion-icon name="lock-closed-outline"></ion-icon>
         Cambiar contraseña
       </h3>
-      <h3 class="link menu-option" routerLink="/landing-page">
+      <h3 class="link menu-option letter-red" (click)="this.logout()">
         <ion-icon name="log-out-outline"></ion-icon>
         Cerrar sesión
       </h3>
@@ -70,7 +74,7 @@
           [hasStar]="true"
           [routerLink]="['/shop-customer', shop.id]"
           imagePath="{{ shop.logoPath }}"
-          totalReviews="{{shop.totalReviews}}"
+          totalReviews="{{ shop.totalReviews }}"
         >
         </app-shop-card>
       </div>

@@ -44,57 +44,250 @@ import { ReviewComponent } from './review/review.component';
 import { ShopReviewsComponent } from './shop-reviews/shop-reviews.component';
 import { AllDeliveryWithdrawalsComponent } from './all-delivery-withdrawals/all-delivery-withdrawals.component';
 import { ShopStatsComponent } from './shop-stats/shop-stats.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  { path: "", component: LandingPageComponent },
+  //Not protected routes
+  { path: '', component: LandingPageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'datos-personales', component: DatosPersonalesComponent },
   { path: 'direccion', component: DireccionComponent },
-  { path: 'home-customer', component: HomeCustomerComponent },
-  { path: 'search-customer', component: CustomerSearchResultsComponent },
-  { path: 'shop-customer/:shopId', component: ShopCustomerComponent },
-  { path: 'flavours-customer', component: FlavoursCustomerComponent },
-  { path: 'order-details', component: OrderDetailsComponent },
-  { path: 'order-confirmed', component: OrderConfirmedComponent },
-  { path: 'customer-pend-shop-reviews', component: CustomerPendShopReviewsComponent },
-  { path: 'review', component: ReviewComponent },
-  { path: 'reviews/shop', component: ShopReviewsComponent },
+  { path: 'error-panel', component: ErrorPanelComponent },
+
   { path: 'signup_shop_data1', component: SignupShopData1Component },
   { path: 'signup_shop_data2', component: SignupShopData2Component },
-  { path: 'signup_shop_data_icecreamflavors', component: SignupShopDataIcecreamflavorsComponent },
-  { path: 'home-shop', component: HomeShopComponent },
-  { path: 'shop-add-product', component: ShopAddProductComponent },
-  { path: 'shop-list-product', component: ShopListProductComponent },
-  { path: 'shop-modify-product', component: ShopModifyProductComponent },
-  { path: 'home-delivery-boy', component: HomeDeliveryBoyComponent },
-  { path: 'explore-new-deliveries', component: ExploreNewDeliveriesComponent },
-  { path: 'all-delivered-orders', component: AllDeliveredOrdersComponent },
-  { path: 'customer-current-orders', component: CustomerCurrentOrdersComponent },
-  { path: 'admin-panel', component: AdminPanelComponent },
-  { path: 'add-payment-type', component: AddPaymentTypeComponent },
-  { path: 'add-product-category', component: AddProductCategoryComponent },
-  { path: 'edit-product-category', component: EditProductCategoryComponent },
-  { path: 'edit-payment-type', component: EditPaymentTypeComponent },
-  { path: 'payment-type-list', component: PaymentTypeListComponent },
-  { path: 'product-category-list', component: ProductCategoryListComponent },
-  { path: 'error-panel', component: ErrorPanelComponent},
-  { path: 'withdrawal-menu', component: WithdrawalMenuComponent},
-  { path: 'withdraw-options', component: WithdrawOptionsComponent},
-  { path: 'withdrawal-confirmed', component: WithdrawalConfirmedComponent},
-  { path: 'withdrawal-amount', component: WithdrawalAmountComponent},
-  { path: 'add-commission-percentage', component: AddCommissionPercentageComponent},
-  { path: 'commission-percentage-list', component: CommissionPercentageListComponent},
-  { path: 'edit-commission-percentage', component: EditCommissionPercentageComponent},
-  { path: 'shop-list-productVariations', component: ShopListProductVariationsComponent},
-  { path: 'shop-modify-productVariations', component: ShopModifyProductVariationsComponent},
-  { path: 'all-delivery-withdrawals', component: AllDeliveryWithdrawalsComponent},
-  { path: 'shop-stats', component: ShopStatsComponent},
-  { path: '**', component: LandingPageComponent }
+  {
+    path: 'signup_shop_data_icecreamflavors',
+    component: SignupShopDataIcecreamflavorsComponent,
+  },
+
+  //Protected Client routes
+  {
+    path: 'home-customer',
+    component: HomeCustomerComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['client'] },
+  },
+  {
+    path: 'search-customer',
+    component: CustomerSearchResultsComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['client'] },
+  },
+  {
+    path: 'shop-customer/:shopId',
+    component: ShopCustomerComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['client'] },
+  },
+  {
+    path: 'flavours-customer',
+    component: FlavoursCustomerComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['client'] },
+  },
+  {
+    path: 'order-details',
+    component: OrderDetailsComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['client'] },
+  },
+  {
+    path: 'order-confirmed',
+    component: OrderConfirmedComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['client'] },
+  },
+  {
+    path: 'customer-pend-shop-reviews',
+    component: CustomerPendShopReviewsComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['client'] },
+  },
+  {
+    path: 'review',
+    component: ReviewComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['client'] },
+  },
+  {
+    path: 'reviews/shop',
+    component: ShopReviewsComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['client'] },
+  },
+  {
+    path: 'customer-current-orders',
+    component: CustomerCurrentOrdersComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['client'] },
+  },
+
+  // Protected Owner routes
+  {
+    path: 'home-shop',
+    component: HomeShopComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['owner'] },
+  },
+  {
+    path: 'shop-add-product',
+    component: ShopAddProductComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['owner'] },
+  },
+  {
+    path: 'shop-list-product',
+    component: ShopListProductComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['owner'] },
+  },
+  {
+    path: 'shop-modify-product',
+    component: ShopModifyProductComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['owner'] },
+  },
+  {
+    path: 'shop-stats',
+    component: ShopStatsComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['owner'] },
+  },
+  {
+    path: 'shop-list-productVariations',
+    component: ShopListProductVariationsComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['owner'] },
+  },
+  {
+    path: 'shop-modify-productVariations',
+    component: ShopModifyProductVariationsComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['owner'] },
+  },
+
+  //Protected Delivery routes
+  {
+    path: 'home-delivery-boy',
+    component: HomeDeliveryBoyComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['delivery'] },
+  },
+  {
+    path: 'explore-new-deliveries',
+    component: ExploreNewDeliveriesComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['delivery'] },
+  },
+  {
+    path: 'all-delivered-orders',
+    component: AllDeliveredOrdersComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['delivery'] },
+  },
+  {
+    path: 'withdrawal-menu',
+    component: WithdrawalMenuComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['delivery'] },
+  },
+  {
+    path: 'withdraw-options',
+    component: WithdrawOptionsComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['delivery'] },
+  },
+  {
+    path: 'withdrawal-confirmed',
+    component: WithdrawalConfirmedComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['delivery'] },
+  },
+  {
+    path: 'withdrawal-amount',
+    component: WithdrawalAmountComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['delivery'] },
+  },
+  {
+    path: 'all-delivery-withdrawals',
+    component: AllDeliveryWithdrawalsComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['delivery'] },
+  },
+
+  //Protected Admin routes
+  {
+    path: 'admin-panel',
+    component: AdminPanelComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['admin'] },
+  },
+  {
+    path: 'add-payment-type',
+    component: AddPaymentTypeComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['admin'] },
+  },
+  {
+    path: 'add-product-category',
+    component: AddProductCategoryComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['admin'] },
+  },
+  {
+    path: 'edit-product-category',
+    component: EditProductCategoryComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['admin'] },
+  },
+  {
+    path: 'edit-payment-type',
+    component: EditPaymentTypeComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['admin'] },
+  },
+  {
+    path: 'payment-type-list',
+    component: PaymentTypeListComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['admin'] },
+  },
+  {
+    path: 'product-category-list',
+    component: ProductCategoryListComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['admin'] },
+  },
+  {
+    path: 'add-commission-percentage',
+    component: AddCommissionPercentageComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['admin'] },
+  },
+  {
+    path: 'commission-percentage-list',
+    component: CommissionPercentageListComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['admin'] },
+  },
+  {
+    path: 'edit-commission-percentage',
+    component: EditCommissionPercentageComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['admin'] },
+  },
+
+  //Shared routes
+  //...Non shared routes yet
+
+  { path: '**', component: LandingPageComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -5,6 +5,7 @@ import { Review, ReviewRequest } from '../entities/review.entity';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsService } from '../services/validators.service';
 import { Location } from '@angular/common';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-review',
@@ -15,8 +16,11 @@ export class ReviewComponent {
   constructor(
     public reviewService: ReviewService,
     private validatorsService: ValidatorsService,
-    private location: Location
-  ) { }
+    private location: Location,
+    private loginService: LoginService
+  ) {}
+
+  loggedUser = this.loginService.getLoggedUser();
 
   shopToReview: Shop;
   reviewToUpdate: Review;
@@ -32,28 +36,28 @@ export class ReviewComponent {
 
   reviewForm = new FormGroup({
     stars: new FormControl(0, [Validators.required, this.notAccept0]),
-    comment: new FormControl('', Validators.required)
-  })
-  formSubmitted = false
+    comment: new FormControl('', Validators.required),
+  });
+  formSubmitted = false;
 
-  loading = false
+  loading = false;
 
   ngOnInit() {
     this.shopToReview = this.reviewService.shopToReview;
     this.reviewToUpdate = this.reviewService.reviewToUpdate;
 
     if (this.reviewToUpdate) {
-      this.shopToReview = this.reviewToUpdate.shop
-      this.reviewService.shopToReview = this.shopToReview
-      this.toggleStar(this.reviewToUpdate.stars)
-      this.reviewForm.patchValue({ comment: this.reviewToUpdate.comment })
+      this.shopToReview = this.reviewToUpdate.shop;
+      this.reviewService.shopToReview = this.shopToReview;
+      this.toggleStar(this.reviewToUpdate.stars);
+      this.reviewForm.patchValue({ comment: this.reviewToUpdate.comment });
     }
 
     this.shopImageUrl = `${this.shopToReview.logoPath}`;
   }
 
   toggleStar(number: number) {
-    this.reviewForm.patchValue({ stars: number })
+    this.reviewForm.patchValue({ stars: number });
 
     this.stars = this.stars.map((s) => {
       if (s.number <= number) {
@@ -68,48 +72,48 @@ export class ReviewComponent {
     this.formSubmitted = true;
 
     if (this.reviewForm.valid) {
-      this.loading = !this.loading
+      this.loading = !this.loading;
 
       const review: ReviewRequest = {
         stars: this.reviewForm.controls['stars'].value,
         comment: this.reviewForm.controls['comment'].value,
         dateTime: this.validatorsService.getCurrentDateTime(),
         shop: this.shopToReview.id,
-        user: '654c059cda8e9efaeeae024d'
-      }
+        user: this.loggedUser.id,
+      };
       if (!this.reviewToUpdate) {
         // Create Review
         this.reviewService.create(review).subscribe(() => {
-          this.goBack()
-        })
+          this.goBack();
+        });
       } else {
         // Update Review
-        review.id = this.reviewToUpdate.id
+        review.id = this.reviewToUpdate.id;
         this.reviewService.update(review).subscribe(() => {
-          this.goBack()
-        })
+          this.goBack();
+        });
       }
     }
   }
 
   deleteReview() {
-    this.loading = !this.loading
+    this.loading = !this.loading;
 
     this.reviewService.delete(this.reviewToUpdate.id).subscribe(() => {
-      this.goBack()
-    })
+      this.goBack();
+    });
   }
 
   goBack() {
-    this.location.back()
+    this.location.back();
   }
 
   getStars() {
-    return this.reviewForm.get('stars')
+    return this.reviewForm.get('stars');
   }
 
   getComment() {
-    return this.reviewForm.get('comment')
+    return this.reviewForm.get('comment');
   }
 
   notAccept0(control) {
