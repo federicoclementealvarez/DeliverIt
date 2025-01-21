@@ -6,7 +6,6 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { LoginService } from './services/login.service';
 import { ErrorPanelService } from './services/error-panel.service';
 import { User } from './entities/user.entity';
 

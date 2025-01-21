@@ -10,10 +10,7 @@ import { ShopService } from '../services/shop.service';
 import { ShopServiceMock } from '../mocks/shop.service.mock';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('Create a Review', () => {
   let component: ReviewComponent;
@@ -105,7 +102,7 @@ describe('Update a Review', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ReviewComponent],
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule, HttpClientTestingModule],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: ReviewService, useValue: UpdateReviewServiceMock },
@@ -202,7 +199,7 @@ describe('Delete a Review', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ReviewComponent],
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule, HttpClientTestingModule],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: ReviewService, useValue: UpdateReviewServiceMock },
