@@ -1,6 +1,8 @@
 <div class="parent-container">
   <div class="container">
-    <h1 class="title">Elige hasta {{ maxVariations }}</h1>
+    <h1 class="title" [attr.max-var]="maxVariations">
+      Elige hasta {{ maxVariations }}
+    </h1>
 
     <div class="flavour-container" *ngFor="let pv of productVariations">
       <app-flavours-customer-item
@@ -9,7 +11,7 @@
         [flavourId]="pv.id"
       ></app-flavours-customer-item>
     </div>
-    
+
     <span>
       <div
         [ngClass]="{

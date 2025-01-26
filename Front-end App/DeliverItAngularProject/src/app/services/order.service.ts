@@ -122,7 +122,7 @@ export class OrderService {
       dateTimeOrder: dateTime,
       paymentType: paymentTypeId,
       lineItems: lineItems,
-      client: this.loginService.getLoggedUser(),
+      client: this.loginService.getLoggedUser().id,
       totalAmount: totalAmount,
     };
 
