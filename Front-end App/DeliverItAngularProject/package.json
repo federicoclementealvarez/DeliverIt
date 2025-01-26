@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "jest -- review.component.spec.ts",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "cy:open": "cypress open"
   },
   "private": true,
   "dependencies": {
@@ -35,6 +36,7 @@
     "@angular/cli": "^16.1.0",
     "@angular/compiler-cli": "^16.1.0",
     "@types/jest": "^29.5.12",
+    "cypress": "14.0.0",
     "jest": "^29.7.0",
     "jest-preset-angular": "^14.0.3",
     "typescript": "~5.1.3"

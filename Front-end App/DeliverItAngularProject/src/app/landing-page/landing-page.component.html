@@ -1,17 +1,25 @@
 <div class="container">
-  <img src="../assets/full-logo.svg" class="logo">
+  <img src="../assets/full-logo.svg" class="logo" />
   <div class="blank-container">
     <div class="text-logo">
       <h1>Bienvenido!</h1>
       <h4>
-        DeliverIt es la nueva aplicación para hacer pedidos por internet.
-        Más de 2000 locales del país ya gestionan sus pedidos por la app.
+        DeliverIt es la nueva aplicación para hacer pedidos por internet. Más de
+        2000 locales del país ya gestionan sus pedidos por la app.
       </h4>
       <div>
-        <a routerLink="/login"><app-primary-button class="button-style" title="INICIAR SESIÓN"></app-primary-button></a>
+        <a routerLink="/login"
+          ><app-primary-button
+            data-cy="login"
+            class="button-style"
+            title="INICIAR SESIÓN"
+          ></app-primary-button
+        ></a>
         <div class="registrate">
-            <a routerLink="/signup"><h6>No tienes una cuenta?</h6></a>
-            <a routerLink="/signup"><h6 class="text-registrate">Registrate gratis</h6></a>
+          <a routerLink="/signup"><h6>No tienes una cuenta?</h6></a>
+          <a routerLink="/signup"
+            ><h6 class="text-registrate">Registrate gratis</h6></a
+          >
         </div>
       </div>
     </div>

@@ -1,32 +1,64 @@
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+/>
 
 <div class="container">
   <h1>Iniciar Sesión</h1>
   <form [formGroup]="loginForm" class="input-button">
     <div class="input-group">
       <label for="email">Dirección de correo electrónico</label>
-      <input type="email" formControlName="email" autofocus>
-      <div [ngClass]="{'error-message-show': getEmail().invalid && (submitted || getEmail().touched)}" class="error-message" style="align-self: flex-start;">
-      <span class="error-icon-red">&#9888;</span>
+      <input type="email" data-cy="email" formControlName="email" autofocus />
+      <div
+        [ngClass]="{
+          'error-message-show':
+            getEmail().invalid && (submitted || getEmail().touched)
+        }"
+        class="error-message"
+        style="align-self: flex-start"
+      >
+        <span class="error-icon-red">&#9888;</span>
         Ingresa tu email
       </div>
     </div>
     <div class="input-group">
       <h6>Contraseña</h6>
       <div class="input-and-icon">
-        <input formControlName="password" type="{{ passwordVisible ? 'text' : 'password' }}">
-        <span *ngIf="!passwordVisible" class="material-symbols-outlined" (click)="changeVisibilityPass(true)">visibility_off</span>
-        <span *ngIf="passwordVisible" class="material-symbols-outlined" (click)="changeVisibilityPass(false)">visibility</span>
+        <input
+          data-cy="password"
+          formControlName="password"
+          type="{{ passwordVisible ? 'text' : 'password' }}"
+        />
+        <span
+          *ngIf="!passwordVisible"
+          class="material-symbols-outlined"
+          (click)="changeVisibilityPass(true)"
+          >visibility_off</span
+        >
+        <span
+          *ngIf="passwordVisible"
+          class="material-symbols-outlined"
+          (click)="changeVisibilityPass(false)"
+          >visibility</span
+        >
       </div>
-      <div [ngClass]="{'error-message-show': getPassword().invalid && (submitted || getPassword().touched)}" class="error-message" style="align-self: flex-start;">
+      <div
+        [ngClass]="{
+          'error-message-show':
+            getPassword().invalid && (submitted || getPassword().touched)
+        }"
+        class="error-message"
+        style="align-self: flex-start"
+      >
         <span class="error-icon-red">&#9888;</span>
         Escribe tu contraseña
       </div>
-    </div>    
-    <app-primary-button 
-    (buttonClicked)="submitForm()"
-    class="button-style" 
-    title="INICIAR SESIÓN"></app-primary-button>
+    </div>
+    <app-primary-button
+      (buttonClicked)="submitForm()"
+      data-cy="submit"
+      class="button-style"
+      title="INICIAR SESIÓN"
+    ></app-primary-button>
   </form>
 </div>

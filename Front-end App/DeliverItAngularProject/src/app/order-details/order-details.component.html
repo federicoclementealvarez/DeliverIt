@@ -20,8 +20,13 @@
               *ngIf="item.productVariationArrays[0] !== undefined"
             >
               <ul>
-                <li *ngFor="let pv of item.productVariationArrays">
-                  <p class="card-subtitle">
+                <li
+                  *ngFor="let pv of item.productVariationArrays"
+                  [attr.prod-var-description]="
+                    getProductVariationDescription(pv)
+                  "
+                >
+                  <p class="card-subtitle" data-cy="prod-variation">
                     {{ getProductVariationDescription(pv) }}
                   </p>
                 </li>
