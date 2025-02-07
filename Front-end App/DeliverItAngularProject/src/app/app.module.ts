@@ -68,6 +68,7 @@ import { AllDeliveryWithdrawalsComponent } from './all-delivery-withdrawals/all-
 import { ShopStatsComponent } from './shop-stats/shop-stats.component';
 import { ErrorInterceptor } from './services/interceptors/error.service';
 import { LoginService } from './services/login.service';
+import { SignupShopDataBasicComponent } from './signup_shop_data/signup-shop-data-basic/signup-shop-data-basic.component';
 
 @NgModule({
   declarations: [
@@ -128,6 +129,7 @@ import { LoginService } from './services/login.service';
     ShopReviewsComponent,
     AllDeliveryWithdrawalsComponent,
     ShopStatsComponent,
+    SignupShopDataBasicComponent,
   ],
   imports: [
     BrowserModule,

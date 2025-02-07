@@ -5,6 +5,8 @@ import { Shop } from '../entities/shop.entity';
 import { ProductVariationsService } from '../services/product-variations.service';
 import { ReviewService } from '../services/review.service';
 import { StatsService } from '../services/stats.service';
+import { LoginService } from '../services/login.service';
+import { User } from '../entities/user.entity';
 
 @Component({
   selector: 'app-home-shop',
@@ -16,11 +18,12 @@ export class HomeShopComponent {
   protected shop: Shop;
 
   constructor(private router: Router, private shopService: ShopService, private productVariationsService: ProductVariationsService, 
-    private reviewService: ReviewService, private statsService: StatsService) { }
+    private reviewService: ReviewService, private statsService: StatsService, private loginService: LoginService) { }
+
+    loggedUser: User = this.loginService.getLoggedUser();
 
   ngOnInit() {
-    //this id is for example purposes only, it will be retrieved from the signup when ready
-    this.getShop('654c0a5ada8e9efaeeae025a')
+    this.getShop(this.loggedUser.id)
   }
 
   onAddProducts() {
@@ -46,7 +49,7 @@ export class HomeShopComponent {
   }
 
   getShop(id: string) {
-    this.shopService.getOne(id)
+    this.shopService.getShopByOwnerId(id)
       .subscribe((data: Shop) => {
         this.shop = data
         sessionStorage.setItem('shopId', this.shop.id)

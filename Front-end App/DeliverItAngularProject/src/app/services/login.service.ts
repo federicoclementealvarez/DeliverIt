@@ -51,4 +51,12 @@ export class LoginService {
     sessionStorage.clear();
     this.router.navigate(['']);
   }
+
+  getLoggedShop() {
+    return JSON.parse(sessionStorage.getItem('shop'));
+  }
+
+  setLoggedShop(shop) {
+    sessionStorage.setItem('shop', JSON.stringify(shop));
+  }
 }

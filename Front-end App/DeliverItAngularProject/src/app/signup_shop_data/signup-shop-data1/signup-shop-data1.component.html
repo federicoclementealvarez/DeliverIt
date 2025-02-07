@@ -33,7 +33,7 @@
           <h6>Tipo de local</h6>
           <select formControlName="shopType">
               <option value="" disabled selected hidden>Seleccione un tipo de local</option>
-              <option *ngFor="let shoptype of shopTypes">{{shoptype.description}}</option>
+              <option *ngFor="let shoptype of shopTypes" [value]="shoptype.id">{{shoptype.description}}</option>
           </select>
           <div [ngClass]="{'error-message-show': getShopType().invalid && (submitted || getShopType().touched)}" class="error-message" style="align-self: flex-start;"  id="errors">
             <span class="error-icon-red">&#9888;</span>

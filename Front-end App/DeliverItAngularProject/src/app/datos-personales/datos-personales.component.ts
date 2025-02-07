@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DatosPersonalesService } from '../services/datos-personales.service';
 import { Router } from '@angular/router';
 import { UserType } from '../entities/userType.entity';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-datos-personales',
@@ -21,7 +22,8 @@ export class DatosPersonalesComponent {
 
   constructor(
     private service: DatosPersonalesService,
-    private router: Router
+    private router: Router,
+    private loginService: LoginService,
   ) {}
 
   userTypes: UserType[] = null;
@@ -42,8 +44,23 @@ export class DatosPersonalesComponent {
         userType: this.getUserTypeId().value,
       };
 
+      const ownerType = this.userTypes.find(item => item.description === "owner"); //en caso de modificar el nombre del userType, cambiar esta línea
+
       this.service.sendUserDataForm(body);
-      this.router.navigate(['/direccion']);
+
+      if (ownerType.id === body.userType){
+        this.service.register().subscribe((data) => {
+          this.loginService
+            .login(this.service.getUserAndPassword())
+            .subscribe((user) => {
+              this.loginService.setLoggedUser(user);
+              this.router.navigate(['/signup_shop_data_basic']);
+            });
+        });
+      }
+      else {
+        this.router.navigate(['/direccion']);
+      }
     }
   }
 

@@ -27,10 +27,10 @@ export class User extends BaseEntity
     @Property({ nullable: false })
     creditBalance: number = 0
 
-    @Property({ nullable: false })
+    @Property({ nullable: true })
     street!: string
     
-    @Property({ nullable: false })
+    @Property({ nullable: true })
     streetNumber!: string
     
     @Property({ nullable: true })

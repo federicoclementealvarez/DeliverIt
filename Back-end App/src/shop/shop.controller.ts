@@ -5,8 +5,10 @@ import { validator } from '../shared/validator.js';
 import { findShopsByProductCategory } from '../product/product.controller.js';
 import { findByMonthAndShop } from '../order/order.controller.js';
 import { Product } from '../product/product.entity.js';
+import {v2 as cloudinary} from 'cloudinary';
+import * as fs from 'fs';
 
-const em = orm.em
+const em = orm.em.fork();
 
 type statsType = {
   totalSellAmount: number,
@@ -28,17 +30,20 @@ export function sanitizedInput(req: Request, _: Response, next: NextFunction) {
     email: req.body.email,
     logo: req.body.logo,
     banner: req.body.banner,
+    logoPath: req.body.filelogoPath,
+    bannerPath:req.body.filebannerPath,
     openingTime: req.body.openingTime,
     closingTime: req.body.closingTime,
     shippingPrice: req.body.shippingPrice,
-    stars: req.body.stars,
+    totalStars: req.body.totalStars? req.body.totalStars : 0,
+    totalReviews: req.body.totalReviews? req.body.totalReviews : 0,
     street: req.body.street,
     streetNumber: req.body.streetNumber,
-    apartment: req.body.apartment,
-    additionalInfo: req.body.additionalInfo,
     shopType: req.body.shopType,
-    user: req.body.user
+    owner: req.body.owner
   }
+
+  console.log('BODY: '+req.body)
 
   Object.keys(req.body.sanitizedInput).forEach((key) => {
     if (req.body.sanitizedInput[key] === undefined) {
@@ -68,6 +73,25 @@ export async function findAll(_: Request, res: Response) {
     })
 
     return res.status(200).json({ message: 'All shops found', body: shopsSorted })
+  }
+  catch (error: any) {
+    return res.status(500).json({ message: error.message })
+  }
+}
+
+export async function getByOwnerId(req: Request, res: Response){
+  try{
+    const validatorResponse = validator.validateObjectId(req.params.ownerId)
+    if (!validatorResponse.isValid) {
+      return res.status(500).json({ message: validatorResponse.message })
+    }
+
+    const shop = await em.findOne(Shop, { owner: req.params.ownerId }, { populate: ['products.productCategory', 'productVariations']})
+    if (!shop) {
+      return res.status(404).json({ message: 'Shop not found' })
+    }
+
+    return res.status(200).json({ message: 'Shop found', body: shop })
   }
   catch (error: any) {
     return res.status(500).json({ message: error.message })
@@ -125,13 +149,56 @@ export async function remove(req: Request, res: Response) {
   }
 }
 
-export async function add(_: Request, res: Response) {
-  try {
-    return res.status(500).json({ message: 'Method not implemented' })
-  }
-  catch (error: any) {
-    return res.status(500).json({ message: error.message })
-  }
+export async function add(req: Request, res: Response) {
+  try{
+    const cloudinaryLogoResult = await cloudinary.uploader.upload('src/shared/assets/'+`${req.body.sanitizedInput.logoPath}`,
+        {folder:'DeliverIt/shops/', transformation: [{aspect_ratio: '1:1', crop: 'fill'}]})
+
+      let localLogoPath = req.body.sanitizedInput.logoPath
+      req.body.sanitizedInput.logoPath = cloudinaryLogoResult.secure_url
+      req.body.sanitizedInput.logoId = cloudinaryLogoResult.public_id
+
+
+      let localBannerPath = undefined
+      if (req.body.sanitizedInput.bannerPath){
+        const cloudinaryBannerResult = await cloudinary.uploader.upload('src/shared/assets/'+`${req.body.sanitizedInput.bannerPath}`,
+          {folder:'DeliverIt/shops/', transformation: [{aspect_ratio: '16:9', crop: 'fill'}]})
+
+          localBannerPath = req.body.sanitizedInput.bannerPath
+          req.body.sanitizedInput.bannerPath = cloudinaryBannerResult.secure_url
+          req.body.sanitizedInput.bannerId = cloudinaryBannerResult.public_id
+      }
+  
+      const product = em.create(Shop, Object.assign(
+          req.body.sanitizedInput,
+        ))
+  
+      await em.flush()
+  
+      fs.unlink('src/shared/assets/'+`${localLogoPath}`, (err) => {
+        if (err) {
+            return res.status(500).json({message: 'An error has ocurred while deleting the image: '+err});
+        }
+        else if (!req.body.sanitizedInput.bannerPath){
+          return res.status(201).json({ message: 'Shop created successfully', data: product });
+      }
+      })
+
+      if (req.body.sanitizedInput.bannerPath){
+        fs.unlink('src/shared/assets/'+`${localBannerPath}`, (err) => {
+          if (err) {
+              return res.status(500).json({message: 'An error has ocurred while deleting the image: '+err});
+          }
+          else{
+              return res.status(201).json({ message: 'Product created successfully', data: product})
+          }
+        })
+      }
+    }
+    catch(error:any){
+      console.log(error)
+      return res.status(500).json({message: error.message})
+    }
 }
 
 export async function update(req: Request, res: Response) {

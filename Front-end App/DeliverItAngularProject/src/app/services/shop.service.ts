@@ -3,6 +3,7 @@ import { Shop } from '../entities/shop.entity';
 import { Observable, map } from 'rxjs';
 import { BaseUrlService } from './base-url.service';
 import { HttpClient } from '@angular/common/http';
+import { User } from '../entities/user.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,15 @@ export class ShopService {
 
   getOne(shopId: string): Observable<Shop> {
     this.shop = this.http.get<Shop>(this.baseUrl + shopId)
+      .pipe(
+        map((response: any) => response.body)
+      );
+
+    return this.shop
+  }
+
+  getShopByOwnerId(ownerId: string): Observable<Shop> {
+    this.shop = this.http.get<Shop>(this.baseUrl+'owner/'+ownerId)
       .pipe(
         map((response: any) => response.body)
       );

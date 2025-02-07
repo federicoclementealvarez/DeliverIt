@@ -43,6 +43,7 @@ export class SignupComponent {
   );
 
   ngOnInit() {
+    //this.loginService.logout()
     this.userToUpdate = this.loginService.getLoggedUser();
     if (this.userToUpdate) {
       this.signupForm.patchValue({

@@ -28,7 +28,7 @@ export class Shop extends BaseEntity {
 
     @Property({ nullable: true })
     bannerPath?: string
-
+    
     @Property({ nullable: true })
     bannerId?: string
 
@@ -58,12 +58,6 @@ export class Shop extends BaseEntity {
 
     @Property({ nullable: false })
     streetNumber!: string
-
-    @Property({ nullable: true })
-    apartment?: string
-
-    @Property({ nullable: true })
-    additionalInfo?: string
 
     @ManyToOne(() => ShopType, { nullable: false })
     shopType !: Rel<ShopType>

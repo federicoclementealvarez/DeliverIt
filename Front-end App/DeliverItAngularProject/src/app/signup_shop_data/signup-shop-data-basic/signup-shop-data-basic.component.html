@@ -1,0 +1,84 @@
+<div class="container">
+    <form [formGroup]="shopSignUpForm" class="input-group">
+      <h1>Completar datos personales</h1>
+      <div class="input-subgroup nombre">
+        <h6>Nombre del local</h6>
+        <input formControlName="name" type="text" autofocus />
+        <div
+          [ngClass]="{
+            'error-message-show': getName().invalid && submitted === true
+          }"
+          class="error-message"
+        >
+          <span class="error-icon-red">&#9888;</span>
+          Campo obligatorio
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="email">Dirección de correo electrónico</label>
+        <input type="email" data-cy="email" formControlName="email" autofocus />
+        <div
+          [ngClass]="{
+            'error-message-show':
+              getEmail().invalid && (submitted || getEmail().touched)
+          }"
+          class="error-message"
+          style="align-self: flex-start"
+        >
+          <span class="error-icon-red">&#9888;</span>
+          Ingresa tu email
+        </div>
+      </div>
+      <div class="input-subgroup">
+        <h6>Calle</h6>
+        <input formControlName="street" type="text" />
+        <div
+          [ngClass]="{
+            'error-message-show': getStreet().invalid && submitted === true
+          }"
+          class="error-message"
+        >
+          <span class="error-icon-red">&#9888;</span>
+          Campo obligatorio
+        </div>
+      </div>
+      <div class="input-subgroup-altura">
+        <div class="subgroup-altura">
+          <h6>Altura</h6>
+          <input formControlName="streetNumber" type="text" />
+          <div
+            [ngClass]="{
+              'error-message-show':
+                getStreetNumber().invalid && submitted === true
+            }"
+            class="error-message"
+          >
+            <span class="error-icon-red">&#9888;</span>
+            Campo obligatorio
+          </div>
+        </div>
+        </div> 
+      <div class="input-subgroup">
+        <h6>Numero de teléfono</h6>
+        <div class="group-phone-number">
+          <h6 class="number-prefix">+54</h6>
+          <input formControlName="phoneNumber" type="text" class="phone-input" />
+        </div>
+        <div
+          [ngClass]="{
+            'error-message-show': getPhoneNumber().invalid && submitted === true
+          }"
+          class="error-message"
+        >
+          <span class="error-icon-red">&#9888;</span>
+          Campo obligatorio
+        </div>
+      </div>
+      <app-primary-button
+        (buttonClicked)="submit()"
+        class="button-style"
+        title="SIGUIENTE"
+      ></app-primary-button>
+    </form>
+  </div>
+  
