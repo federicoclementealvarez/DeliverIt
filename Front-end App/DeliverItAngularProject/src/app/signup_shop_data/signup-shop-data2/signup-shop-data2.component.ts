@@ -53,7 +53,13 @@ export class SignupShopData2Component {
 
       this.shopRegisterService.register().subscribe((createdShop) => {
         this.loginService.setLoggedShop(createdShop)
-        this.router.navigate(['/home-shop']);
+        console.log(createdShop)
+        if (['Heladería', 'Heladerías', 'Heladerias', 'Heladeria'].includes(createdShop.shopType.description)){
+          this.router.navigate(['/signup_shop_data_icecreamflavors']);
+        }
+        else{
+          this.router.navigate(['/home-shop']);
+        }
       });
     }
   }

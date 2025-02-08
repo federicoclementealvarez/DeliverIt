@@ -45,14 +45,17 @@ export class ShopModifyProductVariationsComponent {
           description: this.shopModifyProductVariationForm.get('description').value
         }
 
-        this.productVariationService.update(productVariation)
-        this.router.navigate(['/home-shop']);
-        }
+        this.productVariationService.update(productVariation).subscribe(() =>{
+          console.log(productVariation)
+          this.router.navigate(['/home-shop']);
+        })
+      }
   }
 
   delete(){
-    this.productVariationService.delete(this.productVariationId)
-    this.router.navigate(['/home-shop'])
+    this.productVariationService.delete(this.productVariationId).subscribe(() =>{
+      this.router.navigate(['/home-shop']);
+    })
   }
 
   setProductVariationId() {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ProductVariation } from '../entities/productVariation.entity';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Shop } from '../entities/shop.entity';
 import { HttpClient } from '@angular/common/http';
 import { BaseUrlService } from './base-url.service';
@@ -48,15 +48,17 @@ export class ProductVariationsService {
     return this.selectedShop.asObservable();
   }
 
-  create(productVariations: ProductVariation[]) {
+  create(productVariations: ProductVariation[]): Observable<ProductVariation[]> {
     const url = `${this.url}`
 
     const body = {productVariations: productVariations}
 
-    this.http.post<ProductVariation>(url, body).subscribe(response => console.log(response))
+    return this.http.post<ProductVariation[]>(url, body).pipe(
+            map((response: any) => response.body)
+          )
   }
   
-  update(productVariation: ProductVariation) {
+  update(productVariation: ProductVariation): Observable<ProductVariation> {
     const url = `${this.url}/${productVariation.id}`
 
     const body = {
@@ -65,13 +67,17 @@ export class ProductVariationsService {
       ]
     }
 
-    this.http.put<ProductVariation>(url, body).subscribe(response => console.log(response))
+    return this.http.put<ProductVariation>(url, body).pipe(
+      map((response: any) => response.body)
+    )
   }
 
-  delete(id: string) {
+  delete(id: string): Observable<ProductVariation> {
     const url = `${this.url}/${id}`
 
-    this.http.delete<any>(url).subscribe(response => console.log(response))
+    return this.http.delete<any>(url).pipe(
+      map((response: any) => response.body)
+    )
   }
 
 }

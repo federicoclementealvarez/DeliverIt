@@ -88,6 +88,8 @@ export async function update(req: Request, res: Response){
       em.assign(productVariation, Object.assign(productVariation, {name: req.body.sanitizedProductVariations[0].name, description: req.body.sanitizedProductVariations[0].description}))
 
       await em.flush()
+      em.clear();
+      await new Promise(res => setTimeout(res, 50));
 
       return res.status(200).json({message: 'Product Variation updated successfully'})
     }

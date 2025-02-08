@@ -1,4 +1,5 @@
 import { ProductVariation } from "./productVariation.entity"
+import { ShopType } from "./shopType.entity"
 
 export class Shop {
   public id: string
@@ -15,7 +16,7 @@ export class Shop {
   public street: string
   public streetNumber: string
   public owner: string
-  public shopType: string
+  public shopType: ShopType
   public productVariations?: ProductVariation[]
 
   /*constructor(_id: number, _name: string, _shippingPrice: number, _stars: number, _address: string) {

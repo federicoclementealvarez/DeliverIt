@@ -36,11 +36,8 @@ export class HomeShopComponent {
 
   onModifyProductVariations(){
     this.productVariationsService.setSelectedShop(this.shop);
+    console.log('si pasa pero es raro')
     this.router.navigate(['/shop-list-productVariations']);
-  }
-
-  onModifyShopData() {
-    this.router.navigate(['/signup_shop_data1']);
   }
 
   onStats() {

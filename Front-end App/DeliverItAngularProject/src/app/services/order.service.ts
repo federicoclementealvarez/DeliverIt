@@ -160,6 +160,10 @@ export class OrderService {
     this.editClicked.next({ id: productId, clicked: true });
   }
 
+  unclickOnEdit() {
+    this.editClicked.next({ id: '', clicked: false });
+  }
+
   findOrdersWithoutDelivery(): Observable<Order[]> {
     return this.http
       .get<Order[]>(`${this.url}/orders-without-delivery/~`)

@@ -1,5 +1,5 @@
 <div class="banner-container">
-  <img class="banner-image" [src]="this.shop.bannerPath" alt="banner" />
+  <img class="banner-image" [src]="this.shop?.bannerPath ? shop.bannerPath : '../assets/alt_banner.png'" alt="banner" />
 </div>
 <div class="shop-card-container">
   <div class="shop-data">
@@ -71,20 +71,6 @@
       </div>
       <div class="button_text">
         <p id="add_prod_text">Editar variaciones de producto</p>
-      </div>
-    </div>
-  </div>
-  <div class="options" (click)="onModifyShopData()">
-    <div class="center">
-      <div class="buttons_logos">
-        <img
-          id="pencil_icon"
-          src="assets\buttons_logos\pencil_edit_icon.png"
-          alt="pencil_icon"
-        />
-      </div>
-      <div class="button_text">
-        <p id="add_prod_text">Editar información del negocio</p>
       </div>
     </div>
   </div>

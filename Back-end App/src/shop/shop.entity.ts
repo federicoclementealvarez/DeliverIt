@@ -7,7 +7,7 @@ import { Product } from '../product/product.entity.js'
 import { Review } from '../review/review.entity.js'
 
 @Entity()
-@Filter({ name: 'name', cond: args => ({ name: { $regex: args.par } }) }) //the regular expression is sent complete in the 'args' parameter
+@Filter({ name: 'name', cond: args => ({ name: { $regex: args.par, $options: 'i' } }) }) //the regular expression is sent complete in the 'args' parameter
 @Filter({ name: 'shopType', cond: args => ({ shopType: args.par }) }) //the shopType id is sent as the 'args' parameter
 @Filter({ name: 'getByIds', cond: args => ({ id: { $in: args.par } }) })
 export class Shop extends BaseEntity {
@@ -28,7 +28,7 @@ export class Shop extends BaseEntity {
 
     @Property({ nullable: true })
     bannerPath?: string
-    
+
     @Property({ nullable: true })
     bannerId?: string
 

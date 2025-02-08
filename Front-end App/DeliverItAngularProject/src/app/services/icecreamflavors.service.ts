@@ -4,6 +4,7 @@ import { OrderService } from './order.service';
 import { Product } from '../entities/product.entity';
 import { ProductVariation } from '../entities/productVariation.entity';
 import { ProductVariationsService } from './product-variations.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +31,8 @@ export class IcecreamflavorsService {
     this.lastIndex--;
   }
 
-  postFlavors(){
-    this.productVariationsService.create(this.flavors)
+  postFlavors():Observable<ProductVariation[]> {
+    return this.productVariationsService.create(this.flavors)
   }
 
   // Implementation of the selection of flavours by the customer

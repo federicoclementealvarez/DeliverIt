@@ -117,7 +117,7 @@ const routes: Routes = [
     path: 'reviews/shop',
     component: ShopReviewsComponent,
     canActivate: [AuthGuard],
-    data: { role: ['client'] },
+    data: { role: ['client', 'owner'] },
   },
   {
     path: 'customer-current-orders',

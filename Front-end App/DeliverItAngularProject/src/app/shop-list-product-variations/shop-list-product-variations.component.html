@@ -1,5 +1,5 @@
 <div class="banner-container">
-  <img class="banner-image" [src]="this.shop.bannerPath" alt="banner" />
+  <img class="banner-image" [src]="this.shop?.bannerPath ? shop.bannerPath : '../assets/alt_banner.png'" alt="banner" />
 </div>
 <div class="content-container">
   <div class="shop-data">
@@ -28,4 +28,8 @@
     >
     </app-shop-card>
   </div>
+</div>
+<div class="button-container">
+  <app-primary-button class="button-style" title='AGREGAR NUEVO' (click)="addVariation()">
+  </app-primary-button>
 </div>

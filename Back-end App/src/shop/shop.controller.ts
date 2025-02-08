@@ -7,6 +7,7 @@ import { findByMonthAndShop } from '../order/order.controller.js';
 import { Product } from '../product/product.entity.js';
 import {v2 as cloudinary} from 'cloudinary';
 import * as fs from 'fs';
+import { ShopType } from '../shopType/shopType.entity.js';
 
 const em = orm.em.fork();
 
@@ -42,8 +43,6 @@ export function sanitizedInput(req: Request, _: Response, next: NextFunction) {
     shopType: req.body.shopType,
     owner: req.body.owner
   }
-
-  console.log('BODY: '+req.body)
 
   Object.keys(req.body.sanitizedInput).forEach((key) => {
     if (req.body.sanitizedInput[key] === undefined) {
@@ -86,10 +85,13 @@ export async function getByOwnerId(req: Request, res: Response){
       return res.status(500).json({ message: validatorResponse.message })
     }
 
-    const shop = await em.findOne(Shop, { owner: req.params.ownerId }, { populate: ['products.productCategory', 'productVariations']})
+    const shop = await em.findOne(Shop, { owner: req.params.ownerId },
+      { populate: ['products.productCategory', 'productVariations'], refresh: true})
     if (!shop) {
       return res.status(404).json({ message: 'Shop not found' })
     }
+
+    console.log(JSON.stringify(shop))
 
     return res.status(200).json({ message: 'Shop found', body: shop })
   }
@@ -104,7 +106,7 @@ export async function findOneById(req: Request, res: Response) {
     if (!validatorResponse.isValid) {
       return res.status(500).json({ message: validatorResponse.message })
     }
-    const shop = await em.findOne(Shop, req.params.id, { populate: ['products.productCategory', 'productVariations'] })
+    const shop = await em.findOne(Shop, req.params.id, { populate: ['products.productCategory', 'productVariations', 'shopType'] })
 
     if (shop === null) {
       return res.status(404).json({ message: 'Shop not found' })
@@ -120,6 +122,7 @@ export async function findOneById(req: Request, res: Response) {
 export async function findByFilters(req: Request, res: Response) {
   try {
     const filters = filterParameters(req)
+    console.log(JSON.stringify(filters))
     let shopsByFilters = await em.find(Shop, {}, { filters: filters })
     if (req.params.productCategoryName != '~') {
       let shopsByProductsIds = await findShopsByProductCategory(req.params.productCategoryName)
@@ -169,18 +172,29 @@ export async function add(req: Request, res: Response) {
           req.body.sanitizedInput.bannerId = cloudinaryBannerResult.public_id
       }
   
-      const product = em.create(Shop, Object.assign(
+      const shop = em.create(Shop, Object.assign(
           req.body.sanitizedInput,
         ))
-  
+
+      console.log('sani:'+JSON.stringify(req.body.sanitizedInput))
+      console.log('shop:'+JSON.stringify(shop))
+
       await em.flush()
+
+      const shopType = await em.findOne(ShopType, shop.shopType);
+
+      if (!shopType) {
+        return res.status(404).json({ message: 'Shop type not found' });
+      }
+  
+      shop.shopType = shopType;
   
       fs.unlink('src/shared/assets/'+`${localLogoPath}`, (err) => {
         if (err) {
             return res.status(500).json({message: 'An error has ocurred while deleting the image: '+err});
         }
         else if (!req.body.sanitizedInput.bannerPath){
-          return res.status(201).json({ message: 'Shop created successfully', data: product });
+          return res.status(201).json({ message: 'Shop created successfully', data: shop });
       }
       })
 
@@ -190,7 +204,7 @@ export async function add(req: Request, res: Response) {
               return res.status(500).json({message: 'An error has ocurred while deleting the image: '+err});
           }
           else{
-              return res.status(201).json({ message: 'Product created successfully', data: product})
+              return res.status(201).json({ message: 'Product created successfully', data: shop})
           }
         })
       }

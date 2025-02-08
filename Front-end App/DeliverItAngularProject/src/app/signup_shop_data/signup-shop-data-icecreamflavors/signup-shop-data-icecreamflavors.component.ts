@@ -3,6 +3,10 @@ import { IcecreamflavorsService } from '../../services/icecreamflavors.service';
 import { Router } from '@angular/router';
 import { ValidatorsService } from 'src/app/services/validators.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { User } from 'src/app/entities/user.entity';
+import { Shop } from 'src/app/entities/shop.entity';
+import { ShopService } from 'src/app/services/shop.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-signup-shop-data-icecreamflavors',
@@ -13,10 +17,14 @@ export class SignupShopDataIcecreamflavorsComponent {
 
   productVariationForm: FormGroup;
   submitted: boolean = false;
+  protected shop: Shop;
   
-  constructor(private serv: IcecreamflavorsService, private router : Router, private validator : ValidatorsService){}
+  constructor(private serv: IcecreamflavorsService, private router : Router, private validator : ValidatorsService,
+    private loginService: LoginService){}
 
   ngOnInit() {
+    this.shop = this.loginService.getLoggedShop();
+
     this.productVariationForm = new FormGroup({
       name: new FormControl('', [Validators.required, this.validator.validateMaxCharString(30)]),
       description: new FormControl('', [Validators.required, this.validator.validateMaxCharString(75)]),
@@ -40,7 +48,7 @@ export class SignupShopDataIcecreamflavorsComponent {
     this.submitted = true
 
     if (this.productVariationForm.valid){
-      this.serv.createFlavor(name, description, '654c0a5ada8e9efaeeae025a') //TEMPORARY SOLUTION (WAITING FOR LOGIN/SIGN UP TO BE COMPLETED)
+      this.serv.createFlavor(name, description, this.shop.id)
 
       this.submitted = false
 
@@ -54,8 +62,8 @@ export class SignupShopDataIcecreamflavorsComponent {
   }
 
   submit(){
-    this.serv.postFlavors()
-
-    this.router.navigate(['/home-shop'])
+    this.serv.postFlavors().subscribe(() => {
+      this.router.navigate(['/home-shop']);
+    });
   }
 }

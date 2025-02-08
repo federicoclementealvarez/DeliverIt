@@ -1,5 +1,5 @@
 <div class="banner-container">
-  <img class="banner-image" [src]="this.shop.bannerPath" alt="banner" />
+  <img class="banner-image" [src]="this.shop?.bannerPath ? shop.bannerPath : '../assets/alt_banner.png'" alt="banner" />
 </div>
 <div class="content-container">
   <div class="shop-data">

@@ -3,6 +3,7 @@ import { OrderService } from '../services/order.service';
 import { Router } from '@angular/router';
 import { Shop } from '../entities/shop.entity';
 import { ProductVariationsService } from '../services/product-variations.service';
+import { ProductVariation } from '../entities/productVariation.entity';
 
 @Component({
   selector: 'app-shop-list-product-variations',
@@ -11,7 +12,7 @@ import { ProductVariationsService } from '../services/product-variations.service
 })
 export class ShopListProductVariationsComponent {
 
-  productVariations: any[]
+  productVariations: ProductVariation[]
   shop: Shop
 
   constructor(private orderService: OrderService,
@@ -22,10 +23,13 @@ export class ShopListProductVariationsComponent {
     this.getShop()
 
     this.productVariations = this.productVariationsService.filterProductVariations(this.shop.productVariations)
+
+    console.log(this.productVariations)
     
     this.orderService.editHasBeenClicked.subscribe(({ id: productVariationId, clicked: hasBeenClicked }) => {
       if (hasBeenClicked) {
         this.productVariationsService.setSelectedProductVariationId(productVariationId);
+        this.orderService.unclickOnEdit();
         this.router.navigate(['/shop-modify-productVariations']);
       }
     });
@@ -35,5 +39,9 @@ export class ShopListProductVariationsComponent {
     this.productVariationsService.getSelectedShop().subscribe(shop => {
       this.shop = shop;
     });
+  }
+
+  addVariation(){
+    this.router.navigate(['/signup_shop_data_icecreamflavors']);
   }
 }

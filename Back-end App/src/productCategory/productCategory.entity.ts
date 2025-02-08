@@ -3,7 +3,7 @@ import { BaseEntity } from '../shared/baseEntity.entity.js'
 import { Product } from '../product/product.entity.js'
 
 @Entity()
-@Filter({ name: 'description', cond:  args =>({ description: { $regex: args.par } }) })
+@Filter({ name: 'description', cond:  args =>({ description: { $regex: args.par , $options: 'i'} }) })
 export class ProductCategory extends BaseEntity
 {
   @Property({ nullable: false })
