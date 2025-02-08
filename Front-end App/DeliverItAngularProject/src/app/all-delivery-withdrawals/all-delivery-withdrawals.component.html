@@ -9,8 +9,13 @@
 <h1>Tus retiros</h1>
 
 <div class="container-withdraw" *ngIf="pastWithdrawals.length > 0">
-  <h3 *ngFor="let withdrawal of pastWithdrawals" class="balance-container">{{withdrawal.dateTime}} | Retiro:
-    ${{withdrawal.amount}}</h3>
+  <h3 *ngFor="let withdrawal of pastWithdrawals" class="balance-container">
+    Fecha: {{withdrawal.dateTime}} <br>
+    Retiro: ${{withdrawal.amount}} <br>
+    Saldo antes del retiro: ${{withdrawal.amountBefore}} <br>
+    Saldo después del retiro: ${{withdrawal.amountAfter}}
+  </h3>
+        
 </div>
 
 

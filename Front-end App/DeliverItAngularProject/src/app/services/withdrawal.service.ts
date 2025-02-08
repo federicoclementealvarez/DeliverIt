@@ -30,6 +30,8 @@ export class WithdrawalService {
   add(withdrawal: any): Observable<Withdrawal> {
     const body = {
       amount: withdrawal.amount,
+      amountBefore: withdrawal.amountBefore,
+      amountAfter: withdrawal.amountAfter,
       dateTime: withdrawal.dateTime,
       user: this.loggedUser.id,
     };

@@ -8,42 +8,47 @@ import { WithdrawalService } from '../services/withdrawal.service';
 @Component({
   selector: 'app-withdraw-options',
   templateUrl: './withdraw-options.component.html',
-  styleUrls: ['./withdraw-options.component.scss']
+  styleUrls: ['./withdraw-options.component.scss'],
 })
-export class WithdrawOptionsComponent 
-{
+export class WithdrawOptionsComponent {
+  loggedUser: User = new User();
 
-  user: User = new User
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private validatorsService: ValidatorsService,
+    private withdrawalService: WithdrawalService
+  ) {}
 
-  constructor(private userService: UserService, private router: Router, private validatorsService: ValidatorsService, private withdrawalService: WithdrawalService){}
-
-  ngOnInit()
-  {
-    this.userService.findOne().subscribe((response) => this.user = response)
+  ngOnInit() {
+    this.userService
+      .findOne()
+      .subscribe((response) => (this.loggedUser = response));
   }
 
-  withdrawAll()
-  {
-    if (this.user.creditBalance > 0)
-    {
-      const withdrawal = 
-      {
-        amount: (this.user.creditBalance),
-        dateTime: this.validatorsService.getCurrentDateTime()
-      }
-    this.userService.update(this.user.creditBalance*-1).subscribe((response)=>console.log(response))
-    this.withdrawalService.add(withdrawal).subscribe((response) => { console.log(response); localStorage.setItem('withdrawalAmount',this.user.creditBalance.toString()) ; this.router.navigate(['withdrawal-confirmed']) })
-    }
-    
-    else alert("No puedes retirar $0")
+  withdrawAll() {
+    if (this.loggedUser.creditBalance > 0) {
+      const withdrawal = {
+        amount: this.loggedUser.creditBalance,
+        amountBefore: this.loggedUser.creditBalance,
+        amountAfter: 0,
+        dateTime: this.validatorsService.getCurrentDateTime(),
+      };
+      this.userService
+        .update(this.loggedUser.creditBalance * -1)
+        .subscribe((response) => console.log(response));
+      this.withdrawalService.add(withdrawal).subscribe((response) => {
+        console.log(response);
+        localStorage.setItem(
+          'withdrawalAmount',
+          this.loggedUser.creditBalance.toString()
+        );
+        this.router.navigate(['withdrawal-confirmed']);
+      });
+    } else alert('No puedes retirar $0');
   }
 
-  selectAmount()
-  {
-    this.router.navigate(['withdrawal-amount'])
+  selectAmount() {
+    this.router.navigate(['withdrawal-amount']);
   }
-
-  
-  
-
 }

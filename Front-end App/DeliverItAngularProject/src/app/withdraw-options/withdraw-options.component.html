@@ -1,10 +1,17 @@
-<div class="top-limit"></div>
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<nav class="navbar">
+  <div class="container-menu">
+    <span class="material-symbols-outlined" routerLink="/withdrawal-menu">arrow_back</span>
+  </div>
+</nav>
 
 <h1>Monto a cobrar</h1>
 
 <div class="container">
   <div class="balance-container">
-    <h2>$ {{user.creditBalance}}</h2>
+    <h2>$ {{loggedUser.creditBalance}}</h2>
   </div> 
 </div>
 

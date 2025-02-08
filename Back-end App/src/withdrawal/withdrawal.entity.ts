@@ -1,18 +1,29 @@
-import { Rel, Entity, ManyToOne, Property, DateTimeType, Filter } from '@mikro-orm/core'
-import { BaseEntity } from '../shared/baseEntity.entity.js'
-import { User } from '../user/user.entity.js'
+import {
+  Rel,
+  Entity,
+  ManyToOne,
+  Property,
+  DateTimeType,
+  Filter,
+} from '@mikro-orm/core';
+import { BaseEntity } from '../shared/baseEntity.entity.js';
+import { User } from '../user/user.entity.js';
 
 @Entity()
-@Filter({ name: 'delivery', cond:  args =>({ user: {_id: args.par} }) })
+@Filter({ name: 'delivery', cond: (args) => ({ user: { _id: args.par } }) })
+export class Withdrawal extends BaseEntity {
+  @Property({ nullable: false })
+  amount!: number;
 
-export class Withdrawal extends BaseEntity
-{
-    @Property({ nullable: false })
-    amount!: number
+  @Property({ nullable: false })
+  amountBefore!: number;
 
-    @Property({ nullable: false })
-    dateTime!: DateTimeType
+  @Property({ nullable: false })
+  amountAfter!: number;
 
-    @ManyToOne(() => User, { nullable: false })
-      user !: Rel<User>
+  @Property({ nullable: false })
+  dateTime!: DateTimeType;
+
+  @ManyToOne(() => User, { nullable: false })
+  user!: Rel<User>;
 }
