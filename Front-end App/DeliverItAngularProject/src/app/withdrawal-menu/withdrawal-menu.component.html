@@ -19,29 +19,12 @@
 
 <div class="container">
   <div class="balance-container">
-    <h2>$ {{ user.creditBalance }}</h2>
+    <h2>$ {{ loggedUser.creditBalance }}</h2>
     <app-primary-button
-      *ngIf="user.creditBalance > 0"
+      *ngIf="loggedUser.creditBalance > 0"
       title="Cobrar"
       routerLink="/withdraw-options"
     ></app-primary-button>
-  </div>
-</div>
-
-<div class="options-container">
-  <div class="options" (click)="onSeeCommissions()">
-    <div class="center">
-      <div class="buttons_logos">
-        <img
-          id="plus_icon"
-          src="assets\buttons_logos\plus_sign_icon.png"
-          alt="plus_sign_icon"
-        />
-      </div>
-      <div class="button_text">
-        <p id="add_prod_text">Ver Comisiones</p>
-      </div>
-    </div>
   </div>
 </div>
 

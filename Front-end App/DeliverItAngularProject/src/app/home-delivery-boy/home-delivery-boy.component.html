@@ -14,7 +14,7 @@
       ></ion-icon>
     </div>
     <div class="menu-title-container">
-      <h2 class="margin-0">Hola, Fabrizio!</h2>
+      <h2 class="margin-0">Hola, {{ loggedUser.name }}!</h2>
     </div>
     <mat-divider></mat-divider>
     <div class="menu-options-container">
@@ -43,9 +43,6 @@
         >
       </div>
     </nav>
-
-    <h6 id="welcome-sign">Bienvenido: Sergio Tomás</h6>
-    <!--el evento es para testear, va a ser removido-->
 
     <h2>Tus Pedidos en Curso</h2>
 
@@ -111,7 +108,7 @@
     </div>
 
     <footer *ngIf="pastDeliveries.length > 0">
-      <a id="all-delivered-dropdown" (click)="navigateForward()"
+      <a id="all-delivered-dropdown" routerLink="/all-delivered-orders"
         ><span class="material-symbols-rounded expand_more"
           >expand_more
         </span></a

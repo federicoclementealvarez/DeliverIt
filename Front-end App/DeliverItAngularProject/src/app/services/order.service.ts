@@ -185,7 +185,7 @@ export class OrderService {
   setDelivery(orderId: string) {
     const body = { delivery: this.loggedUser.id };
     return this.http
-      .put<Order>(`${this.url}/${orderId}`, body)
+      .put<Order>(`${this.url}/set-delivery/${orderId}`, body)
       .pipe(map((response: any) => response.body));
   }
 
@@ -193,7 +193,7 @@ export class OrderService {
     const dateTime = this.validatorsService.getCurrentDateTime();
     const body = { dateTimeArrival: dateTime };
     return this.http
-      .put<Order>(`${this.url}/${orderId}`, body)
+      .put<Order>(`${this.url}/set-datetime-arrival/${orderId}`, body)
       .pipe(map((response: any) => response.body));
   }
 
