@@ -18,13 +18,6 @@
   }
 }
 
-.top-limit {
-  margin-top: 10px;
-  display: flex;
-  justify-content: right;
-  height: 7.5vh;
-}
-
 h1,h2 {
   text-align: center;
   font-family: Poppins;
@@ -81,5 +74,19 @@ h1,h2 {
   border-color: $primary-red;
   border-style: solid;
   color: $primary-red;
+}
+
+.navbar {
+  margin-top: 10px;
+  display: flex;
+  justify-content: left;
+  height: 7.5vh;
+}
+
+.container-menu {
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 

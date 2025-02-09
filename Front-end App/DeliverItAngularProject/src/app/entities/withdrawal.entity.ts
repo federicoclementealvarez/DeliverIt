@@ -1,8 +1,9 @@
-import { User } from "./user.entity";
+import { User } from './user.entity';
 
-export class Withdrawal
-{
-  amount?: number
-  user?: User
-  dateTime?: Date
+export class Withdrawal {
+  amount?: number;
+  amountBefore?: number;
+  amountAfter?: number;
+  user?: User;
+  dateTime?: Date;
 }

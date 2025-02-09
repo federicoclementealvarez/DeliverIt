@@ -1,14 +1,22 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <nav class="navbar">
+  <div class="container-menu">
+    <span class="material-symbols-outlined" routerLink="/withdraw-options">arrow_back</span>
+  </div>
+</nav>
 
 <div class="container">
   <h1>Seleccionar Monto</h1>
-  <h2>Tu Balance: ${{user.creditBalance}}</h2>
+  <h2>Tu Balance: ${{loggedUser.creditBalance}}</h2>
   <form class="input-button" [formGroup]="addWithdrawalAmountForm">
     <div class="input-group">
       <h6>Monto de retiro</h6>
       <div class="currency">
         <span id="money-sign">$</span>
-        <input id="amount" type="number" min="0" [max]="user.creditBalance" formControlName="amount">
+        <input id="amount" type="number" min="0" [max]="loggedUser.creditBalance" formControlName="amount">
       </div>
       <div [ngClass]="{'error-message-show': getAmount().invalid && (submitted || getAmount().touched)}"
         class="error-message" style="align-self: flex-start;" id="errors">
