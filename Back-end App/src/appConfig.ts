@@ -15,37 +15,48 @@ import { productVariationRouter } from './productVariation/productVariation.rout
 import { reviewRouter } from './review/review.routes.js';
 import { RequestContext } from '@mikro-orm/core';
 import { orm } from './shared/orm.js';
+import { serve, setup } from 'swagger-ui-express';
+import { swaggerSpec } from './swaggerSpec.config.js';
 
+export function getApp() {
+  const app = express();
 
-export function getApp(){
-    const app = express();
+  const allowedOrigins = [
+    'http://localhost:4200',
+    'https://deliverit.vercel.app',
+  ];
 
-    app.use(cors());
-
-    app.use(express.json());
-
-    app.use(cookieParser());
-
-    app.use((req, res, next) => {
-        RequestContext.create(orm.em, next)
+  app.use(
+    cors({
+      origin: allowedOrigins,
+      credentials: true,
     })
+  );
+  app.use(express.json());
+  app.use(cookieParser());
 
-    app.use('/api/shopTypes', shopTypeRouter);
-    app.use('/api/paymentTypes', paymentTypeRouter);
-    app.use('/api/productCategories', productCategoryRouter);
-    app.use('/api/commissions', commissionRouter);
-    app.use('/api/userTypes', userTypeRouter);
-    app.use('/api/user', userRouter);
-    app.use('/api/products', productRouter);
-    app.use('/api/shops', shopRouter);
-    app.use('/api/order', orderRouter);
-    app.use('/api/withdrawal', withdrawalRouter);
-    app.use('/api/productVariations', productVariationRouter);
-    app.use('/api/reviews', reviewRouter)
+  app.use((req, res, next) => {
+    RequestContext.create(orm.em, next);
+  });
 
-    app.use((_, res) => {
-        return res.status(404).send({ message: 'Resource not found' });
-    })
+  app.use('/api/shopTypes', shopTypeRouter);
+  app.use('/api/paymentTypes', paymentTypeRouter);
+  app.use('/api/productCategories', productCategoryRouter);
+  app.use('/api/commissions', commissionRouter);
+  app.use('/api/userTypes', userTypeRouter);
+  app.use('/api/user', userRouter);
+  app.use('/api/products', productRouter);
+  app.use('/api/shops', shopRouter);
+  app.use('/api/order', orderRouter);
+  app.use('/api/withdrawal', withdrawalRouter);
+  app.use('/api/productVariations', productVariationRouter);
+  app.use('/api/reviews', reviewRouter);
 
-    return app
+  app.use('/api-docs', serve, setup(swaggerSpec));
+
+  app.use((_, res) => {
+    return res.status(404).send({ message: 'Resource not found' });
+  });
+
+  return app;
 }

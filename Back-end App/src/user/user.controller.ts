@@ -1,11 +1,11 @@
-import { orm } from "../shared/orm.js";
-import { Request, Response, NextFunction } from "express";
-import { validator } from "../shared/validator.js";
-import { User } from "./user.entity.js";
-import { UserType } from "../userType/userType.entity.js";
-import jwt from "jsonwebtoken";
-import { secret } from "../shared/secretKey.js";
-import bcrypt from "bcryptjs";
+import { orm } from '../shared/orm.js';
+import { Request, Response, NextFunction } from 'express';
+import { validator } from '../shared/validator.js';
+import { User } from './user.entity.js';
+import { UserType } from '../userType/userType.entity.js';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import { secret } from '../shared/auth.middleware.js';
 
 const em = orm.em;
 
@@ -40,8 +40,8 @@ export function sanitizedInput(req: Request, _: Response, next: NextFunction) {
 
 export async function findAll(_: Request, res: Response) {
   try {
-    const users = await em.find(User, {}, { populate: ["userType"] }); //ver el populate si es correcto
-    return res.status(200).json({ message: "found all users ", data: users });
+    const users = await em.find(User, {}, { populate: ['userType'] }); //ver el populate si es correcto
+    return res.status(200).json({ message: 'found all users ', data: users });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
@@ -55,14 +55,14 @@ export async function findOne(req: Request, res: Response) {
     }
 
     const user = await em.findOne(User, req.params.id, {
-      populate: ["userType", "withdrawals"],
+      populate: ['userType', 'withdrawals'],
     }); //ver el populate si es correcto
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: 'User not found' });
     }
 
-    return res.status(200).json({ message: "User found", data: user });
+    return res.status(200).json({ message: 'User found', data: user });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }
@@ -70,7 +70,7 @@ export async function findOne(req: Request, res: Response) {
 
 export async function remove(_: Request, res: Response) {
   try {
-    res.status(500).json({ message: "Method not implemented" });
+    res.status(500).json({ message: 'Method not implemented' });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
@@ -87,7 +87,7 @@ export async function add(req: Request, res: Response) {
       email: req.body.sanitizedInput.email,
     }); //validates that email its not registered
     if (isEmailExist) {
-      return res.status(400).json({ message: "Email already registered" });
+      return res.status(400).json({ message: 'Email already registered' });
     } else {
       const salt = await bcrypt.genSalt(10);
       const hashPassword = await bcrypt.hash(
@@ -117,7 +117,7 @@ export async function add(req: Request, res: Response) {
       const newUser = em.create(User, userToCreate);
       await em.flush();
 
-      return res.status(201).json({ message: "user created", data: newUser });
+      return res.status(201).json({ message: 'user created', data: newUser });
     }
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
@@ -129,10 +129,10 @@ export async function login(req: Request, res: Response) {
     const user = await em.findOne(
       User,
       { email: req.body.sanitizedInput.email },
-      { populate: ["userType"] }
+      { populate: ['userType'] }
     ); //ver si este populate es correcto
     if (!user) {
-      return res.status(404).json({ message: "User Not Found" });
+      return res.status(404).json({ message: 'User Not Found' });
     }
 
     const isPasswordCorrect = await bcrypt.compare(
@@ -140,7 +140,7 @@ export async function login(req: Request, res: Response) {
       user.password
     );
     if (!isPasswordCorrect) {
-      return res.status(400).json({ message: "Password is incorrect" });
+      return res.status(400).json({ message: 'Password is incorrect' });
     }
 
     //create token
@@ -153,12 +153,13 @@ export async function login(req: Request, res: Response) {
       },
       secret
     ); //token created
+
     return res
-      .cookie("access_token", token, { httpOnly: true }) //send token to the user through the cookie
+      .cookie('access_token', token, { httpOnly: true, maxAge: 900000 }) //send token to the user through the cookie
       .status(200)
       .json({
         status: 200,
-        message: "Login Succes",
+        message: 'Login Succes',
         data: user,
       });
   } catch (error: any) {
@@ -169,14 +170,14 @@ export async function login(req: Request, res: Response) {
 export async function addAdmin(req: Request, res: Response) {
   try {
     const type = (await em.findOne(UserType, {
-      description: "admin",
+      description: 'admin',
     })) as UserType;
 
     const isEmailExist = await em.findOne(User, {
       email: req.body.sanitizedInput.email,
     }); //validates that email its not registered
     if (isEmailExist) {
-      return res.status(400).json({ message: "Email already registered" });
+      return res.status(400).json({ message: 'Email already registered' });
     } else {
       const salt = await bcrypt.genSalt(10);
       const hashPassword = await bcrypt.hash(
@@ -206,7 +207,7 @@ export async function addAdmin(req: Request, res: Response) {
       const newUser = em.create(User, adminToCreate);
       await em.flush();
 
-      return res.status(201).json({ message: "admin created", data: newUser });
+      return res.status(201).json({ message: 'admin created', data: newUser });
     }
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
@@ -216,9 +217,9 @@ export async function addAdmin(req: Request, res: Response) {
 export async function logout(_: Request, res: Response) {
   try {
     return res
-      .clearCookie("access_token")
+      .clearCookie('access_token')
       .status(200)
-      .json({ message: "Successfully logged out" });
+      .json({ message: 'Successfully logged out' });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }
@@ -237,13 +238,13 @@ export async function validateUpdate(
   if (req.body.sanitizedInput.creditBalance !== undefined) {
     const user = await em.findOne(User, req.params.id); //race condition validation
     if (user === null) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: 'User not found' });
     }
     req.body.sanitizedInput.creditBalance =
       req.body.sanitizedInput.creditBalance + user.creditBalance;
     req.body.sanitizedInput.userToUpdate = user;
   } else {
-    return res.status(401).json({ message: "Not allowed to update" });
+    return res.status(401).json({ message: 'Not allowed to update' });
   }
 
   next();
@@ -252,16 +253,27 @@ export async function validateUpdate(
 export async function update(req: Request, res: Response) {
   try {
     const userToUpdate = await em.findOneOrFail(User, req.params.id, {
-      populate: ["userType", "withdrawals"],
+      populate: ['userType', 'withdrawals'],
     });
 
-    const updatedUser = em.assign(userToUpdate, req.body.sanitizedInput);
+    let updatedFields = { ...req.body.sanitizedInput };
+
+    if (req.body.sanitizedInput.password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashPassword = await bcrypt.hash(
+        req.body.sanitizedInput.password,
+        salt
+      );
+      updatedFields.password = hashPassword;
+    }
+
+    const updatedUser = em.assign(userToUpdate, updatedFields);
 
     await em.flush();
 
     return res
       .status(200)
-      .json({ message: "User updated successfully", updatedUser });
+      .json({ message: 'User updated successfully', updatedUser });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }
