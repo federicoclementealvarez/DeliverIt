@@ -15,8 +15,8 @@ import { Shop } from '../entities/shop.entity';
 export class ReviewService {
   constructor(
     private http: HttpClient,
-    private baseUrlService: BaseUrlService,
-  ) { }
+    private baseUrlService: BaseUrlService
+  ) {}
 
   readonly baseUrl = `${this.baseUrlService.getBaseUrl()}reviews/`;
   shopToReview: Shop;
@@ -33,7 +33,8 @@ export class ReviewService {
   }
 
   getShopReviews(shopId: string): Observable<Review[]> {
-    return this.http.get<Review[]>(`${this.baseUrl}/shop/${shopId}`)
+    return this.http
+      .get<Review[]>(`${this.baseUrl}/shop/${shopId}`)
       .pipe(map((response: any) => response.data.reviews));
   }
 

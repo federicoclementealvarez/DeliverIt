@@ -69,6 +69,7 @@ import { ShopStatsComponent } from './shop-stats/shop-stats.component';
 import { ErrorInterceptor } from './services/interceptors/error.service';
 import { LoginService } from './services/login.service';
 import { SignupShopDataBasicComponent } from './signup_shop_data/signup-shop-data-basic/signup-shop-data-basic.component';
+import { AuthInterceptor } from './services/interceptors/auth.service';
 
 @NgModule({
   declarations: [
@@ -145,6 +146,7 @@ import { SignupShopDataBasicComponent } from './signup_shop_data/signup-shop-dat
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -29,10 +29,10 @@ export class ErrorInterceptor implements HttpInterceptor {
           console.error('Client-side error:', error.error.message);
         } else {
           // Server-side error
-          console.error(
-            `Server-side error: ${error.status} - ${error.message}`
-          );
-          this.errorPanelService.setProperties(error);
+          this.errorPanelService.setProperties({
+            message: error.error.message,
+            status: error.status,
+          });
           this.router.navigate(['error-panel']);
         }
         return throwError(

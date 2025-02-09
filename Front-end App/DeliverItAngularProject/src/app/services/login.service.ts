@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseUrlService } from './base-url.service';
 import { map, Observable } from 'rxjs';
-import { ReviewRequest } from '../entities/review.entity';
 import { LoginResponse, User } from '../entities/user.entity';
 import { Router } from '@angular/router';
 

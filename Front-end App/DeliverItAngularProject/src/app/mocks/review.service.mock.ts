@@ -34,7 +34,11 @@ const shopMockValue: Shop = {
   totalReviews: 1,
   street: 'Alvear',
   streetNumber: '1800',
-  shopType: '65469f789358827f56498999',
+  shopType: {
+    id: '65469f789358827f56498999',
+    description: '',
+    iconDescription: '',
+  },
   owner: '654c09e2da8e9efaeeae0253',
   stars: 4,
 };
