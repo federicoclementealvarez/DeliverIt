@@ -221,10 +221,14 @@ export async function addAdmin(req: Request, res: Response) {
 
 export async function logout(_: Request, res: Response) {
   try {
-    return res
-      .clearCookie('access_token')
-      .status(200)
-      .json({ message: 'Successfully logged out' });
+    res.setHeader(
+      'Set-Cookie',
+      `access_token=; Path=/; HttpOnly; Max-Age=0; ${
+        isProduction ? 'Secure; SameSite=None; Partitioned' : 'SameSite=Lax'
+      }`
+    );
+
+    return res.status(200).json({ message: 'Successfully logged out' });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }
