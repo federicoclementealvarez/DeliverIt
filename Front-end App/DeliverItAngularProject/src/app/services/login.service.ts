@@ -48,7 +48,9 @@ export class LoginService {
 
   logout() {
     sessionStorage.clear();
-    this.router.navigate(['']);
+    return this.http.post(`${this.baseUrl}/logout`, null).subscribe(() => {
+      this.router.navigate(['']);
+    });
   }
 
   getLoggedShop() {

@@ -155,19 +155,18 @@ export async function login(req: Request, res: Response) {
       secret
     );
 
-    return res
-      .cookie('access_token', token, {
-        secure: isProduction,
-        httpOnly: true,
-        sameSite: isProduction ? 'none' : 'lax',
-        maxAge: 900000,
-      })
-      .status(200)
-      .json({
-        status: 200,
-        message: 'Login Successful',
-        data: user,
-      });
+    res.setHeader(
+      'Set-Cookie',
+      `access_token=${token}; Path=/; HttpOnly; Max-Age=900000; ${
+        isProduction ? 'Secure; SameSite=None; Partitioned' : 'SameSite=Lax'
+      }`
+    );
+
+    return res.status(200).json({
+      status: 200,
+      message: 'Login Successful',
+      data: user,
+    });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }
