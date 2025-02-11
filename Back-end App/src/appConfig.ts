@@ -18,6 +18,8 @@ import { orm } from './shared/orm.js';
 import { serve, setup } from 'swagger-ui-express';
 import { swaggerSpec } from './swaggerSpec.config.js';
 
+export const isProduction = process.env.NODE_ENV === 'production';
+
 export function getApp() {
   const app = express();
 

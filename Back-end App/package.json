@@ -6,7 +6,7 @@
   "main": "app.js",
   "scripts": {
     "start:dev": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"node --env-file=./.env.development ./dist/app.js\"",
-    "start:prod": "tsc --project ./tsconfig.json && node --env-file=./.env.production ./dist/app.js",
+    "start:prod": "tsc --project ./tsconfig.json && NODE_ENV=production node --env-file=./.env.production ./dist/app.js",
     "test": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"cross-env NODE_OPTIONS=--experimental-vm-modules jest --detectOpenHandles --config=jestconfig.json\""
   },
   "author": "",

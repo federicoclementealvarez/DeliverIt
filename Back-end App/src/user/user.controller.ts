@@ -6,6 +6,7 @@ import { UserType } from '../userType/userType.entity.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { secret } from '../shared/auth.middleware.js';
+import { isProduction } from '../appConfig.js';
 
 const em = orm.em;
 
@@ -152,14 +153,18 @@ export async function login(req: Request, res: Response) {
         userType: user.userType,
       },
       secret
-    ); //token created
+    );
 
     return res
-      .cookie('access_token', token, { httpOnly: true, maxAge: 900000 }) //send token to the user through the cookie
+      .cookie('access_token', token, {
+        secure: isProduction,
+        httpOnly: true,
+        maxAge: 900000,
+      })
       .status(200)
       .json({
         status: 200,
-        message: 'Login Succes',
+        message: 'Login Successful',
         data: user,
       });
   } catch (error: any) {
