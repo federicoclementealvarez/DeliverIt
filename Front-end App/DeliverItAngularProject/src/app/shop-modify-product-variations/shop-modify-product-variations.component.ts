@@ -46,7 +46,6 @@ export class ShopModifyProductVariationsComponent {
         }
 
         this.productVariationService.update(productVariation).subscribe(() =>{
-          console.log(productVariation)
           this.router.navigate(['/home-shop']);
         })
       }

@@ -7,6 +7,7 @@ import { ReviewService } from '../services/review.service';
 import { StatsService } from '../services/stats.service';
 import { LoginService } from '../services/login.service';
 import { User } from '../entities/user.entity';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-home-shop',
@@ -18,7 +19,8 @@ export class HomeShopComponent {
   protected shop: Shop;
 
   constructor(private router: Router, private shopService: ShopService, private productVariationsService: ProductVariationsService, 
-    private reviewService: ReviewService, private statsService: StatsService, private loginService: LoginService) { }
+    private reviewService: ReviewService, private statsService: StatsService, private loginService: LoginService,
+    private productService: ProductService) { }
 
     loggedUser: User = this.loginService.getLoggedUser();
 
@@ -31,12 +33,12 @@ export class HomeShopComponent {
   }
 
   onModifyProducts() {
-    this.router.navigate(['/shop-list-product', this.shop]);
+    this.productService.setSelectedShop(this.shop);
+    this.router.navigate(['/shop-list-product']);
   }
 
   onModifyProductVariations(){
     this.productVariationsService.setSelectedShop(this.shop);
-    console.log('si pasa pero es raro')
     this.router.navigate(['/shop-list-productVariations']);
   }
 
@@ -56,5 +58,9 @@ export class HomeShopComponent {
   navigateToReviews() {
     this.reviewService.shopToReview = this.shop
     this.router.navigate(['/reviews/shop'])
+  }
+
+  logout() {
+    this.loginService.logout();
   }
 }

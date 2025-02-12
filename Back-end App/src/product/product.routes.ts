@@ -2,6 +2,7 @@ import { Router} from 'express';
 import {find, remove, update, validateId, sanitizedInput, create, validateInputStringLength} from './product.controller.js';
 import multer from 'multer';
 import { multerUpload } from '../shared/imageHandler.js';
+import { assureAuthAndRoles, UserTypeEnum } from '../shared/auth.middleware.js';
 
 export const productRouter = Router();
 
@@ -42,7 +43,7 @@ const multerUpld = multerUpload.single('photo')
  *       500:
  *         description: Internal server error
  */
-productRouter.get('/:id?/:shopId?', find)
+productRouter.get('/:id?/:shopId?', assureAuthAndRoles([UserTypeEnum.client, UserTypeEnum.owner, UserTypeEnum.admin, UserTypeEnum.delivery]), find)
 
 /**
  * @swagger
@@ -67,7 +68,7 @@ productRouter.get('/:id?/:shopId?', find)
  *       500:
  *         description: Internal server error
  */
-productRouter.delete('/:id', validateId, remove)
+productRouter.delete('/:id', assureAuthAndRoles([UserTypeEnum.owner, UserTypeEnum.admin]), validateId, remove)
 
 /**
  * @swagger
@@ -111,7 +112,9 @@ productRouter.delete('/:id', validateId, remove)
  *       500:
  *         description: Internal server error
  */
-productRouter.post('/', function (req, res, next){
+productRouter.post('/', 
+    assureAuthAndRoles([UserTypeEnum.owner, UserTypeEnum.admin]), 
+    function (req, res, next){
     multerUpld(req, res, function (err) {
         if (err instanceof multer.MulterError) {
             return res.status(500).json({message: 'An error has ocurred', errorMessage: err.message})
@@ -171,7 +174,10 @@ productRouter.post('/', function (req, res, next){
  *       500:
  *         description: Internal server error
  */
-productRouter.put('/:id',validateId, function (req, res, next){
+productRouter.put('/:id', 
+    assureAuthAndRoles([UserTypeEnum.owner, UserTypeEnum.admin]), 
+    validateId, 
+    function (req, res, next){
     multerUpld(req, res, function (err) {
         if (err instanceof multer.MulterError) {
             return res.status(500).json({message: 'An error has ocurred', errorMessage: err.message})

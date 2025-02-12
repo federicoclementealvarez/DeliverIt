@@ -2,6 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { sanitizedInput, findAll, findOneById, remove, add, findByFilters, calculateStats, getByOwnerId} from './shop.controller.js';
 import { multerUploadLogoAndBanner } from '../shared/imageHandler.js';
 import multer from 'multer';
+import { assureAuthAndRoles, UserTypeEnum } from '../shared/auth.middleware.js';
 
 export const shopRouter = Router();
 
@@ -33,7 +34,7 @@ export const shopRouter = Router();
  *       500:
  *         description: Internal server error
  */
-shopRouter.get('/owner/:ownerId', getByOwnerId);
+shopRouter.get('/owner/:ownerId', assureAuthAndRoles([UserTypeEnum.client, UserTypeEnum.owner, UserTypeEnum.admin, UserTypeEnum.delivery]), getByOwnerId);
 
 /**
  * @swagger
@@ -55,7 +56,7 @@ shopRouter.get('/owner/:ownerId', getByOwnerId);
  *       500:
  *         description: Internal server error
  */
-shopRouter.get('/', findAll);
+shopRouter.get('/', assureAuthAndRoles([UserTypeEnum.client, UserTypeEnum.owner, UserTypeEnum.admin, UserTypeEnum.delivery]), findAll);
 
 /**
  * @swagger
@@ -85,7 +86,7 @@ shopRouter.get('/', findAll);
  *       500:
  *         description: Internal server error
  */
-shopRouter.get('/:id', findOneById);
+shopRouter.get('/:id', assureAuthAndRoles([UserTypeEnum.client, UserTypeEnum.owner, UserTypeEnum.admin, UserTypeEnum.delivery]), findOneById);
 
 /**
  * @swagger
@@ -123,7 +124,7 @@ shopRouter.get('/:id', findOneById);
  *         description: Internal server error
  * 
  */
-shopRouter.get('/:id/:calculateStats', calculateStats);
+shopRouter.get('/:id/:calculateStats', assureAuthAndRoles([UserTypeEnum.owner, UserTypeEnum.admin]), calculateStats);
 
 
 /**
@@ -165,7 +166,7 @@ shopRouter.get('/:id/:calculateStats', calculateStats);
  *       500:
  *         description: Internal server error
  */
-shopRouter.get('/:name?/:shopTypeId?/:productCategoryName?', findByFilters);
+shopRouter.get('/:name?/:shopTypeId?/:productCategoryName?',assureAuthAndRoles([UserTypeEnum.client, UserTypeEnum.owner, UserTypeEnum.admin, UserTypeEnum.delivery]), findByFilters);
 
 
 /**
@@ -191,7 +192,7 @@ shopRouter.get('/:name?/:shopTypeId?/:productCategoryName?', findByFilters);
  *       500:
  *         description: Internal server error
  */
-shopRouter.delete('/:id', remove);
+shopRouter.delete('/:id', assureAuthAndRoles([UserTypeEnum.owner, UserTypeEnum.admin]), remove);
 
 
 /**
@@ -251,4 +252,7 @@ shopRouter.delete('/:id', remove);
  *       500:
  *         description: Internal server error
  */
-shopRouter.post('/', multerUploadLogoAndBanner, sanitizedInput, add);
+shopRouter.post('/', assureAuthAndRoles([UserTypeEnum.owner, UserTypeEnum.admin]), 
+                    multerUploadLogoAndBanner, 
+                    sanitizedInput, 
+                    add);

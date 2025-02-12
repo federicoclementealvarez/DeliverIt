@@ -23,8 +23,6 @@ export class ShopListProductVariationsComponent {
     this.getShop()
 
     this.productVariations = this.productVariationsService.filterProductVariations(this.shop.productVariations)
-
-    console.log(this.productVariations)
     
     this.orderService.editHasBeenClicked.subscribe(({ id: productVariationId, clicked: hasBeenClicked }) => {
       if (hasBeenClicked) {

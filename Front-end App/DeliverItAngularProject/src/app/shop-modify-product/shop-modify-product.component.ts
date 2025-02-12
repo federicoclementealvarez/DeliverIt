@@ -67,13 +67,16 @@ export class ShopModifyProductComponent {
           validSince: this.shopModifyProductForm.get('validSince').value,
           photo: this.photo
         }
-        this.productService.update(product)
-        this.router.navigate(['/home-shop']);
+
+        this.productService.update(product).subscribe(() =>{
+          this.router.navigate(['/home-shop']);
+        })
         }
   }
 
   delete(){
-    this.productService.delete(this.productId)
-    this.router.navigate(['/home-shop'])
+    this.productService.delete(this.productId).subscribe(() =>{
+      this.router.navigate(['/home-shop']);
+    })
   }
 }
