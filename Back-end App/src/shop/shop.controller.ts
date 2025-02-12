@@ -143,8 +143,19 @@ export async function remove(req: Request, res: Response) {
     if (!validatorResponse.isValid) {
       return res.status(500).json({ message: validatorResponse.message })
     }
-    const shopType = em.getReference(Shop, req.params.id)
-    await em.removeAndFlush(shopType)
+
+    const shop = await em.findOne(Shop, req.params.id)
+    if(shop===null){
+      return res.status(404).json({message: 'Shop not found'})
+    }
+
+    cloudinary.uploader.destroy(shop.logoId)
+    if (shop.bannerId){
+      cloudinary.uploader.destroy(shop.bannerId)
+    }
+
+    await em.remove(shop).flush()
+
     return res.status(200).json({ message: 'Shop deleted successfully' })
   }
   catch (error: any) {
@@ -204,7 +215,7 @@ export async function add(req: Request, res: Response) {
               return res.status(500).json({message: 'An error has ocurred while deleting the image: '+err});
           }
           else{
-              return res.status(201).json({ message: 'Product created successfully', data: shop})
+              return res.status(201).json({ message: 'Shop created successfully', data: shop})
           }
         })
       }
@@ -213,15 +224,6 @@ export async function add(req: Request, res: Response) {
       console.log(error)
       return res.status(500).json({message: error.message})
     }
-}
-
-export async function update(req: Request, res: Response) {
-  try {
-    return res.status(500).json({ message: 'Method not implemented' })
-  }
-  catch (error: any) {
-    return res.status(500).json({ message: error.message })
-  }
 }
 
 export async function calculateStats(req: Request, res: Response) {
