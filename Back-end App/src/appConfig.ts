@@ -18,22 +18,10 @@ import { orm } from './shared/orm.js';
 import { serve, setup } from 'swagger-ui-express';
 import { swaggerSpec } from './swaggerSpec.config.js';
 
-export const isProduction = process.env.NODE_ENV === 'production';
-
 export function getApp() {
   const app = express();
 
-  const allowedOrigins = [
-    'http://localhost:4200',
-    'https://deliverit.vercel.app',
-  ];
-
-  app.use(
-    cors({
-      origin: allowedOrigins,
-      credentials: true,
-    })
-  );
+  app.use(cors());
   app.use(express.json());
   app.use(cookieParser());
 

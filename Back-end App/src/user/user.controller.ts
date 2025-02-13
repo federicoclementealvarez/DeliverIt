@@ -6,7 +6,6 @@ import { UserType } from '../userType/userType.entity.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { secret } from '../shared/auth.middleware.js';
-import { isProduction } from '../appConfig.js';
 
 const em = orm.em;
 
@@ -155,17 +154,10 @@ export async function login(req: Request, res: Response) {
       secret
     );
 
-    res.setHeader(
-      'Set-Cookie',
-      `access_token=${token}; Path=/; HttpOnly; Max-Age=900000; ${
-        isProduction ? 'Secure; SameSite=None; Partitioned' : 'SameSite=Lax'
-      }`
-    );
-
     return res.status(200).json({
-      status: 200,
       message: 'Login Successful',
-      data: user,
+      user,
+      token,
     });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
@@ -214,21 +206,6 @@ export async function addAdmin(req: Request, res: Response) {
 
       return res.status(201).json({ message: 'admin created', data: newUser });
     }
-  } catch (error: any) {
-    return res.status(500).json({ message: error.message });
-  }
-}
-
-export async function logout(_: Request, res: Response) {
-  try {
-    res.setHeader(
-      'Set-Cookie',
-      `access_token=; Path=/; HttpOnly; Max-Age=0; ${
-        isProduction ? 'Secure; SameSite=None; Partitioned' : 'SameSite=Lax'
-      }`
-    );
-
-    return res.status(200).json({ message: 'Successfully logged out' });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }

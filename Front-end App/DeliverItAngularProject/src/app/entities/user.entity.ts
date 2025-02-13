@@ -14,5 +14,6 @@ export class User {
 }
 
 export interface LoginResponse {
-  data: User;
+  user: User;
+  token: string;
 }

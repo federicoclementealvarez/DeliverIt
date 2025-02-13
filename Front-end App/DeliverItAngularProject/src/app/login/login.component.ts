@@ -35,9 +35,9 @@ export class LoginComponent {
         password: this.getPassword().value,
       };
 
-      this.loginService.login(body).subscribe((user) => {
-        this.loginService.setLoggedUser(user);
-        this.loginService.redirectUser(user);
+      this.loginService.login(body).subscribe((res) => {
+        this.loginService.setLoggedUser(res);
+        this.loginService.redirectUser(res.user);
       });
     }
   }

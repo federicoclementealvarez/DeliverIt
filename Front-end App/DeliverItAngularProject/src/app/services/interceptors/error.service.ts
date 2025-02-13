@@ -6,7 +6,7 @@ import {
   HttpRequest,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ErrorPanelService } from '../error-panel.service';
@@ -24,8 +24,6 @@ export class ErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        console.log(JSON.stringify(error));
-
         if (error.error instanceof ErrorEvent) {
           // Client-side error
           console.error('Client-side error:', error.error.message);

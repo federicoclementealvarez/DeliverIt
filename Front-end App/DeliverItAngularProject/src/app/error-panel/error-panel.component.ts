@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ErrorPanelService } from '../services/error-panel.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-error-panel',
@@ -15,7 +16,7 @@ export class ErrorPanelComponent {
   constructor(
     private errorPanelService: ErrorPanelService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -27,6 +28,6 @@ export class ErrorPanelComponent {
   }
 
   goBackToOrigin() {
-    this.router.navigateByUrl(this.origin);
+    this.location.back();
   }
 }

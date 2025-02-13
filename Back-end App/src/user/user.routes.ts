@@ -7,7 +7,6 @@ import {
   add,
   update,
   login,
-  logout,
   addAdmin,
   validateUpdate,
 } from './user.controller.js';
@@ -21,6 +20,5 @@ userRouter.delete('/:id', remove);
 userRouter.post('/register', sanitizedInput, add); //register
 userRouter.post('/login', sanitizedInput, login); //login
 userRouter.post('/register-admin', sanitizedInput, addAdmin); //register admin
-userRouter.post('/logout', logout);
 userRouter.put('/:id', sanitizedInput, validateUpdate, update);
 userRouter.patch('/:id', sanitizedInput, update);
