@@ -2,13 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseUrlService } from './base-url.service';
 import { Product } from '../entities/product.entity';
-import { Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
+import { Shop } from '../entities/shop.entity';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
   shopProducts: Product[]
+  private selectedShop = new BehaviorSubject<any>({})
 
   constructor(private http: HttpClient, private baseUrlService: BaseUrlService) { }
 
@@ -35,6 +37,14 @@ export class ProductService {
       );
   }
 
+  setSelectedShop(shop:Shop){
+      this.selectedShop.next(shop);
+    }
+
+  getSelectedShop() {
+      return this.selectedShop.asObservable();
+    }
+
   create(prod: Product) {
     const formData = new FormData();
     formData.append("name", prod.name);
@@ -52,7 +62,7 @@ export class ProductService {
     this.http.post<any>(this.url, formData).subscribe(response => console.log(response))
   }
 
-  update(prod: Product) {
+  update(prod: Product): Observable<Product> {
     const formData = new FormData();
     formData.append("name", prod.name);
     formData.append("description", prod.description);
@@ -62,12 +72,16 @@ export class ProductService {
 
     const url = this.baseUrlService.getBaseUrl() + 'products/' + prod.id
 
-    this.http.put<any>(url, formData).subscribe(response => console.log(response))
+    return this.http.put<Product>(url, formData).pipe(
+      map((response: any) => response.body)
+    )
   }
 
-  delete(id: string) {
+  delete(id: string): Observable<Product> {
     const url = this.baseUrlService.getBaseUrl() + 'products/' + id
 
-    this.http.delete<any>(url).subscribe(response => console.log(response))
+    return this.http.delete<any>(url).pipe(
+      map((response: any) => response.body)
+    )
   }
 }

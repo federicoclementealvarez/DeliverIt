@@ -28,16 +28,16 @@ export class ShopListProductComponent {
     this.orderService.editHasBeenClicked.subscribe(({ id: productId, clicked: hasBeenClicked }) => {
       if (hasBeenClicked) {
         sessionStorage.setItem('productId', productId);
+        this.orderService.unclickOnEdit();
         this.router.navigate(['/shop-modify-product']);
       }
     });
   }
 
   getShop() {
-    this.shopService.getOne(this.shopId)
-      .subscribe((data: Shop) => {
-        this.shop = data
-      })
+    this.productService.getSelectedShop().subscribe(shop => {
+      this.shop = shop;
+    });
   }
 
   getProducts() {

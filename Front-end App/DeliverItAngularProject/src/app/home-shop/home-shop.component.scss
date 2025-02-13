@@ -119,3 +119,12 @@
   margin-left: 6%;
   padding: 2px;
 }
+
+.logout-button {
+  border: 2px solid red;
+  background-color: #fff5f5;
+}
+
+.logout-button .button_text p {
+  color: red; /* Texto rojo */
+}
