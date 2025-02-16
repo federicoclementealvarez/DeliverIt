@@ -7,7 +7,6 @@ import {
   add,
   update,
   login,
-  logout,
   addAdmin,
   validateUpdate,
 } from "./user.controller.js";
@@ -214,22 +213,6 @@ userRouter.post("/login", sanitizedInput, login); //login
  *         description: Internal server error
  */
 userRouter.post("/register-admin", sanitizedInput, addAdmin); //register admin
-
-/**
- * @swagger
- * /api/users/logout:
- *   post:
- *     tags:
- *       - User
- *     summary: Logout a user
- *     description: Logs out the current user by clearing the access token cookie.
- *     responses:
- *       200:
- *         description: Successfully logged out
- *       500:
- *         description: Internal server error
- */
-userRouter.post("/logout", logout);
 
 /**
  * @swagger
