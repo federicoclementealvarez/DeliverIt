@@ -172,13 +172,17 @@ export class OrderService {
 
   findCurrentCustomerOrders(): Observable<Order[]> {
     return this.http
-      .get<Order[]>(`${this.url}/current-orders/${this.loggedUser.id}`)
+      .get<Order[]>(
+        `${this.url}/current-orders/${this.loginService.getLoggedUser().id}`
+      )
       .pipe(map((response: any) => response.data));
   }
 
   findCurrentDeliveryOrders(): Observable<Order[]> {
     return this.http
-      .get<Order[]>(`${this.url}/current-deliveries/${this.loggedUser.id}`)
+      .get<Order[]>(
+        `${this.url}/current-deliveries/${this.loginService.getLoggedUser().id}`
+      )
       .pipe(map((response: any) => response.data));
   }
 
