@@ -36,7 +36,7 @@ export class LoginComponent {
       };
 
       this.loginService.login(body).subscribe((res) => {
-        this.loginService.setLoggedUser(res);
+        this.loginService.setLoggedUser(res.user);
         this.loginService.redirectUser(res.user);
       });
     }

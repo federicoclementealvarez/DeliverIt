@@ -20,7 +20,7 @@ Los distintos entornos que maneja la aplicación son configurados con la librer�
 
 ### Autenticación y autorización
 
-Se utilizó la libreria jsonwebtoken para crear los token y decodificarlos en cada request a los recursos protegidos. Los token son enviados a traves de una cookie al cliente.
+Se utilizó la libreria jsonwebtoken para crear los token y decodificarlos en cada request a los recursos protegidos. Los token son enviados a través de la response.
 
 ### Swagger docs
 

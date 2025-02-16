@@ -4,6 +4,7 @@ import { DatosPersonalesService } from '../services/datos-personales.service';
 import { Router } from '@angular/router';
 import { UserType } from '../entities/userType.entity';
 import { LoginService } from '../services/login.service';
+import { LoginResponse } from '../entities/user.entity';
 
 @Component({
   selector: 'app-datos-personales',
@@ -23,7 +24,7 @@ export class DatosPersonalesComponent {
   constructor(
     private service: DatosPersonalesService,
     private router: Router,
-    private loginService: LoginService,
+    private loginService: LoginService
   ) {}
 
   userTypes: UserType[] = null;
@@ -44,22 +45,34 @@ export class DatosPersonalesComponent {
         userType: this.getUserTypeId().value,
       };
 
-      const ownerType = this.userTypes.find(item => item.description === "owner"); //en caso de modificar el nombre del userType, cambiar esta línea
-
       this.service.sendUserDataForm(body);
 
-      if (ownerType.id === body.userType){
-        this.service.register().subscribe((data) => {
-          this.loginService
-            .login(this.service.getUserAndPassword())
-            .subscribe((user) => {
-              this.loginService.setLoggedUser(user);
-              this.router.navigate(['/signup_shop_data_basic']);
-            });
-        });
-      }
-      else {
-        this.router.navigate(['/direccion']);
+      const userType = this.userTypes.find((u) => u.id === body.userType);
+      switch (userType.description) {
+        case 'client':
+          this.router.navigate(['/direccion']);
+          break;
+
+        case 'delivery':
+          this.service.register().subscribe(() => {
+            this.loginService
+              .login(this.service.getUserAndPassword())
+              .subscribe((res: LoginResponse) => {
+                this.loginService.redirectUser(res.user);
+              });
+          });
+          break;
+
+        case 'owner':
+          this.service.register().subscribe((data) => {
+            this.loginService
+              .login(this.service.getUserAndPassword())
+              .subscribe((res: LoginResponse) => {
+                this.loginService.setLoggedUser(res.user);
+                this.router.navigate(['/signup_shop_data_basic']);
+              });
+          });
+          break;
       }
     }
   }

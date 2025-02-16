@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DireccionService } from '../services/direccion.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../entities/user.entity';
+import { LoginResponse, User } from '../entities/user.entity';
 import { UserService } from '../services/user.service';
 import { DatosPersonalesService } from '../services/datos-personales.service';
 import { LoginService } from '../services/login.service';
@@ -57,7 +57,6 @@ export class DireccionComponent {
         };
 
         this.userService.updateAll(body).subscribe((data: any) => {
-          console.log(data, data.updatedUser);
           this.loginService.setLoggedUser(data.updatedUser);
 
           this.router.navigate(['/home-customer']);
@@ -77,9 +76,9 @@ export class DireccionComponent {
         this.datosPersonalesService.register().subscribe((data) => {
           this.loginService
             .login(this.datosPersonalesService.getUserAndPassword())
-            .subscribe((user) => {
-              this.loginService.setLoggedUser(user);
-              this.loginService.redirectUser(user);
+            .subscribe((res: LoginResponse) => {
+              this.loginService.setLoggedUser(res.user);
+              this.loginService.redirectUser(res.user);
             });
         });
 

@@ -143,7 +143,6 @@ export async function login(req: Request, res: Response) {
       return res.status(400).json({ message: 'Password is incorrect' });
     }
 
-    //create token
     const token = jwt.sign(
       {
         _id: user._id,

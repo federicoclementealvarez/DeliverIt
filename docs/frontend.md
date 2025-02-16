@@ -25,13 +25,7 @@ Los distintos entornos que maneja la aplicación son configurados con el framewo
 
 ### Autenticación y autorización
 
-Se utilizó el interceptor provisto por framework para enviar las cookies recibidas desde el backend para que el navegador las incluya en cada request para acceder a los recursos protegidos.
-
-```JavaScript
-{ withCredentials: true }
-```
-
-Además, los componentes accedidos a traves del Angular router también estan autorizados con los roles definidos en el backend.
+Al recibir el token del backend, se guardó en el sessionStorage del browser. Luego, se utilizó el interceptor provisto por framework para incluir el token en cada request para acceder a los recursos protegidos del backend. Además, los componentes accedidos a traves del Angular router también estan autorizados con los roles definidos en el backend.
 
 ## Tests automatizados
 

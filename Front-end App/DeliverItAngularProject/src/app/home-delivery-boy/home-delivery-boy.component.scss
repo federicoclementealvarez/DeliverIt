@@ -8,11 +8,11 @@
 }
 
 .container-menu {
-    width: 25%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 #welcome-sign {
   margin-top: 25px;
@@ -167,4 +167,8 @@ mat-divider {
   align-items: center;
   justify-content: flex-end;
   margin: 15px;
+}
+
+.letter-red {
+  color: #c00a0a;
 }

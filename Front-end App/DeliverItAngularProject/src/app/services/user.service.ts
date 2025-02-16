@@ -18,29 +18,30 @@ export class UserService {
     private loginService: LoginService
   ) {}
 
-  loggedUser = this.loginService.getLoggedUser();
-
   findOne(): Observable<User> {
     return this.http
-      .get<User>(`${this.url}/${this.loggedUser.id}`)
+      .get<User>(`${this.url}/${this.loginService.getLoggedUser().id}`)
       .pipe(map((response: any) => response.data));
   }
 
   update(ammountToUpdate: number): Observable<User> {
     const body = { creditBalance: ammountToUpdate };
     return this.http
-      .put<User>(`${this.url}/${this.loggedUser.id}`, body)
+      .put<User>(`${this.url}/${this.loginService.getLoggedUser().id}`, body)
       .pipe(map((response: any) => response.message));
   }
 
   updateAll(body) {
-    return this.http.patch<User>(`${this.url}/${this.loggedUser.id}`, body);
+    return this.http.patch<User>(
+      `${this.url}/${this.loginService.getLoggedUser().id}`,
+      body
+    );
   }
 
   updateAddress(direccionForm: FormGroup): Observable<User> {
     const body = { ...direccionForm.value, creditBalance: 0 };
     return this.http
-      .put<User>(`${this.url}/${this.loggedUser.id}`, body)
+      .put<User>(`${this.url}/${this.loginService.getLoggedUser().id}`, body)
       .pipe(map((response: any) => response.message));
   }
 }

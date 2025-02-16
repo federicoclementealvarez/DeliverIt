@@ -88,7 +88,7 @@ export class SignupComponent {
         // Update data
         this.userService.updateAll(body).subscribe((data: any) => {
           this.loginService.setLoggedUser(data.updatedUser);
-          this.router.navigate(['/home-customer']);
+          this.loginService.redirectUser(data.updatedUser);
         });
       } else {
         // Create User

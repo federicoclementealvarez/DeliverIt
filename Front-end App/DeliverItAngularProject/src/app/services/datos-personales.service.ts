@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormGroup } from '@angular/forms';
 import { map, Observable } from 'rxjs';
-import { LoginResponse, User } from '../entities/user.entity';
+import { User } from '../entities/user.entity';
 import { BaseUrlService } from './base-url.service';
-import { UserType } from '../entities/userType.entity';
 
 @Injectable({
   providedIn: 'root',

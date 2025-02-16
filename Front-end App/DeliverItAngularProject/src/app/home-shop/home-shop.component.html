@@ -1,5 +1,9 @@
 <div class="banner-container">
-  <img class="banner-image" [src]="this.shop?.bannerPath ? shop.bannerPath : '../assets/alt_banner.png'" alt="banner" />
+  <img
+    class="banner-image"
+    [src]="this.shop?.bannerPath ? shop.bannerPath : '../assets/alt_banner.png'"
+    alt="banner"
+  />
 </div>
 <div class="shop-card-container">
   <div class="shop-data">
@@ -85,6 +89,16 @@
       </div>
       <div class="button_text">
         <p id="add_prod_text">Ver estadísticas del mes</p>
+      </div>
+    </div>
+  </div>
+  <div class="options" routerLink="/signup">
+    <div class="center">
+      <div class="buttons_logos">
+        <ion-icon class="password-icon" name="lock-closed-outline"></ion-icon>
+      </div>
+      <div class="button_text">
+        <p id="add_prod_text">Cambiar contraseña</p>
       </div>
     </div>
   </div>

@@ -12,20 +12,25 @@ import { ProductService } from '../services/product.service';
 @Component({
   selector: 'app-home-shop',
   templateUrl: './home-shop.component.html',
-  styleUrls: ['./home-shop.component.scss']
+  styleUrls: ['./home-shop.component.scss'],
 })
 export class HomeShopComponent {
-
   protected shop: Shop;
 
-  constructor(private router: Router, private shopService: ShopService, private productVariationsService: ProductVariationsService, 
-    private reviewService: ReviewService, private statsService: StatsService, private loginService: LoginService,
-    private productService: ProductService) { }
+  constructor(
+    private router: Router,
+    private shopService: ShopService,
+    private productVariationsService: ProductVariationsService,
+    private reviewService: ReviewService,
+    private statsService: StatsService,
+    private loginService: LoginService,
+    private productService: ProductService
+  ) {}
 
-    loggedUser: User = this.loginService.getLoggedUser();
+  loggedUser: User = this.loginService.getLoggedUser();
 
   ngOnInit() {
-    this.getShop(this.loggedUser.id)
+    this.getShop(this.loggedUser.id);
   }
 
   onAddProducts() {
@@ -37,27 +42,27 @@ export class HomeShopComponent {
     this.router.navigate(['/shop-list-product']);
   }
 
-  onModifyProductVariations(){
+  onModifyProductVariations() {
     this.productVariationsService.setSelectedShop(this.shop);
     this.router.navigate(['/shop-list-productVariations']);
   }
 
   onStats() {
-    this.statsService.setShop(this.shop)
+    this.statsService.setShop(this.shop);
     this.router.navigate(['/shop-stats']);
   }
 
   getShop(id: string) {
-    this.shopService.getShopByOwnerId(id)
-      .subscribe((data: Shop) => {
-        this.shop = data
-        sessionStorage.setItem('shopId', this.shop.id)
-      })
+    this.shopService.getShopByOwnerId(id).subscribe((data: Shop) => {
+      this.shop = data;
+      sessionStorage.setItem('shopId', this.shop.id);
+      this.loginService.setLoggedShop(this.shop);
+    });
   }
 
   navigateToReviews() {
-    this.reviewService.shopToReview = this.shop
-    this.router.navigate(['/reviews/shop'])
+    this.reviewService.shopToReview = this.shop;
+    this.router.navigate(['/reviews/shop']);
   }
 
   logout() {

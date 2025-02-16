@@ -18,17 +18,17 @@
     </div>
     <mat-divider></mat-divider>
     <div class="menu-options-container">
-      <h3 class="link menu-option" routerLink="">
-        <ion-icon name="lock-closed-outline"></ion-icon>
-        Cambiar contraseña
-      </h3>
-      <h3 class="link menu-option" routerLink="">
-        <ion-icon name="log-out-outline"></ion-icon>
-        Cerrar sesión
-      </h3>
       <h3 class="link menu-option" routerLink="/withdrawal-menu">
         <ion-icon name="cash-outline"></ion-icon>
         Tus retiros
+      </h3>
+      <h3 class="link menu-option" routerLink="/signup">
+        <ion-icon name="lock-closed-outline"></ion-icon>
+        Cambiar contraseña
+      </h3>
+      <h3 class="link menu-option letter-red" routerLink="">
+        <ion-icon name="log-out-outline"></ion-icon>
+        Cerrar sesión
       </h3>
     </div>
   </mat-sidenav>
@@ -56,7 +56,7 @@
       </div>
       <div *ngIf="currentDeliveries.length > 0" class="active-orders">
         <app-shop-card
-          (retrieveOrderId)="setArrival($event,order.commissionForDelivery)"
+          (retrieveOrderId)="setArrival($event, order.commissionForDelivery)"
           *ngFor="let order of currentDeliveries"
           [title]="order.lineItems[0].product.shop.name"
           [subtitle]="

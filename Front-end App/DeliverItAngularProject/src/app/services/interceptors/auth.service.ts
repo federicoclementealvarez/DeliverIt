@@ -6,12 +6,13 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { LoginService } from '../login.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor(private loginService: LoginService) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -19,7 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     let headers: HeadersInit = {};
 
-    const token = sessionStorage.getItem('access_token');
+    const token = this.loginService.getToken();
     if (token) {
       headers = {
         Authorization: `Bearer ${token}`,

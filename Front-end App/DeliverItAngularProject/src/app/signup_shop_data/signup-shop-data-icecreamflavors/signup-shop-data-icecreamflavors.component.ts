@@ -11,57 +11,72 @@ import { LoginService } from 'src/app/services/login.service';
 @Component({
   selector: 'app-signup-shop-data-icecreamflavors',
   templateUrl: './signup-shop-data-icecreamflavors.component.html',
-  styleUrls: ['./signup-shop-data-icecreamflavors.component.scss']
+  styleUrls: ['./signup-shop-data-icecreamflavors.component.scss'],
 })
 export class SignupShopDataIcecreamflavorsComponent {
-
   productVariationForm: FormGroup;
   submitted: boolean = false;
   protected shop: Shop;
-  
-  constructor(private serv: IcecreamflavorsService, private router : Router, private validator : ValidatorsService,
-    private loginService: LoginService){}
+  title: string;
+
+  constructor(
+    private serv: IcecreamflavorsService,
+    private router: Router,
+    private validator: ValidatorsService,
+    private loginService: LoginService
+  ) {}
 
   ngOnInit() {
     this.shop = this.loginService.getLoggedShop();
 
+    if (this.shop.shopType.description === 'Heladerías') {
+      this.title = 'Agregar sabores de helado';
+    } else {
+      this.title = 'Agregar variaciones';
+    }
+
     this.productVariationForm = new FormGroup({
-      name: new FormControl('', [Validators.required, this.validator.validateMaxCharString(30)]),
-      description: new FormControl('', [Validators.required, this.validator.validateMaxCharString(75)]),
-    })
+      name: new FormControl('', [
+        Validators.required,
+        this.validator.validateMaxCharString(30),
+      ]),
+      description: new FormControl('', [
+        Validators.required,
+        this.validator.validateMaxCharString(75),
+      ]),
+    });
   }
 
-  getName(){
+  getName() {
     return this.productVariationForm.get('name');
   }
 
-  getDescription(){
+  getDescription() {
     return this.productVariationForm.get('description');
   }
 
-  getService():IcecreamflavorsService{
+  getService(): IcecreamflavorsService {
     return this.serv;
   }
 
+  onClickCreateFlavor(name: string, description: string) {
+    this.submitted = true;
 
-  onClickCreateFlavor(name: string, description: string){
-    this.submitted = true
+    if (this.productVariationForm.valid) {
+      this.serv.createFlavor(name, description, this.shop.id);
 
-    if (this.productVariationForm.valid){
-      this.serv.createFlavor(name, description, this.shop.id)
+      this.submitted = false;
 
-      this.submitted = false
-
-      this.getDescription().setValue('')
-      this.getName().setValue('')
+      this.getDescription().setValue('');
+      this.getName().setValue('');
     }
   }
 
-  deleteFlavor(id:number){
+  deleteFlavor(id: number) {
     this.serv.deleteFlavor(id);
   }
 
-  submit(){
+  submit() {
     this.serv.postFlavors().subscribe(() => {
       this.router.navigate(['/home-shop']);
     });

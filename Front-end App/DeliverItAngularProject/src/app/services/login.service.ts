@@ -18,7 +18,23 @@ export class LoginService {
   readonly baseUrl = `${this.baseUrlService.getBaseUrl()}user`;
 
   login(user): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.baseUrl}/login`, user);
+    return this.http.post<LoginResponse>(`${this.baseUrl}/login`, user).pipe(
+      map((response: LoginResponse) => {
+        this.setToken(response.token);
+        this.setLoggedUser(response.user);
+
+        
+        return response;
+      })
+    );
+  }
+
+  setToken(token) {
+    sessionStorage.setItem('access_token', token);
+  }
+
+  getToken() {
+    return sessionStorage.getItem('access_token');
   }
 
   redirectUser(user) {
@@ -40,9 +56,8 @@ export class LoginService {
     return JSON.parse(sessionStorage.getItem('user'));
   }
 
-  setLoggedUser(res) {
-    sessionStorage.setItem('access_token', res.token);
-    sessionStorage.setItem('user', JSON.stringify(res.user));
+  setLoggedUser(user) {
+    sessionStorage.setItem('user', JSON.stringify(user));
   }
 
   logout() {
