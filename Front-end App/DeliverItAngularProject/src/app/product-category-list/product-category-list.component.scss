@@ -50,3 +50,17 @@ li {
   font-size: xx-large;
   margin-bottom: 5%;
 }
+
+.navbar {
+  margin-top: 10px;
+  display: flex;
+  justify-content: left;
+  height: 7.5vh;
+}
+
+.container-menu {
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

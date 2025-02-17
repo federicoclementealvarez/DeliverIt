@@ -106,3 +106,26 @@ select {
 .button-container {
   margin-bottom: 50px;
 }
+
+.navbar {
+  margin-top: 10px;
+  display: flex;
+  justify-content: left;
+  height: 7.5vh;
+}
+
+.container-menu {
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.descriptionLabel {
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
