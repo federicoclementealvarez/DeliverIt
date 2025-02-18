@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from 'express';
 import {
   add,
   findAll,
@@ -12,7 +12,8 @@ import {
   remove,
   setDelivery,
   setDateTimeArrival,
-} from "./order.controller.js";
+} from './order.controller.js';
+import { assureAuthAndRoles, UserTypeEnum } from '../shared/auth.middleware.js';
 
 export const orderRouter = Router();
 
@@ -42,7 +43,7 @@ export const orderRouter = Router();
  *       500:
  *         description: Internal server error
  */
-orderRouter.get("/", findAll);
+orderRouter.get('/', assureAuthAndRoles([UserTypeEnum.admin]), findAll);
 
 /**
  * @swagger
@@ -77,7 +78,16 @@ orderRouter.get("/", findAll);
  *       500:
  *         description: Internal server error
  */
-orderRouter.get("/:id", findOne);
+orderRouter.get(
+  '/:id',
+  assureAuthAndRoles([
+    UserTypeEnum.admin,
+    UserTypeEnum.client,
+    UserTypeEnum.delivery,
+    UserTypeEnum.owner,
+  ]),
+  findOne
+);
 
 /**
  * @swagger
@@ -112,7 +122,11 @@ orderRouter.get("/:id", findOne);
  *       500:
  *         description: Internal server error
  */
-orderRouter.get("/all-orders-delivered/:idDelivery", findAllByDelivery);
+orderRouter.get(
+  '/all-orders-delivered/:idDelivery',
+  assureAuthAndRoles([UserTypeEnum.admin, UserTypeEnum.delivery]),
+  findAllByDelivery
+);
 
 /**
  * @swagger
@@ -140,7 +154,11 @@ orderRouter.get("/all-orders-delivered/:idDelivery", findAllByDelivery);
  *       500:
  *         description: Internal server error
  */
-orderRouter.get("/orders-without-delivery/~", findOrdersWithoutDelivery);
+orderRouter.get(
+  '/orders-without-delivery/~',
+  assureAuthAndRoles([UserTypeEnum.admin, UserTypeEnum.delivery]),
+  findOrdersWithoutDelivery
+);
 
 /**
  * @swagger
@@ -175,7 +193,11 @@ orderRouter.get("/orders-without-delivery/~", findOrdersWithoutDelivery);
  *       500:
  *         description: Internal server error
  */
-orderRouter.get("/current-deliveries/:idDelivery", findCurrentDeliveryOrders);
+orderRouter.get(
+  '/current-deliveries/:idDelivery',
+  assureAuthAndRoles([UserTypeEnum.admin, UserTypeEnum.delivery]),
+  findCurrentDeliveryOrders
+);
 
 /**
  * @swagger
@@ -210,7 +232,11 @@ orderRouter.get("/current-deliveries/:idDelivery", findCurrentDeliveryOrders);
  *       500:
  *         description: Internal server error
  */
-orderRouter.get("/current-orders/:idCustomer", findCurrentCustomerOrders);
+orderRouter.get(
+  '/current-orders/:idCustomer',
+  assureAuthAndRoles([UserTypeEnum.admin, UserTypeEnum.client]),
+  findCurrentCustomerOrders
+);
 
 /**
  * @swagger
@@ -245,7 +271,12 @@ orderRouter.get("/current-orders/:idCustomer", findCurrentCustomerOrders);
  *       500:
  *         description: Internal server error
  */
-orderRouter.put("/set-delivery/:id", setDelivery, update);
+orderRouter.put(
+  '/set-delivery/:id',
+  assureAuthAndRoles([UserTypeEnum.admin, UserTypeEnum.delivery]),
+  setDelivery,
+  update
+);
 
 /**
  * @swagger
@@ -280,7 +311,12 @@ orderRouter.put("/set-delivery/:id", setDelivery, update);
  *       500:
  *         description: Internal server error
  */
-orderRouter.put("/set-datetime-arrival/:id", setDateTimeArrival, update);
+orderRouter.put(
+  '/set-datetime-arrival/:id',
+  assureAuthAndRoles([UserTypeEnum.admin, UserTypeEnum.delivery]),
+  setDateTimeArrival,
+  update
+);
 
 /**
  * @swagger
@@ -312,7 +348,12 @@ orderRouter.put("/set-datetime-arrival/:id", setDateTimeArrival, update);
  *       500:
  *         description: Internal server error
  */
-orderRouter.post("/", sanitizedInput, add);
+orderRouter.post(
+  '/',
+  assureAuthAndRoles([UserTypeEnum.admin, UserTypeEnum.client]),
+  sanitizedInput,
+  add
+);
 
 /**
  * @swagger
@@ -337,4 +378,4 @@ orderRouter.post("/", sanitizedInput, add);
  *       500:
  *         description: Internal server error
  */
-orderRouter.delete("/:id", remove);
+orderRouter.delete('/:id', assureAuthAndRoles([UserTypeEnum.admin]), remove);
