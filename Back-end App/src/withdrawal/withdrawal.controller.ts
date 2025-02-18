@@ -63,17 +63,17 @@ export async function findAllByDelivery(req: Request, res: Response) {
       {
         filters: { delivery: { par: req.params.idDelivery } },
         populate: ['user'],
+        orderBy: {
+          dateTime: 'desc',
+          amountAfter: 'asc',
+        },
       }
     );
 
-    const withdrawalsInOrder = allDeliveryWithdrawals.sort(compareFunction);
-
-    return res
-      .status(200)
-      .json({
-        message: 'found all delivery withdrawals',
-        data: allDeliveryWithdrawals,
-      });
+    return res.status(200).json({
+      message: 'found all delivery withdrawals',
+      data: allDeliveryWithdrawals,
+    });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }
@@ -88,15 +88,5 @@ export async function add(req: Request, res: Response) {
       .json({ message: 'Withdrawal created successfully', data: withdrawal });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
-  }
-}
-
-function compareFunction(a: Withdrawal, b: Withdrawal) {
-  if (a.dateTime < b.dateTime) {
-    return 1;
-  } else if (a.dateTime > b.dateTime) {
-    return -1;
-  } else {
-    return 0;
   }
 }

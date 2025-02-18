@@ -1,11 +1,56 @@
 import { Router } from 'express';
-import { sanitizedInput, findAll, findOne, remove, add, update} from './paymentType.controller.js';
+import {
+  sanitizedInput,
+  findAll,
+  findOne,
+  remove,
+  add,
+  update,
+} from './paymentType.controller.js';
+import { assureAuthAndRoles, UserTypeEnum } from '../shared/auth.middleware.js';
 
 export const paymentTypeRouter = Router();
 
-paymentTypeRouter.get('/', findAll);
-paymentTypeRouter.get('/:id', findOne);
-paymentTypeRouter.delete('/:id', remove);
-paymentTypeRouter.post('/', sanitizedInput, add);
-paymentTypeRouter.put('/:id', sanitizedInput, update);
-paymentTypeRouter.patch('/:id', sanitizedInput, update);
+paymentTypeRouter.get(
+  '/',
+  assureAuthAndRoles([
+    UserTypeEnum.admin,
+    UserTypeEnum.client,
+    UserTypeEnum.delivery,
+    UserTypeEnum.owner,
+  ]),
+  findAll
+);
+paymentTypeRouter.get(
+  '/:id',
+  assureAuthAndRoles([
+    UserTypeEnum.admin,
+    UserTypeEnum.client,
+    UserTypeEnum.delivery,
+    UserTypeEnum.owner,
+  ]),
+  findOne
+);
+paymentTypeRouter.delete(
+  '/:id',
+  assureAuthAndRoles([UserTypeEnum.admin]),
+  remove
+);
+paymentTypeRouter.post(
+  '/',
+  assureAuthAndRoles([UserTypeEnum.admin]),
+  sanitizedInput,
+  add
+);
+paymentTypeRouter.put(
+  '/:id',
+  assureAuthAndRoles([UserTypeEnum.admin]),
+  sanitizedInput,
+  update
+);
+paymentTypeRouter.patch(
+  '/:id',
+  assureAuthAndRoles([UserTypeEnum.admin]),
+  sanitizedInput,
+  update
+);

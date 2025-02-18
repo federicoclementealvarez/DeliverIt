@@ -208,13 +208,12 @@ export async function findAllByDelivery(req: Request, res: Response) {
           'lineItems.product.prices',
           'lineItems.product.shop',
         ],
+        orderBy: {
+          dateTimeArrival: 'desc',
+        },
       }
     );
-
-    const sortedOrders = orders.sort(compareFunction);
-    return res
-      .status(200)
-      .json({ message: 'found all orders ', data: sortedOrders });
+    return res.status(200).json({ message: 'found all orders ', data: orders });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }
@@ -343,14 +342,4 @@ function filterOrdersByMonth(orders: Order[]) {
   });
 
   return filteredOrders;
-}
-
-function compareFunction(a: any, b: any) {
-  if (a.dateTimeArrival < b.dateTimeArrival) {
-    return 1;
-  } else if (a.dateTimeArrival > b.dateTimeArrival) {
-    return -1;
-  } else {
-    return 0;
-  }
 }
