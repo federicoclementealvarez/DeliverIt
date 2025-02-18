@@ -11,6 +11,8 @@ Es una aplicación Fullstack de pedidos online, similar a PedidosYa. Cuenta con 
 
 ## Video demo
 
+[![Click aquí para ver el video](/assets/miniatura.jpg 'Video de YouTube')](https://youtu.be/2Peb031vdqM?si=EEW7qa3mVuNHWk27)
+
 ## Requisitos
 
 - Node.js versión 20 o superior.

@@ -24,7 +24,7 @@ describe('client makes an order', () => {
   it('navigate to the shop page', () => {
     //navigate to the shop page
     cy.visit('/home-customer');
-    cy.contains('Mongo hamburgueseria').click();
+    cy.contains('Mongo Hamburguesería').click();
     cy.url().should('contain', '/shop-customer');
 
     //Test add and remove product without variations
@@ -33,7 +33,7 @@ describe('client makes an order', () => {
     cy.get('[prod-name="American Healthy"]').contains('-').click();
 
     //Test add and remove product with variations
-    cy.get('[prod-name="ChetoBurguer"]').contains('Agregar').click();
+    cy.get('[prod-name="ChetoBurger"]').contains('Agregar').click();
     // Retrieve the maxVar value from the HTML attribute
     let flavours = [];
 
@@ -81,7 +81,7 @@ describe('client makes an order', () => {
     cy.contains('Ver pedidos pendientes').click();
     cy.get('app-shop-card').get('[data-cy="expand-more-icon"]').first().click();
     cy.contains('American Healthy');
-    cy.contains('ChetoBurguer');
+    cy.contains('ChetoBurger');
     cy.contains('Total'); // hay que ver esto
     cy.contains('Efectivo');
     cy.contains('En camino');
