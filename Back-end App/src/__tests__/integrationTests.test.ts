@@ -58,10 +58,12 @@ describe('integration test of product', () => {
   test('should create, update, delete and retrieve a product instance', async () => {
     const productCategoryRespose = await request(app)
       .post('/api/productCategories')
+      .set('Authorization', 'Bearer ' + token)
       .send(productCategoryToCreate)
       .expect(201);
     await request(app)
       .get('/api/productCategories/' + productCategoryRespose.body.data.id)
+      .set('Authorization', 'Bearer ' + token)
       .expect(200);
 
     const productCreationRespose = await request(app)
@@ -103,9 +105,11 @@ describe('integration test of product', () => {
 
     await request(app)
       .delete('/api/productCategories/' + productCategoryRespose.body.data.id)
+      .set('Authorization', 'Bearer ' + token)
       .expect(200);
     await request(app)
       .get('/api/productCategories/' + productCategoryRespose.body.data.id)
+      .set('Authorization', 'Bearer ' + token)
       .expect(404);
   });
 
@@ -120,10 +124,12 @@ describe('integration test of product', () => {
   test('should receive a 400 in post due to exceding the string length of name', async () => {
     const productCategoryRespose = await request(app)
       .post('/api/productCategories')
+      .set('Authorization', 'Bearer ' + token)
       .send(productCategoryToCreate)
       .expect(201);
     await request(app)
       .get('/api/productCategories/' + productCategoryRespose.body.data.id)
+      .set('Authorization', 'Bearer ' + token)
       .expect(200);
 
     await request(app)
@@ -141,30 +147,43 @@ describe('integration test of product', () => {
 
     await request(app)
       .delete('/api/productCategories/' + productCategoryRespose.body.data.id)
+      .set('Authorization', 'Bearer ' + token)
       .expect(200);
     await request(app)
       .get('/api/productCategories/' + productCategoryRespose.body.data.id)
+      .set('Authorization', 'Bearer ' + token)
       .expect(404);
   });
 });
 
 describe('integration test of paymentType', () => {
+  beforeAll(async () => {
+    const loginResponse = await request(app).post('/api/user/login').send({
+      email: 'admin@mongohamb.com',
+      password: '12345678',
+    });
+    token = loginResponse.body.token;
+  });
   test('should create, update, delete and retrieve a payment type instance', async () => {
     const paymentTypeRespose = await request(app)
       .post('/api/paymentTypes')
+      .set('Authorization', 'Bearer ' + token)
       .send(paymentTypeToCreate)
       .expect(201);
     await request(app)
       .get('/api/paymentTypes/' + paymentTypeRespose.body.data.id)
+      .set('Authorization', 'Bearer ' + token)
       .expect(200);
 
     await request(app)
       .put('/api/paymentTypes/' + paymentTypeRespose.body.data.id)
+      .set('Authorization', 'Bearer ' + token)
       .send(paymentTypeToUpdate)
       .expect(200);
 
     const paymentTypeUpdatedRespose = await request(app)
       .get('/api/paymentTypes/' + paymentTypeRespose.body.data.id)
+      .set('Authorization', 'Bearer ' + token)
       .expect(200);
     expect(paymentTypeUpdatedRespose.body.data.description).toEqual(
       paymentTypeToUpdate.description
@@ -172,15 +191,18 @@ describe('integration test of paymentType', () => {
 
     await request(app)
       .delete('/api/paymentTypes/' + paymentTypeRespose.body.data.id)
+      .set('Authorization', 'Bearer ' + token)
       .expect(200);
     await request(app)
       .get('/api/paymentTypes/' + paymentTypeRespose.body.data.id)
+      .set('Authorization', 'Bearer ' + token)
       .expect(404);
   });
 
   test('should receive a 400 in get due to sending an unvalid id', async () => {
     await request(app)
       .get('/api/paymentTypes/' + 'exampleString')
+      .set('Authorization', 'Bearer ' + token)
       .expect(400);
   });
 
@@ -194,6 +216,7 @@ describe('integration test of paymentType', () => {
       .slice(0, 24); //uuid4 has four '-' on its generated random identifier
     await request(app)
       .get('/api/paymentTypes/' + randomId)
+      .set('Authorization', 'Bearer ' + token)
       .expect(404);
   });
 });
